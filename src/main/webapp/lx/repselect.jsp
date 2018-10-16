@@ -21,12 +21,13 @@
     <!--
         <link rel="stylesheet" type="text/css" href="styles.css">
         -->
+    <%--<script type="text/javascript" src="'${path}'/js/jquery-1.8.3.min.js"></script>--%>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <script type="text/javascript">
     function getinfo(json) {
         $.ajax({
-            url : "${path}/repselect",
+            url : "${path}/repselectA",
             type : "post",
             dataType : "json",
             data : json,
@@ -47,9 +48,9 @@
                     html = html + "<td>" + p.rep_bsen_time + "</td>";
                     html = html + "<td>" + p.rep_Sign_fre + "</td>";
                     html = html + "<td>" + p.rep_service + "</td>";
-                    html = html + "<td><a onclick='deleteFoods(" + p.Id
+                    html = html + "<td><a onclick='deleteFoods(" + p.rep_id
                         + ")'>删除</a>   <a onclick='UpdateGoods("
-                        + p.Id + ")'>修改</a></td>";
+                        + p.rep_id + ")'>修改</a></td>";
                     html = html + "</tr>";
                     $("#tbody").append(html);
                 }
@@ -61,7 +62,6 @@
         $("#selectBtn").click(function() {
             getinfo({
                 "staff":$("#staffName").val(),
-
             });
         });
 
@@ -79,8 +79,8 @@
             }
         })
     }
-    function UpdateGoods(Id){
-        window.location.href="update.jsp?Id="+Id;
+    function UpdateGoods(rep_id){
+        window.location.href="/lx/repupdate.jsp?rep_id="+rep_id;
     }
 </script>
 <body>
@@ -107,6 +107,7 @@
     <tbody id="tbody">
 
     </tbody>
+    ${path}
 </table>
 </body>
 </html>

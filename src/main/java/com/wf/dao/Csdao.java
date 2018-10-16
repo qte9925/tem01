@@ -1,5 +1,9 @@
 package com.wf.dao;
 
-public interface Csdao {
+import org.springframework.stereotype.Component;
 
+import java.util.*;
+@Component
+public interface Csdao {
+    List login(Map map);
 }

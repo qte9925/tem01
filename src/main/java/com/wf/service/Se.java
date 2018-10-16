@@ -1,5 +1,7 @@
 package com.wf.service;
 
-public interface Se {
+import java.util.*;
 
+public interface Se {
+    List login(Map map);
 }
