@@ -13,4 +13,24 @@ public class StaffServiceImpl implements StaffService {
     public List<Map> selectM(Map map) {
         return sm.selectM(map);
     }
+
+    @Override
+    public int insertM(Map map) {
+        return sm.insertM(map);
+    }
+
+    @Override
+    public Map selectMByid(int id) {
+        return sm.selectMByid(id);
+    }
+
+    @Override
+    public int updateM(Map map) {
+        return sm.updateM(map);
+    }
+
+    @Override
+    public int deleteM(int id) {
+        return sm.deleteM(id);
+    }
 }

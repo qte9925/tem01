@@ -5,5 +5,13 @@
     <select id="selectM" resultType="java.util.HashMap" parameterType="java.util.HashMap">
    select * from j_ygjb
  </select>
-
+ <insert id="insertM"  parameterType="java.util.HashMap">
+     insert into  j_ygjb(ygid,jbgz,jxgz,sybx,ylbx,yalbx,rzrq,zwid)values(#{ygid},#{jbgz},#{jxgz},#{sybx},#{ylbx},#{yalbx},#{rzrq},#{zwid})
+ </insert>
+    <select id="selectMByid" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+   select * from j_ygjb where id=#{id}
+ </select>
+    <update id="updateM" parameterType="java.util.HashMap">
+        update j_ygjb set  ygid=#{ygid},jbgz=#{jbgz},jxgz=#{jxgz},sybx=#{sybx},ylbx=#{ylbx},yalbx=#{yalbx},rzrq=#{rzrq},zwid=#{zwid} where id=#{id}
+    </update>
 </mapper>

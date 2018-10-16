@@ -19,7 +19,26 @@ public class StaffaController {
     public List selectM(@RequestParam Map map){
         List list=ss.selectM(map);
         return list;
-
-
+    }
+    @RequestMapping("insertM")
+    @ResponseBody
+    public int insertM(@RequestParam Map map){
+    int a=ss.insertM(map);
+    System.out.print("1111111111");
+        return a;
+    }
+    @RequestMapping("selectMByid")
+    @ResponseBody
+    public Map selectMByid(@RequestParam Integer id){
+        Map map=ss.selectMByid(id);
+        System.out.print("2222");
+        return map;
+    }
+    @RequestMapping("updateM")
+    @ResponseBody
+    public int updateM(@RequestParam Map map){
+      int  a=ss.updateM(map);
+        System.out.print("2222");
+        return a;
     }
 }
