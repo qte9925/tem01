@@ -23,17 +23,19 @@
 
     <script type="text/javascript" src="${path}/js/jquery-1.8.3.min.js"></script></head>
 <script type="text/javascript">
-    $().ready(function(){
+    function searchInfo(nowPage,rowSize){
         $.ajax({
             url:"${path}/selectM",
+            data:{"aygid":$("#aygid").val(),"nowPage":nowPage},
             dataType:"json",
             type:"post",
             success:function(data){
                 console.log(data);
+                console.log(rowSize);
                 $("#tbody").html('');
                 if(data!=null){
-                    for(var i=0;i<data.length;i++){
-                        var st=data[i];
+                    for(var i=0;i<data.list.length;i++){
+                        var st=data.list[i];
                         var tr="<tr>";
                         tr=tr+"   <td>"+st.id+"</td>";
                         tr=tr+"    <td>"+st.ygid+"</td>";
@@ -50,11 +52,24 @@
                         tr=tr+"   </tr>";
                         $("#tbody").append(tr);
                     }
+                    $("#nowPage").html(data.pageNum);
+                    /*$("#total").html(data.total);*/
+
+                    //最后一页的下一页显示隐藏
+
+
                 }
             }
         });
-    });
-
+    };
+    function changePage(op){
+        var nowPage=$("#nowPage").html();
+        if(op=='next')
+            nowPage=Number(nowPage)+1;
+        else
+            nowPage=Number(nowPage)-1;
+        searchInfo(1);
+    }
     function aa(id){
         $("#editFood").show();
         $.ajax({
@@ -76,13 +91,12 @@
 
             }
         });
-    }
-    $().ready(function(){
-
         $("#update").click(function(){
+
             $.ajax({
                 url:"${path}/updateM",
-                data:{"ygid":$("#ygida").val(),
+                data:{"id":id,
+                    "ygid":$("#ygida").val(),
                     "jbgz":$("#jbgza").val(),
                     "jxgz":$("#jxgza").val(),
                     "sybx":$("#sybxa").val(),
@@ -102,7 +116,22 @@
                 }
             });
         });
-    });
+    }
+    function bb(id){
+            $.ajax({
+                url:"${path}/deleteM",
+                data:{"id":id},
+                dataType:"json",
+                type:"post",
+                success:function(data){
+                    if(data>0){
+                        window.location.reload();
+
+                    }
+                }
+        });
+
+    }
     $().ready(function(){
 
         $("#insert").click(function(){
@@ -130,6 +159,12 @@
     });
 
 
+    $().ready(function(){
+        searchInfo(1);
+        $("#selectBtn").click(function(){
+            searchInfo(1);
+        });
+    });
 </script>
 <body>
 <div>
@@ -165,8 +200,12 @@
         </tr>
     </table>
 </div>
-<table>
-
+<div style="text-align:center;">
+<table style="text-align:center;">
+        员工工号:<input type="text" id="aygid">
+        商品类别:<input type="text" id="typename">
+        <button id="selectBtn">查询</button>
+        <button id="addBtn">添加商品</button>
     <tr>
         <td>序号</td>
         <td>员工工号</td>
@@ -183,6 +222,11 @@
 <table id="tbody">
 
 </table>
+<a id="pre" onclick="changePage('pre')">上一页</a>
+<a id="next" onclick="changePage('next')">下一页</a>
+当前第<span id="nowPage"></span>页
+总共<span id="total"></span>条
+</div>
 <div style="display:none" id="editFood">
     员工工号：<input type="text" id="ygida"/><br/>
     基本工资：<input type="text" id="jbgza"/><br/>
@@ -196,6 +240,8 @@
 
     <input type="button" id="update" value="修改"/>
 </div>
+<script type="text/javascript">
 
+</script>
 </body>
 </html>

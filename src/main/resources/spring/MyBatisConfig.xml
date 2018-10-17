@@ -8,4 +8,7 @@
     <root level="debug">
         <appender-ref ref="STDOUT"/>
     </root>
+    <typeAliases>
+        <package name="com.*.entity"/>
+    </typeAliases>
 </configuration>
