@@ -34,17 +34,17 @@
             success : function(data) {
                 $("#tbody").html('');
                 for ( var i = 0; i < data.length; i++) {
+
                     var p = data[i];
                     var html = "<tr>";
                     html = html + "<td>" +p.staffName+"</td>";
-                    html = html + "<td>" + p.department + "</td>";
+                    html = html + "<td>" + p.bmname+ "</td>";
                     html = html + "<td>" + p.post + "</td>";
                     html = html + "<td>" + p.shenpimode  + "</td>";
                     html = html + "<td>" + p.education + "</td>";
                     html = html + "<td>" + p.writePeople + "</td>";
-                    html = html + "<td><a onclick='deleteFoods(" + p.Id
-                        + ")'>删除</a>   <a onclick='UpdateGoods("
-                        + p.Id + ")'>修改</a></td>";
+                    html = html + "<td><a onclick='deleteNeed(" + p.Id + ")'>删除</a>   " +
+                        "<a onclick='UpdateNeeds(" + p.Id + ")'>修改</a></td>";
                     html = html + "</tr>";
                     $("#tbody").append(html);
                 }
@@ -60,7 +60,7 @@
         });
 
     });
-    function deleteFoods(Id){
+    function deleteNeed(Id){
         $.ajax({
             url:"${path}/delete",
             type:"post",
@@ -73,16 +73,39 @@
             }
         })
     }
-    function UpdateGoods(Id){
-        window.location.href="update.jsp?Id="+Id;
+    function UpdateNeeds(Id){
+        window.location.href="/yzj/update.jsp?Id="+Id;
     }
+    $().ready(function(){
+
+        $("#adda").click(function(){
+            $.ajax({
+                url:"${path}/Add",
+                data:{"staffName":$("#staffName").val(),
+                    /*"staffName":$("#staffName").val(),*/
+                    "department":$("#department").val(),
+                    "post":$("#post ").val(),
+                    "shenpimode":$("#shenpimode").val(),
+                    "education":$("#education").val(),
+                    "writePeople":$("#writePeople").val(),
+                },
+                dataType:"json",
+                type:"post",
+                success:function(data){
+                       if(data>0){
+                           window.location.reload();
+                       }
+                }
+            });
+        });
+    });
 </script>
-<body>
-<div style="text-align:left;">
+<table>
+<%--<div style="text-align:left;">
     需求名<input type="text" id="staff">
     <button id="selectBtn">查询</button>
     <button id="addBtn">添加需求</button>
-</div>
+</div>--%>
 <table>
     <tr>
         <td>需求内容</td>
@@ -92,10 +115,42 @@
         <td>学历</td>
         <td>填单人</td>
     </tr>
+
     <tbody id="tbody">
 
     </tbody>
-    ${path}
+
 </table>
-</body>
+    <table>
+<tr>
+    <td>需求内容:</td>
+    <td><input type="text" name="staffName" id="staffName"></td>
+</tr>
+
+<tr>
+    <td>部门:</td>
+    <td><input type="text" name="department" id="department"></td>
+</tr>
+<tr>
+    <td>职位:</td>
+    <td><input type="text" name="post" id="post"></td>
+</tr>
+<tr>
+    <td>审批方式:</td>
+    <td><input type="text" name="shenpimode" id="shenpimode"></td>
+</tr>
+<tr>
+    <td>学历:</td>
+    <td><input type="text" name="education" id="education"></td>
+</tr>
+<tr>
+    <td>填单人:</td>
+    <td><input type="text" name="writePeople" id="writePeople"></td>
+</tr>
+<tr>
+    <td><input type="button" value="新增" id="adda"></td>
+</tr>
+
+</table>
+</table>
 </html>

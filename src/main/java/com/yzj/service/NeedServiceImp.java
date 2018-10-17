@@ -15,4 +15,30 @@ public class NeedServiceImp implements NeedService{
     public List selectNeed(Map map) {
         return dao.selectNeed(map);
     }
+
+    @Override
+    public int deleteNeed(Map map) {
+        return dao.deleteNeed(map);
+    }
+
+    @Override
+    public List selectById(Map map) {
+
+        return dao.selectById(map);
+    }
+
+    @Override
+    public int updateNeed(Map map) {
+        return dao.updateNeed(map);
+    }
+
+    @Override
+    public int addNeed(Map map) {
+        return dao.addNeed(map);
+    }
+
+    @Override
+    public List departmentFindType(Map map) {
+        return dao.departmentFindType(map);
+    }
 }

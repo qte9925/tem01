@@ -20,4 +20,34 @@ public class NeedController {
     List list = ss.selectNeed(map);
     return list;
     }
+    @RequestMapping("delete")
+    @ResponseBody
+    public int deleteNeedPeople(@RequestParam Map map){
+        int i = ss.deleteNeed(map);
+        return i;
+    }
+    @RequestMapping("selectById")
+    @ResponseBody
+    public List selectByIdPeople(@RequestParam Map map){
+        List list = ss.selectById(map);
+        return list;
+    }
+    @RequestMapping("update")
+    @ResponseBody
+    public int updateNeedPeople(@RequestParam Map map){
+        int i = ss.updateNeed(map);
+        return i;
+    }
+    @RequestMapping("Add")
+    @ResponseBody
+    public int AddNeedPeople(@RequestParam Map map){
+     int i = ss.addNeed(map);
+        return i;
+    }
+    @RequestMapping("FindDepartment")
+    @ResponseBody
+    public List Finddepartment(@RequestParam Map map){
+       List  list  = ss.departmentFindType(map);
+        return list;
+    }
 }
