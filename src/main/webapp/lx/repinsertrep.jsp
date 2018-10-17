@@ -23,57 +23,30 @@
 
     <script type="text/javascript" src="${path}/js/jquery-1.8.3.min.js"></script></head>
 <script type="text/javascript">
-    //下拉框
-
+    //增加
     $().ready(function(){
-        //修改前查询
-        var idd=${param.rep_id}
-        $.ajax({
-            url:"${path}/selectrep01",
-            type:"post",
-            dataType:"json",
-            data:{"rep_id":idd},
-            success:function(data){
-                for(var i=0;i<data.length;i++){
-                    var p = data[i];
-                    // $("#rep_patha").val(p.rep_patha);
-                    // $("#rep_yuangong_id").val(p.rep_yuangong_id);
-                    // $("#rep_yuangong_name").val(p.rep_yuangong_name);
-                    $("#rep_state").val(p.rep_state);
-                    $("#rep_late_fre").val(p.rep_late_fre);
-                    $("#rep_late_time").val(p.rep_late_time);
-                    $("#rep_retreat_fre").val(p.rep_retreat_fre);
-                    $("#rep_retreat_time").val(p.rep_retreat_time);
-                    $("#rep_bsen_time").val(p.rep_bsen_time);
-                    $("#rep_Sign_fre").val(p.rep_Sign_fre);
-                    $("#rep_service").val(p.rep_service);
-                }
-            }
-        })
-        //修改
+
         $("#updateBtn").click(function(){
-            var idd=${param.rep_id}
             $.ajax({
-                url:"${path}/updaterep",
-                type:"post",
-                dataType:"json",
+                url:"${path}/insertrep",
                 data:{
                     "rep_state":$("#rep_state").val(),
                     "rep_late_fre":$("#rep_late_fre").val(),
                     "rep_late_time":$("#rep_late_time").val(),
-                    "rep_retreat_fre":$("#rep_retreat_fre").val(),
+                    "rep_retreat_fre":$("#rep_retreat_fre ").val(),
                     "rep_retreat_time":$("#rep_retreat_time").val(),
                     "rep_bsen_time":$("#rep_bsen_time").val(),
                     "rep_Sign_fre":$("#rep_Sign_fre").val(),
-                    "rep_service":$("#rep_service").val(),
-                    "rep_id":idd
+                    "rep_service":$("#rep_service").val()
                 },
+                dataType:"json",
+                type:"post",
                 success:function(data){
                     window.location.href="/lx/repselect.jsp";
                 }
-            })
-        })
-    })
+            });
+        });
+    });
 
 </script>
 <body>
