@@ -62,7 +62,15 @@
 </div>
 <script type="text/javascript">
     function insert01() {
-
+        $.ajax({
+            url: "${path}/jsbselect01",
+            type: "post",
+            date: {"":},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+            }
+        });
     }
 
     $().ready(function () {
