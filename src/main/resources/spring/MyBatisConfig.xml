@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true">
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
-    <root level="debug">
-        <appender-ref ref="STDOUT"/>
-    </root>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+    <!-- 日志 -->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <!-- 别名 -->
+    <typeAliases>
+        <package name="com.jds.entity"/>
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <property value="mysql" name="dialect"/>
+        </plugin>
+    </plugins>
 </configuration>

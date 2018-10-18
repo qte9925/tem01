@@ -27,7 +27,7 @@
 <script type="text/javascript">
     function getinfo(json) {
         $.ajax({
-            url : "${path}/repselectA",
+            url : "${path}/repselect",
             type : "post",
             dataType : "json",
             data : json,
@@ -66,12 +66,13 @@
         });
 
     });
-    function deleteFoods(Id){
+
+    function deleteFoods(rep_id){
         $.ajax({
             url:"${path}/delete",
             type:"post",
             dataType:"json",
-            data:{"Id":Id},
+            data:{"rep_id":rep_id},
             success:function(data){
                 if(data>0){
                     window.location.reload();
@@ -82,13 +83,13 @@
     function UpdateGoods(rep_id){
         window.location.href="/lx/repupdate.jsp?rep_id="+rep_id;
     }
+
+
+
+
 </script>
 <body>
-<div style="text-align:left;">
-    需求名<input type="text" id="staff">
-    <button id="selectBtn">查询</button>
-    <button id="addBtn">添加需求</button>
-</div>
+
 <table>
     <tr>
         <td>报表ID</td>
@@ -109,5 +110,7 @@
     </tbody>
     ${path}
 </table>
+<a href="/lx/repinsertrep.jsp">增加</a>
+
 </body>
 </html>
