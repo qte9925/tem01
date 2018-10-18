@@ -1,14 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2018/10/15
-  Time: 16:11
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="textml;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<!DOCTYPE html>
 <html>
     <head>
         <title>Title</title>
+        <link rel="stylesheet" href="/js/bootstrap.css">
         <script type="text/javascript" src="${path}/js/jquery.min.js"></script>
     </head>
     <body>
