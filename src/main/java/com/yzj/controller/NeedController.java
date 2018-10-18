@@ -1,5 +1,7 @@
 package com.yzj.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.yzj.entity.PageEntity;
 import com.yzj.service.NeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,11 @@ public class NeedController {
     private NeedService ss;
     @RequestMapping("select")
     @ResponseBody
-    public List selectNeedPeople(@RequestParam Map map){
-    List list = ss.selectNeed(map);
-    return list;
+    public PageInfo<Map> selectNeedPeople(PageEntity page, @RequestParam Map map){
+        if(page==null) page = new PageEntity();
+        PageInfo<Map> pageinfo = ss.selectNeed(page,map);
+        System.out.print(map);
+        return pageinfo;
     }
     @RequestMapping("delete")
     @ResponseBody
@@ -30,6 +34,7 @@ public class NeedController {
     @ResponseBody
     public List selectByIdPeople(@RequestParam Map map){
         List list = ss.selectById(map);
+        System.out.print(list+"aaaaaaaaaaa");
         return list;
     }
     @RequestMapping("update")
