@@ -15,6 +15,16 @@ public class SeIm implements Se {
         return dao.login(map);
     }
 
+    @Override
+    public List jsbselect01() {
+        return dao.jsbselect01();
+    }
+
+    @Override
+    public int yhinsert01(Map map) {
+        return dao.yhinsert01(map);
+    }
+
     //查询用户列表
     public List selectyh01() {
         return dao.selectyh01();
