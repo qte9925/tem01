@@ -13,6 +13,13 @@ import java.util.*;
 public class Csconroller {
     @Autowired
     private Se se;
+
+    @RequestMapping("/selectyh01")
+    @ResponseBody
+    public List selectyh01() {
+        System.out.println("111");
+        return se.selectyh01();
+    }
     @RequestMapping("/login")
     @ResponseBody
     public int login(@RequestParam Map map){

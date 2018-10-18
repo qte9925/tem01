@@ -58,7 +58,6 @@
                 "staff":$("#staffName").val(),
             });
         });
-
     });
     function deleteFoods(Id){
         $.ajax({

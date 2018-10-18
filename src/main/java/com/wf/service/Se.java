@@ -4,4 +4,6 @@ import java.util.*;
 
 public interface Se {
     List login(Map map);
+
+    List selectyh01();
 }

@@ -14,4 +14,9 @@ public class SeIm implements Se {
     public List login(Map map) {
         return dao.login(map);
     }
+
+    //查询用户列表
+    public List selectyh01() {
+        return dao.selectyh01();
+    }
 }

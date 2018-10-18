@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wf.dao.Csdao">
+    <select id="selectyh01" resultType="java.util.HashMap">
+        select a.*,b.* from wfyhb a,wfjsb b,wf_yhb_jsb c where c.yhid = a.yhid and c.yhjsid = b.jsid
+    </select>
     <select id="login" resultType="java.util.Map" parameterType="java.util.Map">
          select * from wfyhb where yhstatic = 0 and yhuser =#{yhuser} and yhpassword =#{yhpassword}
     </select>
