@@ -9,6 +9,10 @@
                 and ygid like "%"#{aygid}"%"
 
             </if>
+            <if test="typename!=null">
+                and zwid like "%"#{typename}"%"
+
+            </if>
 
         </where>
  </select>

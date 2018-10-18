@@ -18,7 +18,6 @@ public class StaffServiceImpl implements StaffService {
         PageHelper.startPage(page.getNowPage(), page.getRowSize());
         List list1=sm.selectM(map);
         PageInfo<Map> returnPage=new PageInfo<Map>(list1);
-        System.out.print(returnPage+"a"+page.getRowSize());
         return returnPage;
     }
 

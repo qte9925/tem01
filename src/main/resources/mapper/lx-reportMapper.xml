@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.dao.reportdao">
+    <select id="repselect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select * from l_report;
+    </select>
+    <select id="selectrep01" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select * from l_report where rep_id=#{rep_id};
+    </select>
+    <update id="updaterep" parameterType="java.util.HashMap">
+        update l_report set rep_state=#{rep_state},rep_late_fre=#{rep_late_fre},rep_late_time=#{rep_late_time},rep_retreat_fre=#{rep_retreat_fre},
+        rep_retreat_time=#{rep_retreat_time},rep_bsen_time=#{rep_bsen_time},rep_Sign_fre=#{rep_Sign_fre},rep_service=#{rep_service} where rep_id=#{rep_id};
+    </update>
+    <insert id="insertrep" parameterType="java.util.HashMap">
+        insert into l_report(rep_state,rep_late_fre,rep_late_time,rep_retreat_fre,rep_retreat_time,rep_bsen_time,rep_Sign_fre,rep_service)
+        values(#{rep_state},#{rep_late_fre},#{rep_late_time},#{rep_retreat_fre},#{rep_retreat_time},#{rep_bsen_time},#{rep_Sign_fre},#{rep_service})
+    </insert>
+    <delete id="delete" parameterType="java.util.HashMap">
+        delete from l_report where rep_id=#{rep_id};
+    </delete>
+
+</mapper>

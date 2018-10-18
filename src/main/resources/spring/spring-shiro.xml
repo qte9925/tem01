@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--&lt;!&ndash;开启shiro的注解&ndash;&gt;-->
+    <!--<bean id="advisorAutoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">-->
+    <!--<property name="proxyTargetClass" value="true"></property>-->
+    <!--</bean>-->
+    <!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"/>-->
+
+    <!--注入自定义的Realm-->
+    <bean id="customRealm" class="com.realm.Realm01"></bean>
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="customRealm"></property>
+    </bean>
+
+    <!--配置ShiroFilter-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+        <!--登入页面-->
+        <property name="loginUrl" value="/login.jsp"></property>
+        <!--登入成功页面-->
+        <property name="successUrl" value="/index.jsp"/>
+        <!--无验证的时候-->
+        <property name="unauthorizedUrl" value="/index.jsp"/>
+        <!--<property name="filters">-->
+        <!--<map>-->
+        <!--&lt;!&ndash;退出过滤器&ndash;&gt;-->
+        <!--<entry key="logout" value-ref="logoutFilter" />-->
+        <!--</map>-->
+        <!--</property>-->
+        <!--URL的拦截-->
+        <property name="filterChainDefinitions">
+            <value>
+                /**=anon
+                <!--/** = authc-->
+                <!--/share = authc-->
+                <!--/logout = logout-->
+            </value>
+        </property>
+
+    </bean>
+    <!--自定义退出LogoutFilter-->
+    <!--<bean id="logoutFilter" class="com.test.filter.SystemLogoutFilter">-->
+    <!--<property name="redirectUrl" value="/login"/>-->
+    <!--</bean>-->
+</beans>
