@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>bootstrap小例子</title>
+    <title>Tem</title>
     <link rel="stylesheet" href="/js/bootstrap.css">
 </head>
 <body><!--顶部导航栏部分-->
@@ -32,18 +32,21 @@
     <!-- 左侧导航栏 -->
     <div class="pageSidebar">
         <ul class="nav nav-stacked nav-pills">
-            <li role="presentation">
-                <a href="nav1.html" target="mainFrame" >导航链接1</a>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    用户管理<span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="nav1.html" target="mainFrame">导航链接1-1</a>
+                        <a href="wf/selectyh.jsp" target="mainFrame">查看用户</a>
                     </li>
                     <li>
-                        <a href="nav2.html" target="mainFrame">导航链接1-2</a>
+                        <a href="wf/insertyh.jsp" target="mainFrame">新增用户</a>
                     </li>
                     <li>
-                        <a href="nav3.html" target="mainFrame">导航链接1-3</a>
+                        <a href="wf/updateyh.jsp" target="mainFrame">修改用户</a>
                     </li>
+
                 </ul>
             </li>
             <li class="dropdown">

@@ -84,7 +84,6 @@ alert("as")
             getinfo(1);
 
         });
-
     });
     function changePage(op){
         var nowPage=$("#nowPage").html();
