@@ -8,7 +8,7 @@
     </settings>
     <!-- 别名 -->
     <typeAliases>
-        <package name="com.jds.entity"/>
+        <package name="com.*.entity"/>
     </typeAliases>
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageHelper">
