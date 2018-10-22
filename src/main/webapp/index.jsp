@@ -102,7 +102,7 @@
 <!-- 底部页脚部分 -->
 <div class="footer">
     <p class="text-center">
-        2017 &copy; NeoYang.
+        2018 &copy; NeoYang.
     </p>
 </div>
 <script type="text/javascript" >
