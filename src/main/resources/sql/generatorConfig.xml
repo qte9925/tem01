@@ -58,11 +58,11 @@
         <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码
                 type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
-                type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
+                type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口tPr
         -->
 
         <!-- targetPackage：mapper接口dao生成的位置 -->
-        <!--<javaClientGenerator type="XMLMAPPER" targetPackage="com.mmall.dao" targetProject=".\src\main\java">-->
+        <!--<javaClientGenerator type="XMLMAPPER" targetPackage="com.mmall.dao" targeoject=".\src\main\java">-->
      <!--   <javaClientGenerator type="XMLMAPPER" targetPackage="com.dao" targetProject="./src/main/java">
             &lt;!&ndash; enableSubPackages:是否让schema作为包的后缀 &ndash;&gt;
             <property name="enableSubPackages" value="false"/>
