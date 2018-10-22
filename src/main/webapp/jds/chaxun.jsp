@@ -25,11 +25,10 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style type="text/css">
-    a{
-        cursor:pointer;
-    }
-</style>
+    <script src="${path}/jds/laydate/laydate.js"></script>
+
+
+
 </head>
 <script type="text/javascript">
     function searchInfo(nowPage,rowSize){
@@ -170,8 +169,18 @@
     });
 
 
+    lay('#version').html('-v'+ laydate.v);
 
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#rzrq' //指定元素
+    });
+    lay('#version').html('-v'+ laydate.v);
 
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#rzrqa' //指定元素
+    });
 
 </script>
 <body>
@@ -210,7 +219,8 @@
                             <td>养老保险:<input type="text" id="yalbx"></td>
                         </tr>
                         <tr>
-                            <td>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    期:<input type="text" id="rzrq"></td>
+
+                            <td>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    期:<input class="demo-input" placeholder="请选择日期" type="text" id="rzrq"></td>
                         </tr>
                         <tr>
                             <td>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    务:<input type="text" id="zwid"></td>
@@ -219,6 +229,7 @@
                             <td><input type="button" value="增加" id="insert" class="btn btn-primary"></td>
 
                         </tr>--%>
+
                     </table>
                     </center>
                 </div>
