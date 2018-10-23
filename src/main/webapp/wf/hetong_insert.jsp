@@ -1,20 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zizz
-  Date: 2018/10/17
-  Time: 21:53
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../gy.jsp" %>
 <html>
 <head>
-    <title>新增用户</title>
+    <title>新增合同信息</title>
 </head>
 <body>
 <div class="panel panel-default" style="margin-top: 20px;">
     <div class="panel-heading">
-        <h3 class="panel-title">新增用户</h3>
+        <h3 class="panel-title">新增合同信息</h3>
     </div>
     <div class="panel-body">
         <form class="form-horizontal" role="form">
@@ -60,34 +53,5 @@
         </form>
     </div>
 </div>
-<script type="text/javascript">
-    function insert01() {
-        $.ajax({
-            url: "${path}/yhinsert01",
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-            }
-        });
-    }
-
-    $().ready(function () {
-        // console.log("111");
-        $.ajax({
-            url: "${path}/jsbselect01",
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                $("#jsselect").html("<option>请选择</option>");
-                for (var i = 0; i < data.length; i++) {
-                    var p = data[i];
-                    var html = "<option value='" + p.jsid + "'>" + p.jsname + "</option>";
-                    $("#jsselect").append(html);
-                }
-            }
-        });
-    });
-</script>
 </body>
 </html>

@@ -14,6 +14,18 @@ public class Csconroller {
     @Autowired
     private Se se;
 
+    @RequestMapping("/rlsq")
+    @ResponseBody
+    public List rlsq() {
+        return se.rlsq();
+    }
+
+    @RequestMapping("/rybdleixingchaxun")
+    @ResponseBody
+    public List rybdleixingchaxun() {
+        return se.rybdleixingchaxun();
+    }
+
     @RequestMapping("/jsbselect01")
     @ResponseBody
     public List jsbselect01() {
@@ -29,7 +41,6 @@ public class Csconroller {
     @RequestMapping("/selectyh01")
     @ResponseBody
     public List selectyh01() {
-        System.out.println("111");
         return se.selectyh01();
     }
     @RequestMapping("/login")
@@ -45,8 +56,9 @@ public class Csconroller {
         }
         return 1;
     }
-    @RequestMapping("/cs")
+    @RequestMapping("/wfcs")
     public String cs() {
-        return "";
+        System.out.println("cs代码");
+        return "index";
     }
 }
