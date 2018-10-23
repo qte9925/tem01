@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wf.dao.Csdao">
+    <select id="htlxcx" resultType="java.util.Map" parameterType="java.util.Map">
+        select * from wf_ht_leixing where 1=1 and staticid = 0
+    </select>
+    <select id="gscx" resultType="java.util.Map" parameterType="java.util.Map">
+        select * from wf_gs where 1=1 and gstatic = 0
+    </select>
+    <select id="rybdleixingchaxun" resultType="java.util.Map">
+        select * from wf_rybd where rybdstatic = 0
+    </select>
+    <select id="rlsq" resultType="java.util.Map">
+      SELECT a.rlid,a.rlbh,DATE_FORMAT(a.rlkaishiriqi,'%Y-%m-%d %H:%i:%S') as rlkaishiriqi,DATE_FORMAT(a.rljieshuriqi,'%Y-%m-%d %H:%i:%S') as rljieshuriqi,
+      a.yewuleixing,a.rlstatic,a.ryid,a.ryname,a.rlbumen,a.rlshenpiid,a.rlshenpiname,a.rlbeizhu,b.rybdid,b.rybdname from wfruzhilizhi a ,wf_rybd b where a.yewuleixing = b.rybdid and b.rybdstatic=0
+    </select>
+    <select id="jsbselect01" resultType="java.util.Map">
+      select * from wfjsb
+    </select>
+    <insert id="yhinsert01" parameterType="java.util.Map">
+      insert into wfyhb values(null，#{yhname}，#{yhuser}，#{yhpassword}，0)
+    </insert>
+    <select id="selectyh01" resultType="java.util.HashMap">
+        select a.*,b.* from wfyhb a,wfjsb b,wf_yhb_jsb c where c.yhid = a.yhid and c.yhjsid = b.jsid
+    </select>
     <select id="login" resultType="java.util.Map" parameterType="java.util.Map">
          select * from wfyhb where yhstatic = 0 and yhuser =#{yhuser} and yhpassword =#{yhpassword}
     </select>

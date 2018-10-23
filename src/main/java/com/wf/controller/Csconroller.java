@@ -13,6 +13,36 @@ import java.util.*;
 public class Csconroller {
     @Autowired
     private Se se;
+
+    @RequestMapping("/rlsq")
+    @ResponseBody
+    public List rlsq() {
+        return se.rlsq();
+    }
+
+    @RequestMapping("/rybdleixingchaxun")
+    @ResponseBody
+    public List rybdleixingchaxun() {
+        return se.rybdleixingchaxun();
+    }
+
+    @RequestMapping("/jsbselect01")
+    @ResponseBody
+    public List jsbselect01() {
+        return se.jsbselect01();
+    }
+
+    @RequestMapping("/yhinsert01")
+    @ResponseBody
+    public int yhinsert01(@RequestParam Map map) {
+        int c = se.yhinsert01(map);
+        return 1;
+    }
+    @RequestMapping("/selectyh01")
+    @ResponseBody
+    public List selectyh01() {
+        return se.selectyh01();
+    }
     @RequestMapping("/login")
     @ResponseBody
     public int login(@RequestParam Map map){
@@ -26,8 +56,9 @@ public class Csconroller {
         }
         return 1;
     }
-    @RequestMapping("/cs")
+    @RequestMapping("/wfcs")
     public String cs() {
-        return "";
+        System.out.println("cs代码");
+        return "index";
     }
 }
