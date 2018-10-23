@@ -18,6 +18,13 @@
     <meta http-equiv="expires" content="0">
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="This is my page">
+
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="${path}/js/jquery-tagsinput.min.css" />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/color/jquery.color.plus-names-2.1.2.min.js" integrity="sha256-Wp3wC/dKYQ/dCOUD7VUXXp4neLI5t0uUEF1pg0dFnAE=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" defer></script>
     <!--
         <link rel="stylesheet" type="text/css" href="styles.css">
         -->
@@ -27,7 +34,7 @@
 <script type="text/javascript">
     function getinfo(json) {
         $.ajax({
-            url : "${path}/repselect",
+            url : "${path}/gselect",
             type : "post",
             dataType : "json",
             data : json,
@@ -36,21 +43,15 @@
                 for ( var i = 0; i < data.length; i++) {
                     var p = data[i];
                     var html = "<tr>";
-                    html = html + "<td>" +p.rep_id+"</td>";
-                    html = html + "<td>" + p.rep_patha + "</td>";
-                    html = html + "<td>" + p.rep_yuangong_id + "</td>";
-                    html = html + "<td>" + p.rep_yuangong_name  + "</td>";
-                    html = html + "<td>" + p.rep_state + "</td>";
-                    html = html + "<td>" + p.rep_late_fre + "</td>";
-                    html = html + "<td>" + p.rep_late_time + "</td>";
-                    html = html + "<td>" + p.rep_retreat_fre + "</td>";
-                    html = html + "<td>" + p.rep_retreat_time + "</td>";
-                    html = html + "<td>" + p.rep_bsen_time + "</td>";
-                    html = html + "<td>" + p.rep_Sign_fre + "</td>";
-                    html = html + "<td>" + p.rep_service + "</td>";
-                    html = html + "<td><a onclick='deleteFoods(" + p.rep_id
+                    html = html + "<td>" +p.goods_id+"</td>";
+                    html = html + "<td>" + p.goods_ber + "</td>";
+                    html = html + "<td>" + p.goods_type + "</td>";
+                    html = html + "<td>" + p.goods_name  + "</td>";
+                    html = html + "<td>" + p.goods_num + "</td>";
+                    html = html + "<td>" + p.goods_all + "</td>";
+                    html = html + "<td><a onclick='deleteFoods(" + p.goods_id
                         + ")'>删除</a>   <a onclick='UpdateGoods("
-                        + p.rep_id + ")'>修改</a></td>";
+                        + p.goods_id + ")'>修改</a></td>";
                     html = html + "</tr>";
                     $("#tbody").append(html);
                 }
@@ -66,51 +67,23 @@
         });
 
     });
-
-    function deleteFoods(rep_id){
-        $.ajax({
-            url:"${path}/delete",
-            type:"post",
-            dataType:"json",
-            data:{"rep_id":rep_id},
-            success:function(data){
-                if(data>0){
-                    window.location.reload();
-                }
-            }
-        })
-    }
-    function UpdateGoods(rep_id){
-        window.location.href="/lx/repupdate.jsp?rep_id="+rep_id;
-    }
-
-
-
 </script>
 <body>
 
-<table>
-    <tr>
-        <td>报表ID</td>
-        <td>所在部门</td>
-        <td>员工编号</td>
-        <td>员工姓名</td>
-        <td>考勤状态</td>
-        <td>迟到次数</td>
-        <td>迟到时长</td>
-        <td>早退次数</td>
-        <td>早退时长</td>
-        <td>旷工时长</td>
-        <td>签到次数</td>
-        <td>是否全勤</td>
+<table class="table">
+    <tr class="active">
+        <td>物品id</td>
+        <td>物品类型</td>
+        <td>物品编号</td>
+        <td>物品名称</td>
+        <td>物品数量</td>
+        <td>物品调配</td>
     </tr>
     <tbody id="tbody">
 
     </tbody>
     ${path}
 </table>
-
-
 
 </body>
 </html>
