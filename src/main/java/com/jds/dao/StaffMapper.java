@@ -7,8 +7,9 @@ import java.util.Map;
 @Component
 public interface StaffMapper {
     public List<Map> selectM(Map map);
-  /*  public List<Map> selectT();
-    public Map selectFByid(int id);
-    public int update(Map map);*/
+    public int insertM(Map map);
+    public Map selectMByid(int id);
+    public int updateM(Map map);
+    public int deleteM(int id);
 
 }

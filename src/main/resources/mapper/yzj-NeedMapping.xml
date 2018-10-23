@@ -3,6 +3,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yzj.dao.NeedDao">
     <select id="selectNeed"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
-        select * from y_employee_needs_reporting
+        select a.*,w.bmname from y_employee_needs_reporting a join wfdepartment w on a.departmentid=w.bmid
+        <where>
+        <if test="staff!=null">
+            and a.staffName like '%${staff}%'
+        </if>
+        </where>
+    </select>
+   <delete id="deleteNeed" parameterType="java.util.HashMap">
+        delete from y_employee_needs_reporting where Id=#{Id}
+    </delete>
+    <select id="selectById" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from y_employee_needs_reporting where Id=#{Id}
+    </select>
+    <update id="updateNeed" parameterType="java.util.HashMap">
+   update y_employee_needs_reporting set staffName=#{staffName},
+  post=#{post},shenpimode=#{shenpimode},education=#{education},writePeople=#{writePeople},departmentid=#{departmentid} where Id=#{Id};
+    </update>
+    <insert id="addNeed"  parameterType="java.util.HashMap">
+        insert into y_employee_needs_reporting (staffName,post,shenpimode,education,writePeople,departmentid)
+        values(#{staffName},#{post},#{shenpimode},#{education},#{writePeople},#{departmentid})
+    </insert>
+    <select id="departmentFindType" resultType="java.util.HashMap">
+        select * from wfdepartment
     </select>
 </mapper>
