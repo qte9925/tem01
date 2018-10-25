@@ -2,12 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wf.dao.Csdao">
+    <insert id="zjht" parameterType="java.util.Map" >
+        insert into wf_hetong VALUES(null,#{ygid},#{bianhao},#{gsid},#{htlxid},
+        #{ksrq},#{jsrq},#{sxrq},#{txryid},
+        <if test="shiyongqiriqi!=null">
+            #{shiyongqiriqi},#{zhuanzhengriqi},
+        </if>
+        <if test="shiyongqiriqi==null">
+            null,null,
+        </if>
+        #{beizhu},0)
+    </insert>
+    <select id="htnrcx"  resultType="java.util.Map" parameterType="java.util.Map">
+        select * from wf_hetong ht , wfstafftable yh,wf_gs gs, wf_ht_leixing htlx,wfdepartment bm
+        where ht.ygid=yh.ryid and ht.gsid = gs.gsid and ht.htlxid = htlx.htleixingid and bm.bmid = yh.rybmid
+    </select>
+    <select id="ygbid" resultType="java.util.Map" parameterType="java.util.Map">
+       SELECT ryid as id, ryxm as name from wfstafftable where rystatic =0
+    </select>
+    <select id="cxqxb" resultType="java.util.Map" parameterType="java.util.Map">
+       SELECT * from wfqxb where qxstatic = 0
+    </select>
+    <select id="cxjsqx01" resultType="java.util.Map" parameterType="java.util.Map">
+       select * from wf_jsb_qxb where jsqxstatic = 0
+        <if test="id!=null">
+            and jsid = #{id}
+        </if>
+    </select>
     <select id="htlxcx" resultType="java.util.Map" parameterType="java.util.Map">
         select * from wf_ht_leixing where 1=1 and staticid = 0
     </select>
     <select id="gscx" resultType="java.util.Map" parameterType="java.util.Map">
         select * from wf_gs where 1=1 and gstatic = 0
     </select>
+    <select id="cxjsb02" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * from wfjsb where jsstatic = 0 ORDER BY jsdengji ASC
+    </select>
+
     <select id="rybdleixingchaxun" resultType="java.util.Map">
         select * from wf_rybd where rybdstatic = 0
     </select>

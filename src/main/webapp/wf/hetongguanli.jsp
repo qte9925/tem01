@@ -5,7 +5,7 @@
     <title>合同管理</title>
 </head>
 <body>
-
+<div id="mcs">
 
 <form class="form-inline" role="form" style="margin-top: 30px;">
     <button type="button" class="btn btn-default"><a href="hetong_insert.jsp">新建合同信息</a></button>
@@ -31,8 +31,41 @@
     </tr>
     </thead>
     <tbody id="tbody01">
-
+        <tr v-for="item in msg">
+            <Td>{{item.ryxm}}</Td>
+            <Td>{{item.bmname}}</Td>
+            <Td>{{item.ryxm}}</Td>
+            <Td>{{item.ryxm}}</Td>
+            <Td>{{item.name}}</Td>
+            <Td>{{item.ryxm}}</Td>
+            <Td>{{item.ryxm}}</Td>
+            <Td>{{item.ryxm}}</Td>
+            <Td><a href="#">详情</a> </Td>
+        </tr>
     </tbody>
 </table>
+</div>
+<script type = "text/javascript">
+    $().ready(function () {
+        $.ajax({
+            url: "${path}/htnrcx001",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                var vm = new Vue({
+                    el:'#mcs',
+                    data:{
+                        msg:data
+                    }
+                });
+            }
+        });
+    });
+
+
+
+
+</script>
 </body>
 </html>

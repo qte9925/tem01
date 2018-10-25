@@ -84,9 +84,9 @@ configFun.prototype = {
 							'</div></div></div>');
 					};
 				if(res.type == 1){
-					var radioIconHtml = '<span class="f-iconRadio"></span>';
+					var radioIconHtml = '<span class="f-iconRadio" id="'+ data[i].id +'"><input class="no" value="'+ data[i].id +'"/></span>';
 					if(data[i].check){
-						radioIconHtml = '<span class="f-iconRadioTrue"></span>';
+						radioIconHtml = '<span class="f-iconRadioTrue" id="'+ data[i].id +'"><input class="yes" value="'+ data[i].id +'"/></span>';
 					}
 					listHtml = $('<div class="f-treeList f-treeListOne">'+
 							'<div class="f-treeList-top">'+
@@ -94,7 +94,6 @@ configFun.prototype = {
 							'<div class="f-treeList-title">'+
 							'<div class="f-treeList-radio">'+
 							radioIconHtml+
-							'<input value="'+ data[i].id +'"/>'+
 							'</div>'+
 							'<div class="f-treeList-titleImg"><span class="f-iconBi"></span></div>'+
 							'<p class="f-treeList-titleP">'+ data[i].title +'</p>'+
@@ -152,16 +151,16 @@ configFun.prototype = {
     			if(res.type == 0){
 					listHtml = $('<div class="f-treeList">'+
 							'<div class="f-treeList-top">'+
-							'<div class="f-treeList-old"><span class="f-iconJia"></span></div>'+
+							'<div class="f-treeList-old6666666666"><span class="f-iconJia"></span></div>'+
 							'<div class="f-treeList-title">'+
 							'<div class="f-treeList-titleImg"><span class="f-iconBi"></span></div>'+
 							'<p class="f-treeList-titleP">'+ data[i].title +'</p>'+
 							'</div></div></div>');
 				};
 				if(res.type == 1){
-					var radioIconHtml = '<span class="f-iconRadio"></span>';
+					var radioIconHtml = '<span class="f-iconRadio" id="'+ data[i].id +'"><input  value="'+data[i].id +'"/></span>';
 					if(data[i].check){
-						radioIconHtml = '<span class="f-iconRadioTrue"></span>';
+						radioIconHtml = '<span class="f-iconRadioTrue" id="'+ data[i].id +'"><input  value="'+ data[i].id +'"/></span>';
 					}
 					listHtml = $('<div class="f-treeList">'+
 							'<div class="f-treeList-top">'+
@@ -169,7 +168,6 @@ configFun.prototype = {
 							'<div class="f-treeList-title">'+
 							'<div class="f-treeList-radio">'+
 							radioIconHtml+
-							'<input value="'+ data[i].id +'"/>'+
 							'</div>'+
 							'<div class="f-treeList-titleImg"><span class="f-iconBi"></span></div>'+
 							'<p class="f-treeList-titleP">'+ data[i].title +'</p>'+

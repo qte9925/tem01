@@ -41,7 +41,7 @@
         <th>申请人</th>
         <th>审批人</th>
         <th>业务类型</th>
-        <th>申请日期</th>
+        <th align="center">申请日期</th>
         <th>审批日期</th>
         <th>审批状态</th>
         <th>备注</th>
@@ -180,7 +180,7 @@
                     if(p.rljieshuriqi==null){
                         html = html + "<td>--</td>";
                     }else {
-                        html = html + "<td>"+p.rljieshuriqi+"</td>";
+                        html = html + "<td >"+p.rljieshuriqi+"</td>";
                     }
 
                     if (p.rlstatic==0){
