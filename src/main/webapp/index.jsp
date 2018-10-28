@@ -17,7 +17,7 @@
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">我的桌面</a></li>
+                <li class="active"><a href="grzm.jsp" target="mainFrame">我的桌面</a></li>
                 <li><a href="#">SVN</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -25,7 +25,7 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">我的桌面</a></li>
+                        <li><a href="grzm.jsp" target="mainFrame">我的桌面</a></li>
                         <li><a href="#">EJB</a></li>
                         <li><a href="#">Jasper Report</a></li>
                         <li class="divider"></li>
@@ -66,6 +66,22 @@
         <ul class="nav nav-stacked nav-pills">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    考勤管理<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="wf02/kqshenpi.jsp" target="mainFrame">考勤审批</a>
+                    </li>
+                    <li>
+                        <a href="wf/ruzhishengqing.jsp" target="mainFrame">考勤记录</a>
+                    </li>
+                    <li>
+                        <a href="wf/ruzhishengqing.jsp" target="mainFrame">考勤统计</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     人事管理<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -76,6 +92,7 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
                     合同管理<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
