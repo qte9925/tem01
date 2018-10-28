@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jds.dao.InsuranceMapper">
+    <select id="selectIn" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+   select * from j_insurance
+    </select>
+ <insert id="insertIn"  parameterType="java.util.HashMap">
+     insert into  j_insurance(unemployments,pensions,medicals)values(#{unemployments},#{pensions},#{medicals})
+ </insert>
+    <select id="selectInByid" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+   select * from j_insurance where bxid=#{id}
+ </select>
+    <update id="updateIn" parameterType="java.util.HashMap">
+        update j_insurance set  bxid=#{id},unemployments=#{unemployments},pensions=#{pensions},medicals=#{medicals} where bxid=#{id}
+    </update>
+    <delete id="deleteIn"  parameterType="java.util.HashMap">
+        delete from j_insurance  where bxid=#{id}
+    </delete>
+</mapper>

@@ -5,14 +5,15 @@
          version="3.1">
 
     <display-name>Archetype Created Web Application</display-name>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:*/spring-mybatis.xml</param-value>
+    </context-param>
     <!-- spring监听器 开始 -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:*/spring-*.xml</param-value>
-    </context-param>
     <!-- spring监听器 结束-->
     <!-- shiro过滤器 开始-->
     <filter>
@@ -35,7 +36,14 @@
     <!-- shiro过滤器 结束-->
     <!-- 配置总的调度器 开始 -->
 
+   <!-- <servlet>
+       <servlet-name>ContextLoaderListener</servlet-name>
+
+        <servlet-class>org.springframework.web.context.ContextLoaderListener</servlet-class>
+
+    </servlet>-->
     <servlet>
+
         <servlet-name>hello</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!-- 不配置init-param这个配置，默认框架会去找与web.xml同级目录下名字为hello-servlet.xml的文件 -->
@@ -44,6 +52,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:*/spring-springmvc.xml</param-value>
         </init-param>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>hello</servlet-name>

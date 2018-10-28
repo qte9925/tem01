@@ -38,23 +38,17 @@
 <div style="text-align:center;">
     <button id="addBtn"  class="btn btn-primary" data-toggle="modal" data-target="#myModal">增加</button>
 
-        <table class="table table-bordered">
-            <tr id="jz">
-                <td>级数</td>
-                <td>工资范围</td>
-                <td>起征点</td>
-                <td>税率</td>
-                <td>应纳税所得额</td>
-                <td>速算扣除数</td>
-                <td>操作</td>
+    <table class="table table-bordered">
+        <tr id="jz">
+            <td>序号</td>
+            <td>失业保险</td>
+            <td>养老保险</td>
+            <td>医疗保险</td>
+            <td>操作</td>
 
-            </tr>
-            <tbody id="tbody" ></tbody>
-        </table>
-      <%--  <table id="tbody" class="table table-striped" >
-
-        </table>--%>
-
+        </tr>
+        <tbody id="tbody"></tbody>
+    </table>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -64,7 +58,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel1">
-                    增加税率信息
+                    增加保险信息
                 </h4>
             </div>
             <div class="modal-body">
@@ -73,22 +67,13 @@
                         <table <%--style="display:none"--%>>
 
                             <tr>
-                                <td>级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数:<input type="text" id="sdid"></td>
+                                <td>失业保险:<input type="text" id="unemployments"></td>
                             </tr>
                             <tr>
-                                <td>工&nbsp;&nbsp;资&nbsp;&nbsp;范&nbsp;&nbsp;围&nbsp;&nbsp;:<input type="text" id="gzfw"></td>
+                                <td>养老保险:<input type="text" id="pensions"></td>
                             </tr>
                             <tr>
-                                <td>起&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;征&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点&nbsp;&nbsp;:<input type="text" id="qzd"></td>
-                            </tr>
-                            <tr>
-                                <td>税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率:<input type="text" id="sl"></td>
-                            </tr>
-                            <tr>
-                                <td>应纳税所得额:<input type="text" id="yjnsde"></td>
-                            </tr>
-                            <tr>
-                                <td>速&nbsp;算&nbsp;扣&nbsp;除&nbsp;数:<input type="text" id="sskcs"></td>
+                                <td>医疗保险:<input type="text" id="medicals"></td>
                             </tr>
                         </table>
                     </center>
@@ -114,7 +99,7 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
 
-                    修改税率信息
+                    修改保险信息
                 </h4>
             </div>
             <div class="modal-body">
@@ -123,22 +108,16 @@
                         <table <%--style="display:none"--%>>
 
                             <tr>
-                                <td>级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数:<input type="text" id="sdida"></td>
+                                <td>序号:<input type="text" id="bxida"></td>
                             </tr>
                             <tr>
-                                <td>工&nbsp;&nbsp;资&nbsp;&nbsp;范&nbsp;&nbsp;围&nbsp;&nbsp;:<input type="text" id="gzfwa"></td>
+                                <td>失业保险:<input type="text" id="unemploymentsa"></td>
                             </tr>
                             <tr>
-                                <td>起&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;征&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点&nbsp;&nbsp;:<input type="text" id="qzda"></td>
+                                <td>养老保险:<input type="text" id="pensionsa"></td>
                             </tr>
                             <tr>
-                                <td>税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率:<input type="text" id="sla"></td>
-                            </tr>
-                            <tr>
-                                <td>应纳税所得额:<input type="text" id="yjnsdea"></td>
-                            </tr>
-                            <tr>
-                                <td>速&nbsp;算&nbsp;扣&nbsp;除&nbsp;数:<input type="text" id="sskcsa"></td>
+                                <td>医疗保险:<input type="text" id="medicalsa"></td>
                             </tr>
                         </table>
                     </center>
@@ -159,7 +138,7 @@
 <script !src="text/javascript">
     $().ready(function(){
         $.ajax({
-            url:"${path}/selectI",
+            url:"${path}/selectIn",
             data:{},
             dataType:"json",
             type:"post",
@@ -170,14 +149,12 @@
                     for (var i = 0; i < data.length; i++) {
                         var st = data[i];
                         var tr = "<tr>";
-                        tr = tr + "   <td>" + st.sdid + "</td>";
-                        tr = tr + "    <td>" + st.gzfw + "</td>";
-                        tr = tr + "    <td>" + st.qzd + "</td>";
-                        tr = tr + "    <td>" + st.sl + "</td>";
-                        tr = tr + "    <td>" + st.yjnsde + "</td>";
-                        tr = tr + "    <td>" + st.sskcs + "</td>";
-                        tr = tr + "    <td><input  type=\"button\" value='修改' onclick='aa(" + st.sdid + ")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\">";
-                        tr = tr + "    <input  type=\"button\" value='删除' onclick='bb(" + st.sdid + ")' class=\"btn btn-primary\"/></td>";
+                        tr = tr + "   <td>" + st.bxid + "</td>";
+                        tr = tr + "    <td>" + st.Unemployments + "</td>";
+                        tr = tr + "    <td>" + st.Pensions + "</td>";
+                        tr = tr + "    <td>" + st.Medicals + "</td>";
+                        tr = tr + "    <td><input  type=\"button\" value='修改' onclick='aa(" + st.bxid + ")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\">";
+                        tr = tr + "    <input  type=\"button\" value='删除' onclick='bb(" + st.bxid + ")' class=\"btn btn-primary\"/></td>";
                         tr = tr + "   </tr>";
                         $("#tbody").append(tr);
                     }
@@ -188,13 +165,11 @@
         $("#insert").click(function(){
             alert("sss")
             $.ajax({
-                url:"${path}/insertI",
-                data:{"sdid":$("#sdid").val(),
-                    "gzfw":$("#gzfw").val(),
-                    "qzd":$("#qzd").val(),
-                    "sl":$("#sl").val(),
-                    "yjnsde":$("#yjnsde").val(),
-                    "sskcs":$("#sskcs").val(),
+                url:"${path}/insertIn",
+                data:{
+                    "unemployments":$("#unemployments").val(),
+                    "pensions":$("#pensions").val(),
+                    "medicals":$("#medicals").val()
                 },
                 dataType:"json",
                 type:"post",
@@ -210,37 +185,34 @@
 
     });
 
-    function aa(sdid){
-        alert("sss"+sdid)
+    function aa(bxid){
+        alert("sss"+bxid)
         $.ajax({
-            url:"${path}/selectIByid",
-            data:{"id":sdid},
+            url:"${path}/selectInByid",
+            data:{"id":bxid},
             dataType:"json",
             type:"post",
             ansy:false,
             success:function(data){
                 console.log(data);
 
-                $("#sdida").val(data.sdid);
-                $("#gzfwa").val(data.gzfw);
-                $("#qzda").val(data.qzd);
-                $("#sla").val(data.qzd);
-                $("#yjnsdea").val(data.yjnsde);
-                $("#sskcsa").val(data.sskcs);
+                $("#bxida").val(data.bxid);
+                $("#unemploymentsa").val(data.Unemployments);
+                $("#pensionsa").val(data.Pensions);
+                $("#medicalsa").val(data.Medicals);
+
 
             }
         });
         $("#update").click(function(){
 
             $.ajax({
-                url:"${path}/updateI",
-                data:{"id":sdid,
-                    "sdid":$("#sdida").val(),
-                    "gzfw":$("#gzfwa").val(),
-                    "qzd":$("#qzda").val(),
-                    "sl":$("#sla").val(),
-                    "yjnsde":$("#yjnsdea").val(),
-                    "sskcs":$("#sskcsa").val()
+                url:"${path}/updateIn",
+                data:{"id":bxid,
+                    "bxid":$("#sdida").val(),
+                    "unemployments":$("#unemploymentsa").val(),
+                    "pensions":$("#pensionsa").val(),
+                    "medicals":$("#medicalsa").val()
 
                 },
                 dataType:"json",
@@ -256,10 +228,10 @@
         });
     }
 
-    function bb(sdid){
+    function bb(bxid){
         $.ajax({
-            url:"${path}/deleteI",
-            data:{"id":sdid},
+            url:"${path}/deleteIn",
+            data:{"id":bxid},
             dataType:"json",
             type:"post",
             success:function(data){

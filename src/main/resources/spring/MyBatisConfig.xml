@@ -7,9 +7,9 @@
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
     <!-- 别名 -->
-    <typeAliases>
+   <!-- <typeAliases>
         <package name="com.*.entity"/>
-    </typeAliases>
+    </typeAliases>-->
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageHelper">
             <property value="mysql" name="dialect"/>
