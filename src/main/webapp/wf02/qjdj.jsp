@@ -36,12 +36,17 @@
     </tr>
     </thead>
     <tbody id="thead01">
-    <tr>
-        <td>11</td>
-        <Td>11</Td>
-        <Td></Td>
-        <Td></Td>
-        <Td></Td>
+    <tr v-for="i in msg">
+        <td>{{i.yuanyin}}</td>
+        <Td>{{i.qjlxname}}</Td>
+        <Td>{{i.shenpi}}</Td>
+        <Td>{{i.ksrq}}</Td>
+        <Td>{{i.jsrq}}</Td>
+        <Td v-if="i.qjxj == 0">未申请销假</Td><Td v-if="i.qjxj == 1">申请销假中</Td><Td v-if="i.qjxj == 2">销假审批成功</Td><Td v-if="i.qjxj == 3">销假审批失败</Td>
+        <Td v-if="i.qjzt == 0">审批中</Td>
+        <Td v-if="i.qjzt == 1">审批通过</Td>
+        <Td v-if="i.qjzt == 1">审批失败</Td>
+        <Td>详情</Td>
     </tr>
     </tbody>
 </table>
@@ -49,23 +54,24 @@
 <script type="text/javascript">
     function gg(){
         $.ajax({
-            url: "${path}/gzrl",
+            url: "${path}/cxqinjiq",
             type: "post",
             // data:{"id":date.getMonth()+1},
             // data:{"id":'02'},
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                $("#thead01").html("");
-                for (var i = 0; i < data.length; i++) {
-                    var p = data[i];
-                        $("#thead01").append(html);
-                }
+                var vm = new Vue({
+                    el:'#ccc',
+                    data:{
+                        msg:data
+                    }
+                });
             }
         });
     }
     $().ready(function () {
-            // gg();
+            gg();
     });
 </script>
 </body>

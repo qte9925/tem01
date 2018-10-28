@@ -16,7 +16,7 @@
     </insert>
     <select id="cxqinjiq" resultType="java.util.Map" parameterType="java.util.Map">
         select
-a.qjyanyin as yuanyin, a.qjksrq as ksrq,a.qjjsrq as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
+a.qjyanyin as yuanyin, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
 b.qjlxname,
 c.ryxm ,
 d.bmname,
