@@ -30,8 +30,18 @@ public class KqIm implements Kq {
         return dao.qingjiainsert(map);
     }
 
+    //带条件查询请假详情
+    public List<Map> cxqinjiq02(Map map) {
+        return dao.cxqinjiq02(map);
+    }
+
     //查询请假详情
     public List<Map> cxqinjiq(Map map) {
         return dao.cxqinjiq(map);
+    }
+
+    //审批请假
+    public int updateqj(Map map) {
+        return dao.updateqj(map);
     }
 }

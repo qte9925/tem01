@@ -18,6 +18,16 @@ public class Kqconroller {
     @Autowired
     private Kq se;
 
+    @RequestMapping("/updateqj")
+    @ResponseBody
+    public int updateqj(@RequestParam Map map) {
+        return se.updateqj(map);
+    }
+    @RequestMapping("/cxqinjiq02")
+    @ResponseBody
+    public List cxqinjiq02(@RequestParam Map map) {
+        return se.cxqinjiq02(map);
+    }
     @RequestMapping("/cxqinjiq")
     @ResponseBody
     public List cxqinjiq(@RequestParam Map map) {
