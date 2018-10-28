@@ -14,6 +14,64 @@ public class Csconroller {
     @Autowired
     private Se se;
 
+    @RequestMapping("/zjht")
+    @ResponseBody
+    public int zjht(@RequestParam Map map) {
+        System.out.println(map);
+        return se.zjht(map);
+    }
+
+    @RequestMapping("/htnrcx001")
+    @ResponseBody
+    public List htnrcx(@RequestParam Map map) {
+        return se.htnrcx(map);
+    }
+
+    @RequestMapping("/ygbid")
+    @ResponseBody
+    public List ygbid(@RequestParam Map map) {
+        return se.ygbid(null);
+    }
+
+    @RequestMapping("/htlxcx")
+    @ResponseBody
+    public List htlxcx(@RequestParam Map map) {
+        return se.htlxcx(null);
+    }
+    @RequestMapping("/gscx")
+    @ResponseBody
+    public List gscx(@RequestParam Map map) {
+        return se.gscx(null);
+    }
+    @RequestMapping("/cxjsqx01")
+    @ResponseBody
+    public List cxjsqx01(@RequestParam Map map) {
+        System.out.println(map);
+        return se.cxjsqx01(map);
+    }
+    @RequestMapping("/cxjsb02")
+    @ResponseBody
+    public List cxjsb02() {
+        return se.cxjsb02(null);
+    }
+    @RequestMapping("/cxqxb")
+    @ResponseBody
+    public List cxqxb(@RequestParam Map map) {
+//        System.out.println(map);
+        return se.cxqxb(null);
+    }
+    @RequestMapping("/rlsq")
+    @ResponseBody
+    public List rlsq() {
+        return se.rlsq();
+    }
+
+    @RequestMapping("/rybdleixingchaxun")
+    @ResponseBody
+    public List rybdleixingchaxun() {
+        return se.rybdleixingchaxun();
+    }
+
     @RequestMapping("/jsbselect01")
     @ResponseBody
     public List jsbselect01() {
@@ -29,7 +87,6 @@ public class Csconroller {
     @RequestMapping("/selectyh01")
     @ResponseBody
     public List selectyh01() {
-        System.out.println("111");
         return se.selectyh01();
     }
     @RequestMapping("/login")
@@ -45,8 +102,9 @@ public class Csconroller {
         }
         return 1;
     }
-    @RequestMapping("/cs")
+    @RequestMapping("/wfcs")
     public String cs() {
-        return "";
+        System.out.println("cs代码");
+        return "index";
     }
 }
