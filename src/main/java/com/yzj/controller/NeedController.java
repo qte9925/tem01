@@ -16,7 +16,7 @@ import java.util.Map;
 public class NeedController {
     @Autowired
     private NeedService ss;
-    @RequestMapping("select")
+    @RequestMapping("selectaa")
     @ResponseBody
     public PageInfo<Map> selectNeedPeople(PageEntity page, @RequestParam Map map){
         if(page==null) page = new PageEntity();
@@ -24,32 +24,32 @@ public class NeedController {
         System.out.print(map);
         return pageinfo;
     }
-    @RequestMapping("delete")
+    @RequestMapping("deleteaa")
     @ResponseBody
     public int deleteNeedPeople(@RequestParam Map map){
         int i = ss.deleteNeed(map);
         return i;
     }
-    @RequestMapping("selectById")
+    @RequestMapping("selectByIdaa")
     @ResponseBody
     public List selectByIdPeople(@RequestParam Map map){
         List list = ss.selectById(map);
         System.out.print(list+"aaaaaaaaaaa");
         return list;
     }
-    @RequestMapping("update")
+    @RequestMapping("updateaa")
     @ResponseBody
     public int updateNeedPeople(@RequestParam Map map){
         int i = ss.updateNeed(map);
         return i;
     }
-    @RequestMapping("Add")
+    @RequestMapping("Addaa")
     @ResponseBody
     public int AddNeedPeople(@RequestParam Map map){
      int i = ss.addNeed(map);
         return i;
     }
-    @RequestMapping("FindDepartment")
+    @RequestMapping("FindDepartmentaa")
     @ResponseBody
     public List Finddepartment(@RequestParam Map map){
        List  list  = ss.departmentFindType(map);
