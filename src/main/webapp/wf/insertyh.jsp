@@ -19,30 +19,30 @@
     <div class="panel-body">
         <form class="form-horizontal" role="form">
             <div class="form-group">
-                <label for="firstname01" class="col-sm-2 control-label">昵称</label>
+                <label class="col-sm-2 control-label">昵称</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="firstname01"
+                    <input type="text" class="form-control" id="yhname"
                            placeholder="请输入昵称">
                 </div>
             </div>
             <div class="form-group">
-                <label for="firstname02" class="col-sm-2 control-label">用户名</label>
+                <label class="col-sm-2 control-label">用户名</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="firstname02"
+                    <input type="text" class="form-control" id="yhuser"
                            placeholder="请输入用户名">
                 </div>
             </div>
             <div class="form-group">
-                <label for="lastname01" class="col-sm-2 control-label">密码</label>
+                <label class="col-sm-2 control-label">密码</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="lastname01"
+                    <input type="text" class="form-control" id="yhpassword"
                            placeholder="请输入密码">
                 </div>
             </div>
             <div class="form-group">
-                <label for="lastname02" class="col-sm-2 control-label">确认密码</label>
+                <label class="col-sm-2 control-label">确认密码</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="lastname02"
+                    <input type="text" class="form-control" id="yhpassword2"
                            placeholder="请确认密码">
                 </div>
             </div>
@@ -54,16 +54,32 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" class="btn btn-default">添加</button>
+                    <button type="button" class="btn btn-default" onclick="insert01();" id="aa">添加</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 <script type="text/javascript">
+    $("#yhpassword2").blur(function () {
+        var yhpassword = $("#yhpassword").val();
+        var yhpassword1 = $("#yhpassword2").val();
+        if(yhpassword!=yhpassword1){
+            alert("密码不一致")
+            $("#aa").attr("disabled","disabled");
+        }else {
+            $("#aa").removeAttr("disabled");
+        }
+
+    })
     function insert01() {
         $.ajax({
-            url: "${path}/yhinsert01",
+            url: "${path}/yhinsert02",
+            data:{
+                "a1" : $("#yhname").val(),
+                "a2" :$("#yhuser").val(),
+                "a3":$("#yhpassword").val()
+            },
             type: "post",
             dataType: "json",
             success: function (data) {
