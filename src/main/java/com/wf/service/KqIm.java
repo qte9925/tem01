@@ -1,0 +1,37 @@
+package com.wf.service;
+
+import com.wf.dao.Kqdao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+@Transactional
+@Service
+public class KqIm implements Kq {
+    @Autowired
+    private Kqdao dao;
+
+    //查询工作日历
+    public List<Map> gzrl(Map map) {
+        return dao.gzrl(map);
+    }
+
+   //查询请假类型
+    public List<Map> qjlxselect(Map map) {
+        return dao.qjlxselect(map);
+    }
+
+    //增加请假时间
+    public int qingjiainsert(Map map) {
+        return dao.qingjiainsert(map);
+    }
+
+    //查询请假详情
+    public List<Map> cxqinjiq(Map map) {
+        return dao.cxqinjiq(map);
+    }
+}

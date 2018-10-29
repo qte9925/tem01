@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.dao.Kqdao">
+    <select id="qjlxselect" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * from wf_qjlx where 1=1 and qjlxstatic = 0
+    </select>
+    <select id="gzrl" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * from wf_dim_day where 1=1
+        <if test="id!=null">
+            and MONTH_ID = #{id}
+        </if>
+    </select>
+    <insert id="qingjiainsert" parameterType="java.util.Map">
+        insert into wf_qingjia(qjid,qjryid,qjyanyin,qjksrq,qjjsrq,qjleixinid,qjspryid,qjzt,qjxj,qjstatic  ) VALUES(null,#{qjryid},#{qjyanyin},#{qjksrq},#{qjjsrq},#{qjleixinid},#{qjspryid},#{qjzt},#{qjxj},0)
+    </insert>
+    <select id="cxqinjiq" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+a.qjyanyin as yuanyin, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
+b.qjlxname,
+c.ryxm ,
+d.bmname,
+e.ryxm as shenpi
+from wf_qingjia a,wf_qjlx b,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0 and a.qjleixinid =  b.qjlxid and b.qjlxstatic = 0 and c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid
+    </select>
+</mapper>
