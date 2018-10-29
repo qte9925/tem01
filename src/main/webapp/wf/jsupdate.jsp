@@ -2,7 +2,7 @@
 <%@ include file="../gy.jsp" %>
 <html>
 <head>
-    <title>角色与权限管理</title>
+    <title>角色与权限管理(添加或删除)</title>
     <link rel="stylesheet" href="../css/css.css" />
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/config.js" ></script>

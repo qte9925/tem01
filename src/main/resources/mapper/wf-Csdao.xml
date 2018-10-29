@@ -50,7 +50,10 @@
       select * from wfjsb
     </select>
     <insert id="yhinsert01" parameterType="java.util.Map">
-      insert into wfyhb values(null，#{yhname}，#{yhuser}，#{yhpassword}，0)
+      insert into wfyhb(yhname,yhuser,yhpassword,yhstatic) values(#{a1},#{a2},#{a3},0)
+    </insert>
+    <insert id="yhinsert02" parameterType="java.util.Map">
+      insert into wfyhb(yhname,yhuser,yhpassword,yhstatic) values(#{a1},#{a2},#{a3},0)
     </insert>
     <select id="selectyh01" resultType="java.util.HashMap">
         select a.*,b.* from wfyhb a,wfjsb b,wf_yhb_jsb c where c.yhid = a.yhid and c.yhjsid = b.jsid
@@ -58,4 +61,5 @@
     <select id="login" resultType="java.util.Map" parameterType="java.util.Map">
          select * from wfyhb where yhstatic = 0 and yhuser =#{yhuser} and yhpassword =#{yhpassword}
     </select>
+
 </mapper>

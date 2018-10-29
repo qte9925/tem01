@@ -17,7 +17,7 @@ public interface Se {
     List<Map> ygbid(Map map);
     int zjht(Map map);
     List htnrcx(Map map);
-
+    int yhinsert02(Map map);
 
 
 }
