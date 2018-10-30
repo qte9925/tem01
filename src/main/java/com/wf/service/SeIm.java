@@ -84,4 +84,9 @@ public class SeIm implements Se{
     public int yhinsert02(Map map) {
         return dao.yhinsert02(map);
     }
+
+    @Override
+    public int cxqxb30(Map map) {
+        return dao.cxqxb30(map);
+    }
 }

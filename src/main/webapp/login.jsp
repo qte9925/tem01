@@ -34,9 +34,9 @@
 <a href="/cs">1111</a>
 <div class="login-main">
     <header class="layui-elip">后台登录</header>
-    <form class="layui-form">
+    <form class="layui-form" action="index.jsp">
         <div class="layui-input-inline">
-            <input type="text" id="yhuser" name="account" required lay-verify="required" placeholder="用户名" autocomplete="off"
+            <input type="text" id="yhuser" name="name" required lay-verify="required" placeholder="用户名" autocomplete="off"
                    class="layui-input">
         </div>
         <div class="layui-input-inline">
@@ -70,6 +70,30 @@
 
 
     });
+
+
+    function LoginBtn(){
+        $.ajax({
+            url:'${path}/login',
+            data:{
+                tbStaffLoginUsm:$("#yhuser").val(),
+                tbStaffLoginPwd:$("#yhpassword").val(),
+            },
+            dataType:'json',
+            type:'post',
+            success:function(data){
+                if(data.state){
+                    alert(data.message);
+                    window.location.href = "${path}/index.jsp";
+                    console.log(data);
+                }else{
+                    alert(data.message);
+                }
+            }
+
+        })
+    }
+
 </script>
 </body>
 </html>

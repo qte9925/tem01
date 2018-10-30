@@ -18,6 +18,7 @@ public interface Se {
     int zjht(Map map);
     List htnrcx(Map map);
     int yhinsert02(Map map);
+    int cxqxb30(Map map);
 
 
 }

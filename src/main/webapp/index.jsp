@@ -36,14 +36,16 @@
                 </li>
             </ul>
         </div>
-
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li role="presentation">
-                    <a href="#">当前用户：<span class="badge">TestUser</span></a>
+                    <a href="#">当前用户：<span class="badge">
+                        ${sessionScope.list[0].yhname}（${sessionScope.list[0].ryxm})
+                    </span></a>
                 </li>
+
                 <li>
-                    <a href="../login/logout">
+                    <a href="login.jsp">
                         <span class="glyphicon glyphicon-lock"></span>退出登录</a>
                 </li>
             </ul>

@@ -25,4 +25,20 @@
     </tbody>
 </table>
 </body>
+<script type="text/javascript">
+    function insert01() {
+        $.ajax({
+            url: "${path}/yhinsert02",
+            data:{
+                "a1" : $("#jsid").val(),
+                "a2" :$("#qxid").val(),
+            },
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+</script>
 </html>
