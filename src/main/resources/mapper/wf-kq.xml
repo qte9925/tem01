@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wf.dao.Kqdao">
+    <insert id="qdinsert" parameterType="java.util.Map">
+    insert into wf_qiandao(qiandaoid,qdryid,qdstatic) values(null,#{id006},0)
+    </insert>
+    <select id="cxsxb02" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT a.*,b.* from wf_dim_day b, wf_sxb a  where sxbstatic = 0 and a.sxbid = b.gzsjid
+and  b.DAY_SHORT_DESC like CONCAT('%', (select date_format(now(),'%Y-%m-%d')), '%')
+    </select>
+    <select id="ygbrqd" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT a.*,DATE_FORMAT(a.qdsj,'%Y-%m-%d %H:%i:%S') as ss,b.ryxm FROM wf_qiandao a,wfstafftable b where 1 = 1 and b.ryid =a.qdryid and qdryid = #{id} and qdstatic = 0
+ and  to_days(qdsj) = to_days(now()) ORDER BY qdsj asc
+    </select>
     <update id="updateqj" parameterType="java.util.Map">
         update wf_qingjia
         <trim prefix="set" suffixOverrides=",">
@@ -17,7 +28,7 @@
         SELECT * from wf_qjlx where 1=1 and qjlxstatic = 0
     </select>
     <select id="gzrl" resultType="java.util.Map" parameterType="java.util.Map">
-        SELECT * from wf_dim_day where 1=1
+        select a.*,b.* from wf_dim_day a,wf_sxb b where a.gzsjid = b.sxbid and 1=1
         <if test="id!=null">
             and MONTH_ID = #{id}
         </if>

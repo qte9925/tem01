@@ -6,13 +6,13 @@
 </head>
 <body >
 <form class="form-inline" role="form" id="name01" style="margin-top: 20px;padding-left: 20px;">
-    <button class="btn btn-default btn-sm"><a href="grkq.jsp">工作日历</a></button>
-    <button class="btn btn-default btn-sm"><a href="sxbdj.jsp">上下班登记</a></button>
-    <%--<button class="btn btn-default btn-sm"><a href="#">外出登记</a></button>--%>
-    <button class="btn btn-default btn-sm"><a href="qjdj.jsp">请假登记</a></button>
-    <button class="btn btn-default btn-sm"><a href="ccdj.jsp">出差登记</a></button>
-    <%--<button class="btn btn-default btn-sm"><a href="#">加班登记</a></button>--%>
-    <button class="btn btn-default btn-sm"><a href="rcjl.jsp">上下班记录</a></button>
+    <button class="btn btn-default btn-sm"><a href="#">工作日历</a></button>
+    <button class="btn btn-default btn-sm"><a href="#">上下班登记</a></button>
+    <button class="btn btn-default btn-sm"><a href="#">外出登记</a></button>
+    <button class="btn btn-default btn-sm"><a href="#">请假登记</a></button>
+    <button class="btn btn-default btn-sm"><a href="#">出差登记</a></button>
+    <button class="btn btn-default btn-sm"><a href="#">加班登记</a></button>
+    <button class="btn btn-default btn-sm"><a href="#">上下班记录</a></button>
 </form>
 <form class="form-inline" role="form" id="name02" style="margin-top: 20px;padding-left: 20px;">
     <button class="btn btn-default btn-sm"><a href="javascript:gg();">请假登记</a></button>
