@@ -2,25 +2,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wf.dao.Kqdao">
+    <insert id="qdinsert" parameterType="java.util.Map">
+    insert into wf_qiandao(qiandaoid,qdryid,qdstatic) values(null,#{id006},0)
+    </insert>
+    <select id="cxsxb02" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT a.*,b.* from wf_dim_day b, wf_sxb a  where sxbstatic = 0 and a.sxbid = b.gzsjid
+and  b.DAY_SHORT_DESC like CONCAT('%', (select date_format(now(),'%Y-%m-%d')), '%')
+    </select>
+    <select id="ygbrqd" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT a.*,DATE_FORMAT(a.qdsj,'%Y-%m-%d %H:%i:%S') as ss,b.ryxm FROM wf_qiandao a,wfstafftable b where 1 = 1 and b.ryid =a.qdryid and qdryid = #{id} and qdstatic = 0
+ and  to_days(qdsj) = to_days(now()) ORDER BY qdsj asc
+    </select>
+    <update id="updateqj" parameterType="java.util.Map">
+        update wf_qingjia
+        <trim prefix="set" suffixOverrides=",">
+            <if test="qjzt!=null">
+                qjzt =#{qjzt}
+            </if>
+        </trim>
+        <trim prefix="where" prefixOverrides="and">
+            qjid =#{qjid}
+        </trim>
+    </update>
     <select id="qjlxselect" resultType="java.util.Map" parameterType="java.util.Map">
         SELECT * from wf_qjlx where 1=1 and qjlxstatic = 0
     </select>
     <select id="gzrl" resultType="java.util.Map" parameterType="java.util.Map">
-        SELECT * from wf_dim_day where 1=1
+        select a.*,b.* from wf_dim_day a,wf_sxb b where a.gzsjid = b.sxbid and 1=1
         <if test="id!=null">
             and MONTH_ID = #{id}
         </if>
     </select>
     <insert id="qingjiainsert" parameterType="java.util.Map">
-        insert into wf_qingjia(qjid,qjryid,qjyanyin,qjksrq,qjjsrq,qjleixinid,qjspryid,qjzt,qjxj,qjstatic  ) VALUES(null,#{qjryid},#{qjyanyin},#{qjksrq},#{qjjsrq},#{qjleixinid},#{qjspryid},#{qjzt},#{qjxj},0)
+        insert into wf_qingjia(qjid,qjryid,qjyanyin,qjksrq,qjjsrq,qjleixinid,qjspryid,qjzt,qjxj,qjstatic,zgblexing  ) VALUES(null,#{qjryid},#{qjyanyin},#{qjksrq},#{qjjsrq},#{qjleixinid},#{qjspryid},#{qjzt},#{qjxj},0,0)
+    </insert>
+    <insert id="chuchaiinsert" parameterType="java.util.Map">
+        insert into wf_qingjia(qjid,qjryid,qjyanyin,qjksrq,qjjsrq,qjspryid,qjzt,qjxj,qjstatic,zgblexing ,chuchaididian )
+        VALUES(null,#{qjryid},#{qjyanyin},#{qjksrq},#{qjjsrq},#{qjspryid},3,0,0,0,#{chuchaididian})
     </insert>
     <select id="cxqinjiq" resultType="java.util.Map" parameterType="java.util.Map">
-        select
-a.qjyanyin as yuanyin, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
+        select a.qjid as qjid,a.chuchaididian as chuchaididian,a.chucaiid as chucaiid,
+a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
+c.ryxm ,
+d.bmname,
+e.ryxm as shenpi
+from wf_qingjia a,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0  and c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid and (a.qjzt = 0 or a.qjzt = 3)
+    </select>
+    <select id="cxqbcc" resultType="java.util.Map" parameterType="java.util.Map">
+        select a.qjid as qjid,a.chuchaididian as chuchaididian,a.chucaiid as chucaiid,
+a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
+c.ryxm ,
+d.bmname,
+e.ryxm as shenpi
+from wf_qingjia a,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0  and c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid
+    </select>
+    <select id="qjspxq" resultType="java.util.Map" parameterType="java.util.Map">
+        select a.qjid as qjid,a.chuchaididian as chuchaididian,a.chucaiid as chucaiid,
+a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
 b.qjlxname,
 c.ryxm ,
 d.bmname,
 e.ryxm as shenpi
 from wf_qingjia a,wf_qjlx b,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0 and a.qjleixinid =  b.qjlxid and b.qjlxstatic = 0 and c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid
     </select>
+    <select id="cxqinjiq02" resultType="java.util.Map" parameterType="java.util.Map">
+        select DATE_FORMAT(a.qjsj,'%Y-%m-%d %H:%i:%S') as qjsj,
+a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
+c.ryxm ,
+d.bmname,
+e.ryxm as shenpi
+from wf_qingjia a,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0 and  c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid and (a.qjzt = 0 or a.qjzt = 3)
+<if test="id!=null">
+    and a.qjid = #{id}
+</if>
+    </select>
+
 </mapper>

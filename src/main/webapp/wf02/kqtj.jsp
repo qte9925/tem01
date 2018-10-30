@@ -23,13 +23,13 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="myModalLabel" >
+                <h4 class="modal-title" id="myModalLabel" v-if="msg01[0].lx==0">
                     请假申请详情
                 </h4>
             </div>
             <div class="modal-body" id="ccc01">
                 <table class="table" >
-                    <tbody id="tbo01">
+                    <tbody>
                     <tr>
                         <td>所在部门</td>
                         <td>{{msg01[0].bmname}}</td>
@@ -82,8 +82,7 @@
     </thead>
     <tbody id="thead01">
         <tr v-for="i in msg">
-            <td v-if="i.qjzt==0" >请假</td>
-            <td v-if="i.qjzt==3" >出差</td>
+            <td v-if="i.lx==0" >请假</td>
             <td>{{i.ryxm}}</td>
             <td>{{i.jsrq}}&nbsp;&nbsp;至&nbsp;&nbsp;{{i.ksrq}}</td>
             <td>{{i.yuanyin}}</td>
@@ -93,11 +92,11 @@
                 </button>
                  &nbsp;&nbsp;
                 <button  >
-                    <a href="javascript:updateqj('{{i.qjid}}','{{i.qjzt+1}}')">通过</a>
+                    <a href="javascript:updateqj('{{i.qjid}}',1)">通过</a>
                 </button>
                 &nbsp;&nbsp;
                 <button  >
-                    <a href="javascript:updateqj('{{i.qjid}}','{{i.qjzt+2}}')">驳回</a>
+                    <a href="javascript:updateqj('{{i.qjid}}',2)">驳回</a>
                 </button>
         </tr>
     </tbody>
@@ -112,7 +111,6 @@
             dataType: "json",
             success: function (data02) {
                 console.log(data02);
-
             }
         });
     }
@@ -126,51 +124,12 @@
             dataType: "json",
             success: function (data02) {
                 console.log(data02);
-                $("#tbo01").html("");
-                if(data02[0].qjzt==0){
-                    $("#myModalLabel").text("请假类型详情")
-                }
-                if(data02[0].qjzt==3){
-                    $("#myModalLabel").text("出差类型详情")
-                }
-                for(var i=0;i<data02.length;i++){
-                    var html=' <tbody id="tbo01">';
-                    var html='         <tr>';
-                    html=html+'       <td>所在部门</td>';
-                    html=html+'       <td>'+data02[0].bmname+'</td>';
-                    html=html+'   </tr>';
-                    html=html+'  <tr>';
-                    html=html+'   <td>请假人员</td>';
-                    html=html+'  <td>'+data02[0].ryxm+'</td>';
-                    html=html+'  </tr>';
-                    html=html+'   <tr>';
-                    html=html+'   <td>申请时间</td>';
-                    html=html+'   <td>'+data02[0].qjsj+'</td>';
-                    html=html+'   </tr>';
-                    html=html+'  <tr>';
-                    html=html+'   <td>开始时间</td>';
-                    html=html+'   <td>'+data02[0].ksrq+'</td>';
-                    html=html+'   </tr>';
-                    html=html+'   <tr>';
-                    html=html+'   <td>结束时间</td>';
-                    html=html+'  <td>'+data02[0].jsrq+'</td>';
-                    html=html+'  </tr>';
-                    html=html+'  <tr>';
-                    html=html+'  <td>请假原因</td>';
-                    html=html+'   <td>'+data02[0].yuanyin+'</td>';
-                    html=html+'   </tr>';
-                    // html=html+'  <tr>';
-                    // html=html+'  <td>申请类型</td>';
-                    // html=html+'  <td>'+data02[0].qjlxname+'</td>';
-                    // html=html+'  </tr>';
-                    $("#tbo01").append(html);
-                }
-                // var vm02 = new Vue({
-                //     el:'#myModal',
-                //     data:{
-                //         msg01:data02
-                //     }
-                // });
+                var vm02 = new Vue({
+                    el:'#myModal',
+                    data:{
+                        msg01:data02
+                    }
+                });
             }
         });
     }
