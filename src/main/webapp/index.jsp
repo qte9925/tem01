@@ -75,10 +75,10 @@
                         <a href="wf02/kqshenpi.jsp" target="mainFrame">考勤审批</a>
                     </li>
                     <li>
-                        <a href="wf/ruzhishengqing.jsp" target="mainFrame">考勤记录</a>
+                        <a href="wf02/kqjl.jsp" target="mainFrame">考勤记录</a>
                     </li>
                     <li>
-                        <a href="wf/ruzhishengqing.jsp" target="mainFrame">考勤统计</a>
+                        <a href="wf02/kqtj.jsp" target="mainFrame">考勤统计</a>
                     </li>
                 </ul>
             </li>
