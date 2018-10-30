@@ -22,6 +22,7 @@
     <caption id="cap">出差登记 </caption>
     <thead >
     <tr>
+        <th>出差人员</th>
         <th>出差地点</th>
         <th>出差原因</th>
         <th>开始日期</th>
@@ -32,17 +33,17 @@
     </tr>
     </thead>
     <tbody id="thead01">
-    <tr v-for="i in msg">
-        <%--<td>{{i.yuanyin}}</td>--%>
-        <%--<Td>{{i.qjlxname}}</Td>--%>
-        <%--<Td>{{i.shenpi}}</Td>--%>
-        <%--<Td>{{i.ksrq}}</Td>--%>
-        <%--<Td>{{i.jsrq}}</Td>--%>
-        <%--<Td v-if="i.qjxj == 0">未申请销假</Td><Td v-if="i.qjxj == 1">申请销假中</Td><Td v-if="i.qjxj == 2">销假审批成功</Td><Td v-if="i.qjxj == 3">销假审批失败</Td>--%>
-        <%--<Td v-if="i.qjzt == 0">审批中</Td>--%>
-        <%--<Td v-if="i.qjzt == 1">审批通过</Td>--%>
-        <%--<Td v-if="i.qjzt == 1">审批失败</Td>--%>
-        <%--<Td>详情</Td>--%>
+    <tr v-for="i in msg" v-if="i.qjzt!=0 && i.qjzt!=1 && i.qjzt!=2  ">
+        <td>{{i.ryxm}}</td>
+        <td>{{i.chuchaididian}}</td>
+        <td>{{i.yuanyin}}</td>
+        <Td>{{i.ksrq}}</Td>
+        <Td>{{i.jsrq}}</Td>
+        <Td>{{i.shenpi}}</Td>
+        <Td v-if="i.qjzt == 3">审批中</Td>
+        <Td v-if="i.qjzt == 4">审批通过</Td>
+        <Td v-if="i.qjzt == 5">审批失败</Td>
+        <Td>详情</Td>
     </tr>
     </tbody>
 </table>
@@ -50,7 +51,7 @@
 <script type="text/javascript">
     function gg(){
         $.ajax({
-            url: "${path}/cxqinjiq",
+            url: "${path}/cxqbcc",
             type: "post",
             // data:{"id":date.getMonth()+1},
             // data:{"id":'02'},
@@ -67,7 +68,7 @@
         });
     }
     $().ready(function () {
-            // gg();
+            gg();
     });
 </script>
 </body>

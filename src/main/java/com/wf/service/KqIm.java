@@ -60,4 +60,19 @@ public class KqIm implements Kq {
     public List<Map> ygbrqd(Map map) {
         return dao.ygbrqd(map);
     }
+
+    //查询请假详情
+    public List<Map> qjspxq(Map map) {
+        return dao.qjspxq(map);
+    }
+
+    //查询全部出差
+    public List<Map> cxqbcc(Map map) {
+        return dao.cxqbcc(map);
+    }
+
+   //增加出差表
+    public int chuchaiinsert(Map map) {
+        return dao.chuchaiinsert(map);
+    }
 }

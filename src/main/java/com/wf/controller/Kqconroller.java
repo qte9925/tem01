@@ -18,10 +18,24 @@ public class Kqconroller {
     @Autowired
     private Kq se;
 
+    @RequestMapping("/chuchaiinsert")
+    @ResponseBody
+    public int chuchaiinsert(@RequestParam Map map) {
+        return se.chuchaiinsert(map);
+    }
+    @RequestMapping("/cxqbcc")
+    @ResponseBody
+    public List cxqbcc(@RequestParam Map map) {
+        return se.cxqbcc(map);
+    }
+    @RequestMapping("/qjspxq")
+    @ResponseBody
+    public List qjspxq(@RequestParam Map map) {
+        return se.qjspxq(map);
+    }
     @RequestMapping("/qdinsert")
     @ResponseBody
     public int qdinsert(@RequestParam Map map) {
-        System.out.println(map);
         return se.qdinsert(map);
     }
     @RequestMapping("/cxsxb02")

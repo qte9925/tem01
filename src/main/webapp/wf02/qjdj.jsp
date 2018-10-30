@@ -42,10 +42,13 @@
         <Td>{{i.shenpi}}</Td>
         <Td>{{i.ksrq}}</Td>
         <Td>{{i.jsrq}}</Td>
-        <Td v-if="i.qjxj == 0">未申请销假</Td><Td v-if="i.qjxj == 1">申请销假中</Td><Td v-if="i.qjxj == 2">销假审批成功</Td><Td v-if="i.qjxj == 3">销假审批失败</Td>
+        <Td v-if="i.qjxj == 0">未申请销假</Td>
+        <Td v-if="i.qjxj == 1">申请销假中</Td>
+        <Td v-if="i.qjxj == 2">销假审批成功</Td>
+        <Td v-if="i.qjxj == 3">销假审批失败</Td>
         <Td v-if="i.qjzt == 0">审批中</Td>
         <Td v-if="i.qjzt == 1">审批通过</Td>
-        <Td v-if="i.qjzt == 1">审批失败</Td>
+        <Td v-if="i.qjzt == 2">审批失败</Td>
         <Td>详情</Td>
     </tr>
     </tbody>
@@ -54,7 +57,7 @@
 <script type="text/javascript">
     function gg(){
         $.ajax({
-            url: "${path}/cxqinjiq",
+            url: "${path}/qjspxq",
             type: "post",
             // data:{"id":date.getMonth()+1},
             // data:{"id":'02'},

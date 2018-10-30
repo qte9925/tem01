@@ -16,5 +16,8 @@ public interface Kqdao {
     int qdinsert(Map map);
     List<Map> cxsxb02(Map map);
     List<Map> ygbrqd(Map map);
+    List<Map> qjspxq(Map map);
+    List<Map> cxqbcc(Map map);
+    int chuchaiinsert(Map map );
 
 }

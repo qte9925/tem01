@@ -36,23 +36,42 @@ and  b.DAY_SHORT_DESC like CONCAT('%', (select date_format(now(),'%Y-%m-%d')), '
     <insert id="qingjiainsert" parameterType="java.util.Map">
         insert into wf_qingjia(qjid,qjryid,qjyanyin,qjksrq,qjjsrq,qjleixinid,qjspryid,qjzt,qjxj,qjstatic,zgblexing  ) VALUES(null,#{qjryid},#{qjyanyin},#{qjksrq},#{qjjsrq},#{qjleixinid},#{qjspryid},#{qjzt},#{qjxj},0,0)
     </insert>
+    <insert id="chuchaiinsert" parameterType="java.util.Map">
+        insert into wf_qingjia(qjid,qjryid,qjyanyin,qjksrq,qjjsrq,qjspryid,qjzt,qjxj,qjstatic,zgblexing ,chuchaididian )
+        VALUES(null,#{qjryid},#{qjyanyin},#{qjksrq},#{qjjsrq},#{qjspryid},3,0,0,0,#{chuchaididian})
+    </insert>
     <select id="cxqinjiq" resultType="java.util.Map" parameterType="java.util.Map">
-        select a.qjid as qjid,
+        select a.qjid as qjid,a.chuchaididian as chuchaididian,a.chucaiid as chucaiid,
+a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
+c.ryxm ,
+d.bmname,
+e.ryxm as shenpi
+from wf_qingjia a,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0  and c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid and (a.qjzt = 0 or a.qjzt = 3)
+    </select>
+    <select id="cxqbcc" resultType="java.util.Map" parameterType="java.util.Map">
+        select a.qjid as qjid,a.chuchaididian as chuchaididian,a.chucaiid as chucaiid,
+a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
+c.ryxm ,
+d.bmname,
+e.ryxm as shenpi
+from wf_qingjia a,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0  and c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid
+    </select>
+    <select id="qjspxq" resultType="java.util.Map" parameterType="java.util.Map">
+        select a.qjid as qjid,a.chuchaididian as chuchaididian,a.chucaiid as chucaiid,
 a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
 b.qjlxname,
 c.ryxm ,
 d.bmname,
 e.ryxm as shenpi
-from wf_qingjia a,wf_qjlx b,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0 and a.qjleixinid =  b.qjlxid and b.qjlxstatic = 0 and c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid and a.qjzt=0
+from wf_qingjia a,wf_qjlx b,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0 and a.qjleixinid =  b.qjlxid and b.qjlxstatic = 0 and c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid
     </select>
     <select id="cxqinjiq02" resultType="java.util.Map" parameterType="java.util.Map">
         select DATE_FORMAT(a.qjsj,'%Y-%m-%d %H:%i:%S') as qjsj,
 a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
-b.qjlxname,
 c.ryxm ,
 d.bmname,
 e.ryxm as shenpi
-from wf_qingjia a,wf_qjlx b,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0 and a.qjleixinid =  b.qjlxid and b.qjlxstatic = 0 and c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid and a.qjzt = 0
+from wf_qingjia a,wfstafftable c,wfdepartment d,wfstafftable e  where 1 = 1 and a.qjstatic = 0 and  c.ryid = a.qjryid and d.bmid=c.rybmid and e.ryid = a.qjspryid and (a.qjzt = 0 or a.qjzt = 3)
 <if test="id!=null">
     and a.qjid = #{id}
 </if>
