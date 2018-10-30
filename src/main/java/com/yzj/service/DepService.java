@@ -13,4 +13,6 @@ public interface DepService {
     public int updateDep(Map map);
     public int addDep(Map map);
     public List departmentFindTypeDep(Map map);
+    public int xiugaixuqiuxinxib(Map map);
+
 }

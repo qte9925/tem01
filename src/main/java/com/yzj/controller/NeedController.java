@@ -16,6 +16,12 @@ import java.util.Map;
 public class NeedController {
     @Autowired
     private NeedService ss;
+    @RequestMapping("xiugaixuqiuxinxia")
+    @ResponseBody
+    public int xiugaixuqiuxinxi(@RequestParam Map map){
+        System.out.print(map);
+        return ss.xiugaixuqiuxinxia(map);
+    }
     @RequestMapping("selectaa")
     @ResponseBody
     public PageInfo<Map> selectNeedPeople(PageEntity page, @RequestParam Map map){

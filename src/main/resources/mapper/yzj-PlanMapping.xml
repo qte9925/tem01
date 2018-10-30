@@ -2,8 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yzj.dao.PlanDao">
+    <update id="xiugaixuqiuxinxic" parameterType="java.util.Map">
+        update y_plan set statu = #{zt} where 1 = 1
+        <if test="id!=null">
+            and Id = #{id}
+        </if>
+    </update>
     <select id="selectPlan" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-        select a.*,b.bmname,c.ryxm,d.qvdaoname,e.xingshiname from y_plan a join wfdepartment b on a.departmentid = b.bmid join wfstafftable c on a.shenpirenid = c.ryid join y_qvdao d on a.qvdaoid = d.id join y_xingshi e on a.xingshiid = e.id  <where>
+        select a.*,b.bmname,c.ryxm,d.qvdaoname,e.xingshiname from y_plan a join wfdepartment b on a.departmentid = b.bmid join wfstafftable c on a.shenpirenid = c.ryid join y_qvdao d on a.qvdaoid = d.id join y_xingshi e on a.xingshiid = e.id
+       <where>
       <if test="aa!=null">
           and a.planname like '%${aa}%'
       </if>

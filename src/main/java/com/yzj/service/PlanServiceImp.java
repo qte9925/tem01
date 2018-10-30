@@ -68,6 +68,10 @@ public class PlanServiceImp implements PlanService{
         return dao.XingshiFindType(map);
     }
 
+    @Override
+    public int xiugaixuqiuxinxic(Map map) {
+        return dao.xiugaixuqiuxinxic(map);
+    }
 
 
 }

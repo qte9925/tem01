@@ -15,4 +15,5 @@ public interface NeedService {
     public int updateNeed(Map map);
     public int addNeed(Map map);
     public List departmentFindType(Map map);
+    public int xiugaixuqiuxinxia(Map map);
 }

@@ -32,7 +32,7 @@
 
 <style>
 #asss{
-    width:1500px;
+    width:1600px;
 }
 </style>
 
@@ -61,6 +61,21 @@
     laydate.render({
         elem: '#endclass' //指定元素
     });
+    /*状态*/
+    function UpdatePlanMessage(id,zt){
+        $.ajax({
+            url:"${path}/xiugaixuqiuxinxic",
+            type:"post",
+            data:{"id":id,"zt":zt},
+            dataType:"json",
+            success:function(data){
+                console.log(data);
+                if(data>0){
+                    window.location.reload();
+                }
+            }
+        })
+    }
     function getinfo(nowPage) {
         $.ajax({
             url : "${path}/selectPlan",
@@ -89,7 +104,20 @@
                     html = html + "<td>" + p.xingshiname + "</td>";
 
                     html = html + "<td><button onclick='deleteNeed(" + p.Id + ")'  class='btn btn-primary' >删除</button>" +
-                        "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button></td>";
+                        "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button>";
+                    if(p.statu==0){
+                        html = html + "<button onclick='UpdatePlanMessage("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'>送审</button>";
+                        /*html = html + "<button onclick='xiugaixuqiuxinxi("+ p.Id +",3)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>驳回</button>";*/
+
+                    }else if(p.statu==1){
+                        html = html + "<button onclick='UpdatePlanMessage("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>送审</button>";
+
+                    }
+                    else if(p.statu==2){
+                        html = html + "<button onclick='UpdatePlanMessage("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>送审</button>";
+
+                    }
+                    html = html + "</td>";
                     html = html + "</tr>";
                     $("#yzj").append(html);
                 }
@@ -127,6 +155,9 @@
         else
             nowPage=Number(nowPage)-1;
         getinfo(nowPage);
+    }
+    function Shenpi(Id){
+        window.location.href="yzj/chaxun.jsp"
     }
 
     function deleteNeed(Id){

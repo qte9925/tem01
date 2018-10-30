@@ -50,4 +50,9 @@ public class NeedServiceImp implements NeedService{
     public List departmentFindType(Map map) {
         return dao.departmentFindType(map);
     }
+
+    @Override
+    public int xiugaixuqiuxinxia(Map map){
+        return dao.xiugaixuqiuxinxia(map);
+    }
 }

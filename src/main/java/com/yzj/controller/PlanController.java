@@ -17,6 +17,12 @@ import java.util.Map;
 public class PlanController {
 @Autowired
         private PlanService ps;
+    @RequestMapping("xiugaixuqiuxinxic")
+    @ResponseBody
+    public int xiugaixuqiuxinxiplan(@RequestParam Map map){
+        System.out.print(map);
+        return ps.xiugaixuqiuxinxic(map);
+    }
     @RequestMapping("selectPlan")
     @ResponseBody
     public PageInfo<Map> selectNeedPeople(PageEntity page, @RequestParam Map map){
