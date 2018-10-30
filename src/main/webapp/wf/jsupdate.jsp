@@ -18,12 +18,56 @@
 
             return ddcc;
         }
+
+
+//删除
+        $("#myButton").click(function() {
+            $.ajax({
+                url:'${path}/deleteFunctionByPostId',
+                data:{"jsqxid":jsqxid},
+                dataType:"json",
+                type:'post',
+                success:function(data){
+                    if(data.state){
+                        insertFunctionToPost();
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
+        });
+
+//删除后增加
+        function insertFunctionToPost(){
+            onCheckNode(jsqxid);
+            $.ajax({
+                url:'${path}/insertFunctionToPost',
+                data:JSON.stringify(chkNodeStr),
+                dataType:"json",
+                contentType:'application/json',
+                type:'post',
+                success:function(data){
+                    if(data.state){
+                        alert(data.message);
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                        //刷新父页面
+                        window.parent.location.reload();
+                    }else{
+                        alert(data.message);
+                    }
+
+                }
+            });
+        }
     </script>
 </head>
 <body >
 <center><h2>角色与权限管理</h2></center>
 <form class="form-inline" role="form" id="name01" style="margin: 20px 0px 20px 20%;padding-left: 20px;">
-    <input class="btn btn-bl" type="button" onclick="anniu01();" value="确定" />
+    <input class="btn btn-bl" type="button" name="check" id="myButton" onclick="anniu01();" value="确定" />
 </form>
 <div class="f-tree" style="margin:0px 0px 0px 10%;"></div>
 </body>
@@ -81,8 +125,6 @@
                 }
             });
         });
-
     });
-
 </script>
 </html>
