@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzj.dao.PlanDao">
+    <select id="selectPlan" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select a.*,b.bmname,c.ryxm,d.qvdaoname,e.xingshiname from y_plan a join wfdepartment b on a.departmentid = b.bmid join wfstafftable c on a.shenpirenid = c.ryid join y_qvdao d on a.qvdaoid = d.id join y_xingshi e on a.xingshiid = e.id  <where>
+      <if test="aa!=null">
+          and a.planname like '%${aa}%'
+      </if>
+  </where>
+    </select>
+    <delete id="deletePlan" parameterType="java.util.HashMap">
+        delete from y_plan where Id=#{Id}
+    </delete>
+    <insert id="addPlan" parameterType="java.util.HashMap">
+        insert into y_plan(planid,planname,joinpeople,trainingaddress,classname,totalhours,beginclass,endclass,rainingbudget,rainingRequirement,rainingexplain,departmentid,shenpirenid,qvdaoid,xingshiid)
+        values(#{planid},#{planname},#{joinpeople},#{trainingaddress},#{classname},#{totalhours},#{beginclass},#{endclass},#{rainingbudget},#{rainingRequirement},#{rainingexplain},#{departmentid},#{shenpirenid},#{qvdaoid},#{xingshiid})
+    </insert>
+    <select id="departmentFindTypePlan" resultType="java.util.HashMap">
+        select * from wfdepartment
+    </select>
+    <select id="shenpirenFindType" resultType="java.util.HashMap">
+        select * from wfstafftable
+    </select>
+    <select id="qvdaoFindType" resultType="java.util.HashMap">
+        select * from y_qvdao
+    </select>
+    <select id="XingshiFindType" resultType="java.util.HashMap">
+        select * from y_xingshi
+    </select>
+    <select id="selectByIdPlan" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from y_plan where Id=#{Id}
+    </select>
+    <update id="updatePlana" parameterType="java.util.HashMap">
+   update y_plan set planid=#{planid},planname=#{planname},joinpeople=#{joinpeople},trainingaddress=#{trainingaddress},classname=#{classname},totalhours=#{totalhours},beginclass=#{beginclass},endclass=#{endclass},rainingbudget=#{rainingbudget},rainingRequirement=#{rainingRequirement},rainingexplain=#{rainingexplain},departmentid=#{departmentid},shenpirenid=#{shenpirenid},qvdaoid=#{qvdaoid},xingshiid=#{xingshiid} where Id=#{Id};
+    </update>
+</mapper>

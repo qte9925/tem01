@@ -27,7 +27,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${path}/js/jquery-1.8.3.min.js"></script></head>
-
+<script src="${path}/yzj/laydate/laydate.js"></script>
 </head>
 
 <style>
@@ -35,27 +35,32 @@
 </style>
 
 <script type="text/javascript">
+    lay('#version').html('-v'+ laydate.v);
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#cc' //指定元素
+    });
     function getinfo(nowPage) {
         $.ajax({
-            url : "${path}/selectaa",
-            data:{"staff":$("#staff").val(),"nowPage":nowPage},
+            url : "${path}/selectDepartment",
+            data:{"needName":$("#needName").val(),"nowPage":nowPage},
             type : "post",
             dataType : "json",
             success : function(data) {
-                $("#yzj").html('');
+                $("#YZWDepartment").html('');
                 for (var i = 0; i < data.list.length; i++) {
                     var p = data.list[i];
                     var html = "<tr>";
-                    html = html + "<td>" + p.staffName + "</td>";
-                    html = html + "<td>" + p.bmname + "</td>";
-                    html = html + "<td>" + p.post + "</td>";
-                    html = html + "<td>" + p.shenpimode + "</td>";
-                    html = html + "<td>" + p.education + "</td>";
+                    html = html + "<td>" + p.needName + "</td>";
                     html = html + "<td>" + p.writePeople + "</td>";
-                    html = html + "<td><button onclick='deleteNeed(" + p.Id + ")'  class='btn btn-primary' >删除</button>" +
+                    html = html + "<td>" + p.writeTime + "</td>";
+                    html = html + "<td>" + p.shenpimode + "</td>";
+                    html = html + "<td>" + p.bmname + "</td>";
+                    html = html + "<td><button onclick='deleteDepartmentNeed(" + p.Id + ")'  class='btn btn-primary' >删除</button>" +
                         "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button></td>";
                     html = html + "</tr>";
-                    $("#yzj").append(html);
+                    $("#YZWDepartment").append(html);
                 }
                 $("#nowPage").html(data.pageNum);
                 $("#total").html(data.total);
@@ -78,6 +83,7 @@
         })
 
     }
+    /*模糊查询*/
    $().ready(function() {
         getinfo(1);
         $("#selectBtn").click(function() {
@@ -92,10 +98,10 @@
             nowPage=Number(nowPage)-1;
         getinfo(nowPage);
     }
-
-    function deleteNeed(Id){
+/*删除*/
+    function deleteDepartmentNeed(Id){
         $.ajax({
-            url:"${path}/deleteaa",
+            url:"${path}/deleteDepartment",
             type:"post",
             dataType:"json",
             data:{"Id":Id},
@@ -106,31 +112,25 @@
             }
         })
     }
-  /*  function UpdateNeeds(Id){
-        window.location.href="/yzj/update.jsp?Id="+Id;
-    }*/
+    /*添加*/
     $().ready(function(){
 
-        $("#adda").click(function(){
+        $("#aDDa").click(function(){
             $.ajax({
-                url:"${path}/Addaa",
-                data:{"staffName":$("#staffName").val(),
-                    "post":$("#post ").val(),
-                    "shenpimode":$("#shenpimode").val(),
-                    "education":$("#education").val(),
-                    "writePeople":$("#writePeople").val(),
+                url:"${path}/AddDepartmentYZJ",
+                data:{"needName":$("#nn").val(),
+                    "writePeople":$("#bb").val(),
+                    "writeTime":$("#cc").val(),
+                    "shenpimode":$("#dd").val(),
                     "departmentid":$("#departmentid").val(),
-
-
-
                 },
                 dataType:"json",
                 type:"post",
                 success:function(data){
-                       if(data>0){
-                           window.location.reload();
-                       }
-                 }
+                    if(data>0){
+                        window.location.reload();
+                    }
+                }
             });
         });
     });
@@ -139,26 +139,24 @@
     function UpdateNeeds(Id){
         //修改前查询
         $.ajax({
-            url:"${path}/selectByIdaa",
+            url:"${path}/selectByIdDepartment",
             type:"post",
             dataType:"json",
             data:{"Id":Id},
             success:function(data){
                 for(var i=0;i<data.length;i++){
                     var p = data[i];
-                    $("#staffNamea").val(p.staffName);
-                    $("#department").val(p.department);
-                    $("#posta").val(p.post);
-                    $("#shenpimodea").val(p.shenpimode);
-                    $("#educationa").val(p.education);
-                    $("#writePeoplea").val(p.writePeople);
-                    $("#bmida").val(p.bmid);
+                    $("#eedName").val(p.needName);
+                    $("#writePeople").val(p.writePeople);
+                    $("#writeTime").val(p.writeTime);
+                    $("#shenpimode").val(p.shenpimode);
+                    $("#type").val(p.bmid);
 
                 }
             }
         })
         $.ajax({
-            url:"${path}/FindDepartmentaa",
+            url:"${path}/FindDepartmentYzj",
             type:"post",
             dataType:"json",
             success:function(data){
@@ -174,27 +172,27 @@
         //修改
         $("#updateBtn").click(function(){
             $.ajax({
-                url:"${path}/updateaa",
+                url:"${path}/updateDepartment",
                 type:"post",
                 dataType:"json",
                 data:{
-                    "staffName":$("#staffNamea").val(),
-                    "departmentid":$("#type").val(),
-                    "post":$("#posta").val(),
+                    "needName":$("#eedName").val(),
+                    "writePeople":$("#writePeople").val(),
+                    "writeTime":$("#writeTime").val(),
                     "shenpimode":$("#shenpimodea").val(),
-                    "education":$("#educationa").val(),
-                    "writePeople":$("#writePeoplea").val(),
+                    "shenpimode":$("#shenpimode").val(),
+                    "departmentid":$("#type").val(),
                     "Id":Id
                 },
                 success:function(data){
-                    window.location.href="/yzj/chaxun.jsp";
+                    window.location.href="/yzj/DepartmentChaxun.jsp";
                 }
             })
         })
     }
 </script>
 <div style="text-align:center;">
-    需求内容<input type="text" id="staff">
+    需求内容<input type="text" id="needName">
     <button id="selectBtn" class='btn btn-primary'>查询</button>
     <button class='btn btn-primary' data-toggle="modal" data-target="#myModal">
         增加
@@ -205,14 +203,13 @@
         <thead>
         <tr>
             <th>需求内容</th>
-            <th>部门</th>
-            <th>职务</th>
+            <th>填单人</th>
+            <th>填单日期</th>
             <th>审批方式</th>
-            <th>学历</th>
-            <th>审批人</th>
+            <th>部门</th>
         </tr>
         </thead>
-        <tbody id="yzj">
+        <tbody id="YZWDepartment">
 
         </tbody>
     </table>
@@ -237,31 +234,24 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-               <%-- <h4 class="modal-title" id="myModalLabel">
-                    模态框（Modal）标题
-                </h4>--%>
             </div>
             <div class="modal-body">
                 <table>
                     <tr>
                         <td>需求内容:</td>
-                        <td><input type="text" name="staffName" id="staffName"></td>
-                    </tr>
-                    <tr>
-                        <td>职位:</td>
-                        <td><input type="text" name="post" id="post"></td>
-                    </tr>
-                    <tr>
-                        <td>审批方式:</td>
-                        <td><input type="text" name="shenpimode" id="shenpimode"></td>
-                    </tr>
-                    <tr>
-                        <td>学历:</td>
-                        <td><input type="text" name="education" id="education"></td>
+                        <td><input type="text" id="nn"></td>
                     </tr>
                     <tr>
                         <td>填单人:</td>
-                        <td><input type="text" name="writePeople" id="writePeople"></td>
+                        <td><input type="text" name="post" id="bb"></td>
+                    </tr>
+                    <tr>
+                        <td>填单日期:</td>
+                        <td><input type="text" name="shenpimode" id="cc"></td>
+                    </tr>
+                    <tr>
+                        <td>审批方式:</td>
+                        <td><input type="text" name="education" id="dd"></td>
                     </tr>
                     <tr>
                         <td>部门编号:</td>
@@ -272,12 +262,12 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary" id="adda">
+                <button type="button" class="btn btn-primary" id="aDDa">
                     增加
                 </button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+        </div>
+    </div>
 </div>
 
 </table>
@@ -297,27 +287,23 @@
                 <table>
                     <tr>
                         <td>需求内容:</td>
-                        <td><input type="text" id="staffNamea"></td>
+                        <td><input type="text" id="eedName"></td>
+                    </tr>
+                    <tr>
+                        <td>填单人:</td>
+                        <td><input type="text" id="writePeople"></td>
+                    </tr>
+                    <tr>
+                        <td>填单日期</td>
+                        <td><input id="writeTime"></td>
+                    </tr>
+                    <tr>
+                        <td>审批方式:</td>
+                        <td><input id="shenpimode"></td>
                     </tr>
                     <tr>
                         <td>部门:</td>
                         <td><select id="type"></select></td>
-                    </tr>
-                    <tr>
-                        <td>职位:</td>
-                        <td><input type="text" id="posta"></td>
-                    </tr>
-                    <tr>
-                        <td>审批方式</td>
-                        <td><input id="shenpimodea"></td>
-                    </tr>
-                    <tr>
-                        <td>学历:</td>
-                        <td><input id="educationa"></td>
-                    </tr>
-                    <tr>
-                        <td>审批人:</td>
-                        <td><input id="writePeoplea"></td>
                     </tr>
                 </table>
             </div>

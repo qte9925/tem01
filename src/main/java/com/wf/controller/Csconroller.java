@@ -84,6 +84,11 @@ public class Csconroller {
         int c = se.yhinsert01(map);
         return 1;
     }
+    @RequestMapping("/yhinsert02")
+    @ResponseBody
+    public int yhinsert02(@RequestParam Map map) {
+        return se.yhinsert02(map);
+    }
     @RequestMapping("/selectyh01")
     @ResponseBody
     public List selectyh01() {
