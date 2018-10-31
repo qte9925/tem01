@@ -16,4 +16,5 @@ public interface PlanDao {
     public List shenpirenFindType(Map map);
     public List qvdaoFindType(Map map);
     public List XingshiFindType(Map map);
+    public int xiugaixuqiuxinxic(Map map);
 }

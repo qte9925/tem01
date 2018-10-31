@@ -16,6 +16,13 @@ import java.util.Map;
 public class DepController {
 @Autowired
         private DepService ds ;
+
+    @RequestMapping("xiugaixuqiuxinxib")
+    @ResponseBody
+    public int xiugaixuqiuxinxi(@RequestParam Map map){
+        System.out.print(map);
+        return ds.xiugaixuqiuxinxib(map);
+    }
     @RequestMapping("selectDepartment")
     @ResponseBody
     public PageInfo<Map> selectNeedPeople(PageEntity page, @RequestParam Map map){

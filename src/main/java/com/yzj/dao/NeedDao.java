@@ -12,4 +12,5 @@ public interface NeedDao {
     public int updateNeed(Map map);
     public int addNeed(Map map);
     public List departmentFindType(Map map);
+    public int xiugaixuqiuxinxia(Map map);
 }

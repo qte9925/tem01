@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yzj.dao.DepDao">
+    <update id="xiugaixuqiuxinxib" parameterType="java.util.Map">
+        update y_departmental_needs_reporting set statu = #{zt} where 1 = 1
+        <if test="id!=null">
+           and Id = #{id}
+        </if>
+    </update>
     <select id="selectDep" resultType="java.util.HashMap" parameterType="java.util.HashMap">
   select a.*,b.bmname from y_Departmental_needs_reporting a  join wfdepartment b on a.departmentid = b.bmid
   <where>

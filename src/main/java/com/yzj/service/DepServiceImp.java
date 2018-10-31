@@ -51,4 +51,10 @@ public class DepServiceImp implements DepService{
     public List departmentFindTypeDep(Map map) {
         return dao.departmentFindTypeDep(map);
     }
+
+    @Override
+    //修改需求信息
+    public int xiugaixuqiuxinxib(Map map) {
+        return dao.xiugaixuqiuxinxib(map);
+    }
 }
