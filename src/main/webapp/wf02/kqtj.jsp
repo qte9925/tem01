@@ -152,7 +152,7 @@
         });
     }
     $().ready(function () {
-        gg();
+        // gg();
     });
 </script>
 </body>

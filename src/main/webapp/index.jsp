@@ -176,7 +176,7 @@
     <div class="splitter"></div>
     <!-- 正文内容部分 -->
     <div class="pageContent">
-        <iframe src="" id="mainFrame" name="mainFrame" frameborder="0" width="100%"  height="100%" frameBorder="0"></iframe>
+        <iframe src="grzm.jsp" id="mainFrame" name="mainFrame" frameborder="0" width="100%"  height="100%" frameBorder="0"></iframe>
     </div>
 </div>
 <!-- 底部页脚部分 -->

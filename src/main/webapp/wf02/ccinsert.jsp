@@ -6,13 +6,11 @@
 </head>
 <body >
 <form class="form-inline" role="form" id="name01" style="margin-top: 20px;padding-left: 20px;">
-    <button class="btn btn-default btn-sm"><a href="#">工作日历</a></button>
-    <button class="btn btn-default btn-sm"><a href="#">上下班登记</a></button>
-    <button class="btn btn-default btn-sm"><a href="#">外出登记</a></button>
-    <button class="btn btn-default btn-sm"><a href="#">请假登记</a></button>
-    <button class="btn btn-default btn-sm"><a href="#">出差登记</a></button>
-    <button class="btn btn-default btn-sm"><a href="#">加班登记</a></button>
-    <button class="btn btn-default btn-sm"><a href="#">上下班记录</a></button>
+    <button class="btn btn-default btn-sm"><a href="grkq.jsp">工作日历</a></button>
+    <button class="btn btn-default btn-sm"><a href="sxbdj.jsp">上下班登记</a></button>
+    <button class="btn btn-default btn-sm"><a href="qjdj.jsp">请假登记</a></button>
+    <button class="btn btn-default btn-sm"><a href="ccdj.jsp">出差登记</a></button>
+    <button class="btn btn-default btn-sm"><a href="rcjl.jsp">上下班记录</a></button>
 </form>
 <form class="form-inline" role="form" id="name02" style="margin-top: 20px;padding-left: 20px;">
     <button class="btn btn-default btn-sm"><a href="javascript:gg();">出差登记</a></button>
@@ -99,7 +97,7 @@
     function aaa() {
         window.location.href="ccdj.jsp";
     }chuchaididian
-    function zjht() {var  = $("#chuchaididian").val();
+    function zjht() {var chuchaididian = $("#chuchaididian").val();
         var qjryid = $("#yg").val(); var qjksrq = $("#datetime01").val();var qjjsrq = $("#datetime02").val();
         var qjspryid = $("#yg02").val();var qjzt = 0;var qjxj = 0;var qjyanyin = $("#qjyanyin").val();
         if(qjyanyin!=null&&qjksrq!=null&&qjjsrq!=null&&qjspryid!=null){
@@ -119,7 +117,7 @@
                     if(data==0){
                         alert("提交失败")
                     }else{
-                        window.location.href="qjdj.jsp";
+                        window.location.href="ccdj.jsp";
                     }
                 }
             });
