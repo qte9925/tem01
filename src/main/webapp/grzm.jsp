@@ -9,6 +9,7 @@
 <form class="form-inline" role="form" id="name01" style="margin-top: 20px;padding-left: 20px;">
     <input class="btn btn-default btn-sm" value="个人考勤" onclick="tz();">
 </form>
+${sessionScope.list[0].ryid}
 </table>
 <script type="text/javascript">
     function tz() {

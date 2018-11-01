@@ -21,16 +21,23 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     -->
     <script type="text/javascript" src="${path}/js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="${path}/jds/laydate/laydate.js"></script>
 </head>
 <body>
+<div>
 <center>
-    标题:<input type="text" id="zt">
+    <h2>公告标题:<input type="text" id="zt"></h2>
 </center>
+</div>
 <div id="editor">
     <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
 </div>
-<button id="btn1">获取html</button>
-<button id="btn2">获取text</button>
+<center>
+<button id="btn1" class="btn btn-primary">发布公告</button>
+</center>
 
 <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
 <script type="text/javascript" src="${path}/js/wangEditor-3.1.1\release/wangEditor.min.js"></script>
@@ -53,11 +60,8 @@
             dataType:"json",
             type:"post",
             success:function(data){
-                if(data>0){
                     alert("公告发布完成！");
-                    window.location.reload();
-
-                }
+                    window.location.href="${path}/jds/ggcx.jsp";
             }
         });
 
@@ -84,26 +88,7 @@
     var s=myDate.getSeconds();     //获取当前秒钟数(0-59)
 
     var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
-/*function aa(nr) {
-    $.ajax({
-        url:"${path}/insertN",
-        data:{"ygxm":"张三",
-            "zt":$("#zt").val(),
-            "nr":nr,
-            "rq":now,
-            "state":0
-        },
-        dataType:"json",
-        type:"post",
-        success:function(data){
-            if(data>0){
-                alert("公告发布完成！");
-                window.location.reload();
 
-            }
-        }
-    });
-}*/
 </script>
 </body>
 

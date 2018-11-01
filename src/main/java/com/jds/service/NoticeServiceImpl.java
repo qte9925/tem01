@@ -32,4 +32,16 @@ public class NoticeServiceImpl implements NoticeService{
     public Map selectNa(int id) {
         return nm.selectNa(id);
     }
+
+    @Override
+    public int updateN(Map map) {
+        return nm.updateN(map);
+    }
+
+    @Override
+    public List<Map> cc02(Map map) {
+        return nm.cc02(map);
+    }
+
+
 }

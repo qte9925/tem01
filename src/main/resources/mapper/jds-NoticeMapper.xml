@@ -3,11 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jds.dao.NoticeMapper">
  <insert id="insertN"  parameterType="java.util.HashMap">
-     insert into  j_notice(ygxm,zt,nr,rq,state)values(#{ygxm},#{zt},#{nr},#{rq},#{state})
+     insert into  j_notice(ygxm,zt,nr,rq,state,ryid)values(#{ygxm},#{zt},#{nr},#{rq},#{state},#{ryid})
  </insert>
     <select id="selectN" resultType="java.util.HashMap" parameterType="java.util.HashMap">
          SELECT *,DATE_FORMAT(rq,'%Y-%m-%d %H:%i:%S') as rq1 from j_notice
         <where>
+            and ryid=1
             <if test="ygxm!=null">
                 and ygxm like "%"#{ygxm}"%"
             </if>
@@ -16,5 +17,11 @@
     </select>
     <select id="selectNa" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT *,DATE_FORMAT(rq,'%Y-%m-%d %H:%i:%S') as rq1 from j_notice where id=#{id}
+    </select>
+    <update id="updateN" parameterType="java.util.HashMap">
+        UPDATE j_notice set state=#{state} where id=#{id}
+    </update>
+    <select id="cc02" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+      select * from wfstafftable
     </select>
 </mapper>

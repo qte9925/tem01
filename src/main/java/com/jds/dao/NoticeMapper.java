@@ -10,4 +10,6 @@ public interface NoticeMapper {
     public int insertN(Map map);
     public List<Map> selectN(Map map);
     public Map selectNa(int id);
+    public int updateN(Map map);
+    public List<Map> cc02(Map map);
 }
