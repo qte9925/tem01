@@ -3,10 +3,14 @@ package com.wf.controller;
 import com.wf.service.Se;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
@@ -84,6 +88,11 @@ public class Csconroller {
         int c = se.yhinsert01(map);
         return 1;
     }
+    @RequestMapping("/yhinsert02")
+    @ResponseBody
+    public int yhinsert02(@RequestParam Map map) {
+        return se.yhinsert02(map);
+    }
     @RequestMapping("/selectyh01")
     @ResponseBody
     public List selectyh01() {
@@ -91,10 +100,11 @@ public class Csconroller {
     }
     @RequestMapping("/login")
     @ResponseBody
-    public int login(@RequestParam Map map){
+    public int login(@RequestParam Map map,HttpSession session){
         List list = se.login(map);
         if (list!=null){
             if (list.size()>0){
+                session.setAttribute("list", list);
                 return  0;
             }else{
                 return  1;
@@ -107,4 +117,22 @@ public class Csconroller {
         System.out.println("cs代码");
         return "index";
     }
+    @RequestMapping("cxqxb30")
+            public int cxqxb30(@RequestParam Map map){
+        int i =se.cxqxb30(map);
+        return i;
+    }
+    /*@RequestMapping("TbStaffLogin")
+    @ResponseBody
+    public Message TbStaffLogin(TbStaffLogin tbStaffLogin, HttpSession session){
+        List list = Tb_SLS.TbStaffLogin(tbStaffLogin);
+        if (list.size()>0) {
+            session.setAttribute("list", list);
+            message = new Message(true,"登陆成功");
+        }else{
+            message = new Message(false,"登陆失败");
+        }
+        System.out.println(session.getAttribute("list"));
+        return message;
+    }*/
 }

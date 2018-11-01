@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yzj.dao.DepDao">
-    <select id="selectdepNeed" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+    <update id="xiugaixuqiuxinxib" parameterType="java.util.Map">
+        update y_departmental_needs_reporting set statu = #{zt} where 1 = 1
+        <if test="id!=null">
+           and Id = #{id}
+        </if>
+    </update>
+    <select id="selectDep" resultType="java.util.HashMap" parameterType="java.util.HashMap">
   select a.*,b.bmname from y_Departmental_needs_reporting a  join wfdepartment b on a.departmentid = b.bmid
   <where>
       <if test="needName!=null">
@@ -10,4 +16,21 @@
       </if>
   </where>
     </select>
+    <delete id="deleteDep" parameterType="java.util.HashMap">
+        delete from y_departmental_needs_reporting where Id=#{Id}
+    </delete>
+    <insert id="addDep" parameterType="java.util.HashMap">
+        insert into y_departmental_needs_reporting(needName,shenpimode,writePeople,writeTime,departmentid)
+        values(#{needName},#{shenpimode},#{writePeople},#{writeTime},#{departmentid})
+    </insert>
+    <select id="departmentFindTypeDep" resultType="java.util.HashMap">
+        select * from wfdepartment
+    </select>
+    <select id="selectByIdDep" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from y_departmental_needs_reporting where Id=#{Id}
+    </select>
+    <update id="updateDep" parameterType="java.util.HashMap">
+   update y_departmental_needs_reporting set needName=#{needName},
+  shenpimode=#{shenpimode},writePeople=#{writePeople},writeTime=#{writeTime},departmentid=#{departmentid} where Id=#{Id};
+    </update>
 </mapper>

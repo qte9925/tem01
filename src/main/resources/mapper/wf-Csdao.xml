@@ -23,6 +23,11 @@
     <select id="cxqxb" resultType="java.util.Map" parameterType="java.util.Map">
        SELECT * from wfqxb where qxstatic = 0
     </select>
+
+    <update id="cxqxb30" parameterType="java.util.Map">
+     UPDATE wf_jsb_qxb SET jsid = #{jsid},qxid=#{qxid} WHERE jxqxid = #{jxqxid}
+    </update>
+
     <select id="cxjsqx01" resultType="java.util.Map" parameterType="java.util.Map">
        select * from wf_jsb_qxb where jsqxstatic = 0
         <if test="id!=null">
@@ -50,12 +55,25 @@
       select * from wfjsb
     </select>
     <insert id="yhinsert01" parameterType="java.util.Map">
-      insert into wfyhb values(null，#{yhname}，#{yhuser}，#{yhpassword}，0)
+      insert into wfyhb(yhname,yhuser,yhpassword,yhstatic) values(#{a1},#{a2},#{a3},0)
+    </insert>
+    <insert id="yhinsert02" parameterType="java.util.Map">
+      insert into wfyhb(yhname,yhuser,yhpassword,yhstatic) values(#{a1},#{a2},#{a3},0)
     </insert>
     <select id="selectyh01" resultType="java.util.HashMap">
         select a.*,b.* from wfyhb a,wfjsb b,wf_yhb_jsb c where c.yhid = a.yhid and c.yhjsid = b.jsid
     </select>
-    <select id="login" resultType="java.util.Map" parameterType="java.util.Map">
-         select * from wfyhb where yhstatic = 0 and yhuser =#{yhuser} and yhpassword =#{yhpassword}
+
+    <select id="index01" resultType="java.util.Map" parameterType="java.util.Map">
+    SELECT * FROM wf_jsb_qxb a,wf_yhb_jsb b ,wfyhb c ,wfjsb d , wfqxb e where c.yhid = b.yhid and b.jsid = d.jsid and d.jsid =a.jsid and e.qxid = a.qxid and c.yhid = #{yhid}
     </select>
+    <delete id="deleteFunctionByPostId" parameterType="int">
+    delete from wf_jsb_qxb where jsqxid = #{jsqxid}
+    </delete>
+
+    <insert id="insertFunctionToPost" parameterType="java.util.List">
+        insert into wf_jsb_qxb (jsid,qxid) VALUES
+        <foreach separator="," index="index" item="list" collection="list">(#{list.jsid},#{list.qxid}) </foreach>
+    </insert>
+
 </mapper>

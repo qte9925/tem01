@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/js/bootstrap.css">
 </head>
 <body><!--顶部导航栏部分-->
-
+${sessionScope.list[0]}
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -36,14 +36,16 @@
                 </li>
             </ul>
         </div>
-
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li role="presentation">
-                    <a href="#">当前用户：<span class="badge">TestUser</span></a>
+                    <a href="#">当前用户：<span class="badge">
+                        ${sessionScope.list[0].yhname}（${sessionScope.list[0].ryxm})
+                    </span></a>
                 </li>
+
                 <li>
-                    <a href="../login/logout">
+                    <a href="login.jsp">
                         <span class="glyphicon glyphicon-lock"></span>退出登录</a>
                 </li>
             </ul>
@@ -73,10 +75,10 @@
                         <a href="wf02/kqshenpi.jsp" target="mainFrame">考勤审批</a>
                     </li>
                     <li>
-                        <a href="wf/ruzhishengqing.jsp" target="mainFrame">考勤记录</a>
+                        <a href="wf02/kqjl.jsp" target="mainFrame">考勤记录</a>
                     </li>
                     <li>
-                        <a href="wf/ruzhishengqing.jsp" target="mainFrame">考勤统计</a>
+                        <a href="wf02/kqtj.jsp" target="mainFrame">考勤统计</a>
                     </li>
                 </ul>
             </li>
@@ -129,38 +131,20 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    薪资管理<span class="caret"></span>
+                    招聘<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="jds/chaxun.jsp" target="mainFrame">基本薪资</a>
+                        <a href="/wf02/zhaopin.jsp" target="mainFrame">部门填写招聘需求</a>
                     </li>
                     <li>
-                        <a href="jds/Xzlc.jsp" target="mainFrame">核算薪资</a>
+                        <a href="nav2.html" target="mainFrame">人事指定招聘书</a>
                     </li>
                     <li>
-                        <a href="jds/Toexamine.jsp" target="mainFrame">薪资审核</a>
+                        <a href="nav3.html" target="mainFrame">招聘书审核</a>
                     </li>
                     <li>
-                        <a href="jds/Payroll.jsp" target="mainFrame">薪资发放</a>
-                    </li>
-
-
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    导航链接4<span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="nav1.html" target="mainFrame">导航链接3-1</a>
-                    </li>
-                    <li>
-                        <a href="nav2.html" target="mainFrame">导航链接4-2</a>
-                    </li>
-                    <li>
-                        <a href="nav3.html" target="mainFrame">导航链接4-3</a>
+                        <a href="nav3.html" target="mainFrame">查询人才库</a>
                     </li>
                 </ul>
             </li>
@@ -195,7 +179,7 @@
     <div class="splitter"></div>
     <!-- 正文内容部分 -->
     <div class="pageContent">
-        <iframe src="" id="mainFrame" name="mainFrame" frameborder="0" width="100%"  height="100%" frameBorder="0"></iframe>
+        <iframe src="grzm.jsp" id="mainFrame" name="mainFrame" frameborder="0" width="100%"  height="100%" frameBorder="0"></iframe>
     </div>
 </div>
 <!-- 底部页脚部分 -->

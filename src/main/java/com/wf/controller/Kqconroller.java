@@ -18,6 +18,47 @@ public class Kqconroller {
     @Autowired
     private Kq se;
 
+    @RequestMapping("/chuchaiinsert")
+    @ResponseBody
+    public int chuchaiinsert(@RequestParam Map map) {
+        return se.chuchaiinsert(map);
+    }
+    @RequestMapping("/cxqbcc")
+    @ResponseBody
+    public List cxqbcc(@RequestParam Map map) {
+        return se.cxqbcc(map);
+    }
+    @RequestMapping("/qjspxq")
+    @ResponseBody
+    public List qjspxq(@RequestParam Map map) {
+        return se.qjspxq(map);
+    }
+    @RequestMapping("/qdinsert")
+    @ResponseBody
+    public int qdinsert(@RequestParam Map map) {
+        return se.qdinsert(map);
+    }
+    @RequestMapping("/cxsxb02")
+    @ResponseBody
+    public List cxsxb02(@RequestParam Map map) {
+        return se.cxsxb02(map);
+    }
+    @RequestMapping("/ygbrqd")
+    @ResponseBody
+    public List ygbrqd(@RequestParam Map map) {
+        return se.ygbrqd(map);
+    }
+
+    @RequestMapping("/updateqj")
+    @ResponseBody
+    public int updateqj(@RequestParam Map map) {
+        return se.updateqj(map);
+    }
+    @RequestMapping("/cxqinjiq02")
+    @ResponseBody
+    public List cxqinjiq02(@RequestParam Map map) {
+        return se.cxqinjiq02(map);
+    }
     @RequestMapping("/cxqinjiq")
     @ResponseBody
     public List cxqinjiq(@RequestParam Map map) {

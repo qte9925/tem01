@@ -10,7 +10,7 @@
         <button class="btn btn-default btn-sm"><a href="jsupdate">添加/删除权限</a></button>
 </form>
 <table class="table table-striped" >
-    <caption>角色与权限管理</caption>
+    <caption>角色与权限管理(添加角色)</caption>
     <thead>
     <tr>
         <th>角色排序号</th>
@@ -25,4 +25,20 @@
     </tbody>
 </table>
 </body>
+<script type="text/javascript">
+    function insert01() {
+        $.ajax({
+            url: "${path}/yhinsert02",
+            data:{
+                "a1" : $("#jsid").val(),
+                "a2" :$("#qxid").val(),
+            },
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+</script>
 </html>

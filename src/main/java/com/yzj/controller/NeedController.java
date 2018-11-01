@@ -4,8 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.yzj.entity.PageEntity;
 import com.yzj.service.NeedService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,9 +14,15 @@ import java.util.Map;
 
 @Controller
 public class NeedController {
-    /*@Autowired*/
-    /*private NeedService ss;
-    @RequestMapping("select")
+    @Autowired
+    private NeedService ss;
+    @RequestMapping("xiugaixuqiuxinxia")
+    @ResponseBody
+    public int xiugaixuqiuxinxi(@RequestParam Map map){
+        System.out.print(map);
+        return ss.xiugaixuqiuxinxia(map);
+    }
+    @RequestMapping("selectaa")
     @ResponseBody
     public PageInfo<Map> selectNeedPeople(PageEntity page, @RequestParam Map map){
         if(page==null) page = new PageEntity();
@@ -26,35 +30,35 @@ public class NeedController {
         System.out.print(map);
         return pageinfo;
     }
-    @RequestMapping("delete")
+    @RequestMapping("deleteaa")
     @ResponseBody
     public int deleteNeedPeople(@RequestParam Map map){
         int i = ss.deleteNeed(map);
         return i;
     }
-    @RequestMapping("selectById")
+    @RequestMapping("selectByIdaa")
     @ResponseBody
     public List selectByIdPeople(@RequestParam Map map){
         List list = ss.selectById(map);
         System.out.print(list+"aaaaaaaaaaa");
         return list;
     }
-    @RequestMapping("update")
+    @RequestMapping("updateaa")
     @ResponseBody
     public int updateNeedPeople(@RequestParam Map map){
         int i = ss.updateNeed(map);
         return i;
     }
-    @RequestMapping("Add")
+    @RequestMapping("Addaa")
     @ResponseBody
     public int AddNeedPeople(@RequestParam Map map){
      int i = ss.addNeed(map);
         return i;
     }
-    @RequestMapping("FindDepartment")
+    @RequestMapping("FindDepartmentaa")
     @ResponseBody
     public List Finddepartment(@RequestParam Map map){
        List  list  = ss.departmentFindType(map);
         return list;
-    }*/
+    }
 }

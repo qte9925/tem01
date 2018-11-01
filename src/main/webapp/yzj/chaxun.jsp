@@ -27,6 +27,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${path}/js/jquery-1.8.3.min.js"></script></head>
+
 </head>
 
 <style>
@@ -34,9 +35,23 @@
 </style>
 
 <script type="text/javascript">
+    function UpdateMessage(id,zt){
+        $.ajax({
+            url:"${path}/xiugaixuqiuxinxia",
+            type:"post",
+            data:{"id":id,"zt":zt},
+            dataType:"json",
+            success:function(data){
+                console.log(data);
+                if(data>0){
+                    window.location.reload();
+                }
+            }
+        })
+    }
     function getinfo(nowPage) {
         $.ajax({
-            url : "${path}/select",
+            url : "${path}/selectaa",
             data:{"staff":$("#staff").val(),"nowPage":nowPage},
             type : "post",
             dataType : "json",
@@ -51,8 +66,30 @@
                     html = html + "<td>" + p.shenpimode + "</td>";
                     html = html + "<td>" + p.education + "</td>";
                     html = html + "<td>" + p.writePeople + "</td>";
+                    if(p.statu==0){
+                        html = html + "<td>未审核</td>";
+                    }else if(p.statu==1){
+                        html = html + "<td>审核中</td>";
+                    } else if(p.statu==2){
+                        html = html + "<td>通过</td>";
+                    } else if(p.statu==3){
+                        html = html + "<td>未通过</td>";
+                    }
                     html = html + "<td><button onclick='deleteNeed(" + p.Id + ")'  class='btn btn-primary' >删除</button>" +
-                        "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button></td>";
+                        "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button>";
+                    if(p.statu==0){
+                        html = html + "<button onclick='UpdateMessage("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'>送审</button>";
+                        /*html = html + "<button onclick='xiugaixuqiuxinxi("+ p.Id +",3)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>驳回</button>";*/
+
+                    }else if(p.statu==1){
+                        html = html + "<button onclick='UpdateMessage("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>送审</button>";
+
+                    }
+                    else if(p.statu==2){
+                        html = html + "<button onclick='UpdateMessage("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>送审</button>";
+
+                    }
+                    html = html + "</td>";
                     html = html + "</tr>";
                     $("#yzj").append(html);
                 }
@@ -80,9 +117,7 @@
    $().ready(function() {
         getinfo(1);
         $("#selectBtn").click(function() {
-alert("as")
             getinfo(1);
-
         });
     });
     function changePage(op){
@@ -96,7 +131,7 @@ alert("as")
 
     function deleteNeed(Id){
         $.ajax({
-            url:"${path}/delete",
+            url:"${path}/deleteaa",
             type:"post",
             dataType:"json",
             data:{"Id":Id},
@@ -114,7 +149,7 @@ alert("as")
 
         $("#adda").click(function(){
             $.ajax({
-                url:"${path}/Add",
+                url:"${path}/Addaa",
                 data:{"staffName":$("#staffName").val(),
                     "post":$("#post ").val(),
                     "shenpimode":$("#shenpimode").val(),
@@ -138,10 +173,9 @@ alert("as")
     /*---------------------------------------------------------------------------------------*/
 
     function UpdateNeeds(Id){
-        alert(Id)
         //修改前查询
         $.ajax({
-            url:"${path}/selectById",
+            url:"${path}/selectByIdaa",
             type:"post",
             dataType:"json",
             data:{"Id":Id},
@@ -160,7 +194,7 @@ alert("as")
             }
         })
         $.ajax({
-            url:"${path}/FindDepartment",
+            url:"${path}/FindDepartmentaa",
             type:"post",
             dataType:"json",
             success:function(data){
@@ -176,7 +210,7 @@ alert("as")
         //修改
         $("#updateBtn").click(function(){
             $.ajax({
-                url:"${path}/update",
+                url:"${path}/updateaa",
                 type:"post",
                 dataType:"json",
                 data:{

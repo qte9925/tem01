@@ -31,6 +31,7 @@
 
 
 
+
     <!-- 配置DispatcherServlet -->
 
     <!-- shiro过滤器 结束-->
@@ -70,5 +71,7 @@
         <url-pattern>*.bmp</url-pattern>
     </servlet-mapping>
     <!-- 静态资源免过滤  结束-->
-
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
