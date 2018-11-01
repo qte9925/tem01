@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jds.dao.NoticeMapper">
+ <insert id="insertN"  parameterType="java.util.HashMap">
+     insert into  j_notice(ygxm,zt,nr,rq,state)values(#{ygxm},#{zt},#{nr},#{rq},#{state})
+ </insert>
+    <select id="selectN" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+         SELECT *,DATE_FORMAT(rq,'%Y-%m-%d %H:%i:%S') as rq1 from j_notice
+        <where>
+            <if test="ygxm!=null">
+                and ygxm like "%"#{ygxm}"%"
+            </if>
+        </where>
+
+    </select>
+    <select id="selectNa" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT *,DATE_FORMAT(rq,'%Y-%m-%d %H:%i:%S') as rq1 from j_notice where id=#{id}
+    </select>
+</mapper>

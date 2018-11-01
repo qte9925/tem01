@@ -89,4 +89,9 @@ public class SeIm implements Se{
     public int cxqxb30(Map map) {
         return dao.cxqxb30(map);
     }
+
+    @Override
+    public List<Map> index01(Map map) {
+        return dao.index01(map);
+    }
 }

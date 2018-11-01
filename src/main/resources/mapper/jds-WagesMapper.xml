@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jds.dao.WagesMapper">
+
+    <select id="selectWByid" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+select a.*,b.*,c.*,d.*,e.* from (((j_ygjb a join wfstafftable b on a.ygid=b.ryid) JOIN l_report c on a.ygid=c.rep_yuangong_id)
+ join tb_task d on a.ygid=d.tb_staff_id) JOIN j_bonus e ON a.ygid=e.bygid where b.ryid=#{id}
+ </select>
+    <select id="selectSl" resultType="java.util.HashMap" >
+        select * from j_incometax
+    </select>
+    <select id="selectBx" resultType="java.util.HashMap" >
+        select * from j_insurance
+    </select>
+    <insert id="insertGz"  parameterType="java.util.HashMap">
+        insert j_payroll into(ygid,ygname,yglb,jbgz,jxgz,jxd,jxgz1,cdcs,ztcs,qjcs,jbcs,bydk,sybx,yabx,ylbx,jj,sqgz,grsds,sfgz,bz,state)values(
+        ygid=#{ygid},ygname=#{ygname},yglb=#{yglb},jbgz=#{jbgz},jxgz=#{jxgz},jxd=#{jxd},
+        jxgz1=#{jxgz1},cdcs=#{cdcs},ztcs=#{ztcs},qjcs=#{qjcs},jbcs=#{jbcs},bydk=#{bydk},
+        sybx=#{sybx},yabx=#{yabx},ylbx=#{ylbx},jj=#{jj},sqgz=#{sqgz},grsds=#{grsds},sfgz=#{sfgz},bz=#{bz},state=0
+        )
+    </insert>
+    <select id="selectX" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_xzlc
+        <where>
+            <if test="yf!=null">
+                and gzyf like "%"#{yf}"%"
+            </if>
+        </where>
+    </select>
+    <insert id="insertX"  parameterType="java.util.HashMap">
+     insert into  j_xzlc(cjname,qsrq,jzrq,gzyf,bz,state,lcsj)values(#{cjname},#{qsrq},#{jzrq},#{gzyf},#{bz},1,#{lcsj})
+ </insert>
+    <update id="updateX"  parameterType="java.util.HashMap">
+        update j_xzlc set state=2 where id=#{id}
+    </update>
+    <select id="selectX1" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_xzlc where state=2
+    </select>
+    <update id="updateXs"  parameterType="java.util.HashMap">
+        update j_xzlc set state=#{state},shr=#{shr} where id=#{id}
+    </update>
+    <update id="updateXb"  parameterType="java.util.HashMap">
+        update j_xzlc set state=#{state},shr=#{shr},bz1=#{bz1} where id=#{id}
+    </update>
+    <select id="selectXb" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_xzlc where id=#{id}
+    </select>
+    <select id="selectXf" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_xzlc where state=3
+    </select>
+    <update id="updateXf"  parameterType="java.util.HashMap">
+        update j_xzlc set state=#{state} where id=#{id}
+    </update>
+    <insert id="insertS"  parameterType="java.util.HashMap">
+     insert into  j_sqbx(sqname,sqid,sqje,sqpz,sqly,sqdata,sqzt,state)values(#{sqname},#{sqid},#{sqje},#{sqpz},#{sqly},#{sqdata},#{sqzt},0)
+ </insert>
+    <select id="selectS" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_sqbx
+        <where>
+            <if test="sqid!=null">
+                and sqid like "%"#{sqid}"%"
+            </if>
+        </where>
+
+    </select>
+    <select id="selectSid" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_sqbx where id=#{id}
+    </select>
+    <update id="updateS"  parameterType="java.util.HashMap">
+        update j_sqbx set sqname=#{sqname},sqid=#{sqid},sqje=#{sqje},sqpz=#{sqpz},sqly=#{sqly},sqzt=#{sqzt} where id=#{id}
+    </update>
+    <delete id="deleteS"  parameterType="java.util.HashMap">
+        delete from  j_sqbx where id=#{id}
+    </delete>
+    <update id="updateSa"  parameterType="java.util.HashMap">
+        update j_sqbx set state=#{state} where id=#{id}
+    </update>
+    <select id="selectSa" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_sqbx where state=1
+    </select>
+    <update id="updateS1"  parameterType="java.util.HashMap">
+        update j_sqbx set state=#{state},spr=#{spr} where id=#{id}
+    </update>
+    <update id="updateS2"  parameterType="java.util.HashMap">
+        update j_sqbx set state=#{state},spr=#{spr},bz=#{bz} where id=#{id}
+    </update>
+    <select id="selectSy" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_sqbx where id=#{id}
+    </select>
+</mapper>
