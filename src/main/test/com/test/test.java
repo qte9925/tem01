@@ -1,7 +1,6 @@
 package com.test;
 
 import com.jds.dao.StaffMapper;
-import com.jds.service.NoticeService;
 import com.wf.service.Kq;
 import com.wf.service.Se;
 import com.yzj.dao.NeedDao;
@@ -15,16 +14,28 @@ import java.util.Map;
 public class test {
     public static void main(String[] args) {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/spring-mybatis.xml");
-        NoticeService dao = ctx.getBean(NoticeService.class);
+        Se dao = ctx.getBean(Se.class);
         Map map = new HashMap();
-        Map map01 = new HashMap();
-//        dao.cc01(map);
-      /*  List<Map> list01= dao.cc02(map);
-        for (int i=0;i<list01.size();i++){
-            System.out.print(list01.get(i).get("ryxm"));
-            map01.put("ryxm",list01.get(i).get("ryxm"));
-            dao.cc01(map01);
-        }*/
-//        System.out.print(dao.gzrl(map));
+        map.put("yhid",1);
+        List<Map> list= dao.index01(map);
+        List<Map> list02= dao.index01(map);
+        for(int i=0;i<list.size();i++){
+//            System.out.println(list.get(i).get("dj9999"));
+            int cc = (int)list.get(i).get("dj9999");
+            int dd = (int)list.get(i).get("qxid");
+            if(cc==0){
+                System.out.println("list01:"+list.get(i).get("qxname"));
+                        for(int i02=0;i02<list02.size();i02++){
+                            if((int)list02.get(i02).get("dj9999")!=0){
+                                if((int)list02.get(i02).get("dj9999")==dd){
+                                int aa = (int) list02.get(i02).get("qxid");
+                                System.out.println("list02:"+list02.get(i02).get("qxname"));
+                                }
+                            }
+                        }
+                }
+            }
+
+        }
     }
-}
+

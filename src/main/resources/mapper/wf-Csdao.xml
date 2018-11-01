@@ -63,9 +63,12 @@
     <select id="selectyh01" resultType="java.util.HashMap">
         select a.*,b.* from wfyhb a,wfjsb b,wf_yhb_jsb c where c.yhid = a.yhid and c.yhjsid = b.jsid
     </select>
+    <select id="login" resultType="java.util.Map" parameterType="java.util.Map">
 
+SELECT a.yhid,a.yhname,a.yhuser,b.ryid,b.ryxm FROM  wfyhb a ,wfstafftable b where a.yhid =b.ryzhanghao and a.yhuser =#{yhuser} and a.yhpassword = #{yhpassword} and a.yhstatic = 0
+    </select>
     <select id="index01" resultType="java.util.Map" parameterType="java.util.Map">
-    SELECT * FROM wf_jsb_qxb a,wf_yhb_jsb b ,wfyhb c ,wfjsb d , wfqxb e where c.yhid = b.yhid and b.jsid = d.jsid and d.jsid =a.jsid and e.qxid = a.qxid and c.yhid = #{yhid}
+SELECT e.* FROM wf_jsb_qxb a,wf_yhb_jsb b ,wfyhb c ,wfjsb d , wfqxb e where c.yhid = b.yhid and b.jsid = d.jsid and d.jsid =a.jsid and e.qxid = a.qxid and c.yhid = #{yhid}
     </select>
     <delete id="deleteFunctionByPostId" parameterType="int">
     delete from wf_jsb_qxb where jsqxid = #{jsqxid}
