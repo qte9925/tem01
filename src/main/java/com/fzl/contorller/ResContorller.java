@@ -14,23 +14,23 @@ import java.util.*;
 public class ResContorller {
     @Autowired
   private ResService rss;
-    @RequestMapping("select")
-    @ResponseBody
-    public List select(@RequestParam Map map){
-        List list = rss.select(map);
-        return list;
-    }
+//    @RequestMapping("select")
+//    @ResponseBody
+//    public List select(@RequestParam Map map){
+//        List list = rss.select(map);
+//        return list;
+//    }
     @RequestMapping("select01")
     @ResponseBody
     public List select01(@RequestParam Map map){
         List list = rss.select01(map);
         return  list;
     }
-    @RequestMapping("update")
-    @ResponseBody
-    public int update(@RequestParam Map map){
-        int i = rss.update(map);
-        return i;
-    }
+//    @RequestMapping("update")
+//    @ResponseBody
+//    public int update(@RequestParam Map map){
+//        int i = rss.update(map);
+//        return i;
+//    }
 
 }

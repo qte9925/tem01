@@ -38,10 +38,10 @@ public class repcontorller {
         System.out.print(11);
         return i;
     }
-    @RequestMapping("delete")
-    @ResponseBody
-    public int delete(@RequestParam Map map){
-        int i=rs.delete(map);
-        return i;
-    }
+//    @RequestMapping("delete")
+//    @ResponseBody
+//    public int delete(@RequestParam Map map){
+//        int i=rs.delete(map);
+//        return i;
+//    }
 }
