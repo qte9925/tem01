@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wf.dao.Kqdao">
+
+
+
     <insert id="qdinsert" parameterType="java.util.Map">
     insert into wf_qiandao(qiandaoid,qdryid,qdstatic) values(null,#{id006},0)
     </insert>

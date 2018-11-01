@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/js/bootstrap.css">
 </head>
 <body><!--顶部导航栏部分-->
-
+${sessionScope.list[0]}
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -131,17 +131,20 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    导航链接4<span class="caret"></span>
+                    招聘<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="nav1.html" target="mainFrame">导航链接3-1</a>
+                        <a href="/wf02/zhaopin.jsp" target="mainFrame">部门填写招聘需求</a>
                     </li>
                     <li>
-                        <a href="nav2.html" target="mainFrame">导航链接4-2</a>
+                        <a href="nav2.html" target="mainFrame">人事指定招聘书</a>
                     </li>
                     <li>
-                        <a href="nav3.html" target="mainFrame">导航链接4-3</a>
+                        <a href="nav3.html" target="mainFrame">招聘书审核</a>
+                    </li>
+                    <li>
+                        <a href="nav3.html" target="mainFrame">查询人才库</a>
                     </li>
                 </ul>
             </li>

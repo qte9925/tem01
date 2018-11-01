@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wf.dao.Zpdao">
+    <insert id="zpjhinsert" parameterType="java.util.Map">
+    insert into wf_zhaopinxuqiu(xuqiubmid,xuqiugangwei,xuqiurenshu,djid,yonggongriqi,beizhu,gwyaoqiu)
+VALUES(#{xuqiubmid},#{xuqiugangwei},#{xuqiurenshu},#{djid},#{yonggongriqi},#{beizhu},#{gwyaoqiu})
+    </insert>
+    <select id="zpcx01" resultType="java.util.Map" parameterType="java.util.Map">
+     SELECT a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02 from wf_zhaopinxuqiu a,wfdepartment b where xqzt = 0 and b.bmid=a.xuqiubmid
+    </select>
+
+</mapper>
