@@ -129,6 +129,27 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    薪资管理<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="jds/chaxun.jsp" target="mainFrame">基本薪资</a>
+                    </li>
+                    <li>
+                        <a href="jds/Xzlc.jsp" target="mainFrame">核算薪资</a>
+                    </li>
+                    <li>
+                        <a href="jds/Toexamine.jsp" target="mainFrame">薪资审核</a>
+                    </li>
+                    <li>
+                        <a href="jds/Payroll.jsp" target="mainFrame">薪资发放</a>
+                    </li>
+
+
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     导航链接4<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">

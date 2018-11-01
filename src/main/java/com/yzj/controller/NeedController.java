@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.yzj.entity.PageEntity;
 import com.yzj.service.NeedService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +16,8 @@ import java.util.Map;
 
 @Controller
 public class NeedController {
-    @Autowired
-    private NeedService ss;
+    /*@Autowired*/
+    /*private NeedService ss;
     @RequestMapping("select")
     @ResponseBody
     public PageInfo<Map> selectNeedPeople(PageEntity page, @RequestParam Map map){
@@ -54,5 +56,5 @@ public class NeedController {
     public List Finddepartment(@RequestParam Map map){
        List  list  = ss.departmentFindType(map);
         return list;
-    }
+    }*/
 }

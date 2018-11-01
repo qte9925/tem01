@@ -107,7 +107,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabela">
-                   审核未通过驳回原因
+                    审核未通过驳回原因
                 </h4>
             </div>
             <div class="modal-body">
@@ -127,9 +127,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary" >
-                    确定
-                </button>
+                <%--  <button type="button" class="btn btn-primary" >
+                      确定
+                  </button>--%>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

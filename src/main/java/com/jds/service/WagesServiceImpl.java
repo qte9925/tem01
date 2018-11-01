@@ -86,5 +86,61 @@ public class WagesServiceImpl implements WagesService{
         return wm.updateXf(map);
     }
 
+    @Override
+    public int insertS(Map map) {
+        return wm.insertS(map);
+    }
+
+    @Override
+    public PageInfo<Map> selectS(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=wm.selectS(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+
+    @Override
+    public Map selectSid(int id) {
+        return wm.selectSid(id);
+    }
+
+    @Override
+    public int updateS(Map map) {
+        return wm.updateS(map);
+    }
+
+    @Override
+    public int deleteS(int id) {
+        return wm.deleteS(id);
+    }
+
+    @Override
+    public int updateSa(Map map) {
+        return wm.updateSa(map);
+    }
+
+    @Override
+    public PageInfo<Map> selectSa(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=wm.selectSa(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+
+    @Override
+    public int updateS1(Map map) {
+        return wm.updateS1(map);
+    }
+
+    @Override
+    public int updateS2(Map map) {
+        return wm.updateS2(map);
+    }
+
+    @Override
+    public Map selectSy(int id) {
+        return wm.selectSy(id);
+    }
+
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 @Controller
 public class repcontorller {
-    @Autowired
+  /*  @Autowired
     private repService rs;
     @RequestMapping("repselect")
     @ResponseBody
@@ -43,5 +43,5 @@ public class repcontorller {
     public int delete(@RequestParam Map map){
         int i=rs.delete(map);
         return i;
-    }
+    }*/
 }

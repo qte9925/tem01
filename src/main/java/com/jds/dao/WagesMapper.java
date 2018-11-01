@@ -20,6 +20,17 @@ public interface WagesMapper {
     public List selectXb(Map map);
     public List<Map> selectXf(Map map);
     public int updateXf(Map map);
+    public int insertS(Map map);
+    public List<Map> selectS(Map map);
+    public Map selectSid(int id);
+    public int updateS(Map map);
+    public int deleteS(int id);
+    public int updateSa(Map map);
+    public List<Map> selectSa(Map map);
+    public int updateS1(Map map);
+    public int updateS2(Map map);
+    public Map selectSy(int id);
+
 
 
 }

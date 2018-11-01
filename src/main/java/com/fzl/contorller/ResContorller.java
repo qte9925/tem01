@@ -14,7 +14,7 @@ import java.util.*;
 public class ResContorller {
     @Autowired
   private ResService rss;
-    @RequestMapping("select")
+   /* @RequestMapping("select")
     @ResponseBody
     public List select(@RequestParam Map map){
         List list = rss.select(map);
@@ -31,6 +31,6 @@ public class ResContorller {
     public int update(@RequestParam Map map){
         int i = rss.update(map);
         return i;
-    }
+    }*/
 
 }
