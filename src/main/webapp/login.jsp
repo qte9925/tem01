@@ -31,7 +31,6 @@
     </script>
 </head>
 <body>
-<a href="/cs">1111</a>
 <div class="login-main">
     <header class="layui-elip">后台登录</header>
     <form class="layui-form" action="index.jsp">

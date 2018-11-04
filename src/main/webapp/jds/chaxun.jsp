@@ -31,7 +31,7 @@
 
 </head>
 <script type="text/javascript">
-    function searchInfo(nowPage,rowSize){
+    function searchInfo(nowPage){
         $.ajax({
             url:"${path}/selectM",
             data:{"aygid":$("#aygid").val(),"typename":$("#typename").val(),"nowPage":nowPage},
@@ -43,7 +43,7 @@
                     for(var i=0;i<data.list.length;i++){
                         var st=data.list[i];
                         var tr="<tr>";
-                        tr=tr+"   <td>"+st.id+"</td>";
+                        tr=tr+"   <td>"+(i+1)+"</td>";
                         tr=tr+"    <td>"+st.ygid+"</td>";
                         tr=tr+"    <td>"+st.jbgz+"</td>";
                         tr=tr+"    <td>"+st.jxgz+"</td>";
@@ -53,13 +53,26 @@
                         tr=tr+"    <td>"+st.rzrq+"</td>";
                         tr=tr+"    <td>"+st.zwid+"</td>";
 
-                        tr=tr+"    <td><input type=\"button\" value='修改' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\"></td>";
-                        tr=tr+"    <td><input type=\"button\" value='删除' onclick='bb("+st.id+")' class=\"btn btn-primary\"/></td>";
+                        tr=tr+"    <td><input type=\"button\" value='修改' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\">";
+                        tr=tr+"    <input type=\"button\" value='删除' onclick='bb("+st.id+")' class=\"btn btn-primary\"/></td>";
                         tr=tr+"   </tr>";
                         $("#tbody").append(tr);
                     }
                     $("#nowPage").html(data.pageNum);
                     $("#total").html(data.total);
+                    //最后一页的下一页显示隐藏
+                    if(data.isLastPage){
+                        $("#next").hide();
+                    }else{
+                        $("#next").show();
+                    }
+                    //第一页的上一页显示隐藏
+
+                    if(data.isFirstPage){
+                        $("#pre").hide();
+                    }else{
+                        $("#pre").show();
+                    }
                 }
             }
         });
@@ -247,7 +260,7 @@
 
 <div style="text-align:center;">
     <center>
-<table class="table table-striped">
+<table class="table table-bordered">
 
         员工工号:<input type="text" id="aygid">
         职务:<input type="text" id="typename">
@@ -263,16 +276,12 @@
         <td>养老保险</td>
         <td>日期</td>
         <td>职务</td>
-        <td>日期</td>
-        <td>职务</td>
-
+        <td>操作</td>
     </tr>
+    <tbody id="tbody"></tbody>
 </table>
-<table id="tbody" class="table table-striped" >
-
-</table>
-        <a  onclick="fy('pre')">上一页</a>
-        <a onclick="fy('next')">下一页</a>
+        <a id="pre" onclick="fy('pre')">上一页</a>
+        <a id="next" onclick="fy('next')">下一页</a>
         当第<span id="nowPage"></span>页
     </center>
 </div>

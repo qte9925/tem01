@@ -21,4 +21,5 @@ public interface Csdao {
     List<Map> ygbid(Map map);
     int yhinsert02(Map map);
     int cxqxb30(Map map);
+    List<Map> index01(Map map);
 }

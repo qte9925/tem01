@@ -98,12 +98,18 @@ public class Csconroller {
     public List selectyh01() {
         return se.selectyh01();
     }
+    @RequestMapping("/index01")
+    @ResponseBody
+    public List index01(@RequestParam Map map) {
+        return se.index01(map);
+    }
     @RequestMapping("/login")
     @ResponseBody
     public int login(@RequestParam Map map,HttpSession session){
         List list = se.login(map);
         if (list!=null){
             if (list.size()>0){
+                session.setMaxInactiveInterval(30*60);
                 session.setAttribute("list", list);
                 return  0;
             }else{

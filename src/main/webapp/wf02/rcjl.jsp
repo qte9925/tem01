@@ -63,16 +63,7 @@
         </thead>
         <tbody id="thead0101">
         <tr v-for="i in msg">
-            <%--<td>{{i.yuanyin}}</td>--%>
-            <%--<Td>{{i.qjlxname}}</Td>--%>
-            <%--<Td>{{i.shenpi}}</Td>--%>
-            <%--<Td>{{i.ksrq}}</Td>--%>
-            <%--<Td>{{i.jsrq}}</Td>--%>
-            <%--<Td v-if="i.qjxj == 0">未申请销假</Td><Td v-if="i.qjxj == 1">申请销假中</Td><Td v-if="i.qjxj == 2">销假审批成功</Td><Td v-if="i.qjxj == 3">销假审批失败</Td>--%>
-            <%--<Td v-if="i.qjzt == 0">审批中</Td>--%>
-            <%--<Td v-if="i.qjzt == 1">审批通过</Td>--%>
-            <%--<Td v-if="i.qjzt == 1">审批失败</Td>--%>
-            <%--<Td>详情</Td>--%>
+
         </tr>
         </tbody>
     </table>

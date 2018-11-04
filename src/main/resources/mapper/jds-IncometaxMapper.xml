@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jds.dao.IncometaxMapper">
+    <select id="selectI" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+   select * from j_incometax
+    </select>
+ <insert id="insertI"  parameterType="java.util.HashMap">
+     insert into  j_incometax(gzfw,qzd,sl,yjnsde,sskcs)values(#{gzfw},#{qzd},#{sl},#{yjnsde},#{sskcs})
+ </insert>
+    <select id="selectIByid" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+   select * from j_incometax where sdid=#{id}
+ </select>
+    <update id="updateI" parameterType="java.util.HashMap">
+        update j_incometax set  sdid=#{id},gzfw=#{gzfw},qzd=#{qzd},sl=#{sl},yjnsde=#{yjnsde},sskcs=#{sskcs} where sdid=#{id}
+    </update>
+    <delete id="deleteI"  parameterType="java.util.HashMap">
+        delete from j_incometax  where sdid=#{id}
+    </delete>
+</mapper>
