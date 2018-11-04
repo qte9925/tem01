@@ -13,12 +13,19 @@
     <tbody id="thead01">
     <tr>
         <td>
+            <label  class="col-sm-2 control-label">招聘名称</label>
+            <div class="col-sm-10">
+                <input type='text' class="form-control" id='zpsname' />
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <label  class="col-sm-2 control-label">招聘部门</label>
             <div class="col-sm-10">
-                <select class="form-control"   id="yg"   >
+                <select class="form-control" id="zpbmid" >
                     <option>请选择部门</option>
                 </select>
-
             </div>
         </td>
     </tr>
@@ -26,7 +33,7 @@
         <td>
             <label  class="col-sm-2 control-label">招聘岗位</label>
             <div class="col-sm-10">
-                <select class="form-control" id="gw" >
+                <select class="form-control" id="zhiwei" >
                     <option>请选择岗位</option>
                 </select>
             </div>
@@ -36,31 +43,31 @@
         <td>
             <label  class="col-sm-2 control-label">招聘人数</label>
             <div class="col-sm-10">
-                <input type='text' class="form-control" id='rs' />
+                <input type='text' class="form-control" id='zprs' />
             </div>
         </td>
     </tr>
     <tr>
         <td>
-            <label  class="col-sm-2 control-label">用工日期</label>
+            <label  class="col-sm-2 control-label">招聘薪资</label>
             <div class="col-sm-10">
-                <input type='text' class="form-control" id='datetime02' />
+                <input type='text' class="form-control" id='tgxinzi' />
             </div>
         </td>
     </tr>
     <tr>
         <td>
-            <label  class="col-sm-2 control-label">用工需求</label>
+            <label  class="col-sm-2 control-label">岗位要求</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="qjyanyin" rows="3"></textarea>
+                <textarea class="form-control" id="zhiweixinxixx" rows="3"></textarea>
             </div>
         </td>
     </tr>
     <tr>
         <td>
-            <label  class="col-sm-2 control-label">备注</label>
+            <label  class="col-sm-2 control-label">福利待遇</label>
             <div class="col-sm-10">
-                <input type='text' class="form-control" id='bz' />
+                <input type='text' class="form-control" id='fulidaiyu' />
             </div>
         </td>
     </tr>
@@ -78,21 +85,27 @@
 </table>
 <script type="text/javascript">
     function aaa() {
-        window.location.href="zhaopin.jsp";
+        window.location.href="zpshu.jsp";
     }
     function zjht() {
-        var qjryid = $("#yg").val(); var gw = $("#gw").val();var rs = $("#rs").val();var ryid = '${sessionScope.list[0].ryid}';
-        var datetime02 = $("#datetime02").val();var bz = $("#bz").val();var qjyanyin = $("#qjyanyin").val();
-        if(qjryid!=null&&gw!=null&&rs!=null&&ryid!=null&&datetime02!=null){
+        var zpsname = $("#zpsname").val();
+         var zpbmid= $("#zpbmid").val();
+        var zhiwei = $("#zhiwei").val();
+        var zhiweixinxixx = $("#zhiweixinxixx").val();
+        var tgxinzi = $("#tgxinzi").val();
+        var zprs = $("#zprs").val();
+        var zdry = '${sessionScope.list[0].ryid}';var fulidaiyu = $("#fulidaiyu").val();
+        if(zpsname!=null&&zhiwei!=null&&zhiweixinxixx!=null&&tgxinzi!=null&&zprs!=null){
             $.ajax({
-                url: "${path}/zpjhinsert",
-                data:{"xuqiubmid" : qjryid,
-                    "xuqiugangwei" : gw,
-                    "xuqiurenshu" :rs,
-                    "djid" :ryid,
-                    "yonggongriqi" : datetime02,
-                    "beizhu" :bz,
-                    "gwyaoqiu":qjyanyin
+                url: "${path}/zpsinsert",
+                data:{"zpsname" : zpsname,
+                    'zpbmid':zpbmid,
+                    "zhiwei" : zhiwei,
+                    "zhiweixinxixx" :zhiweixinxixx,
+                    "tgxinzi" :tgxinzi,
+                    "zprs" : zprs,
+                    "zdry" :zdry,
+                    "fulidaiyu":fulidaiyu
                 },
                 type: "post",
                 dataType: "json",
@@ -101,7 +114,7 @@
                     if(data==0){
                         alert("提交失败")
                     }else{
-                        window.location.href="zhaopin.jsp";
+                        window.location.href="zps_shengke.jsp";
                     }
                 }
             });
@@ -112,22 +125,22 @@
     function gg(){
         console.log("ryid"+'${sessionScope.list[0].ryid}')
         $.ajax({
-            url: "${path}/zpbmxq",
+            url: "${path}/zpbmxq02",
             type: "post",
-            data:{"ryid":'${sessionScope.list[0].ryid}'},
+            <%--data:{"ryid":'${sessionScope.list[0].ryid}'},--%>
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                $("#yg").html("<option >请选择部门</option>");
+                $("#zpbmid").html("<option >请选择部门</option>");
                 for (var i = 0; i < data.length; i++) {
                     var p = data[i];
                     var html = "<option value='" + p.bmid + "'>" + p.bmname + "</option>";
-                    $("#yg").append(html);
+                    $("#zpbmid").append(html);
                 }
             }
         });
          function gwrs(){
-             var gw = $("#gw").val();
+             var gw = $("#zhiwei").val();
              $.ajax({
                  url: "${path}/gwrs",
                  type: "post",
@@ -137,17 +150,17 @@
                      console.log(data);
                      if(data!=null){
                          if(data[0].gwrs>0){
-                            if(data[0].gwrs>$("#rs").val()){}else{alert("当前岗位人数不可超过"+data[0].gwrs);$("#rs").val("0");}
+                            if(data[0].gwrs>$("#zprs").val()){}else{alert("当前岗位人数不可超过"+data[0].gwrs);$("#zprs").val("0");}
                          }else{
                             alert("岗位人数已满");
-                            $("#rs").val("0");
+                            $("#zprs").val("0");
                          }}
                  }
              });
          }
 
-        $('#rs').blur(function () {
-            var bmid = $("#yg").val();
+        $('#zprs').blur(function () {
+            var bmid = $("#zpbmid").val();
             console.log(bmid);
             $.ajax({
                 url: "${path}/wys",
@@ -161,13 +174,14 @@
                         gwrs();
                     }else{
                         alert("部门人数已满");
+                        $("#zprs").val("0");
                     }}
                 }
             });
         });
-        $("#yg").on("change",function(){
-            var bmid = $("#yg").val();
-            console.log(bmid);
+        $("#zpbmid").on("change",function(){
+            var bmid = $("#zpbmid").val();
+            console.log("招聘岗位"+bmid);
             $.ajax({
                 url: "${path}/gwcx02",
                 type: "post",
@@ -175,31 +189,15 @@
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    $("#gw").html("<option >请选择岗位</option>");
+                    $("#zhiwei").html("<option >请选择岗位</option>");
                     for (var i = 0; i < data.length; i++) {
                         var p = data[i];
                         var html = "<option value='" + p.jsid + "'>" + p.jsname + "</option>";
-                        $("#gw").append(html);
+                        $("#zhiwei").append(html);
                     }
                 }
             });
         });
-
-
-        <%--$.ajax({--%>
-            <%--url: "${path}/qjlxselect",--%>
-            <%--type: "post",--%>
-            <%--dataType: "json",--%>
-            <%--success: function (data) {--%>
-                <%--console.log(data);--%>
-                <%--$("#qjlx").html("<option >请选择请假类型</option>");--%>
-                <%--for (var i = 0; i < data.length; i++) {--%>
-                    <%--var p = data[i];--%>
-                    <%--var html = "<option value='" + p.qjlxid + "'>" + p.qjlxname + "</option>";--%>
-                    <%--$("#qjlx").append(html);--%>
-                <%--}--%>
-            <%--}--%>
-        <%--});--%>
     }
     $().ready(function () {
             gg();

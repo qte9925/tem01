@@ -58,12 +58,11 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<form class="form-inline" role="form" id="name02" style="margin-top: 20px;padding-left: 20px;">
-    <button class="btn btn-default btn-sm"><a href="zhaopininsert.jsp">制定招聘需求</a></button>
-</form>
 <div id="ccc">
+
 <table class="table table-bordered" style="margin-left: 20px;" >
     <caption id="cap">招聘需求</caption>
+    <button class="btn  btn-xm zpjh01"><a href="zpsinsert.jsp">新建招聘计划</a></button>
     <thead >
     <tr>
         <th>需求编号</th>
@@ -82,16 +81,17 @@
         <Td>{{i.bmname}}</Td>
         <Td>{{i.yonggongriqi02}}</Td>
         <Td>
-            <input class="btn btn-primary btn-xm"  type="button" onclick="zpxq('{{i.zpxqid}}');" value="详情">
-            <input class="btn btn-primary btn-xm" v-if="i.djid == ${sessionScope.list[0].ryid}" type="button" onclick="xiugai('{{i.zpxqid}}')" value="修改"  />
-            <input class="btn btn-primary btn-xm" v-if="i.djid == ${sessionScope.list[0].ryid}"  type="button" onclick="sanchu('{{i.zpxqid}}')" value="删除"  />
+            <input class="btn btn-primary btn-xm" type="button" onclick="zpxq('{{i.zpxqid}}');" value="详情">
+            <input class="btn btn-primary btn-xm zpjh01" type="button"  onclick="zpjh('{{i.zpxqid}}');" value="创建招聘计划">
         </Td>
     </tr>
     </tbody>
 </table>
 </div>
 <script type="text/javascript">
-
+    function zpjh(id) {
+        window.location.href="zpsinsert.jsp?id="+id;
+    }
     function zpxq(id){
 
         //手动打开模态框
@@ -105,8 +105,8 @@
                 for(var i=0;i<data.length;i++){
                     var p= data[i];
                     $("#bh").text(p.zpxqid);
-                    $("#xqrs").text(p.xuqiurenshu);
                     $("#xqgw").text(p.jsname);
+                    $("#xqrs").text(p.xuqiurenshu);
                     $("#bm").text(p.bmname);$("#ygrq").text(p.yonggongriqi02);
                     $("#qxxq").text(p.gwyaoqiu);$("#bz").text(p.beizhu);
                 }
@@ -114,11 +114,27 @@
         });
         $('#myModal').modal('show');
     }
+    function  dd() {
+        $.ajax({
+            url: "${path}/bmhcx",
+            type: "post",
+            data:{"id":'${sessionScope.list[0].ryid}'},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if(data[0].rybmid == 1){
+                    $(".zpjh01").show();
+                }else{
+                    $(".zpjh01").hide();
+                }
+
+            }
+        });
+    }
     function gg(){
         $.ajax({
-            url: "${path}/zpcxgrbm",
+            url: "${path}/zpcx01",
             type: "post",
-            data:{"a1":'${sessionScope.list[0].ryid}'},
             dataType: "json",
             success: function (data) {
                 console.log(data);
@@ -132,7 +148,10 @@
         });
     }
     $().ready(function () {
+        console.log("1111"+'${sessionScope.list[0].rybmid}');
             gg();
+            dd();
+
     });
 </script>
 </body>
