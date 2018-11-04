@@ -3,7 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wf.dao.Kqdao">
 
-
+    <select id="cxsxb02" resultType="java.util.Map" parameterType="java.util.Map">
+      SELECT a.ryshangji,b.* from wfstafftable a,wf_qingjia  b where b.qjryid = a.ryid and b.qjzt=1 and
+    if(b.shenpirenid=0,a.ryshangji = 8,(SELECT a.ryshangji from wfstafftable a,wf_qingjia  b where b.shenpirenid = a.ryid and b.qjzt=1 )=8)
+    </select>
 
     <insert id="qdinsert" parameterType="java.util.Map">
     insert into wf_qiandao(qiandaoid,qdryid,qdstatic) values(null,#{id006},0)

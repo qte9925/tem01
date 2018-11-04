@@ -6,8 +6,104 @@
     insert into wf_zhaopinxuqiu(xuqiubmid,xuqiugangwei,xuqiurenshu,djid,yonggongriqi,beizhu,gwyaoqiu)
 VALUES(#{xuqiubmid},#{xuqiugangwei},#{xuqiurenshu},#{djid},#{yonggongriqi},#{beizhu},#{gwyaoqiu})
     </insert>
+    <select id="zpcxgrbm" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02
+        from wf_zhaopinxuqiu a,wfdepartment b  where xqzt = 0 and b.bmid=a.xuqiubmid
+     <if test="a1">
+         and b.bmid = (SELECT rybmid from wfstafftable where ryid=#{a1} )
+     </if>
+    </select>
     <select id="zpcx01" resultType="java.util.Map" parameterType="java.util.Map">
-     SELECT a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02 from wf_zhaopinxuqiu a,wfdepartment b where xqzt = 0 and b.bmid=a.xuqiubmid
+     SELECT a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02
+     from wf_zhaopinxuqiu a,wfdepartment b where xqzt = 0 and b.bmid=a.xuqiubmid
+    </select>
+    <select id="zpcx02" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT c.*,a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02
+        from wf_zhaopinxuqiu a,wfdepartment b, wfjsb c where xqzt = 0 and b.bmid=a.xuqiubmid and c.jsid = a.xuqiugangwei
+     <if test="zpxqid != null">
+         and zpxqid = #{zpxqid}
+     </if>
+    </select>
+    <select id="zpbmxq" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * from wfstafftable a, wfdepartment b where 1 = 1
+         <if test="ryid!=null">
+         and   a.rybmid = b.bmid
+         and a.ryid = #{ryid}
+         </if>
+    </select>
+    <select id="zpbmxq02" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * from  wfdepartment
+    </select>
+    <select id="wys" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT a.xzrs-count(*) as bmrs  from wfdepartment a, wfstafftable b where a.bmid=b.rybmid
+        <if test="id!=null">
+            and b.rybmid = #{id}
+        </if>
+    </select>
+    <select id="gwrs" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT xzrs-count(*) as gwrs from wfjsb where
+        <if test="id!=null">
+            jsid = #{id}
+        </if>
+    </select>
+    <select id="bmhcx" resultType="java.util.Map" parameterType="java.util.Map">
+    SELECT rybmid from wfstafftable where 1=1
+    <if test="id"></if>
+    and ryid =#{id}
     </select>
 
+    <select id="gwcx01" resultType="java.util.Map" parameterType="java.util.Map" >
+        SELECT rybmid from wfstafftable where 1=1
+        <if test="bmid!=null">
+            and ryid =#{bmid}
+        </if>
+    </select>
+    <select id="gwcx02" resultType="java.util.Map" parameterType="java.util.Map" >
+        SELECT * from wfjsb where
+        <if test="bmid!=null">
+            jsbmid =#{bmid}
+        </if>
+    </select>
+    <select id="cxzjhs" resultType="java.util.Map" parameterType="java.util.Map" >
+        SELECT a.*,b.jsname,DATE_FORMAT(a.djsj,'%Y-%m-%d %H:%i:%S') as djsj01 from wf_zps a, wfjsb b where 1=1
+        and b.jsid = a.zhiwei
+        <if test="id!=null">
+            and  a.zdry =#{id}
+        </if>
+    </select>
+    <update id="zpsxiugai" parameterType="java.util.Map">
+        update wf_zps set
+        <if test="skzt!=null">
+            skzt = #{skzt}
+        </if>
+        <if test="shrid!=null">
+            ,shrid =#{shrid}
+        </if>
+        <if test="skyj!=null">
+            ,skyj =#{skyj}
+        </if>
+        <if test="shrname">
+            ,shrname=#{shrname}
+        </if>
+         where 1 = 1
+        <if test="zpsid!=null">and zpsid = #{zpsid}</if>
+
+    </update>
+    <select id="daishenkecx" resultType="java.util.Map" parameterType="java.util.Map" >
+        SELECT * from wf_zps where 1=1
+        <if test="id!=null">
+            and skzt = #{id}
+        </if>
+    </select>
+
+    <select id="gjidcx" resultType="java.util.Map" parameterType="java.util.Map" >
+        SELECT * from wf_zps where 1 = 1
+        <if test="zpsid!=null">
+            and zpsid = #{zpsid}
+        </if>
+    </select>
+    <insert id="zpsinsert" parameterType="java.util.Map">
+        insert into wf_zps(zpsid,zpbmid,zpsname,zhiwei,zhiweixinxixx,tgxinzi,zprs,zpzt,zdry,skzt,fulidaiyu)
+        VALUES(null,#{zpbmid},#{zpsname},#{zhiwei},#{zhiweixinxixx},#{tgxinzi},#{zprs},0,#{zdry},0,#{fulidaiyu})
+    </insert>
 </mapper>

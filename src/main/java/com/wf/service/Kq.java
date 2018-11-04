@@ -1,5 +1,6 @@
 package com.wf.service;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -16,5 +17,6 @@ public interface Kq {
     List<Map> qjspxq(Map map);
     List<Map> cxqbcc(Map map);
     int chuchaiinsert(Map map );
+    String InputExcel(InputStream is, String originalFilename);
 
 }

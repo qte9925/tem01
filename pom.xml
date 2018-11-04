@@ -44,6 +44,12 @@
     </properties>
 
     <dependencies>
+        <!-- 		导入execl jar包 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.7</version>
+        </dependency>
 
         <!-- 数据库连接池 -->
         <dependency>

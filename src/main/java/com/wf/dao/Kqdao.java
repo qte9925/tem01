@@ -19,5 +19,5 @@ public interface Kqdao {
     List<Map> qjspxq(Map map);
     List<Map> cxqbcc(Map map);
     int chuchaiinsert(Map map );
-
+    int InputExcel(Map map);
 }

@@ -1,20 +1,46 @@
 package com.wf.service;
 
 import com.wf.dao.Kqdao;
+import com.wf.util.Excel001;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.InputStream;
+import java.util.*;
 
 @Transactional
 @Service
 public class KqIm implements Kq {
     @Autowired
     private Kqdao dao;
+    @Autowired
+    private Excel001 Excel001;
+    @Override
+    public String InputExcel(InputStream is, String originalFilename) {
+        Map<String,Object> ginsengMap = new HashMap<String,Object>();
+        List<ArrayList<Object>> list;
+        if (originalFilename.endsWith(".xls")) {
+//            list = Excel001.readExcel2003(is);
+            list = null;
+        } else {
+            list = Excel001.readExcel2007(is);
+        }
+        for (int i=0,j=list.size();i<j;i++){
+            List<Object> row = list.get(i);
+            for(int c=0;c<row.size();c++){
+                System.out.println(row.get(c));
+            }
+//            System.out.println(row.get(0));
+//            ginsengMap.put("name", row.get(0).toString());
+//            ginsengMap.put("sex", row.get(1).toString());
+//            ginsengMap.put("email", row.get(2).toString());
+//            ginsengMap.put("dept_id", row.get(3).toString());
+//            dao.InputExcel(ginsengMap);
+        }
+        return "01";
+    }
+
 
     //查询工作日历
     public List<Map> gzrl(Map map) {
