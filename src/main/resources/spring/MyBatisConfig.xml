@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
     <!-- 别名 -->
-   <!-- <typeAliases>
-        <package name="com.*.entity"/>
-    </typeAliases>-->
+    <!-- <typeAliases>
+         <package name="com.*.entity"/>
+     </typeAliases>-->
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageHelper">
             <property value="mysql" name="dialect"/>
