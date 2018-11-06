@@ -23,7 +23,22 @@ public class Kqconroller {
     @Autowired
     private Kq se;
 
-    //
+
+    @RequestMapping("/cxqj03")
+    @ResponseBody
+    public List<Map> cxqj03(@RequestParam Map map) {
+        return se.cxqj03(map);
+    }
+    @RequestMapping("/qjxqupdate")
+    @ResponseBody
+    public int qjxqupdate(@RequestParam Map map) {
+        return se.qjxqupdate(map);
+    }
+    @RequestMapping("/cxqj02")
+    @ResponseBody
+    public List<Map> cxqj02(@RequestParam Map map) {
+        return se.cxqj02(map);
+    }
     @RequestMapping(value = "/InputExcel.do")
     @ResponseBody
     public String InputExcel(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {

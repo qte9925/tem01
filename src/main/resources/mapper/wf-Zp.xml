@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wf.dao.Zpdao">
+    <select id="qtyh" resultType="java.util.Map" parameterType="java.util.Map">
+--         SELECT * from wf_qtyh where 1=1 and shoujihao =15136759732 and mima = 'w992585548' and yhstatic=0
+        SELECT * from wf_qtyh where 1=1
+        <if test="shoujihao!=null">
+            and shoujihao =#{shoujihao}
+        </if>
+        <if test="mima!=null">
+            and mima = #{mima}
+        </if>
+          and yhstatic=0
+    </select>
+    <insert id="insert_wf_qtyh" parameterType="java.util.Map">
+       insert into wf_qtyh(shoujihao,mima) VALUES(#{sjh},#{mima})
+    </insert>
     <insert id="zpjhinsert" parameterType="java.util.Map">
     insert into wf_zhaopinxuqiu(xuqiubmid,xuqiugangwei,xuqiurenshu,djid,yonggongriqi,beizhu,gwyaoqiu)
 VALUES(#{xuqiubmid},#{xuqiugangwei},#{xuqiurenshu},#{djid},#{yonggongriqi},#{beizhu},#{gwyaoqiu})

@@ -112,7 +112,7 @@
 </div>
 <script type="text/javascript" >
     $(".nav li").click(function() {
-        $(".active").removeClass('active');
+        $(".active").removeClass('active');-
         $(this).addClass("active");
     });
 </script>

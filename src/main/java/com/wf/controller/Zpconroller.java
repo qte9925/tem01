@@ -16,7 +16,28 @@ public class Zpconroller {
     @Autowired
     private Zp se;
 
-
+    //招聘前台注册
+    @RequestMapping("/insert_wf_qtyh")
+    @ResponseBody
+    public int insert_wf_qtyh(@RequestParam Map map) {
+        return se.insert_wf_qtyh(map);
+    }
+    //前台招聘登录
+    @RequestMapping("/qtyh")
+    @ResponseBody
+    public int qtyh(@RequestParam Map map,HttpSession session){
+        List list = se.qtyh(map);
+        if (list!=null){
+            if (list.size()>0){
+                session.setMaxInactiveInterval(30*60);
+                session.setAttribute("list", list);
+                return  0;
+            }else{
+                return  1;
+            }
+        }
+        return 1;
+    }
     @RequestMapping("/gjidcx")
     @ResponseBody
     public List<Map> gjidcx(@RequestParam Map map) {

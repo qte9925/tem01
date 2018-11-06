@@ -14,6 +14,9 @@
       <if test="aa!=null">
           and a.planname like '%${aa}%'
       </if>
+           <if test="Pid!=null">
+               and a.planid like '%${Pid}%'
+           </if>
   </where>
     </select>
     <delete id="deletePlan" parameterType="java.util.HashMap">

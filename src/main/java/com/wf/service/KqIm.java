@@ -16,31 +16,22 @@ public class KqIm implements Kq {
     private Kqdao dao;
     @Autowired
     private Excel001 Excel001;
+
+
     @Override
-    public String InputExcel(InputStream is, String originalFilename) {
-        Map<String,Object> ginsengMap = new HashMap<String,Object>();
-        List<ArrayList<Object>> list;
-        if (originalFilename.endsWith(".xls")) {
-//            list = Excel001.readExcel2003(is);
-            list = null;
-        } else {
-            list = Excel001.readExcel2007(is);
-        }
-        for (int i=0,j=list.size();i<j;i++){
-            List<Object> row = list.get(i);
-            for(int c=0;c<row.size();c++){
-                System.out.println(row.get(c));
-            }
-//            System.out.println(row.get(0));
-//            ginsengMap.put("name", row.get(0).toString());
-//            ginsengMap.put("sex", row.get(1).toString());
-//            ginsengMap.put("email", row.get(2).toString());
-//            ginsengMap.put("dept_id", row.get(3).toString());
-//            dao.InputExcel(ginsengMap);
-        }
-        return "01";
+    public List<Map> cxqj03(Map map) {
+        return dao.cxqj03(map);
     }
 
+    @Override
+    public List cxqj02(Map map) {
+        return dao.cxqj02(map);
+    }
+
+    @Override
+    public int qjxqupdate(Map map) {
+        return dao.qjxqupdate(map);
+    }
 
     //查询工作日历
     public List<Map> gzrl(Map map) {
@@ -100,5 +91,29 @@ public class KqIm implements Kq {
    //增加出差表
     public int chuchaiinsert(Map map) {
         return dao.chuchaiinsert(map);
+    }
+    @Override
+    public String InputExcel(InputStream is, String originalFilename) {
+        Map<String,Object> ginsengMap = new HashMap<String,Object>();
+        List<ArrayList<Object>> list;
+        if (originalFilename.endsWith(".xls")) {
+//            list = Excel001.readExcel2003(is);
+            list = null;
+        } else {
+            list = Excel001.readExcel2007(is);
+        }
+        for (int i=0,j=list.size();i<j;i++){
+            List<Object> row = list.get(i);
+            for(int c=0;c<row.size();c++){
+                System.out.println(row.get(c));
+            }
+//            System.out.println(row.get(0));
+//            ginsengMap.put("name", row.get(0).toString());
+//            ginsengMap.put("sex", row.get(1).toString());
+//            ginsengMap.put("email", row.get(2).toString());
+//            ginsengMap.put("dept_id", row.get(3).toString());
+//            dao.InputExcel(ginsengMap);
+        }
+        return "01";
     }
 }

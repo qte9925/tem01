@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="${path}/jds/laydate/laydate.js"></script>
 </head>
 <body>
 <div>
@@ -57,7 +58,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    请填写驳回理由
+                    请设置发件时间
                 </h4>
             </div>
             <div class="modal-body">
@@ -66,7 +67,7 @@
                         <table>
                             <tr>
                                 <td>
-                                    <textarea rows="10" cols="50" id="bz1"></textarea>
+                                    日期：<input type="text" id="rq">
                                 </td>
                             </tr>
                         </table>
@@ -76,8 +77,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary" id="bh">
-                    驳回
+                <button type="button" class="btn btn-primary" id="updateGzt">
+                    确定
                 </button>
             </div>
         </div><!-- /.modal-content -->
@@ -105,7 +106,7 @@
                         tr=tr+"    <td>"+st.jzrq+"</td>";
                         tr=tr+"    <td>"+st.gzyf+"</td>";
                         tr=tr+"    <td>"+st.bz+"</td>";
-                        tr=tr+"    <td><input type=\"button\" value='发放工资' onclick='aa("+st.id+")' class=\"btn btn-primary\"  />";
+                        tr=tr+"    <td><input type=\"button\" value='发邮件' onclick='aa("+st.id+")' class=\"btn btn-primary\"  data-toggle=\"modal\" data-target=\"#myModala\"/>";
                         tr=tr+"   </tr>";
                         $("#tbody").append(tr);
                     }
@@ -141,22 +142,44 @@
         else nowPage = Number(nowPage) - 1;
         searchInfo(nowPage);
     };
+    lay('#version').html('-v'+ laydate.v);
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#rq' //指定元素
+    });
     function aa(id) {
+        $("#updateGzt").click(function () {
+            alert(id)
         $.ajax({
-            url:"${path}/updateXf",
-            data:{"id":id,
-                "state":4,
-                "shr":"李四",
+            url:"${path}/updateGza",
+            data:{"lcid":id,
+                  "bz":$("#rq").val(),
             },
             dataType:"json",
             type:"post",
             success:function(data){
-                if(data>0){
+
                     window.location.reload();
 
-                }
+
             }
         });
+            $.ajax({
+                url:"${path}/updateXf",
+                data:{"id":id,
+                    "state":4,
+                },
+                dataType:"json",
+                type:"post",
+                success:function(data){
+
+                    window.location.reload();
+
+
+                }
+            });
+        })
     }
 
 </script>

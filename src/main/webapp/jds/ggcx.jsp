@@ -28,13 +28,13 @@
 </head>
 <body>
 <center>
-    员工姓名:<input type="text" id="mjs">
+    发布人:<input type="text" id="mjs">
     <button id="selectBtn" class="btn btn-primary">查询</button>
     <button id="addBtn"  class="btn btn-primary" >增加</button>
 </center>
 <div>
     <center>
-        <table >
+        <table class="table table-bordered"  >
             <tr>
                 <td>序号</td>
                 <td>发布人</td>
@@ -108,6 +108,9 @@
     function aa(id) {
        window.location.href="${path}/jds/ggcx1.jsp?idd="+id;
     }
+    $("#addBtn").click(function () {
+        window.location.href="${path}/jds/test.jsp";
+    })
 </script>
 
 </html>

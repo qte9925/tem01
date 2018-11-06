@@ -32,4 +32,32 @@ public class NoticeServiceImpl implements NoticeService{
     public Map selectNa(int id) {
         return nm.selectNa(id);
     }
+
+    @Override
+    public int updateN(Map map) {
+        return nm.updateN(map);
+    }
+
+    @Override
+    public List<Map> cc02(Map map) {
+        return nm.cc02(map);
+    }
+
+    @Override
+    public PageInfo<Map> selectG(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=nm.selectG(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+
+    @Override
+    public PageInfo<Map> selectG1(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=nm.selectG1(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+
+
 }

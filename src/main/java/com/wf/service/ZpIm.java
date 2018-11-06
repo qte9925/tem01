@@ -15,6 +15,16 @@ public class ZpIm implements Zp{
     @Autowired
     private Zpdao dao;
 
+    //招聘前台注册
+    public int insert_wf_qtyh(Map map) {
+        return dao.insert_wf_qtyh(map);
+    }
+
+    //招聘前台登录
+    public List<Map> qtyh(Map map) {
+        return dao.qtyh(map);
+    }
+
     //根据ID查询任务书详情
     public List<Map> gjidcx(Map map) {
         return dao.gjidcx(map);

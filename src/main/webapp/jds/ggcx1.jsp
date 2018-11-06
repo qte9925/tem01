@@ -26,26 +26,51 @@
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
+<style>
+    #aaa{
+
+        margin-left: 150px;
+    }
+</style>
 <body>
 <div>
     <center>
+        <h1>公告</h1>
     <table>
         <tr>
             <td>
-                <font> ${param.idd}</font>
+                发布人：<font id="ygxm"> </font>
+            </td>
+
+
+            <td>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                发布时间： <font id="rq"></font>
+
             </td>
         </tr>
         <tr>
-            <td>
-                <font> aa</font>
+        <td>
 
-            </td>
-            <td>
-                <font> &nbsp;&nbsp;&nbsp;</font>
+                <h2>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-            </td>
-            <td>
-                <font> aa</font>
+               主题： <font id="zt"></font>
+                </h2>
 
             </td>
         </tr>
@@ -53,6 +78,11 @@
     </center>
 </div>
 <div id="aaa"></div>
+<div>
+<center>
+    <button id="CloseB"  class="btn btn-primary" >关闭</button>
+</center>
+</div>
 </body>
 <script type="text/javascript">
     var id=${param.idd}
@@ -66,8 +96,9 @@
               type:"post",
               success:function(data) {
                   console.log(data.nr)
-
-
+                  $("#ygxm").html(data.ygxm);
+                  $("#rq").html(data.rq);
+                  $("#zt").html(data.zt);
                   $("#aaa").html(data.nr);
 
 
@@ -75,6 +106,9 @@
           });
 
   })
+    $("#CloseB").click(function () {
+                   window.location.href="${path}/jds/ggcx.jsp"
+    })
 </script>
 
 </html>

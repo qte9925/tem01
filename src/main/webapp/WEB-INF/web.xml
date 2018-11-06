@@ -37,12 +37,12 @@
     <!-- shiro过滤器 结束-->
     <!-- 配置总的调度器 开始 -->
 
-    <!-- <servlet>
-        <servlet-name>ContextLoaderListener</servlet-name>
+   <!-- <servlet>
+       <servlet-name>ContextLoaderListener</servlet-name>
 
-         <servlet-class>org.springframework.web.context.ContextLoaderListener</servlet-class>
+        <servlet-class>org.springframework.web.context.ContextLoaderListener</servlet-class>
 
-     </servlet>-->
+    </servlet>-->
     <servlet>
 
         <servlet-name>hello</servlet-name>

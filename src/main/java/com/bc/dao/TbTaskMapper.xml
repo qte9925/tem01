@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.TbTaskMapper">
+  <resultMap id="BaseResultMap" type="com.bc.entity.TbTask">
+    <id column="tb_task_id" jdbcType="INTEGER" property="tbTaskId" />
+    <result column="tb_staff_id" jdbcType="INTEGER" property="tbStaffId" />
+    <result column="tb_step_id" jdbcType="INTEGER" property="tbStepId" />
+    <result column="tb_dept_kh_id" jdbcType="INTEGER" property="tbDeptKhId" />
+    <result column="tb_prople_ygkh_id" jdbcType="INTEGER" property="tbPropleYgkhId" />
+    <result column="tb_task_name" jdbcType="VARCHAR" property="tbTaskName" />
+    <result column="tb_task_text" jdbcType="VARCHAR" property="tbTaskText" />
+    <result column="tb_task_startTime" jdbcType="TIMESTAMP" property="tbTaskStarttime" />
+    <result column="tb_task_endTime" jdbcType="TIMESTAMP" property="tbTaskEndtime" />
+    <result column="tb_task_drawTime" jdbcType="TIMESTAMP" property="tbTaskDrawtime" />
+    <result column="tb_task_pro" jdbcType="VARCHAR" property="tbTaskPro" />
+    <result column="tb_task_prod" jdbcType="VARCHAR" property="tbTaskProd" />
+    <result column="tb_task_achieve" jdbcType="INTEGER" property="tbTaskAchieve" />
+    <result column="tb_task_state" jdbcType="INTEGER" property="tbTaskState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_task_id, tb_staff_id, tb_step_id, tb_dept_kh_id, tb_prople_ygkh_id, tb_task_name,
+    tb_task_text, tb_task_startTime, tb_task_endTime, tb_task_drawTime, tb_task_pro,
+    tb_task_prod, tb_task_achieve, tb_task_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_task
+    where tb_task_id = #{tbTaskId,jdbcType=INTEGER}
+  </select>
+  <select id="SelectEventMark" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select tb_event_mark from tb_event where tb_event_id =#{TbEventId}
+  </select>
+  <!--查询数据-->
+  <select id="selectTbTask" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    select t.tb_task_id,t.tb_task_name,e.tb_step_nam ,s.tb_staff_name,y.tb_prople_ygkh_name,
+    date_format(tb_task_startTime,'%Y-%m-%d') as tb_task_startTime,
+    date_format(tb_task_endTime,'%Y-%m-%d') as tb_task_endTime,t.tb_task_state,p.tb_post_id,s.tb_staff_id from
+    tb_task t,
+    tb_step e,
+    tb_staff s,
+    tb_prople_ygkh y,
+    tb_staff_post_relationship r,
+    tb_post p,
+    tb_dept d
+    <where>
+      <if test=" tbTaskName != null ">
+        and tb_task_name like '%${tbTaskName}%'
+      </if>
+      <if test = "state != null">
+          and t.tb_task_state in 
+          <foreach collection="state" item="s" separator="," open="(" close=")">
+            #{s}
+          </foreach>
+      </if>
+      and t.tb_step_id = e.tb_step_id
+      and t.tb_staff_id =s.tb_staff_id
+      and y.tb_task_id = t.tb_task_id
+      and r.tb_staff_id = s.tb_staff_id
+      and r.tb_post_id = p.tb_post_id
+      and p.tb_dept_id = d.tb_dept_id
+      and t.tb_staff_id = s.tb_staff_id
+    </where>
+    GROUP BY t.tb_task_name
+  </select>
+
+  <!--根据任务id查询被考核人部门-->
+  <select id="selecttaskdept" resultType="java.util.HashMap" parameterType="Integer">
+    select DISTINCT p.tb_post_id,p.tb_post_name,d.tb_dept_id,d.tb_dept_name,d.tb_dept_men,p.tb_post_id,t.tb_task_id,t.tb_task_state from
+    tb_staff_post_relationship r,
+    tb_staff s,
+    tb_post p,
+    tb_dept d,
+    tb_task t
+    <where>
+      r.tb_staff_id = s.tb_staff_id
+      and r.tb_post_id = p.tb_post_id
+      and p.tb_dept_id = d.tb_dept_id
+      and t.tb_staff_id = s.tb_staff_id
+      and tb_task_id = #{taskid}
+    </where>
+  </select>
+  <!--查询数据 post-->
+  <select id="selectPostid" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select DISTINCT t.tb_task_id,d.tb_dept_name,t.tb_task_name,p.tb_post_id,h.tb_prople_ygkh_name,s.tb_staff_type from
+    tb_staff_post_relationship r,
+    tb_staff s,
+    tb_post p,
+    tb_dept d,
+    tb_prople_ygkh h,
+    tb_task t
+    <where> r.tb_staff_id = s.tb_staff_id
+      and r.tb_post_id = p.tb_post_id
+      and p.tb_dept_id = d.tb_dept_id
+      and t.tb_staff_id = s.tb_staff_id
+      and h.tb_task_id = t.tb_task_id
+      and t.tb_task_name = #{tbTaskName}
+    </where>
+
+  </select>
+  <!--查询根据taskid考核项-->
+  <select id="selectDetailone" resultType="java.util.HashMap" parameterType="Integer" >
+    select DISTINCT d.tb_detailone_id , d.tb_detailone_name,e.tb_event_mark,e.tb_event_id, e.tb_event_value,t.tb_task_id,t.tb_task_name from
+    tb_detailone d,tb_event e,tb_task t
+    <where> d.tb_event_id = e.tb_event_id
+      and d.tb_task_id = t.tb_task_id
+      and t.tb_task_id = #{taskid}
+    </where>
+  </select>
+  <select id="SelectPostBytbPostId" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+     select s.tb_staff_id,s.tb_staff_name from tb_staff_post_relationship r,
+        tb_staff s,
+        tb_post p
+        <where>
+        and r.tb_staff_id = s.tb_staff_id
+        and r.tb_post_id = p.tb_post_id
+        and p.tb_post_id = #{tbPostId}
+        </where>
+  </select>
+  <select id="SelectStaffBytbPostId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select s.tb_staff_id from tb_staff_post_relationship r,
+    tb_staff s,
+    tb_post p
+    <where>
+      and r.tb_staff_id = s.tb_staff_id
+      and r.tb_post_id = p.tb_post_id
+      and p.tb_dept_id = #{tbDeptId}
+    </where>
+  </select>
+  <!--//查询-->
+  <!--UpdateTaskState-->
+  <select id="SelectTbTaskMaxid" resultType="java.lang.Integer">
+  select max(tb_task_id) from tb_task
+  </select>
+  <select id="SelectTbDeptKhId" resultType="java.lang.Integer">
+  select max(tb_dept_kh_id) from tb_dept_kh
+  </select>
+  <select id="SelectTbPostByid" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+  select * from tb_post where tb_dept_id=#{tbDeptId}
+  </select>
+  <!--根据Staffid查询员工姓名-->
+  <select id="SelectStaffId" parameterType="java.lang.Integer" resultType="java.lang.String">
+      select tb_staff_name from tb_staff where tb_staff_id=#{tbStaffId}
+  </select>
+  <!--查询步骤-->
+  <select id = "selectStep" resultType="java.util.HashMap">
+       select * from tb_step
+  </select>
+  <!--/*根据id查询数据*/-->
+  <update id = "UpdateTaskState">
+    update tb_task set tb_task_state = 3 where tb_task_id =  #{taskid}
+  </update>
+  <select id="selectTaskID" resultType="java.util.HashMap" parameterType="int">
+    select  t.*,sp.* , d.tb_dept_id,p.tb_post_id,date_format(t.tb_task_startTime,'%Y-%m-%d') as startT ,
+    date_format(t.tb_task_endTime,'%Y-%m-%d') as entT
+    from tb_task t,tb_staff s,tb_post p, tb_dept d,
+    tb_step sp,tb_staff_post_relationship spr
+    <where>
+      and t.tb_staff_id =  s.tb_staff_id
+      and p.tb_post_id = spr.tb_post_id
+      and spr.tb_staff_id = s.tb_staff_id
+      and p.tb_dept_id = d.tb_dept_id
+      and sp.tb_step_id = t.tb_step_id
+      and t.tb_task_id = #{taskid}
+    </where>
+   </select>
+  <!--修改-->
+  <update id = "UpdateTask" parameterType="java.util.HashMap">
+      update tb_task set tb_task_id=#{tbTaskId},tb_staff_id=#{tbStaffId},tb_step_id=#{tbStepId},
+        tb_task_name=#{tbTaskName}, tb_task_text=#{tbTaskText},
+        tb_task_startTime=#{tbTaskStarttime},tb_task_endTime=#{tbTaskEndtime},
+        tb_task_state=#{tbTaskState}
+        where tb_task_id = #{tbTaskId}
+   </update>
+  <select id = "selectTaskId" resultType="java.util.HashMap">
+       select tb_task_id  from tb_task
+  </select>
+
+  <select id="selectEndTime" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+       select date_format(tb_task_endTime,'%Y-%m-%d') as tb_task_endTime from tb_task where tb_task_id = #{taskid}
+  </select>
+  <!--根据id删除考核任务-->
+  <delete id = "DeleteTaskid"  >
+    update tb_task set tb_task_state = 0 where tb_task_id = #{taskid}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_task
+    where tb_task_id = #{tbTaskId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bc.entity.TbTask">
+    insert into tb_task (tb_task_id, tb_staff_id, tb_step_id,
+       tb_task_name,tb_task_text,
+       tb_task_startTime, tb_task_endTime,
+      tb_task_pro, tb_task_prod,
+      tb_task_achieve, tb_task_state)
+    values (#{tbTaskId,jdbcType=INTEGER}, #{tbStaffId,jdbcType=INTEGER}, #{tbStepId,jdbcType=INTEGER},
+       #{tbTaskName,jdbcType=VARCHAR},
+      #{tbTaskText,jdbcType=VARCHAR}, #{tbTaskStarttime,jdbcType=TIMESTAMP}, #{tbTaskEndtime,jdbcType=TIMESTAMP},
+      #{tbTaskPro,jdbcType=VARCHAR}, #{tbTaskProd,jdbcType=VARCHAR},
+      #{tbTaskAchieve,jdbcType=INTEGER}, #{tbTaskState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bc.entity.TbTask">
+    insert into tb_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbTaskId != null">
+        tb_task_id,
+      </if>
+      <if test="tbStaffId != null">
+        tb_staff_id,
+      </if>
+      <if test="tbStepId != null">
+        tb_step_id,
+      </if>
+      <if test="tbDeptKhId != null">
+        tb_dept_kh_id,
+      </if>
+      <if test="tbPropleYgkhId != null">
+        tb_prople_ygkh_id,
+      </if>
+      <if test="tbTaskName != null">
+        tb_task_name,
+      </if>
+      <if test="tbTaskText != null">
+        tb_task_text,
+      </if>
+      <if test="tbTaskStarttime != null">
+        tb_task_startTime,
+      </if>
+      <if test="tbTaskEndtime != null">
+        tb_task_endTime,
+      </if>
+      <if test="tbTaskDrawtime != null">
+        tb_task_drawTime,
+      </if>
+      <if test="tbTaskPro != null">
+        tb_task_pro,
+      </if>
+      <if test="tbTaskProd != null">
+        tb_task_prod,
+      </if>
+      <if test="tbTaskAchieve != null">
+        tb_task_achieve,
+      </if>
+      <if test="tbTaskState != null">
+        tb_task_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbTaskId != null">
+        #{tbTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="tbStaffId != null">
+        #{tbStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="tbStepId != null">
+        #{tbStepId,jdbcType=INTEGER},
+      </if>
+      <if test="tbDeptKhId != null">
+        #{tbDeptKhId,jdbcType=INTEGER},
+      </if>
+      <if test="tbPropleYgkhId != null">
+        #{tbPropleYgkhId,jdbcType=INTEGER},
+      </if>
+      <if test="tbTaskName != null">
+        #{tbTaskName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbTaskText != null">
+        #{tbTaskText,jdbcType=VARCHAR},
+      </if>
+      <if test="tbTaskStarttime != null">
+        #{tbTaskStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tbTaskEndtime != null">
+        #{tbTaskEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tbTaskDrawtime != null">
+        #{tbTaskDrawtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tbTaskPro != null">
+        #{tbTaskPro,jdbcType=VARCHAR},
+      </if>
+      <if test="tbTaskProd != null">
+        #{tbTaskProd,jdbcType=VARCHAR},
+      </if>
+      <if test="tbTaskAchieve != null">
+        #{tbTaskAchieve,jdbcType=INTEGER},
+      </if>
+      <if test="tbTaskState != null">
+        #{tbTaskState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="java.util.HashMap">
+    update tb_task
+    <set>
+      <if test="tbStaffId != null">
+        tb_staff_id = #{tbStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="tbStepId != null">
+        tb_step_id = #{tbStepId,jdbcType=INTEGER},
+      </if>
+      <if test="tbTaskName != null">
+        tb_task_name = #{tbTaskName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbTaskText != null">
+        tb_task_text = #{tbTaskText,jdbcType=VARCHAR},
+      </if>
+      <if test="tbTaskStarttime != null">
+        tb_task_startTime = #{tbTaskStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tbTaskEndtime != null">
+        tb_task_endTime = #{tbTaskEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tbTaskPro != null">
+        tb_task_pro = #{tbTaskPro,jdbcType=VARCHAR},
+      </if>
+      <if test="tbTaskProd != null">
+        tb_task_prod = #{tbTaskProd,jdbcType=VARCHAR},
+      </if>
+      <if test="tbTaskAchieve != null">
+        tb_task_achieve = #{tbTaskAchieve,jdbcType=INTEGER},
+      </if>
+      <if test="tbTaskState != null">
+        tb_task_state = #{tbTaskState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_task_id = #{tbTaskId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.bc.entity.TbTask">
+    update tb_task
+    set tb_staff_id = #{tbStaffId,jdbcType=INTEGER},
+      tb_step_id = #{tbStepId,jdbcType=INTEGER},
+      tb_task_name = #{tbTaskName,jdbcType=VARCHAR},
+      tb_task_text = #{tbTaskText,jdbcType=VARCHAR},
+      tb_task_startTime = #{tbTaskStarttime,jdbcType=TIMESTAMP},
+      tb_task_endTime = #{tbTaskEndtime,jdbcType=TIMESTAMP},
+      tb_task_pro = #{tbTaskPro,jdbcType=VARCHAR},
+      tb_task_prod = #{tbTaskProd,jdbcType=VARCHAR},
+      tb_task_achieve = #{tbTaskAchieve,jdbcType=INTEGER},
+      tb_task_state = #{tbTaskState,jdbcType=INTEGER}
+    where tb_task_id = #{tbTaskId,jdbcType=INTEGER}
+  </update>
+
+  <!--//查询自身绩效考核任务-->
+  <select id="selectAllTbTask" resultType="java.util.HashMap" parameterType="com.bc.entity.TbApplicantsforlanding">
+    select t.* from tb_task t
+    <where>
+      <if test="tbTaskName != null">
+        and tb_task_name = #{tbTaskName,jdbcType=VARCHAR}
+      </if>
+      <if test="tbTaskState != null">
+        and  tb_task_state = #{tbTaskState,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+
+  <select id="SelectMyTask" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+  select t.*,s.*,a.*from
+  tb_prople_ygkh p,
+  tb_task t,
+  tb_staff s,
+  tb_achresult a
+  where
+  p.tb_task_id = t.tb_task_id
+  and s.tb_staff_id=t.tb_staff_id
+  and p.tb_prople_ygkh_id = a.tb_prople_ygkh_id
+  and a.tb_task_id = t.tb_task_id
+  and p.tb_staff_id = #{tbStaffId}
+  </select>
+  <!--//查询上级评价员工-->
+  <select id="SelectOtherTask" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  select t.* ,p.*,s.* from
+  tb_task t,tb_prople_ygkh p,tb_staff s
+  where
+  p.tb_task_id = t.tb_task_id
+  and s.tb_staff_id = t.tb_staff_id
+  and t.tb_staff_id =#{tbStaffId}
+  and t.tb_task_state=3
+  GROUP BY tb_task_name
+  </select>
+ <!-- //查询考核任务人数-->
+  <select id="SelectOtherStaff" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  select p.*,a.*,t.* from
+  tb_prople_ygkh p,tb_achresult a,tb_task t
+  where
+  p.tb_task_id = t.tb_task_id
+  and a.tb_prople_ygkh_id = p.tb_prople_ygkh_id
+  and p.tb_task_id=#{tbtaskid}
+  </select>
+</mapper>

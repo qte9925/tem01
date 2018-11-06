@@ -116,6 +116,15 @@ public class WagesController {
         return pageInfo;
 
     }
+    @RequestMapping("selectXf1")
+    @ResponseBody
+    public PageInfo<Map> selectXf1(PageEntity page, @RequestParam Map map){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=ws.selectXf1(map,page);
+        return pageInfo;
+
+    }
     @RequestMapping("updateXf")
     @ResponseBody
     public int updateXf(@RequestParam Map map){
@@ -215,5 +224,12 @@ public class WagesController {
         Map map=ws.selectSy(id);
         System.out.print("查询");
         return map;
+    }
+    @RequestMapping("updateSs")
+    @ResponseBody
+    public int updateSs(@RequestParam Map map){
+        int a=ws.updateSs(map);
+        System.out.print("查询");
+        return a;
     }
 }

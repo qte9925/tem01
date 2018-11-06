@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface Zp {
-
+    int insert_wf_qtyh(Map map);
+    List<Map> qtyh(Map map);
 
     List<Map> gjidcx(Map map);
 

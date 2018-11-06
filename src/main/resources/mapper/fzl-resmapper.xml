@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fzl.dao.ResDao">
+<mapper namespace="com.fzl.dao.SlDao">
 <select id="select" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-    select * from f_resume
+    select * from f_apply
 </select>
-    <select id="select01" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        select * from f_resume where resid = #{resid}
+<insert id="insert" parameterType="java.util.HashMap">
+    insert into f_apply(Stock,category,type_name,price,number,shenpi_name,bemarks) value (#{Stock},#{category},#{type_name},#{price},#{number},#{shenpi_name},#{bemarks})
+</insert>
+    <delete id="delete" parameterType="java.util.HashMap">
+        delete  from f_apply where type_id = #{type_id}
+    </delete>
+    <select id="select01" parameterType="int" resultType="java.util.HashMap">
+        select * from f_apply where type_id = #{type_id}
     </select>
     <update id="update" parameterType="java.util.HashMap">
-        update f_resume set resname = #{resname},sex = #{sex},age = #{age},education= #{education},
-        marriage= #{marriage},Household_register= #{Household_register},Working_life= #{Working_life},
-        Living_place=#{Living_place},phone = #{phone},mailbox = #{mailbox},Expected_post = #{Expected_post},
-        Expect_annual_salary = #{Expect_annual_salary},Expected_location = #{Expected_location},Fringe_benefits = #{Fringe_benefits},
-        Personal_ability = #{Personal_ability},worke_xperience = #{work_experience},Language_ability = #{Language_ability}where resid = #{resid}
+        update f_apply set Stock = #{Stock},category = #{category},type_name = #{type_name},price = #{price},number = #{number},shenpi_name = #{shenpi_name},
+        bemarks = #{bemarks} where type_id = #{type_id}
     </update>
-    <insert id="insert" parameterType="java.util.HashMap">
-          insert into f_resume(resname,sex,age,education,marriage,Household_register,Working_life,Living_place,phone,mailbox,Expected_post,
-          Expect_annual_salary,Expected_location,Fringe_benefits,Personal_ability,worke_xperience,Language_ability
-          )values( #{resname},#{sex},#{age},#{education},#{marriage},#{Household_register},#{Working_life},#{Living_place},#{phone},#{mailbox},#{Expected_post},
-          #{Expect_annual_salary},#{Expected_location},#{Fringe_benefits},#{Personal_ability}, #{work_experience},#{Language_ability}
-          )
-    </insert>
-    <delete id="delete" parameterType="java.util.HashMap">
-      delete from f_resume where resid = #{resid}
-    </delete>
 </mapper>

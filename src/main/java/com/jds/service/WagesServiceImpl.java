@@ -80,6 +80,13 @@ public class WagesServiceImpl implements WagesService{
         PageInfo<Map> returnPage=new PageInfo<Map>(list1);
         return returnPage;
     }
+    @Override
+    public PageInfo<Map> selectXf1(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=wm.selectXf1(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
 
     @Override
     public int updateXf(Map map) {
@@ -140,6 +147,11 @@ public class WagesServiceImpl implements WagesService{
     @Override
     public Map selectSy(int id) {
         return wm.selectSy(id);
+    }
+
+    @Override
+    public int updateSs(Map map) {
+        return wm.updateSs(map);
     }
 
 

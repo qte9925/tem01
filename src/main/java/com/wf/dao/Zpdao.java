@@ -7,8 +7,8 @@ import java.util.Map;
 
 @Component
 public interface Zpdao {
-
-
+    int insert_wf_qtyh(Map map);
+    List<Map> qtyh(Map map);
     List<Map> gjidcx(Map map);
 
     int zpjhinsert(Map map);

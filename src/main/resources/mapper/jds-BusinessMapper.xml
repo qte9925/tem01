@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jds.dao.BusinessMapper">
+    <select id="selectGz" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+select xz,jxjin,yanglaobx,shiyebx,yiliaobx,sybx,gsbx,zfgjj,ygid,
+(select chidao from j_kqkx)*(select chidao from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid) as cd,
+(select qingjia from j_kqkx)*(select qjsc from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid) as qj,
+(select zaotui from j_kqkx)*(select zaotui from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid) as zt,
+xz/30*3*(select kuanggong from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid) as kg,
+(select kuanggong from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid) as kgts,
+IFNULL((SELECT sum(bfje) from j_gzbf WHERE j_gzbf.ygid=wf_hetong.ygid and state=0),0) as bf,
+(xz+jxjin/100*(SELECT sum(tb_achresult_count) from tb_achresult a,tb_task b,wfstafftable c where a.tb_task_id=b.tb_task_id and c.ryid=b.tb_staff_id)-(yanglaobx+shiyebx+yiliaobx+sybx+gsbx+zfgjj)-
+(select chidao from j_kqkx)*(select chidao from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid)-
+(select qingjia from j_kqkx)*(select qjsc from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid)-
+(select zaotui from j_kqkx)*(select zaotui from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid)-
+(30-(select zhuanzhengtianshu from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid))*xz/30*0.2-
+xz/30*3*(select kuanggong from wf_kqtj where wf_kqtj.ryid=wf_hetong.ygid)+
+IFNULL((SELECT sum(bfje) from j_gzbf WHERE j_gzbf.ygid=wf_hetong.ygid and state=0),0)) as sjgz from wf_hetong where wf_hetong.ksyf=#{gzyf}
+    </select>
+    <insert id="insertGz"  parameterType="java.util.HashMap">
+     insert into  j_gzt(ydid,xz,jxjin,yanglaobx,shiyebx,yiliaobx,sybx,gsbx,zfgjj,cd,qj,zt,kg,sjgz,bf,lcid,state,bz,bz1)values
+     (#{ydid},#{xz},#{jxjin},#{yanglaobx},#{shiyebx},#{yiliaobx},#{sybx},#{gsbx},#{zfgjj},#{cd},#{qj},#{zt},#{kg},#{sjgz},#{bf},#{lcid},0,'null','null')
+ </insert>
+    <insert id="insertBf"  parameterType="java.util.HashMap">
+     insert into  j_gzbf(ygid,bfje,bz,rq,state)values(#{ygid},#{bfje},#{bz},#{rq},0)
+
+ </insert>
+    <select id="selectBf" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_gzbf
+        <where>
+            <if test="ygid!=null">
+                and ygid like "%"#{ygid}"%"
+            </if>
+        </where>
+    </select>
+    <select id="selectGza" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_gzt where lcid=#{id}
+    </select>
+    <select id="selectGzId" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_gzt where id=#{id}
+    </select>
+    <update id="updateGz" parameterType="java.util.HashMap">
+        UPDATE j_gzt set cd=#{cd},qj=#{qj},zt=#{zt},kg=#{kg},bf=#{bf},sjgz=#{sjgz} where id=#{id}
+    </update>
+    <update id="updateGza" parameterType="java.util.HashMap">
+        UPDATE j_gzt set bz=#{bz} where lcid=#{lcid}
+    </update>
+</mapper>

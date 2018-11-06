@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.dao.lzdao">
+    <select id="lzselect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+      select * from wfdepartment;
+    </select>
+    <select id="lzzxselect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+       select a.lzyy,DATE_FORMAT(a.datetime01,'%Y-%m-%d %H:%i:%S') as datetime01,DATE_FORMAT(a.datetime02,'%Y-%m-%d %H:%i:%S') as datetime02,
+        b.ryxm,c.bmname,d.ryxm as spname,a.spzt as spzt,a.lizhiid as lizhiid
+        from wflizhi a,wfstafftable b,wfdepartment c,wfstafftable d
+        where 1=1 and b.ryid=a.ryid and c.bmid=a.bmid and d.ryid=a.spid and spzt=4;
+    </select>
+    <insert id="lzinsetes" parameterType="java.util.HashMap">
+     insert into wflizhi(ryid,bmid,lzyy,datetime01,datetime02,spid,spzt)
+     values(#{ryid},#{bmid},#{lzyy},#{datetime01},#{datetime02},#{spid},3)
+    </insert>
+    <select id="lzdjselect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select a.lzyy,DATE_FORMAT(a.datetime01,'%Y-%m-%d %H:%i:%S') as datetime01,DATE_FORMAT(a.datetime02,'%Y-%m-%d %H:%i:%S') as datetime02,
+        b.ryxm,c.bmname,d.ryxm as spname,a.spzt as spzt,a.lizhiid as lizhiid
+        from wflizhi a,wfstafftable b,wfdepartment c,wfstafftable d
+        where 1=1 and b.ryid=a.ryid and c.bmid=a.bmid and d.ryid=a.spid and spzt=3;
+    </select>
+    <update id="lzdjupdate" parameterType="java.util.HashMap">
+        update wflizhi set spzt=#{spzt} where lizhiid=#{lizhiid}
+    </update>
+    <delete id="lzzxdelete" parameterType="java.util.HashMap">
+       delete from wfyhb where yhid=#{yhid}
+    </delete>
+
+</mapper>

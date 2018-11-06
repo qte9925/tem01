@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.TbAchresultMapper">
+  <resultMap id="BaseResultMap" type="com.bc.entity.TbAchresult">
+    <id column="tb_achresult_id" jdbcType="INTEGER" property="tbAchresultId" />
+    <result column="tb_prople_ygkh_id" jdbcType="INTEGER" property="tbPropleYgkhId" />
+    <result column="tb_task_id" jdbcType="INTEGER" property="tbTaskId" />
+    <result column="tb_achresult_count" jdbcType="INTEGER" property="tbAchresultCount" />
+    <result column="tb_achresult_state" jdbcType="INTEGER" property="tbAchresultState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_achresult_id, tb_prople_ygkh_id, tb_task_id, tb_achresult_count, tb_achresult_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_achresult
+    where tb_achresult_id = #{tbAchresultId,jdbcType=INTEGER}
+  </select>
+  <!--查询结果最大值Id-->
+  <select id="SelectTbAchresultMaxid" resultType="java.lang.Integer">
+      select max(tb_achresult_id) from tb_achresult
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_achresult
+    where tb_achresult_id = #{tbAchresultId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bc.entity.TbAchresult">
+    insert into tb_achresult (tb_achresult_id, tb_prople_ygkh_id, tb_task_id, 
+      tb_achresult_count, tb_achresult_state)
+    values (#{tbAchresultId,jdbcType=INTEGER}, #{tbPropleYgkhId,jdbcType=INTEGER}, #{tbTaskId,jdbcType=INTEGER}, 
+      #{tbAchresultCount,jdbcType=INTEGER}, #{tbAchresultState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bc.entity.TbAchresult">
+    insert into tb_achresult
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbAchresultId != null">
+        tb_achresult_id,
+      </if>
+      <if test="tbPropleYgkhId != null">
+        tb_prople_ygkh_id,
+      </if>
+      <if test="tbTaskId != null">
+        tb_task_id,
+      </if>
+      <if test="tbAchresultCount != null">
+        tb_achresult_count,
+      </if>
+      <if test="tbAchresultState != null">
+        tb_achresult_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbAchresultId != null">
+        #{tbAchresultId,jdbcType=INTEGER},
+      </if>
+      <if test="tbPropleYgkhId != null">
+        #{tbPropleYgkhId,jdbcType=INTEGER},
+      </if>
+      <if test="tbTaskId != null">
+        #{tbTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="tbAchresultCount != null">
+        #{tbAchresultCount,jdbcType=INTEGER},
+      </if>
+      <if test="tbAchresultState != null">
+        #{tbAchresultState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bc.entity.TbAchresult">
+    update tb_achresult
+    <set>
+      <if test="tbPropleYgkhId != null">
+        tb_prople_ygkh_id = #{tbPropleYgkhId,jdbcType=INTEGER},
+      </if>
+      <if test="tbTaskId != null">
+        tb_task_id = #{tbTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="tbAchresultCount != null">
+        tb_achresult_count = #{tbAchresultCount,jdbcType=INTEGER},
+      </if>
+      <if test="tbAchresultState != null">
+        tb_achresult_state = #{tbAchresultState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_achresult_id = #{tbAchresultId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bc.entity.TbAchresult">
+    update tb_achresult
+    set tb_prople_ygkh_id = #{tbPropleYgkhId,jdbcType=INTEGER},
+      tb_task_id = #{tbTaskId,jdbcType=INTEGER},
+      tb_achresult_count = #{tbAchresultCount,jdbcType=INTEGER},
+      tb_achresult_state = #{tbAchresultState,jdbcType=INTEGER}
+    where tb_achresult_id = #{tbAchresultId,jdbcType=INTEGER}
+  </update>
+</mapper>

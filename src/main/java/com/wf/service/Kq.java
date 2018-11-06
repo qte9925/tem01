@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface Kq {
+    List<Map> cxqj03(Map map);
+    List cxqj02(Map map);
+    int qjxqupdate(Map map );
     List<Map> gzrl(Map map);
     List<Map> qjlxselect(Map map);
     int qingjiainsert(Map map);
