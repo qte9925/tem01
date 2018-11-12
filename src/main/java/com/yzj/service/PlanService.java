@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface PlanService {
-    public PageInfo<Map> selectPlan(PageEntity page, Map map );
+    public PageInfo<Map> selectPlan(PageEntity page, Map map);
     public int  deletePlan(Map map);
     public List selectByIdPlan(Map map);
     public int updatePlana(Map map);

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.TbStaffMapper">
+  <resultMap id="BaseResultMap" type="com.bc.entity.TbStaff">
+    <id column="tb_staff_id" jdbcType="INTEGER" property="tbStaffId" />
+    <result column="tb_report_id" jdbcType="INTEGER" property="tbReportId" />
+    <result column="tb__tb_staff_id" jdbcType="INTEGER" property="tbTbStaffId" />
+    <result column="tb_staff_name" jdbcType="VARCHAR" property="tbStaffName" />
+    <result column="tb_staff_hrName" jdbcType="VARCHAR" property="tbStaffHrname" />
+    <result column="tb_staff_sex" jdbcType="VARCHAR" property="tbStaffSex" />
+    <result column="tb_staff_card" jdbcType="VARCHAR" property="tbStaffCard" />
+    <result column="tb_staff_img" jdbcType="VARCHAR" property="tbStaffImg" />
+    <result column="tb_staff_email" jdbcType="VARCHAR" property="tbStaffEmail" />
+    <result column="tb_staff_address" jdbcType="VARCHAR" property="tbStaffAddress" />
+    <result column="tb_staff_phone" jdbcType="VARCHAR" property="tbStaffPhone" />
+    <result column="tb_staff_birthday" jdbcType="TIMESTAMP" property="tbStaffBirthday" />
+    <result column="tb_staff_entryday" jdbcType="TIMESTAMP" property="tbStaffEntryday" />
+    <result column="tb_staff_type" jdbcType="VARCHAR" property="tbStaffType" />
+    <result column="tb_staff_state" jdbcType="INTEGER" property="tbStaffState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_staff_id, tb_report_id, tb__tb_staff_id, tb_staff_name, tb_staff_hrName,
+    tb_staff_sex, tb_staff_card, tb_staff_img, tb_staff_email, tb_staff_address, tb_staff_phone, 
+    tb_staff_birthday, tb_staff_entryday, tb_staff_type, tb_staff_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_staff
+    where tb_staff_id = #{tbStaffId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_staff
+    where tb_staff_id = #{tbStaffId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bc.entity.TbStaff">
+    insert into tb_staff (tb_staff_id, tb_report_id,
+      tb__tb_staff_id, tb_staff_name, tb_staff_hrName, 
+      tb_staff_sex, tb_staff_card, tb_staff_img, 
+      tb_staff_email, tb_staff_address, tb_staff_phone, 
+      tb_staff_birthday, tb_staff_entryday, tb_staff_type, 
+      tb_staff_state)
+    values (#{tbStaffId,jdbcType=INTEGER},  #{tbReportId,jdbcType=INTEGER},
+      #{tbTbStaffId,jdbcType=INTEGER}, #{tbStaffName,jdbcType=VARCHAR}, #{tbStaffHrname,jdbcType=VARCHAR}, 
+      #{tbStaffSex,jdbcType=VARCHAR}, #{tbStaffCard,jdbcType=VARCHAR}, #{tbStaffImg,jdbcType=VARCHAR}, 
+      #{tbStaffEmail,jdbcType=VARCHAR}, #{tbStaffAddress,jdbcType=VARCHAR}, #{tbStaffPhone,jdbcType=VARCHAR}, 
+      #{tbStaffBirthday,jdbcType=TIMESTAMP}, #{tbStaffEntryday,jdbcType=TIMESTAMP}, #{tbStaffType,jdbcType=VARCHAR}, 
+      #{tbStaffState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertStaff" useGeneratedKeys="true" keyProperty="newId" parameterType="java.util.HashMap">
+    insert into tb_staff
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbStaffId != null">
+        tb_staff_id,
+      </if>
+      <if test="tbReportId != null">
+        tb_report_id,
+      </if>
+      <if test="tbTbStaffId != null">
+        tb__tb_staff_id,
+      </if>
+      <if test="tbStaffName != null">
+        tb_staff_name,
+      </if>
+      <if test="tbStaffHrname != null">
+        tb_staff_hrName,
+      </if>
+      <if test="tbStaffSex != null">
+        tb_staff_sex,
+      </if>
+      <if test="tbStaffCard != null">
+        tb_staff_card,
+      </if>
+      <if test="tbStaffImg != null">
+        tb_staff_img,
+      </if>
+      <if test="tbStaffEmail != null">
+        tb_staff_email,
+      </if>
+      <if test="tbStaffAddress != null">
+        tb_staff_address,
+      </if>
+      <if test="tbStaffPhone != null">
+        tb_staff_phone,
+      </if>
+      <if test="tbStaffBirthday != null">
+        tb_staff_birthday,
+      </if>
+      <if test="tbStaffEntryday != null">
+        tb_staff_entryday,
+      </if>
+      <if test="tbStaffType != null">
+        tb_staff_type,
+      </if>
+      <if test="tbStaffState != null">
+        tb_staff_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbStaffId != null">
+        #{tbStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="tbReportId != null">
+        #{tbReportId,jdbcType=INTEGER},
+      </if>
+      <if test="tbTbStaffId != null">
+        #{tbTbStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="tbStaffName != null">
+        #{tbStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffHrname != null">
+        #{tbStaffHrname,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffSex != null">
+        #{tbStaffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffCard != null">
+        #{tbStaffCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffImg != null">
+        #{tbStaffImg,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffEmail != null">
+        #{tbStaffEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffAddress != null">
+        #{tbStaffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffPhone != null">
+        #{tbStaffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffBirthday != null">
+        date_format(#{tbStaffBirthday},'%Y-%m-%d'),
+      </if>
+      <if test="tbStaffEntryday != null">
+        date_format(#{tbStaffEntryday},'%Y-%m-%d'),
+      </if>
+      <if test="tbStaffType != null">
+        #{tbStaffType,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffState != null">
+        #{tbStaffState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bc.entity.TbStaff">
+    update tb_staff
+    <set>
+      <if test="tbReportId != null">
+        tb_report_id = #{tbReportId,jdbcType=INTEGER},
+      </if>
+      <if test="tbTbStaffId != null">
+        tb__tb_staff_id = #{tbTbStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="tbStaffName != null">
+        tb_staff_name = #{tbStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffHrname != null">
+        tb_staff_hrName = #{tbStaffHrname,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffSex != null">
+        tb_staff_sex = #{tbStaffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffCard != null">
+        tb_staff_card = #{tbStaffCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffImg != null">
+        tb_staff_img = #{tbStaffImg,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffEmail != null">
+        tb_staff_email = #{tbStaffEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffAddress != null">
+        tb_staff_address = #{tbStaffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffPhone != null">
+        tb_staff_phone = #{tbStaffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffBirthday != null">
+        tb_staff_birthday = #{tbStaffBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tbStaffEntryday != null">
+        tb_staff_entryday = #{tbStaffEntryday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tbStaffType != null">
+        tb_staff_type = #{tbStaffType,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffState != null">
+        tb_staff_state = #{tbStaffState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_staff_id = #{tbStaffId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bc.entity.TbStaff">
+    update tb_staff
+    set tb_report_id = #{tbReportId,jdbcType=INTEGER},
+      tb__tb_staff_id = #{tbTbStaffId,jdbcType=INTEGER},
+      tb_staff_name = #{tbStaffName,jdbcType=VARCHAR},
+      tb_staff_hrName = #{tbStaffHrname,jdbcType=VARCHAR},
+      tb_staff_sex = #{tbStaffSex,jdbcType=VARCHAR},
+      tb_staff_card = #{tbStaffCard,jdbcType=VARCHAR},
+      tb_staff_img = #{tbStaffImg,jdbcType=VARCHAR},
+      tb_staff_email = #{tbStaffEmail,jdbcType=VARCHAR},
+      tb_staff_address = #{tbStaffAddress,jdbcType=VARCHAR},
+      tb_staff_phone = #{tbStaffPhone,jdbcType=VARCHAR},
+      tb_staff_birthday = #{tbStaffBirthday,jdbcType=TIMESTAMP},
+      tb_staff_entryday = #{tbStaffEntryday,jdbcType=TIMESTAMP},
+      tb_staff_type = #{tbStaffType,jdbcType=VARCHAR},
+      tb_staff_state = #{tbStaffState,jdbcType=INTEGER}
+    where tb_staff_id = #{tbStaffId,jdbcType=INTEGER}
+  </update>
+  <select id="showStaff" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    select s.*,d.tb_dept_name,p.tb_post_name,
+    date_format(s.tb_staff_entryday,'%Y-%m-%d') enTime,
+    date_format(s.tb_staff_birthday,'%Y-%m-%d') birthday
+    from tb_staff s ,
+    tb_dept d,tb_post p ,tb_staff_post_relationship spr
+    <where>
+      and s.tb_staff_id =spr.tb_staff_id
+      and spr.tb_post_id=p.tb_post_id
+      and p.tb_dept_id = d.tb_dept_id
+      <if test="dname !=null and dname !=''">
+        and d.tb_dept_name like "%"#{dname}"%"
+      </if>
+      <if test="pname !=null and pname !=''">
+        and p.tb_post_name like "%"#{pname}"%"
+      </if>
+      <if test="hrname !=null and hrname !=''">
+        and s.tb_staff_hrName like "%"#{hrname}"%"
+      </if>
+      <if test="sname !=null and sname !=''">
+        and s.tb_staff_name like "%"#{sname}"%"
+      </if>
+      <if test="sex !=null and sex !=''">
+        and s.tb_staff_sex = #{sex}
+      </if>
+      <if test="state !=null and state >0">
+        and s.tb_staff_state =  #{state}
+      </if>
+      <if test="type !=null and type !=''">
+        and s.tb_staff_type = #{type}
+      </if>
+      <if test="card !=null and card !=''">
+        and s.tb_staff_card  like "%"#{card}"%"
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and date_format(s.tb_staff_entryday,'%Y-%m-%d %T') <![CDATA[ >= ]]> date_format(#{startTime},'%Y-%m-%d %T')
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and date_format(s.tb_staff_entryday,'%Y-%m-%d %T') <![CDATA[ <= ]]> date_format(#{endTime},'%Y-%m-%d %T')
+      </if>
+      <if test="sid != null and sid>0">
+        and s.tb_staff_id = #{sid}
+      </if>
+      <if test="confis != null and confis != ''">
+        and s.tb_staff_id not in (select tb_staff_id from tb_conclude)
+      </if>
+    </where>
+    order by s.tb_staff_id desc
+  </select>
+  <update id="updStaffById" parameterType="java.util.HashMap">
+    update tb_staff
+    <set>
+      <if test="tbReportId != null and tbReportId>0">
+        tb_report_id = #{tbReportId,jdbcType=INTEGER},
+      </if>
+      <if test="ttid != null and ttid >0">
+        tb__tb_staff_id = #{ttid,jdbcType=INTEGER},
+      </if>
+      <if test="tbStaffName != null and tbStaffName !=''">
+        tb_staff_name = #{tbStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffHrname != null and tbStaffHrname !=''">
+        tb_staff_hrName = #{tbStaffHrname,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffSex != null and tbStaffSex !=''">
+        tb_staff_sex = #{tbStaffSex,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffCard != null and tbStaffCard !=''">
+        tb_staff_card = #{tbStaffCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffImg != null and tbStaffImg !=''">
+        tb_staff_img = #{tbStaffImg,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffEmail != null and tbStaffEmail !=''">
+        tb_staff_email = #{tbStaffEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffAddress != null and tbStaffAddress !=''">
+        tb_staff_address = #{tbStaffAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffPhone != null and tbStaffPhone !=''">
+        tb_staff_phone = #{tbStaffPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffBirthday != null and tbStaffBirthday !=''">
+        date_format(tb_staff_birthday,'%Y-%m-%d')= date_format(#{tbStaffBirthday,jdbcType=TIMESTAMP},'%Y-%m-%d'),
+      </if>
+      <if test="tbStaffEntryday != null and tbStaffEntryday !=''">
+        date_format(tb_staff_entryday,'%Y-%m-%d')= date_format(#{tbStaffEntryday,jdbcType=TIMESTAMP},'%Y-%m-%d'),
+      </if>
+      <if test="tbStaffType != null and tbStaffType !=''">
+        tb_staff_type = #{tbStaffType,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStaffState != null and tbStaffState >0">
+        tb_staff_state = #{tbStaffState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_staff_id = #{tbStaffId,jdbcType=INTEGER}
+  </update>
+  <select id="showStaffMaxId" resultType="int">
+    select max(tb_staff_id) from tb_staff
+  </select>
+  <select id="showUpMen" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  select s.tb_staff_id,s.tb_staff_name,p.tb_post_name
+  from tb_dept d, tb_post p ,
+  tb_staff_post_relationship sp,
+  tb_staff s
+  <where>
+    and d.tb_dept_id = p.tb_dept_id
+    and s.tb_staff_id=sp.tb_staff_id
+    and p.tb_post_id = sp.tb_post_id
+    <if test="depts != null and depts >0">
+      and p.tb_post_id not in (select tb_post_id from tb_post where tb_post_name like '%员工%')
+      and (d.tb_dept_id =#{depts}  or p.tb_post_name like '%管理员%')
+    </if>
+    <if test="positions != null and positions !=''">
+      and p.tb_post_id not in (select tb_post_id from tb_post where tb_post_name like "%"#{positions}"%")
+    </if>
+    <if test="state != null and state >0">
+      and p.tb_post_state = #{state}
+      and s.tb_staff_state = 1
+    </if>
+  </where>
+  </select>
+</mapper>

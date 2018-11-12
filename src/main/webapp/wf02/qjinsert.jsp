@@ -8,10 +8,8 @@
 <form class="form-inline" role="form" id="name01" style="margin-top: 20px;padding-left: 20px;">
     <button class="btn btn-default btn-sm"><a href="grkq.jsp">工作日历</a></button>
     <button class="btn btn-default btn-sm"><a href="sxbdj.jsp">上下班登记</a></button>
-    <%--<button class="btn btn-default btn-sm"><a href="#">外出登记</a></button>--%>
     <button class="btn btn-default btn-sm"><a href="qjdj.jsp">请假登记</a></button>
     <button class="btn btn-default btn-sm"><a href="ccdj.jsp">出差登记</a></button>
-    <%--<button class="btn btn-default btn-sm"><a href="#">加班登记</a></button>--%>
     <button class="btn btn-default btn-sm"><a href="rcjl.jsp">上下班记录</a></button>
 </form>
 <form class="form-inline" role="form" id="name02" style="margin-top: 20px;padding-left: 20px;">
@@ -24,10 +22,21 @@
         <td>
             <label  class="col-sm-2 control-label">请假人员</label>
             <div class="col-sm-10">
-                <select class="form-control" id="yg" >
-                    <option>请选择员工</option>
-                </select>
+                <input type="text" style="display: none;" readonly="readonly" class="form-control" id="yg" value="${sessionScope.list[0].ryid}">
+                <input type="text" readonly="readonly" class="form-control" value="${sessionScope.list[0].ryxm}">
+                <%--<select class="form-control" id="yg" >--%>
+                    <%--<option>请选择员工</option>--%>
+                <%--</select>--%>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label  class="col-sm-2 control-label">请假类型</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="qjlx" >
 
+                </select>
             </div>
         </td>
     </tr>
@@ -55,26 +64,17 @@
             </div>
         </td>
     </tr>
-    <tr>
-        <td>
-            <label  class="col-sm-2 control-label">请假类型</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="qjlx" >
 
-                </select>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label  class="col-sm-2 control-label">审批人员</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="yg02" >
-                    <option>请选择员工</option>
-                </select>
-            </div>
-        </td>
-    </tr>
+    <%--<tr>--%>
+        <%--<td>--%>
+            <%--<label  class="col-sm-2 control-label">审批人员</label>--%>
+            <%--<div class="col-sm-10">--%>
+                <%--<select class="form-control" id="yg02" >--%>
+                    <%--<option>请选择员工</option>--%>
+                <%--</select>--%>
+            <%--</div>--%>
+        <%--</td>--%>
+    <%--</tr>--%>
     <tr>
         <td>
             <div class="form-group">
@@ -93,8 +93,8 @@
     }
     function zjht() {
         var qjryid = $("#yg").val(); var qjksrq = $("#datetime01").val();var qjjsrq = $("#datetime02").val();var qjleixinid = $("#qjlx").val();
-        var qjspryid = $("#yg02").val();var qjzt = 0;var qjxj = 0;var qjyanyin = $("#qjyanyin").val();
-        if(qjyanyin!=null&&qjksrq!=null&&qjjsrq!=null&&qjleixinid!=null&&qjspryid!=null){
+        var qjzt = 0;var qjxj = 0;var qjyanyin = $("#qjyanyin").val();
+        if(qjyanyin!=null&&qjksrq!=null&&qjjsrq!=null&&qjleixinid!=null){
             $.ajax({
                 url: "${path}/qingjiainsert",
                 data:{"qjryid" : qjryid,
@@ -102,7 +102,7 @@
                     "qjksrq" :qjksrq,
                     "qjjsrq" :qjjsrq,
                     "qjleixinid" : qjleixinid,
-                    "qjspryid" :qjspryid,
+                    "qjspryid" :0,
                     "qjzt":qjzt,
                     "qjxj":qjxj
                 },
@@ -129,12 +129,12 @@
             success: function (data) {
                 console.log(data);
                 $("#yg").html("<option >请选择员工</option>");
-                $("#yg02").html("<option >请选择员工</option>");
+                // $("#yg02").html("<option >请选择员工</option>");
                 for (var i = 0; i < data.length; i++) {
                     var p = data[i];
                     var html = "<option value='" + p.id + "'>" + p.name + "</option>";
                     $("#yg").append(html);
-                    $("#yg02").append(html);
+                    // $("#yg02").append(html);
                 }
             }
         });

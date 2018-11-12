@@ -76,7 +76,7 @@
             url:'${path}/login',
             data:{
                 tbStaffLoginUsm:$("#yhuser").val(),
-                tbStaffLoginPwd:$("#yhpassword").val(),
+                tbStaffLoginPwd:$("#yhpassword").val()
             },
             dataType:'json',
             type:'post',

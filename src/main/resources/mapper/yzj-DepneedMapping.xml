@@ -14,6 +14,9 @@
       <if test="needName!=null">
           and a.needName like '%${needName}%'
       </if>
+      <if test="bmId!=null">
+          and a.departmentid like '%${bmId}%'
+      </if>
   </where>
     </select>
     <delete id="deleteDep" parameterType="java.util.HashMap">

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.TbEventMapper">
+  <resultMap id="BaseResultMap" type="com.bc.entity.TbEvent">
+    <id column="td_event_id" jdbcType="INTEGER" property="tdEventId" />
+    <result column="td_event_value" jdbcType="VARCHAR" property="tdEventValue" />
+    <result column="td_event_state" jdbcType="INTEGER" property="tdEventState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    td_event_id, td_event_value, td_event_state
+  </sql>
+  <!--根据taskid查询所有项目-->
+  <select id="selectEvent" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+  select DISTINCT d.tb_detailone_id,e.tb_event_id,e.tb_event_value,e.tb_event_mark,e.tb_event_name,e.tb_event_state,t.tb_task_id from
+      tb_detailone d,
+      tb_event e,
+      tb_task t
+      <where>
+          and d.tb_event_id = e.tb_event_id
+          and d.tb_task_id = t.tb_task_id
+          and e.tb_event_state = 1
+          and d.tb_task_id = #{taskid}
+      </where>
+  </select>
+    <!--添加-->
+    <insert id="insertEvent" parameterType="java.util.HashMap">
+        insert into tb_event(tb_event_value,tb_event_name,tb_event_mark,tb_event_state)
+           values(#{tb_event_value},#{tb_event_name},#{tb_event_mark},1);
+    </insert>
+  <!--根据id查询考核任务项-->
+  <select id="selectTbEventId" resultType="java.util.HashMap" parameterType="int">
+        select * from tb_event  where tb_event_id = #{TbEventId}
+   </select>
+  <!--修改考核任务项-->
+  <update id = "UpdateEvent" parameterType="java.util.HashMap">
+      update tb_event set tb_event_value=#{TbEventValue},tb_event_name=#{TbEventName},tb_event_mark=#{TbEventMark},
+        tb_event_state=#{TbEventState} where tb_event_id = #{TbEventId}
+   </update>
+    <!--修改状态-->
+    <delete id="DeleteEvent">
+        update tb_event set tb_event_state = 0 where tb_event_id = #{tdEventId}
+    </delete>
+  <select id="SelectTbEventId" resultType="java.lang.Integer">
+  select max(tb_event_id) from tb_event
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_event
+    where td_event_id = #{tdEventId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_event
+    where td_event_id = #{tdEventId,jdbcType=INTEGER}
+  </delete>
+  <!--添加数据-->
+  <insert id="insert" parameterType="com.bc.entity.TbEvent">
+    insert into tb_event ( tb_event_value,tb_event_name,tb_event_mark, tb_event_state
+      )
+    values ( #{tbEventValue,jdbcType=VARCHAR}, #{tbEventName,jdbcType=INTEGER},
+         #{tbEventMark,jdbcType=VARCHAR},1
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bc.entity.TbEvent">
+    insert into tb_event
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tdEventId != null">
+        td_event_id,
+      </if>
+      <if test="tdEventValue != null">
+        td_event_value,
+      </if>
+      <if test="tdEventState != null">
+        td_event_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tdEventId != null">
+        #{tdEventId,jdbcType=INTEGER},
+      </if>
+      <if test="tdEventValue != null">
+        #{tdEventValue,jdbcType=VARCHAR},
+      </if>
+      <if test="tdEventState != null">
+        #{tdEventState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bc.entity.TbEvent">
+    update tb_event
+    <set>
+      <if test="tdEventValue != null">
+        td_event_value = #{tdEventValue,jdbcType=VARCHAR},
+      </if>
+      <if test="tdEventState != null">
+        td_event_state = #{tdEventState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where td_event_id = #{tdEventId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bc.entity.TbEvent">
+    update tb_event
+    set td_event_value = #{tdEventValue,jdbcType=VARCHAR},
+      td_event_state = #{tdEventState,jdbcType=INTEGER}
+    where td_event_id = #{tdEventId,jdbcType=INTEGER}
+  </update>
+</mapper>

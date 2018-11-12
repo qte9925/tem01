@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzj.dao.ShenpiDao">
+    <update id="updateshenpiplanyzj" parameterType="java.util.Map">
+        update y_plan set statu=#{zt},xinxi=#{xinxi},shenpirenid=#{shenpirenid} where 1 = 1
+        <if test="id!=null">
+           and Id = #{id}
+        </if>
+    </update>
+    <update id="updatexinxiplan" parameterType="java.util.Map">
+        update y_plan set xinxi = #{xx} where 1 = 1
+        <if test="id!=null">
+            and Id = #{id}
+        </if>
+    </update>
+    <select id="selectdaishenpiplan" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select a.*,b.bmname,c.ryxm,d.qvdaoname,e.xingshiname from y_plan a join wfdepartment b on a.departmentid = b.bmid join wfstafftable c on a.shenpirenid = c.ryid join y_qvdao d on a.qvdaoid = d.id join y_xingshi e on a.xingshiid = e.id
+    </select>
+    <insert id="AddBaomingyzj"  parameterType="java.util.HashMap">
+        insert into y_New_Baoming (planid,beizhu,baomingname,keshi)
+        values(#{planid},#{beizhu},#{baomingname},#{keshi})
+    </insert>
+    <select id="selectyibaoming" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+  select count(*)  from y_new_baoming where 1= 1 and planid = #{planid}
+    </select>
+</mapper>

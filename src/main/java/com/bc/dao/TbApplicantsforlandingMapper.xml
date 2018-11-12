@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.TbApplicantsforlandingMapper">
+  <resultMap id="BaseResultMap" type="com.bc.entity.TbApplicantsforlanding">
+    <id column="tb_applicantsForLanding_id" jdbcType="INTEGER" property="tbApplicantsforlandingId" />
+    <result column="tb_applicantsForLanding_username" jdbcType="VARCHAR" property="tbApplicantsforlandingUsername" />
+    <result column="tb_applicantsForLanding_pwd" jdbcType="VARCHAR" property="tbApplicantsforlandingPwd" />
+    <result column="tb_applicantsForLanding_card" jdbcType="VARCHAR" property="tbApplicantsforlandingCard" />
+    <result column="tb_applicantsForLanding_name" jdbcType="VARCHAR" property="tbApplicantsforlandingName" />
+    <result column="tb_applicantsForLanding_state" jdbcType="INTEGER" property="tbApplicantsforlandingState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_applicantsForLanding_id, tb_applicantsForLanding_username, tb_applicantsForLanding_pwd, 
+    tb_applicantsForLanding_card, tb_applicantsForLanding_name, tb_applicantsForLanding_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_applicantsforlanding
+    where tb_applicantsForLanding_id = #{tbApplicantsforlandingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_applicantsforlanding
+    where tb_applicantsForLanding_id = #{tbApplicantsforlandingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="newId">
+    insert into tb_applicantsforlanding (tb_applicantsForLanding_username,
+      tb_applicantsForLanding_pwd, tb_applicantsForLanding_card, 
+      tb_applicantsForLanding_name, tb_applicantsForLanding_state
+      )
+    values (#{email},
+      #{password}, #{idCard},
+      #{username}, #{state}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bc.entity.TbApplicantsforlanding">
+    insert into tb_applicantsforlanding
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbApplicantsforlandingId != null">
+        tb_applicantsForLanding_id,
+      </if>
+      <if test="tbApplicantsforlandingUsername != null">
+        tb_applicantsForLanding_username,
+      </if>
+      <if test="tbApplicantsforlandingPwd != null">
+        tb_applicantsForLanding_pwd,
+      </if>
+      <if test="tbApplicantsforlandingCard != null">
+        tb_applicantsForLanding_card,
+      </if>
+      <if test="tbApplicantsforlandingName != null">
+        tb_applicantsForLanding_name,
+      </if>
+      <if test="tbApplicantsforlandingState != null">
+        tb_applicantsForLanding_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbApplicantsforlandingId != null">
+        #{tbApplicantsforlandingId,jdbcType=INTEGER},
+      </if>
+      <if test="tbApplicantsforlandingUsername != null">
+        #{tbApplicantsforlandingUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="tbApplicantsforlandingPwd != null">
+        #{tbApplicantsforlandingPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="tbApplicantsforlandingCard != null">
+        #{tbApplicantsforlandingCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tbApplicantsforlandingName != null">
+        #{tbApplicantsforlandingName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbApplicantsforlandingState != null">
+        #{tbApplicantsforlandingState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bc.entity.TbApplicantsforlanding">
+    update tb_applicantsforlanding
+    <set>
+      <if test="tbApplicantsforlandingUsername != null">
+        tb_applicantsForLanding_username = #{tbApplicantsforlandingUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="tbApplicantsforlandingPwd != null">
+        tb_applicantsForLanding_pwd = #{tbApplicantsforlandingPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="tbApplicantsforlandingCard != null">
+        tb_applicantsForLanding_card = #{tbApplicantsforlandingCard,jdbcType=VARCHAR},
+      </if>
+      <if test="tbApplicantsforlandingName != null">
+        tb_applicantsForLanding_name = #{tbApplicantsforlandingName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbApplicantsforlandingState != null">
+        tb_applicantsForLanding_state = #{tbApplicantsforlandingState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_applicantsForLanding_id = #{tbApplicantsforlandingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bc.entity.TbApplicantsforlanding">
+    update tb_applicantsforlanding
+    set tb_applicantsForLanding_username = #{tbApplicantsforlandingUsername,jdbcType=VARCHAR},
+      tb_applicantsForLanding_pwd = #{tbApplicantsforlandingPwd,jdbcType=VARCHAR},
+      tb_applicantsForLanding_card = #{tbApplicantsforlandingCard,jdbcType=VARCHAR},
+      tb_applicantsForLanding_name = #{tbApplicantsforlandingName,jdbcType=VARCHAR},
+      tb_applicantsForLanding_state = #{tbApplicantsforlandingState,jdbcType=INTEGER}
+    where tb_applicantsForLanding_id = #{tbApplicantsforlandingId,jdbcType=INTEGER}
+  </update>
+  <select id="selectLogin" resultType="java.util.HashMap" parameterType="com.bc.entity.TbApplicantsforlanding">
+    select a.* from tb_applicantsforlanding a
+    <where>
+      <if test="tbApplicantsforlandingUsername != null">
+        and tb_applicantsForLanding_username = #{tbApplicantsforlandingUsername,jdbcType=VARCHAR}
+      </if>
+      <if test="tbApplicantsforlandingPwd != null">
+       and tb_applicantsForLanding_pwd = #{tbApplicantsforlandingPwd,jdbcType=VARCHAR}
+      </if>
+      <if test="tbApplicantsforlandingState != null">
+       and  tb_applicantsForLanding_state = #{tbApplicantsforlandingState,jdbcType=INTEGER}
+      </if>
+      <if test="tbApplicantsforlandingCard !=null and tbApplicantsforlandingCard != ''">
+        and tb_applicantsForLanding_card = #{tbApplicantsforlandingCard,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

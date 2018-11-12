@@ -8,26 +8,26 @@
     <title>Tem</title>
     <link rel="stylesheet" href="/js/bootstrap.css">
     <script type="text/javascript">
-            function gg(){
-                $.ajax({
-                    url: "${path}/index01",
-                    type: "post",
-                    data:{"yhid":'${sessionScope.list[0].yhid}'},
-                    dataType: "json",
-                    success: function (data) {
-                        console.log(data);
-                        for(var c=0;c<data.length;c++){
-                            console.log(data[c])
-                        }
-                        var vm = new Vue({
-                            el:'#aaa01',
-                            data:{
-                                msg:data
-                            }
-                        });
+        function gg(){
+            $.ajax({
+                url: "${path}/index01",
+                type: "post",
+                data:{"yhid":'${sessionScope.list[0].yhid}'},
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    for(var c=0;c<data.length;c++){
+                        console.log(data[c])
                     }
-                });
-            }
+                    var vm = new Vue({
+                        el:'#aaa01',
+                        data:{
+                            msg:data
+                        }
+                    });
+                }
+            });
+        }
         $().ready(function () {
             gg();
         });
@@ -45,19 +45,19 @@
                 <li class="active"><a href="grzm.jsp" target="mainFrame">我的桌面</a></li>
                 <%--<li><a href="#">SVN</a></li>--%>
                 <%--<li class="dropdown">--%>
-                    <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
-                        <%--Java--%>
-                        <%--<b class="caret"></b>--%>
-                    <%--</a>--%>
-                    <%--<ul class="dropdown-menu">--%>
-                        <%--<li><a href="grzm.jsp" target="mainFrame">我的桌面</a></li>--%>
-                        <%--<li><a href="#">EJB</a></li>--%>
-                        <%--<li><a href="#">Jasper Report</a></li>--%>
-                        <%--<li class="divider"></li>--%>
-                        <%--<li><a href="#">分离的链接</a></li>--%>
-                        <%--<li class="divider"></li>--%>
-                        <%--<li><a href="#">另一个分离的链接</a></li>--%>
-                    <%--</ul>--%>
+                <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
+                <%--Java--%>
+                <%--<b class="caret"></b>--%>
+                <%--</a>--%>
+                <%--<ul class="dropdown-menu">--%>
+                <%--<li><a href="grzm.jsp" target="mainFrame">我的桌面</a></li>--%>
+                <%--<li><a href="#">EJB</a></li>--%>
+                <%--<li><a href="#">Jasper Report</a></li>--%>
+                <%--<li class="divider"></li>--%>
+                <%--<li><a href="#">分离的链接</a></li>--%>
+                <%--<li class="divider"></li>--%>
+                <%--<li><a href="#">另一个分离的链接</a></li>--%>
+                <%--</ul>--%>
                 <%--</li>--%>
             </ul>
         </div>
@@ -96,7 +96,7 @@
                 </ul>
             </li>
         </ul>
-       </div>
+    </div>
     <!-- 左侧导航和正文内容的分隔线 -->
     <div class="splitter"></div>
     <!-- 正文内容部分 -->
@@ -112,8 +112,8 @@
 </div>
 <script type="text/javascript" >
     $(".nav li").click(function() {
-        $(".active").removeClass('active');
-        $(this).addClass("active");
+        $(".active").removeClass('active');-
+            $(this).addClass("active");
     });
 </script>
 </body>

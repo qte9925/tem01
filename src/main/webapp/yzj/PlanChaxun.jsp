@@ -31,9 +31,9 @@
 </head>
 
 <style>
-#asss{
-    width:1600px;
-}
+    #jihua{
+        width:1000px;
+    }
 </style>
 
 <script type="text/javascript">
@@ -79,7 +79,7 @@
     function getinfo(nowPage) {
         $.ajax({
             url : "${path}/selectPlan",
-            data:{"aa":$("#staff").val(),"nowPage":nowPage},
+            data:{"aa":$("#staff").val(),"Pid":$("#Pid").val(),"nowPage":nowPage},
             type : "post",
             dataType : "json",
             success : function(data) {
@@ -104,13 +104,13 @@
                     html = html + "<td>" + p.xingshiname + "</td>";
 
                     html = html + "<td><button onclick='deleteNeed(" + p.Id + ")'  class='btn btn-primary' >删除</button>" +
-                        "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button>";
-                    if(p.statu==0){
+                       "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button>";
+                  if(p.statu==0){
                         html = html + "<button onclick='UpdatePlanMessage("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'>送审</button>";
                         /*html = html + "<button onclick='xiugaixuqiuxinxi("+ p.Id +",3)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>驳回</button>";*/
 
                     }else if(p.statu==1){
-                        html = html + "<button onclick='UpdatePlanMessage("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>送审</button>";
+                       html = html + "<button onclick='UpdatePlanMessage("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>审批中</button>";
 
                     }
                     else if(p.statu==2){
@@ -120,7 +120,7 @@
                     html = html + "</td>";
                     html = html + "</tr>";
                     $("#yzj").append(html);
-                }
+
                 $("#nowPage").html(data.pageNum);
                 $("#total").html(data.total);
 
@@ -138,6 +138,7 @@
                 } else {
                     $("#pre").show();
                 }
+            }
             }
         })
 
@@ -326,15 +327,42 @@
         })
     }
 </script>
-<div style="text-align:center;">
-    需求内容<input type="text" id="staff">
-    <button id="selectBtn" class='btn btn-primary'>查询</button>
+
+<div style="text-align:left;">
     <button class='btn btn-primary' data-toggle="modal" data-target="#myModal">
-        增加
+        新建培训计划
     </button>
+
+    <button class='btn btn-primary' data-toggle="modal" data-target="#myModalasd">
+        查询培训计划
+    </button>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModalasd" tabindex="-1" role="dialog" aria-labelledby="myModalLabela" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabela">
+
+                    </h4>
+                </div>
+                <table>
+                <tr><td>计划编码<input type="text" id="Pid"></td></tr>
+                <tr><td>计划名称<input type="text" id="staff"></td></tr>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal" id="selectBtn">
+                        查询
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
-<div class="container" id="asss">
-    <table class="table table-striped">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>计划编码</th>
@@ -352,13 +380,13 @@
             <th>审批人</th>
             <th>培训渠道</th>
             <th>培训形式</th>
+            <th><center>操作</center></th>
         </tr>
         </thead>
         <tbody id="yzj">
 
         </tbody>
     </table>
-</div>
 
 <table>
     <center>
@@ -373,68 +401,54 @@
 </center>
 <!-- 增加得---------------------------------------模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" id="jihua">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
             </div>
-            <div class="modal-body">
-                <table>
+            <div class="modal-body" >
+                <table class="table table-bordered" >
                     <tr>
                         <td>计划编码:</td>
                         <td><input type="text" name="staffName" id="planid"></td>
-                    </tr>
-                    <tr>
                         <td>计划名称:</td>
                         <td><input type="text" name="post" id="planname"></td>
                     </tr>
                     <tr>
                         <td>参加人数:</td>
                         <td><input type="text" name="shenpimode" id="joinpeople"></td>
-                    </tr>
-                    <tr>
                         <td>培训地点:</td>
                         <td><input type="text" name="education" id="trainingaddress"></td>
                     </tr>
                     <tr>
                         <td>课程名称:</td>
                         <td><input type="text" name="writePeople" id="classname"></td>
-                    </tr>
-                    <tr>
                         <td>总课时:</td>
                         <td><input type="text" name="department" id="totalhours"></td>
                     </tr>
                     <tr>
                         <td>开课时间:</td>
                         <td><input type="text" name="department" id="beginclass"></td>
-                    </tr>
-                    <tr>
                         <td>结课时间:</td>
                         <td><input type="text" name="department" id="endclass"></td>
                     </tr>
                     <tr>
                         <td>培训预算:</td>
                         <td><input type="text" name="department" id="rainingbudget"></td>
-                    </tr>
-                    <tr>
                         <td>培训要求:</td>
                         <td><input type="text" name="department" id="rainingRequirement"></td>
                     </tr>
                     <tr>
                         <td>培训说明:</td>
                         <td><input type="text" name="department" id="rainingexplain"></td>
-                    </tr>
-                    <tr>
                         <td>部门ID:</td>
                         <td><input type="text" name="department" id="departmentid"></td>
                     </tr>
                     <tr>
                         <td>审批人ID:</td>
                         <td><input type="text" name="department" id="shenpirenid"></td>
-                    </tr>
-                    <tr>
                         <td>培训渠道:</td>
                         <td><input type="text" name="department" id="qvdaoid"></td>
                     </tr>
@@ -469,60 +483,46 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <table>
+                <table class="table table-bordered">
                     <tr>
                         <td>计划编码:</td>
                         <td><input type="text" id="aa"></td>
-                    </tr>
-                    <tr>
                         <td>计划名称:</td>
                         <td><input type="text" id="bb"></td>
                     </tr>
                     <tr>
                         <td>参加人数:</td>
                         <td><input type="text" id="cc"></td>
-                    </tr>
-                    <tr>
                         <td>培训地点</td>
                         <td><input type="text"id="dd"></td>
                     </tr>
                     <tr>
                         <td>课程名称:</td>
                         <td><input type="text" id="ee"></td>
-                    </tr>
-                    <tr>
                         <td>总课时:</td>
                         <td><input type="text"id="ff"></td>
                     </tr>
                     <tr>
                         <td>开课时间:</td>
                         <td><input type="text"id="gg"></td>
-                    </tr>
-                    <tr>
                         <td>结课时间:</td>
                         <td><input type="text"id="hh"></td>
                     </tr>
                     <tr>
                         <td>培训预算:</td>
                         <td><input type="text"id="ii"></td>
-                    </tr>
-                    <tr>
                         <td>培训要求:</td>
-                        <td><input type="text"id="jj"></td>
+                        <td><textarea type="text"id="jj"></textarea></td>
                     </tr>
                     <tr>
                         <td>培训说明:</td>
-                        <td><input type="text"id="kk"></td>
-                    </tr>
-                    <tr>
+                        <td><textarea type="text"id="kk"></textarea></td>
                         <td>部门:</td>
                         <td><select id="ll"></select></td>
                     </tr>
                     <tr>
                         <td>审批人:</td>
                         <td><select id="mm"></select></td>
-                    </tr>
-                    <tr>
                         <td>培训渠道:</td>
                         <td><select id="nn"></select></td>
                     </tr>

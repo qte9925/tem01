@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.TbStepMapper">
+  <resultMap id="BaseResultMap" type="com.bc.entity.TbStep">
+    <id column="tb_step_id" jdbcType="INTEGER" property="tbStepId" />
+    <result column="tb_step_nam" jdbcType="VARCHAR" property="tbStepNam" />
+    <result column="tb_step_remarks" jdbcType="VARCHAR" property="tbStepRemarks" />
+    <result column="tb_step_state" jdbcType="INTEGER" property="tbStepState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_step_id, tb_step_nam, tb_step_remarks, tb_step_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_step
+    where tb_step_id = #{tbStepId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_step
+    where tb_step_id = #{tbStepId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bc.entity.TbStep">
+    insert into tb_step (tb_step_id, tb_step_nam, tb_step_remarks, 
+      tb_step_state)
+    values (#{tbStepId,jdbcType=INTEGER}, #{tbStepNam,jdbcType=VARCHAR}, #{tbStepRemarks,jdbcType=VARCHAR}, 
+      #{tbStepState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bc.entity.TbStep">
+    insert into tb_step
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbStepId != null">
+        tb_step_id,
+      </if>
+      <if test="tbStepNam != null">
+        tb_step_nam,
+      </if>
+      <if test="tbStepRemarks != null">
+        tb_step_remarks,
+      </if>
+      <if test="tbStepState != null">
+        tb_step_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbStepId != null">
+        #{tbStepId,jdbcType=INTEGER},
+      </if>
+      <if test="tbStepNam != null">
+        #{tbStepNam,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStepRemarks != null">
+        #{tbStepRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStepState != null">
+        #{tbStepState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bc.entity.TbStep">
+    update tb_step
+    <set>
+      <if test="tbStepNam != null">
+        tb_step_nam = #{tbStepNam,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStepRemarks != null">
+        tb_step_remarks = #{tbStepRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="tbStepState != null">
+        tb_step_state = #{tbStepState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_step_id = #{tbStepId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bc.entity.TbStep">
+    update tb_step
+    set tb_step_nam = #{tbStepNam,jdbcType=VARCHAR},
+      tb_step_remarks = #{tbStepRemarks,jdbcType=VARCHAR},
+      tb_step_state = #{tbStepState,jdbcType=INTEGER}
+    where tb_step_id = #{tbStepId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.TbRecorddetailsMapper">
+  <resultMap id="BaseResultMap" type="com.bc.entity.TbRecorddetails">
+    <id column="tb_recorddetails_id" jdbcType="INTEGER" property="tbRecorddetailsId" />
+    <result column="tb_staff_id" jdbcType="INTEGER" property="tbStaffId" />
+    <result column="tb_detailone_id" jdbcType="INTEGER" property="tbDetailoneId" />
+    <result column="tb_achresult_id" jdbcType="INTEGER" property="tbAchresultId" />
+    <result column="tb_recorddetails_srsmark" jdbcType="VARCHAR" property="tbRecorddetailsSrsmark" />
+    <result column="tb_recorddetails_hsmark" jdbcType="VARCHAR" property="tbRecorddetailsHsmark" />
+    <result column="tb_recorddetails_state" jdbcType="INTEGER" property="tbRecorddetailsState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_recorddetails_id, tb_staff_id, tb_detailone_id, tb_achresult_id, tb_recorddetails_srsmark, 
+    tb_recorddetails_hsmark, tb_recorddetails_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_recorddetails
+    where tb_recorddetails_id = #{tbRecorddetailsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_recorddetails
+    where tb_recorddetails_id = #{tbRecorddetailsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bc.entity.TbRecorddetails">
+    insert into tb_recorddetails (tb_recorddetails_id, tb_staff_id, tb_detailone_id, 
+      tb_achresult_id, tb_recorddetails_srsmark, 
+      tb_recorddetails_hsmark, tb_recorddetails_state
+      )
+    values (#{tbRecorddetailsId,jdbcType=INTEGER}, #{tbStaffId,jdbcType=INTEGER}, #{tbDetailoneId,jdbcType=INTEGER}, 
+      #{tbAchresultId,jdbcType=INTEGER}, #{tbRecorddetailsSrsmark,jdbcType=VARCHAR},
+      #{tbRecorddetailsHsmark,jdbcType=VARCHAR}, #{tbRecorddetailsState,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bc.entity.TbRecorddetails">
+    insert into tb_recorddetails
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbRecorddetailsId != null">
+        tb_recorddetails_id,
+      </if>
+      <if test="tbStaffId != null">
+        tb_staff_id,
+      </if>
+      <if test="tbDetailoneId != null">
+        tb_detailone_id,
+      </if>
+      <if test="tbAchresultId != null">
+        tb_achresult_id,
+      </if>
+      <if test="tbRecorddetailsSrsmark != null">
+        tb_recorddetails_srsmark,
+      </if>
+      <if test="tbRecorddetailsHsmark != null">
+        tb_recorddetails_hsmark,
+      </if>
+      <if test="tbRecorddetailsState != null">
+        tb_recorddetails_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbRecorddetailsId != null">
+        #{tbRecorddetailsId,jdbcType=INTEGER},
+      </if>
+      <if test="tbStaffId != null">
+        #{tbStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="tbDetailoneId != null">
+        #{tbDetailoneId,jdbcType=INTEGER},
+      </if>
+      <if test="tbAchresultId != null">
+        #{tbAchresultId,jdbcType=INTEGER},
+      </if>
+      <if test="tbRecorddetailsSrsmark != null">
+        #{tbRecorddetailsSrsmark,jdbcType=VARCHAR},
+      </if>
+      <if test="tbRecorddetailsHsmark != null">
+        #{tbRecorddetailsHsmark,jdbcType=VARCHAR},
+      </if>
+      <if test="tbRecorddetailsState != null">
+        #{tbRecorddetailsState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bc.entity.TbRecorddetails">
+    update tb_recorddetails
+    <set>
+      <if test="tbStaffId != null">
+        tb_staff_id = #{tbStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="tbDetailoneId != null">
+        tb_detailone_id = #{tbDetailoneId,jdbcType=INTEGER},
+      </if>
+      <if test="tbAchresultId != null">
+        tb_achresult_id = #{tbAchresultId,jdbcType=INTEGER},
+      </if>
+      <if test="tbRecorddetailsSrsmark != null">
+        tb_recorddetails_srsmark = #{tbRecorddetailsSrsmark,jdbcType=VARCHAR},
+      </if>
+      <if test="tbRecorddetailsHsmark != null">
+        tb_recorddetails_hsmark = #{tbRecorddetailsHsmark,jdbcType=VARCHAR},
+      </if>
+      <if test="tbRecorddetailsState != null">
+        tb_recorddetails_state = #{tbRecorddetailsState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_recorddetails_id = #{tbRecorddetailsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bc.entity.TbRecorddetails">
+    update tb_recorddetails
+    set tb_staff_id = #{tbStaffId,jdbcType=INTEGER},
+      tb_detailone_id = #{tbDetailoneId,jdbcType=INTEGER},
+      tb_achresult_id = #{tbAchresultId,jdbcType=INTEGER},
+      tb_recorddetails_srsmark = #{tbRecorddetailsSrsmark,jdbcType=VARCHAR},
+      tb_recorddetails_hsmark = #{tbRecorddetailsHsmark,jdbcType=VARCHAR},
+      tb_recorddetails_state = #{tbRecorddetailsState,jdbcType=INTEGER}
+    where tb_recorddetails_id = #{tbRecorddetailsId,jdbcType=INTEGER}
+  </update>
+</mapper>

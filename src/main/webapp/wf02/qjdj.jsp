@@ -8,10 +8,8 @@
 <form class="form-inline" role="form" id="name01" style="margin-top: 20px;padding-left: 20px;">
     <button class="btn btn-default btn-sm"><a href="grkq.jsp">工作日历</a></button>
     <button class="btn btn-default btn-sm"><a href="sxbdj.jsp">上下班登记</a></button>
-    <%--<button class="btn btn-default btn-sm"><a href="#">外出登记</a></button>--%>
     <button class="btn btn-default btn-sm"><a href="qjdj.jsp">请假登记</a></button>
     <button class="btn btn-default btn-sm"><a href="ccdj.jsp">出差登记</a></button>
-    <%--<button class="btn btn-default btn-sm"><a href="#">加班登记</a></button>--%>
     <button class="btn btn-default btn-sm"><a href="rcjl.jsp">上下班记录</a></button>
 </form>
 <form class="form-inline" role="form" id="name02" style="margin-top: 20px;padding-left: 20px;">
@@ -24,9 +22,6 @@
     <tr>
         <th>请假原因</th>
         <th>请假类型</th>
-        <%--<th>申请时间</th>--%>
-        <%--<th>占年休假</th>--%>
-        <%--<th>占倒休假</th>--%>
         <th>审批人员</th>
         <th>开始时间</th>
         <th>结束时间</th>
@@ -49,18 +44,43 @@
         <Td v-if="i.qjzt == 0">审批中</Td>
         <Td v-if="i.qjzt == 1">审批通过</Td>
         <Td v-if="i.qjzt == 2">审批失败</Td>
-        <Td>详情</Td>
+        <Td>
+            <input class="btn btn-primary btn-xm" type="button" onclick="zpxq('{{i.qjid}}');" value="详情">
+            <input v-if="i.qjzt==0||i.qjzt==3" class="btn btn-primary btn-xm" type="button" onclick="gjidcx('{{i.qjid}}');" value="修改">
+            <input v-if="i.qjzt==0||i.qjzt==3" class="btn btn-primary btn-xm" type="button" onclick="zpxq('{{i.qjid}}');" value="删除">
+            <input v-if="i.qjzt==0||i.qjzt==3" class="btn btn-primary btn-xm" type="button" onclick="songshen('{{i.qjid}}',1);" value="送审">
+        </Td>
     </tr>
     </tbody>
 </table>
 </div>
 <script type="text/javascript">
+    function songshen(a1,a2) {
+        $.ajax({
+            url: "${path}/updateqj",
+            data:{"qjzt":a2,
+                "shenpiyijian":'',
+                "shenpirenid":0,
+                "sprname":0,
+                "qjid": a1
+            },
+            type: "post",
+            dataType: "json",
+            success: function (data02) {
+                console.log(data02);
+                if(data02!=0){
+                    window.location.reload();
+                }else{
+                    alert("提交失败");
+                }
+            }
+        });
+    }
     function gg(){
         $.ajax({
             url: "${path}/qjspxq",
             type: "post",
-            // data:{"id":date.getMonth()+1},
-            // data:{"id":'02'},
+            data:{"ryid":'${sessionScope.list[0].ryid}'},
             dataType: "json",
             success: function (data) {
                 console.log(data);

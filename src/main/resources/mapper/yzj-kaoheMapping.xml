@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzj.dao.KaoDao">
+    <select id="selectkaoheyzj"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select a.*,b.jsname from y_kaoqin a join wfjsb b on a.kaoherenid = b.jsid
+        <where>
+        <if test="khname!=null">
+            and kaohename like '%${khname}%'
+        </if>
+        </where>
+    </select>
+   <delete id="deletekaoheyzj" parameterType="java.util.HashMap">
+        delete from y_kaoqin where Id=#{Id}
+    </delete>
+    <select id="selectkaoheByIdyzj" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from y_kaoqin where Id=#{Id}
+    </select>
+    <update id="updatekaoheyzj" parameterType="java.util.HashMap">
+   update y_kaoqin set kaohename=#{kaohename},
+  kaoherenid=#{kaoherenid},begintime=#{begintime},endtime=#{endtime},statu=#{statu},beizhu=#{beizhu} where Id=#{Id};
+    </update>
+    <insert id="addkaoheyzj"  parameterType="java.util.HashMap">
+        insert into y_kaoqin (kaohename,kaoherenid,begintime,endtime,statu,beizhu)
+        values(#{kaohename},#{kaoherenid},#{begintime},#{endtime},#{statu},#{beizhu})
+    </insert>
+    <select id="FindKaoHerenType" resultType="java.util.HashMap">
+        select * from wfjsb
+    </select>
+</mapper>

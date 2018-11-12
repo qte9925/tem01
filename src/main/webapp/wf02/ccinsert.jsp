@@ -22,9 +22,11 @@
         <td>
             <label  class="col-sm-2 control-label">出差人员</label>
             <div class="col-sm-10">
-                <select class="form-control" id="yg" >
-                    <option>请选择员工</option>
-                </select>
+                <input type="text" style="display: none;" readonly="readonly" class="form-control" id="yg" value="${sessionScope.list[0].ryid}">
+                <input type="text" readonly="readonly" class="form-control" value="${sessionScope.list[0].ryxm}">
+                <%--<select class="form-control" id="yg" >--%>
+                    <%--<option>请选择员工</option>--%>
+                <%--</select>--%>
 
             </div>
         </td>
@@ -71,16 +73,16 @@
             <%--</div>--%>
         <%--</td>--%>
     <%--</tr>--%>
-    <tr>
-        <td>
-            <label  class="col-sm-2 control-label">审批人员</label>
-            <div class="col-sm-10">
-                <select class="form-control" id="yg02" >
-                    <option>请选择员工</option>
-                </select>
-            </div>
-        </td>
-    </tr>
+    <%--<tr>--%>
+        <%--<td>--%>
+            <%--<label  class="col-sm-2 control-label">审批人员</label>--%>
+            <%--<div class="col-sm-10">--%>
+                <%--<select class="form-control" id="yg02" >--%>
+                    <%--<option>请选择员工</option>--%>
+                <%--</select>--%>
+            <%--</div>--%>
+        <%--</td>--%>
+    <%--</tr>--%>
     <tr>
         <td>
             <div class="form-group">
@@ -99,15 +101,15 @@
     }chuchaididian
     function zjht() {var chuchaididian = $("#chuchaididian").val();
         var qjryid = $("#yg").val(); var qjksrq = $("#datetime01").val();var qjjsrq = $("#datetime02").val();
-        var qjspryid = $("#yg02").val();var qjzt = 0;var qjxj = 0;var qjyanyin = $("#qjyanyin").val();
-        if(qjyanyin!=null&&qjksrq!=null&&qjjsrq!=null&&qjspryid!=null){
+        var qjzt = 0;var qjxj = 0;var qjyanyin = $("#qjyanyin").val();
+        if(qjyanyin!=null&&qjksrq!=null&&qjjsrq!=null){
             $.ajax({
                 url: "${path}/chuchaiinsert",
                 data:{"qjryid" : qjryid,
                     "qjyanyin" : qjyanyin,
                     "qjksrq" :qjksrq,
                     "qjjsrq" :qjjsrq,
-                    "qjspryid" :qjspryid,
+                    "qjspryid" :0,
                     "chuchaididian":chuchaididian
                 },
                 type: "post",

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzj.dao.TeaDao">
+    <select id="selectYzjTeacher"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
+       select * from y_teacher
+        <where>
+        <if test="teaname!=null">
+            and tname like '%${teaname}%'
+        </if>
+        </where>
+    </select>
+   <delete id="deleteYzjTeacher" parameterType="java.util.HashMap">
+        delete from y_teacher where Id=#{Id}
+    </delete>
+    <select id="SelectByIdYzjTeacher" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from y_teacher where Id=#{Id}
+    </select>
+    <update id="updateYzjTeacher" parameterType="java.util.HashMap">
+   update y_teacher set tnum=#{tnum},
+  tname=#{tname},sex=#{sex},education=#{education},curriculumid=#{curriculumid},address=#{address},telephone=#{telephone},email=#{email} where Id=#{Id};
+    </update>
+    <insert id="addYzjTeacher"  parameterType="java.util.HashMap">
+        insert into y_teacher (tnum,tname,sex,education,curriculumid,address,telephone,email)
+        values(#{tnum},#{tname},#{sex},#{education},#{curriculumid},#{address},#{telephone},#{email})
+    </insert>
+</mapper>

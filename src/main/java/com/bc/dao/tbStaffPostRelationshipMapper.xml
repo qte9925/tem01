@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.tbStaffPostRelationshipMapper">
+    <insert id="insertTbStaffPostRelationship" parameterType="java.util.HashMap">
+        insert into tb_staff_post_relationship(tb_staff_id,tb_post_id)values(#{staffId},#{postId})
+    </insert>
+    <update id="updateTbStaffPostRelationship" parameterType="java.util.HashMap">
+        update tb_staff_post_relationship
+        <set>
+            tb_post_id=#{afterId},
+        </set>
+        <where>
+            and tb_post_id =#{beforeId}
+            and tb_staff_id = #{staffid}
+        </where>
+    </update>
+    <delete id="delTbStaffPostRelationship" parameterType="java.util.HashMap">
+        delete from tb_staff_post_relationship
+        <where>
+            <if test="staffid != null and staffid >0">
+                tb_staff_id = #{staffid}
+            </if>
+        </where>
+    </delete>
+</mapper>

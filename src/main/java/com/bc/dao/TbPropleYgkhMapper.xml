@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.TbPropleYgkhMapper">
+  <resultMap id="BaseResultMap" type="com.bc.entity.TbPropleYgkh">
+    <id column="tb_prople_ygkh_id" jdbcType="INTEGER" property="tbPropleYgkhId" />
+    <result column="tb_dept_kh_id" jdbcType="INTEGER" property="tbDeptKhId" />
+    <result column="tb_prople_ygkh_name" jdbcType="VARCHAR" property="tbPropleYgkhName" />
+    <result column="tb_prople_ygkh_state" jdbcType="INTEGER" property="tbPropleYgkhState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_prople_ygkh_id, tb_dept_kh_id, tb_prople_ygkh_name, tb_prople_ygkh_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_prople_ygkh
+    where tb_prople_ygkh_id = #{tbPropleYgkhId,jdbcType=INTEGER}
+  </select>
+  <!--查询最大值部门考核人Id-->
+  <select id="SelectTbPropleYghMaxid" resultType="java.lang.Integer">
+      select max(tb_prople_ygkh_id) from tb_prople_ygkh
+  </select>
+  <select id = "SelectTbpropleYghStaffid" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+       select tb_staff_id ,tb_prople_ygkh_id from tb_prople_ygkh where tb_task_id = #{tbTaskId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_prople_ygkh
+    where tb_prople_ygkh_id = #{tbPropleYgkhId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bc.entity.TbPropleYgkh">
+    insert into tb_prople_ygkh (tb_task_id,tb_staff_id,tb_prople_ygkh_id, tb_dept_kh_id, tb_prople_ygkh_name,
+      tb_prople_ygkh_state)
+    values (#{tbTaskId,jdbcType=INTEGER},#{tbStaffId,jdbcType=INTEGER},#{tbPropleYgkhId,jdbcType=INTEGER}, #{tbDeptKhId,jdbcType=INTEGER}, #{tbPropleYgkhName,jdbcType=VARCHAR},
+      #{tbPropleYgkhState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bc.entity.TbPropleYgkh">
+    insert into tb_prople_ygkh
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbPropleYgkhId != null">
+        tb_prople_ygkh_id,
+      </if>
+      <if test="tbDeptKhId != null">
+        tb_dept_kh_id,
+      </if>
+      <if test="tbPropleYgkhName != null">
+        tb_prople_ygkh_name,
+      </if>
+      <if test="tbPropleYgkhState != null">
+        tb_prople_ygkh_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbPropleYgkhId != null">
+        #{tbPropleYgkhId,jdbcType=INTEGER},
+      </if>
+      <if test="tbDeptKhId != null">
+        #{tbDeptKhId,jdbcType=INTEGER},
+      </if>
+      <if test="tbPropleYgkhName != null">
+        #{tbPropleYgkhName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbPropleYgkhState != null">
+        #{tbPropleYgkhState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bc.entity.TbPropleYgkh">
+    update tb_prople_ygkh
+    <set>
+      <if test="tbDeptKhId != null">
+        tb_dept_kh_id = #{tbDeptKhId,jdbcType=INTEGER},
+      </if>
+      <if test="tbPropleYgkhName != null">
+        tb_prople_ygkh_name = #{tbPropleYgkhName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbPropleYgkhState != null">
+        tb_prople_ygkh_state = #{tbPropleYgkhState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_prople_ygkh_id = #{tbPropleYgkhId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bc.entity.TbPropleYgkh">
+    update tb_prople_ygkh
+    set tb_dept_kh_id = #{tbDeptKhId,jdbcType=INTEGER},
+      tb_prople_ygkh_name = #{tbPropleYgkhName,jdbcType=VARCHAR},
+      tb_prople_ygkh_state = #{tbPropleYgkhState,jdbcType=INTEGER}
+    where tb_prople_ygkh_id = #{tbPropleYgkhId,jdbcType=INTEGER}
+  </update>
+</mapper>

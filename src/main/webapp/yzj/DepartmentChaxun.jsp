@@ -58,7 +58,7 @@
     function getinfo(nowPage) {
         $.ajax({
             url : "${path}/selectDepartment",
-            data:{"needName":$("#needName").val(),"nowPage":nowPage},
+            data:{"needName":$("#needName").val(),"bmId":$("#bmId").val(),"nowPage":nowPage},
             type : "post",
             dataType : "json",
             success : function(data) {
@@ -71,7 +71,7 @@
                     html = html + "<td>" + p.writeTime + "</td>";
                     html = html + "<td>" + p.shenpimode + "</td>";
                     html = html + "<td>" + p.bmname + "</td>";
-                    if(p.statu==0){
+                    /*if(p.statu==0){
                         html = html + "<td>未审核</td>";
                     }else if(p.statu==1){
                         html = html + "<td>审核中</td>";
@@ -79,23 +79,12 @@
                         html = html + "<td>通过</td>";
                     } else if(p.statu==3){
                         html = html + "<td>未通过</td>";
-                    }
+                    }*/
                     html = html + "<td>";
                     html = html + "<button onclick='deleteDepartmentNeed(" + p.Id + ")'  class='btn btn-primary' >删除</button>";
                     html = html + "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button>";
 
-                    if(p.statu==0){
-                        html = html + "<button onclick='xiugaixuqiuxinxi("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'>送审</button>";
-                        /*html = html + "<button onclick='xiugaixuqiuxinxi("+ p.Id +",3)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>驳回</button>";*/
 
-                    }else if(p.statu==1){
-                        html = html + "<button onclick='xiugaixuqiuxinxi("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>送审</button>";
-
-                    }
-                    else if(p.statu==2){
-                        html = html + "<button onclick='xiugaixuqiuxinxi("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' disabled='disabled'>送审</button>";
-
-                    }
                     html = html + "</td>";
                     html = html + "</tr>";
                     $("#YZWDepartment").append(html);
@@ -231,6 +220,7 @@
     }
 </script>
 <div style="text-align:center;">
+    部门编号<input type="text" id="bmId">
     需求内容<input type="text" id="needName">
     <button id="selectBtn" class='btn btn-primary'>查询</button>
     <button class='btn btn-primary' data-toggle="modal" data-target="#myModal">

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzj.dao.BaomingDao">
+    <update id="xiugaixuqiuxinxia" parameterType="java.util.Map">
+        update y_employee_needs_reporting set statu = #{zt} where 1 = 1
+        <if test="id!=null">
+            and Id = #{id}
+        </if>
+    </update>
+    <select id="selectNeed"  resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select a.*,w.bmname from y_employee_needs_reporting a join wfdepartment w on a.departmentid=w.bmid
+        <where>
+        <if test="staff!=null">
+            and a.staffName like '%${staff}%'
+        </if>
+            <if test="bmId!=null">
+                and a.departmentid like '%${bmId}%'
+            </if>
+        </where>
+    </select>
+   <delete id="deleteNeed" parameterType="java.util.HashMap">
+        delete from y_employee_needs_reporting where Id=#{Id}
+    </delete>
+    <select id="selectById" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from y_employee_needs_reporting where Id=#{Id}
+    </select>
+    <update id="updateNeed" parameterType="java.util.HashMap">
+   update y_employee_needs_reporting set staffName=#{staffName},
+  post=#{post},shenpimode=#{shenpimode},education=#{education},writePeople=#{writePeople},departmentid=#{departmentid} where Id=#{Id};
+    </update>
+    <insert id="AddBaomingyzj"  parameterType="java.util.HashMap">
+        insert into y_New_Baoming (planid,neirong,beizhu,baomingname)
+        values(#{planid},#{neirong},#{beizhu},#{baomingname})
+    </insert>
+    <select id="departmentFindType" resultType="java.util.HashMap">
+        select * from wfdepartment
+    </select>
+</mapper>

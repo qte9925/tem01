@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.dao.TbDetailoneMapper">
+  <resultMap id="BaseResultMap" type="com.bc.entity.TbDetailone">
+    <id column="tb_detailone_id" jdbcType="INTEGER" property="tbDetailoneId" />
+    <result column="tb_task_id" jdbcType="INTEGER" property="tbTaskId" />
+    <result column="td_event_id" jdbcType="INTEGER" property="tdEventId" />
+    <result column="tb_detailone_mark" jdbcType="VARCHAR" property="tbDetailoneMark" />
+    <result column="tb_detailone_state" jdbcType="INTEGER" property="tbDetailoneState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_detailone_id, tb_task_id, td_event_id, tb_detailone_mark, tb_detailone_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_detailone
+    where tb_detailone_id = #{tbDetailoneId,jdbcType=INTEGER}
+  </select>
+  <!--查询所有考核项详情-->
+  <select id="selectTbDetailone" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+     select d.tb_detailone_id, d.tb_detailone_name,d.tb_detailone_value,t.tb_task_text,t.tb_task_id  from
+      tb_detailone d,tb_event e,
+      tb_task t
+      <where>
+        <if test="tbDetailonename != null">
+          and d.tb_detailone_name like '%${tbDetailoneName}%'
+        </if>
+       and d.tb_event_id = e.tb_event_id
+       and d.tb_task_id = t.tb_task_id
+       and d.tb_detailone_state = 1
+      </where>
+    GROUP BY d.tb_detailone_name
+  </select>
+<!--查询绩效考核名称-->
+  <select id = "selectTaskName" resultType="java.util.HashMap">
+     select tb_task_id,tb_task_name from tb_task
+   </select>
+  <!--询考核项名称-->
+  <select id = "selectEventName" resultType="java.util.HashMap">
+     select tb_event_id,tb_event_value from tb_event
+   </select>
+  <!--添加-->
+  <insert id="insertDetailone" parameterType="com.bc.entity.TbDetailone">
+        insert into tb_detailone(tb_event_id,tb_task_id,tb_detailone_value,tb_detailone_name,tb_detailone_mark,tb_detailone_state)
+           values(#{tbEventId},#{tbTaskId},#{tbDetailoneValue},#{tbDetailoneName},#{tbDetailoneMark},1);
+    </insert>
+  <!--通过TaskId查询TbDetailoneId-->
+  <select id = "selectTaskByTbDetailoneId" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+       select tb_detailone_id  from tb_detailone where tb_task_id = #{tbTaskId}
+  </select>
+  <!--查询最大值考核项id-->
+  <select id="SelectDetailoneIdMaxid" resultType="java.lang.Integer">
+  select max(tb_detailone_id) from tb_detailone
+  </select>
+  <!--//删除修改状态-->
+  <delete id="Detailoneid" >
+     update tb_detailone set tb_detailone_state = 0 where tb_detailone_id = #{tbDetailoneId}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_detailone
+    where tb_detailone_id = #{tbDetailoneId,jdbcType=INTEGER}
+  </delete>
+  <!--添加数据-->
+  <insert id="insert" parameterType="com.bc.entity.TbDetailone">
+    insert into tb_detailone ( tb_task_id, tb_event_id,
+      tb_detailone_name,tb_detailone_mark, tb_detailone_state)
+    values ( #{tbTaskId,jdbcType=INTEGER}, #{tbEventId,jdbcType=INTEGER},#{tbDetailoneName,jdbcType=INTEGER},
+      #{tbDetailoneMark,jdbcType=VARCHAR}, 1)
+  </insert>
+  <select id = "SelectDetailoneBiId" resultType="java.util.HashMap" parameterType="int">
+    select * from tb_detailone d,tb_task t, tb_event e
+    <where>
+    and d.tb_task_id = t.tb_task_id
+    and d.tb_event_id = e.tb_event_id
+    and d.tb_detailone_id = #{tbDetailoneId}
+    </where>
+  </select>
+  <!-- 修改 -->
+  <update id = "UpdateDetailone" parameterType="java.util.HashMap">
+    update tb_detailone
+    <set>
+      <if test="tbTaskId != null">
+        tb_task_id = #{tbTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="tdEventId != null">
+        td_event_id = #{tdEventId,jdbcType=INTEGER},
+      </if>
+      <if test="tbDetailoneName != null">
+        tb_detailone_name = #{tbDetailoneName,jdbcType=INTEGER},
+      </if>
+      <if test="tbDetailoneValue != null">
+        tb_detailone_value = #{tbDetailoneValue,jdbcType=INTEGER},
+      </if>
+      <if test="tbDetailoneState != null">
+        tb_detailone_state = #{tbDetailoneState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_detailone_id = #{tbDetailoneId,jdbcType=INTEGER}
+   </update>
+  <insert id="insertSelective" parameterType="com.bc.entity.TbDetailone">
+    insert into tb_detailone
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbDetailoneId != null">
+        tb_detailone_id,
+      </if>
+      <if test="tbTaskId != null">
+        tb_task_id,
+      </if>
+      <if test="tdEventId != null">
+        td_event_id,
+      </if>
+      <if test="tbDetailoneMark != null">
+        tb_detailone_mark,
+      </if>
+      <if test="tbDetailoneState != null">
+        tb_detailone_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbDetailoneId != null">
+        #{tbDetailoneId,jdbcType=INTEGER},
+      </if>
+      <if test="tbTaskId != null">
+        #{tbTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="tdEventId != null">
+        #{tdEventId,jdbcType=INTEGER},
+      </if>
+      <if test="tbDetailoneMark != null">
+        #{tbDetailoneMark,jdbcType=VARCHAR},
+      </if>
+      <if test="tbDetailoneState != null">
+        #{tbDetailoneState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bc.entity.TbDetailone">
+    update tb_detailone
+    <set>
+      <if test="tbTaskId != null">
+        tb_task_id = #{tbTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="tdEventId != null">
+        td_event_id = #{tdEventId,jdbcType=INTEGER},
+      </if>
+      <if test="tbDetailoneMark != null">
+        tb_detailone_mark = #{tbDetailoneMark,jdbcType=VARCHAR},
+      </if>
+      <if test="tbDetailoneState != null">
+        tb_detailone_state = #{tbDetailoneState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tb_detailone_id = #{tbDetailoneId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bc.entity.TbDetailone">
+    update tb_detailone
+    set tb_task_id = #{tbTaskId,jdbcType=INTEGER},
+      td_event_id = #{tdEventId,jdbcType=INTEGER},
+      tb_detailone_mark = #{tbDetailoneMark,jdbcType=VARCHAR},
+      tb_detailone_state = #{tbDetailoneState,jdbcType=INTEGER}
+    where tb_detailone_id = #{tbDetailoneId,jdbcType=INTEGER}
+  </update>
+  <!--//查询-->
+  <select id="SelectTbTetailoneno" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+  select d.*,e.*,a.*,r.*,p.* from
+  tb_detailone d,tb_event e,tb_task a,tb_recorddetails r,tb_prople_ygkh p,tb_achresult u
+  where d.tb_task_id=p.tb_task_id
+  and d.tb_event_id=e.tb_event_id
+  and r.tb_detailone_id=d.tb_detailone_id
+  and u.tb_achresult_id = r.tb_achresult_id
+  and a.tb_task_id = u.tb_task_id
+  and p.tb_staff_id = r.tb_staff_id
+  and p.tb_staff_id=#{TbStaffId}
+  and p.tb_task_id =#{TbTaskId}
+  </select>
+</mapper>

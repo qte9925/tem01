@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface NeedService {
 
-    public PageInfo<Map> selectNeed(PageEntity page,Map map );
+    public PageInfo<Map> selectNeed(PageEntity page, Map map);
     public int  deleteNeed(Map map);
     public List selectById(Map map);
     public int updateNeed(Map map);

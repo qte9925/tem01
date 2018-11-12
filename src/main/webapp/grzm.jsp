@@ -43,9 +43,12 @@
 
 </table>
 <script type="text/javascript">
+    function tz() {
+        window.location.href='/wf02/grkq.jsp';
+    }
     function searchInfo(nowPage){
         var aa=${sessionScope.list[0].ryid}
-
+            // alert(aa)
         $.ajax({
             url:"${path}/selectG",
             data:{"aa":aa,"nowPage":nowPage},
@@ -72,7 +75,7 @@
     });
     function searchInfo1(nowPage){
         var aa=${sessionScope.list[0].ryid}
-
+            // alert(aa)
         $.ajax({
             url:"${path}/selectG1",
             data:{"aa":aa,"nowPage":nowPage},

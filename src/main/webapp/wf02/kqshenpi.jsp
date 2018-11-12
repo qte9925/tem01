@@ -5,12 +5,51 @@
     <title>考勤审批</title>
 </head>
 <body >
+<div class="modal fade" id="myModal02" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel02">
+                    需求详情
+                </h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tbody>
+                    <th>审核意见</th>
+                    <th>审核人</th>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                        <td><input class="form-control" type="text"  id="ccd"> </td>
+                        <td><input class="form-control" type="text" readonly="readonly" id="shrname" value="${sessionScope.list[0].ryxm}"> </td>
+                    </tr>
+                    <tr style="display: none;" >
+                        <td><input type="text"  id="skzt"> </td>
+                        <td><input type="text"  id="id01"> </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" onclick="updateqj()" class="btn btn-primary">
+                提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <form class="form-inline" role="form" id="name01" style="margin-top: 20px;padding-left: 20px;">
     <button class="btn btn-default btn-sm"><a href="#">待审批</a></button>
     <button class="btn btn-default btn-sm"><a href="#">请假</a></button>
     <button class="btn btn-default btn-sm"><a href="#">出差</a></button>
-    <button class="btn btn-default btn-sm"><a href="#">加班</a></button>
-    <button class="btn btn-default btn-sm"><a href="#">考勤异常</a></button>
+    <%--<button class="btn btn-default btn-sm"><a href="#">加班</a></button>--%>
+    <%--<button class="btn btn-default btn-sm"><a href="#">考勤异常</a></button>--%>
 </form>
 <%--<form class="form-inline" role="form" id="name02" style="margin-top: 20px;padding-left: 20px;">--%>
     <%--<button class="btn btn-default btn-sm"><a href="javascript:gg();">请假登记</a></button>--%>
@@ -74,6 +113,7 @@
     <thead >
     <tr>
         <th>类型</th>
+        <th>申请天数</th>
         <th>申请人</th>
         <th>时间</th>
         <th>摘要</th>
@@ -84,35 +124,83 @@
         <tr v-for="i in msg">
             <td v-if="i.qjzt==0" >请假</td>
             <td v-if="i.qjzt==3" >出差</td>
+            <td v-if="i.tianshu==0">小于1天</td>
+            <td v-if="i.tianshu>0">{{i.tianshu}}天</td>
             <td>{{i.ryxm}}</td>
-            <td>{{i.jsrq}}&nbsp;&nbsp;至&nbsp;&nbsp;{{i.ksrq}}</td>
-            <td>{{i.yuanyin}}</td>
+            <td>{{i.ksrq}}&nbsp;&nbsp;至&nbsp;&nbsp;{{i.jsrq}}</td>
+            <td>{{i.qjyanyin}}</td>
             <td>
                 <button  data-toggle="modal" data-target="#myModal">
                     <a href="javascript:aaa('{{i.qjid}}')">详情</a>
                 </button>
-                 &nbsp;&nbsp;
-                <button  >
-                    <a href="javascript:updateqj('{{i.qjid}}','{{i.qjzt+1}}')">通过</a>
+                <button  v-if="i.tianshu<3 && i.qjzt==0" >
+                    <a href="javascript:aa01('{{i.qjid}}',1)">审批</a>
                 </button>
-                &nbsp;&nbsp;
-                <button  >
-                    <a href="javascript:updateqj('{{i.qjid}}','{{i.qjzt+2}}')">驳回</a>
+                <button  v-if="i.tianshu>3 && i.qjzt==0" >
+                    <a href="javascript:updateqj02('{{i.qjid}}',10)">通过</a>
                 </button>
+                <button  v-if="i.tianshu<3 && i.qjzt==3" >
+                    <a href="javascript:aa01('{{i.qjid}}',4)">审批</a>
+                </button>
+                <button  v-if="i.tianshu>3 && i.qjzt==3" >
+                    <a href="javascript:updateqj02('{{i.qjid}}',11)">通过</a>
+                </button>
+                <button  v-if="i.qjzt==0">
+                    <a href="javascript:aa01('{{i.qjid}}',2)">驳回</a>
+                </button>
+                <button  v-if="i.qjzt==3">
+                    <a href="javascript:aa01('{{i.qjid}}',5)">驳回</a>
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
 </div>
 <script type="text/javascript">
-    function updateqj(id01,id02) {
+    function  aa01(id01,id02) {
+        $("#id01").val(id01);
+        $("#skzt").val(id02);
+        $('#myModal02').modal('show');
+    }
+    function updateqj() {
         $.ajax({
             url: "${path}/updateqj",
-            data:{"qjzt":id02,"qjid":id01},
+            data:{"qjzt":$("#skzt").val(),
+                "shenpiyijian":$("#ccd").val(),
+                "shenpirenid":'${sessionScope.list[0].ryid}',
+                "sprname":'${sessionScope.list[0].ryxm}',
+                "qjid": $("#id01").val()
+            },
             type: "post",
             dataType: "json",
             success: function (data02) {
                 console.log(data02);
-
+                if(data02!=0){
+                    window.location.reload();
+                }else{
+                    alert("提交失败");
+                }
+            }
+        });
+    }
+    function updateqj02(a01,a02) {
+        $.ajax({
+            url: "${path}/updateqj",
+            data:{"qjzt":a02,
+                "shenpiyijian":'',
+                "shenpirenid":'${sessionScope.list[0].ryid}',
+                "sprname":'${sessionScope.list[0].ryxm}',
+                "qjid": a01
+            },
+            type: "post",
+            dataType: "json",
+            success: function (data02) {
+                console.log(data02);
+                if(data02!=0){
+                    window.location.reload();
+                }else{
+                    alert("提交失败");
+                }
             }
         });
     }
@@ -121,8 +209,6 @@
             url: "${path}/cxqinjiq02",
             data:{"id":id},
             type: "post",
-            // data:{"id":date.getMonth()+1},
-            // data:{"id":'02'},
             dataType: "json",
             success: function (data02) {
                 console.log(data02);
@@ -176,10 +262,9 @@
     }
     function gg(){
         $.ajax({
-            url: "${path}/cxqinjiq",
+            url: "${path}/cxqj02",
             type: "post",
-            // data:{"id":date.getMonth()+1},
-            // data:{"id":'02'},
+            data:{"id":'${sessionScope.list[0].ryid}'},
             dataType: "json",
             success: function (data) {
                 console.log(data);
