@@ -108,8 +108,8 @@
             <p>当前介绍</p>
             <ul class="nav nav-pills nav-stacked">
                 <%--<li class="active"><a href="a_zhuche.jsp">我的简历</a></li>--%>
-                <li><a href="/wf02/a_jlupdate.jsp">我的简历</a></li>
-                <li><a href="/wf02/a_wodetoudi.jsp">我的投递</a></li>
+                <li><a href="a_zhuche.jsp">我的简历</a></li>
+                <li><a href="#">我的投递</a></li>
                 <li><a href="#">通知</a></li>
             </ul>
             <hr class="hidden-sm hidden-md hidden-lg">
@@ -128,13 +128,14 @@
             <%--<p>菜鸟教程，学的不仅是技术，更是梦想！！！菜鸟教程，学的不仅是技术，更是梦想！！！菜鸟教程，学的不仅是技术，更是梦想！！！</p>--%>
                 <div id="ccc">
                     <table class="table table-bordered" style="margin-left: 20px;" >
-                        <caption id="cap">招聘岗位</caption>
+                        <caption id="cap">我的投递</caption>
                         <thead >
                         <tr>
                             <th>招聘ID</th>
                             <th>招聘名称</th>
                             <th>提供薪资</th>
                             <th>招聘人数</th>
+                            <th>处理状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -144,9 +145,11 @@
                             <Td>{{i.zpsname}}</Td>
                             <Td>{{i.tgxinzi}}</Td>
                             <Td>{{i.zprs}}</Td>
+                            <Td v-if="i.tdstatic==0" style="color: red">处理中</Td>
+                            <Td v-if="i.tdstatic!=0" style="color: black">已回复</Td>
                             <Td>
                                 <input class="btn btn-primary btn-xm"  type="button" onclick="zpxq('{{i.zpsid}}');" value="详情">
-                                <input class="btn btn-primary btn-xm"  type="button" onclick="tdjl('{{i.zpsid}}');" value="投递简历" />
+                                <%--<input class="btn btn-primary btn-xm"  type="button" onclick="tdjl('{{i.zpsid}}');" value="投递简历" />--%>
                                 <%--<input class="btn btn-primary btn-xm" type="button" onclick="sanchu('{{i.zpsid}}');" value="删除"  />--%>
                             </Td>
                         </tr>
@@ -161,65 +164,12 @@
     <p>欢迎您的加入！！</p>
 </div>
 <script type="text/javascript">
-    function zjtdjl(id01,id02) {
-        $.ajax({
-            url: "${path}/insert_wf_tdjl",
-            type: "post",
-            data:{"tdrid":id01,"tdzpsid":id02},
-            dataType: "json",
-            success: function (data) {
-                console.log("增加面试表");
-                console.log(data);
-            }
-        });
-    }
-    function cxtdjl001(id01,id02) {
-        $.ajax({
-            url: "${path}/cxtdjl001",
-            type: "post",
-            data:{"tdrid":id01},
-            dataType: "json",
-            success: function (data) {
-                if(data.length>0){
-                    alert("您已经投递过简历，可以在我的投递中查看");
-                }else{
-                    zjtdjl(id01,id02);
-                }
-            }
-        });
-    }
-    //根据当前登录用户查询是否已经创建简历
-    function tdjl(id) {
-        // console.log("投递简历"+id);
-        $.ajax({
-            url: "${path}/xxcx02",
-            type: "post",
-            data:{"id02":'${sessionScope.list[0].qtyhid}'},
-            dataType: "json",
-            success: function (data) {
-                if(data.length>0){
-                    console.log("投递简历");
-                    console.log(data);
-                    var id02 = data[0].id;
-                    cxtdjl001('${sessionScope.list[0].qtyhid}',id);
-                }else{
-                    if(confirm('您当前没有创建简历，是否要去创建')==true){
-                        window.location.href="a_jltx.jsp";
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }
-            }
-        });
-    }
-
     function zpxq(id){
         //手动打开模态框
         $.ajax({
-            url: "${path}/zpsqbcx02",
+            url: "${path}/zpsqbcx03",
             type: "post",
-            data:{"id":id},
+            data:{"id":id,'tdrid':'${sessionScope.list[0].qtyhid}'},
             dataType: "json",
             success: function (data) {
                 console.log(data);
@@ -237,9 +187,9 @@
     }
     function gg(id){
         $.ajax({
-            url: "${path}/zpsqbcx02",
+            url: "${path}/zpsqbcx03",
             type: "post",
-            data:{"id":id},
+            data:{"id":id,'tdrid':'${sessionScope.list[0].qtyhid}'},
             dataType: "json",
             success: function (data) {
                 console.log(data);

@@ -2,7 +2,7 @@
 <%@ include file="../gy.jsp" %>
 <html>
 <head>
-    <title>用户登录</title>
+    <title>TEM 公司招聘</title>
 </head>
 <body >
 <!-- 模态框（Modal） -->
@@ -48,7 +48,7 @@
 <div class="container">
     <div class="col-md-4 col-md-offset-4" id="form-container">
         <h1 class="text-center">
-            用 户 登 录
+            TEM公司招聘
         </h1>
             <div class="form-group" style="padding-bottom: 8px;">
                 <label class="col-md-4" for="telephone">
@@ -101,7 +101,7 @@
                 dataType:'json',
                 type:'post',
                 success:function(data){
-                    if(data!=0){alert("注册成功");window.location.href = "${path}/a_login.jsp";}else{alert("注册失败，请重新注册")}
+                    if(data!=0){alert("注册成功");window.location.href = "${path}/wf02/a_login.jsp";}else{alert("注册失败，请重新注册")}
                 }
 
             })

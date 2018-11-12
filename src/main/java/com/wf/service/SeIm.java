@@ -22,6 +22,16 @@ public class SeIm implements Se{
         return dao.jsbselect01();
     }
 
+    //增加合同
+    public int insert_wf_hetong(Map map) {
+        return dao.insert_wf_hetong(map);
+    }
+
+    //updatewfstafftablerzht
+    public int updatewfstafftablerzht(Map map) {
+        return dao.updatewfstafftablerzht(map);
+    }
+
     @Override
     public int yhinsert01(Map map) {
         return dao.yhinsert01(map);

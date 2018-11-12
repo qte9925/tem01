@@ -16,6 +16,75 @@ public class Zpconroller {
     @Autowired
     private Zp se;
 
+    @RequestMapping("/updatewf_tdjl01")
+    @ResponseBody
+    public int updatewf_tdjl01(@RequestParam Map map) {
+        return se.updatewf_tdjl01(map);
+    }
+
+    @RequestMapping("/cxtdjl003")
+    @ResponseBody
+    public List<Map> cxtdjl003(@RequestParam Map map) {
+        return se.cxtdjl003(map);
+    }
+
+    @RequestMapping("/countwf_ms")
+    @ResponseBody
+    public List<Map> countwf_ms(@RequestParam Map map) {
+        return se.countwf_ms(map);
+    }
+    @RequestMapping("/insert_wf_ms")
+    @ResponseBody
+    public int insert_wf_ms(@RequestParam Map map) {
+        return se.insert_wf_ms(map);
+    }
+    @RequestMapping("/zxiugai0041")
+    @ResponseBody
+    public int zxiugai0041(@RequestParam Map map) {
+        return se.zxiugai0041(map);
+    }
+    @RequestMapping("/cxtdjl002")
+    @ResponseBody
+    public List<Map> cxtdjl002(@RequestParam Map map) {
+        return se.cxtdjl002(map);
+    }
+    @RequestMapping("/zpsqbcx03")
+    @ResponseBody
+    public List<Map> zpsqbcx03(@RequestParam Map map) {
+        return se.zpsqbcx03(map);
+    }
+    @RequestMapping("/cxtdjl001")
+    @ResponseBody
+    public List<Map> cxtdjl001(@RequestParam Map map) {
+        return se.cxtdjl001(map);
+    }
+    @RequestMapping("/insert_wf_tdjl")
+    @ResponseBody
+    public int insert_wf_tdjl(@RequestParam Map map) {
+        return se.insert_wf_tdjl(map);
+    }
+    @RequestMapping("/insert_wf_jianli")
+    @ResponseBody
+    public int insert_wf_jianli(@RequestParam Map map) {
+        return se.insert_wf_jianli(map);
+    }
+    @RequestMapping("/xxcx02")
+    @ResponseBody
+    public List<Map> xxcx02(@RequestParam Map map) {
+        return se.xxcx02(map);
+    }
+    @RequestMapping("/zpsqbcx02")
+    @ResponseBody
+    public List<Map> zpsqbcx02(@RequestParam Map map) {
+        System.out.println(map);
+        return se.zpsqbcx02(map);
+    }
+    //查询该前台用户是否注册了个人简历
+    @RequestMapping("/xxcx")
+    @ResponseBody
+    public int xxcx(@RequestParam Map map) {
+        return se.xxcx(map);
+    }
     //招聘前台注册
     @RequestMapping("/insert_wf_qtyh")
     @ResponseBody
