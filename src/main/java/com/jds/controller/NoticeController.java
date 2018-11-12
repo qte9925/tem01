@@ -53,4 +53,22 @@ public class NoticeController {
         System.out.print("增加");
         return a;
     }
+    @RequestMapping("selectG")
+    @ResponseBody
+    public PageInfo<Map> selectG(PageEntity page, @RequestParam Map map){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=ns.selectG(map,page);
+        return pageInfo;
+
+    }
+    @RequestMapping("selectG1")
+    @ResponseBody
+    public PageInfo<Map> selectG1(PageEntity page, @RequestParam Map map){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=ns.selectG1(map,page);
+        return pageInfo;
+
+    }
 }

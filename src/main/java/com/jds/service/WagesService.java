@@ -19,6 +19,7 @@ public interface WagesService {
     public int updateXb(Map map);
     public List selectXb(Map map);
     public PageInfo<Map> selectXf(Map map, PageEntity page);
+    public PageInfo<Map> selectXf1(Map map, PageEntity page);
     public int updateXf(Map map);
     public int insertS(Map map);
     public PageInfo<Map> selectS(Map map, PageEntity page);
@@ -30,4 +31,5 @@ public interface WagesService {
     public int updateS1(Map map);
     public int updateS2(Map map);
     public Map selectSy(int id);
+    public int updateSs(Map map);
 }

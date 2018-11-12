@@ -246,7 +246,7 @@
                 var cd=$("#cdcs").val();
                 var zt=$("#ztcs").val();
                 var qj=$("#qjcs").val();
-                var jb1=$("#jbcs").val();11122[]
+                var jb1=$("#jbcs").val();
                 var jl=$("#jj").val();
                 var by=$("#bydkcs").val();
                 var sq=Number(jb)/22*Number(by)+Number(sjx)-Number(sy)-Number(ya)-Number(yl)-Number(cd)*50-Number(zt)*50-Number(qj)*100+Number(jb1)*150;

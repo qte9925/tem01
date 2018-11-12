@@ -38,7 +38,7 @@
             <td>结束日期</td>
             <td>工资月份</td>
             <td>备注</td>
-            <td>操    作</td>
+            <%--<td>操    作</td>--%>
 
         </tr>
 
@@ -48,47 +48,15 @@
         <a id="pre" onclick="fy('pre')">上一页</a>
         <a id="next" onclick="fy('next')">下一页</a>
         当第<span id="nowPage"></span>页
+        <input type="button" value="退出" id="eidBtn">
     </center>
 </div>
-<div class="modal fade" id="myModala" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    请设置发件时间
-                </h4>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <center>
-                        <table>
-                            <tr>
-                                <td>
-                                    日期：<input type="text" id="rq">
-                                </td>
-                            </tr>
-                        </table>
-                    </center>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="button" class="btn btn-primary" id="updateGzt">
-                    确定
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+
 </body>
 <script type="text/javascript">
     function searchInfo(nowPage){
         $.ajax({
-            url:"${path}/selectXf",
+            url:"${path}/selectXf1",
             data:{"yf":$("#yf").val(),"nowPage":nowPage},
             dataType:"json",
             type:"post",
@@ -106,7 +74,7 @@
                         tr=tr+"    <td>"+st.jzrq+"</td>";
                         tr=tr+"    <td>"+st.gzyf+"</td>";
                         tr=tr+"    <td>"+st.bz+"</td>";
-                        tr=tr+"    <td><input type=\"button\" value='发邮件' onclick='aa("+st.id+")' class=\"btn btn-primary\"  data-toggle=\"modal\" data-target=\"#myModala\"/>";
+                       /* tr=tr+"    <td><input type=\"button\" value='发邮件' onclick='aa("+st.id+")' class=\"btn btn-primary\"  data-toggle=\"modal\" data-target=\"#myModala\"/>";*/
                         tr=tr+"   </tr>";
                         $("#tbody").append(tr);
                     }
@@ -142,58 +110,9 @@
         else nowPage = Number(nowPage) - 1;
         searchInfo(nowPage);
     };
-    lay('#version').html('-v'+ laydate.v);
+/*$("#eidBtn").click(function () {
 
-    //执行一个laydate实例
-    laydate.render({
-        elem: '#rq' //指定元素
-    });
-    function aa(id) {
-        $("#updateGzt").click(function () {
-            alert(id)
-            $.ajax({
-                url:"${path}/selectYj",
-                data:{"lcid":id,
-                },
-                dataType:"json",
-                type:"post",
-                success:function(data){
-
-                    window.location.reload();
-
-
-                }
-            });
-      /*  $.ajax({
-            url:"${path}/updateGza",
-            data:{"lcid":id,
-                  "bz":$("#rq").val(),
-            },
-            dataType:"json",
-            type:"post",
-            success:function(data){
-
-                    window.location.reload();
-
-
-            }
-        });*/
-           /* $.ajax({
-                url:"${path}/updateXf",
-                data:{"id":id,
-                    "state":4,
-                },
-                dataType:"json",
-                type:"post",
-                success:function(data){
-
-                    window.location.reload();
-
-
-                }
-            });*/
-        })
-    }
+})*/
 
 </script>
 

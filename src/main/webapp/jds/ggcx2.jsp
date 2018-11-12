@@ -37,77 +37,91 @@
 <div>
     <center>
         <h1>公告</h1>
-    <table>
-        <tr>
-            <td>
-                发布人：<font id="ygxm"> </font>
-            </td>
+        <table>
+            <tr>
+                <td>
+                    发布人：<font id="ygxm"> </font>
+                </td>
 
 
-            <td>
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                发布时间： <font id="rq"></font>
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    发布时间： <font id="rq"></font>
 
-            </td>
-        </tr>
-        <tr>
-        <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
 
-                <h2>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h2>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-               主题： <font id="zt"></font>
-                </h2>
+                        主题： <font id="zt"></font>
+                    </h2>
 
-            </td>
-        </tr>
-    </table>
+                </td>
+            </tr>
+        </table>
     </center>
 </div>
 <div id="aaa"></div>
 <div>
-<center>
-    <button id="CloseB"  class="btn btn-primary" >关闭</button>
-</center>
+    <center>
+        <button id="CloseB"  class="btn btn-primary" >关闭</button>
+    </center>
 </div>
 </body>
 <script type="text/javascript">
     var id=${param.idd}
-  $().ready(function () {
+        alert(id)
+        $().ready(function () {
 
-          $.ajax({
-              url:"${path}/selectNa",
-              data:{"id":id,
-              },
-              dataType:"json",
-              type:"post",
-              success:function(data) {
-                  console.log(data.nr)
-                  $("#ygxm").html(data.ygxm);
-                  $("#rq").html(data.rq);
-                  $("#zt").html(data.zt);
-                  $("#aaa").html(data.nr);
+            $.ajax({
+                url:"${path}/selectNa",
+                data:{"id":id,
+                },
+                dataType:"json",
+                type:"post",
+                success:function(data) {
+                    console.log(data.nr)
+                    $("#ygxm").html(data.ygxm);
+                    $("#rq").html(data.rq);
+                    $("#zt").html(data.zt);
+                    $("#aaa").html(data.nr);
 
 
-              }
-          });
+                }
+            });
 
-  })
+        })
     $("#CloseB").click(function () {
-                   window.location.href="${path}/jds/ggcx.jsp"
+
+        $.ajax({
+            url:"${path}/updateN",
+            data:{"id":id,
+                "state":1
+            },
+            dataType:"json",
+            type:"post",
+            success:function(data) {
+                history.go(-1)
+
+            }
+        });
+
     })
 </script>
 

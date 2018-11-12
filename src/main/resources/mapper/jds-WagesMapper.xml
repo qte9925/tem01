@@ -49,8 +49,14 @@ select a.*,b.*,c.*,d.*,e.* from (((j_ygjb a join wfstafftable b on a.ygid=b.ryid
     <select id="selectXf" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         select * from j_xzlc where state=3
     </select>
+    <select id="selectXf1" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select * from j_xzlc where state=4
+    </select>
     <update id="updateXf"  parameterType="java.util.HashMap">
         update j_xzlc set state=#{state} where id=#{id}
+    </update>
+    <update id="updateSs"  parameterType="java.util.HashMap">
+        update j_xzlc set state=1 where id=#{id}
     </update>
     <insert id="insertS"  parameterType="java.util.HashMap">
      insert into  j_sqbx(sqname,sqid,sqje,sqpz,sqly,sqdata,sqzt,state)values(#{sqname},#{sqid},#{sqje},#{sqpz},#{sqly},#{sqdata},#{sqzt},0)

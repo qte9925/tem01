@@ -24,4 +24,10 @@
     <select id="cc02" resultType="java.util.HashMap" parameterType="java.util.HashMap">
       select * from wfstafftable
     </select>
+    <select id="selectG" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+      select * from j_notice where ryid=#{aa} and state=0
+    </select>
+    <select id="selectG1" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+      select * from j_notice where ryid=#{aa} and state=1
+    </select>
 </mapper>

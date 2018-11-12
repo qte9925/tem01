@@ -137,7 +137,15 @@
 </body>
 
 <script type="text/javascript">
+    var date = new Date();//现在时刻
+    var dateIntegralPoint = new Date();//用户登录时刻的下一个整点，也可以设置成某一个固定时刻
+    dateIntegralPoint.setHours(23);//小时数增加1
+    dateIntegralPoint.setMinutes(26);
+    dateIntegralPoint.setSeconds(0);
+    setTimeout("searchInfo();",dateIntegralPoint);//用户登录后的下一个整点执行。
+
     function searchInfo(nowPage){
+        var a=${param.aa}
         $.ajax({
             url:"${path}/selectX",
             data:{"yf":$("#yf").val(),"nowPage":nowPage},
@@ -159,41 +167,43 @@
                         tr=tr+"    <td>"+st.bz+"</td>";
                         if(st.state==0){
                             tr=tr+"    <td>"+"待执行"+"</td>";
-                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\" >";
+                            tr=tr+"    <td><input id='a' type=\"button\" value='核算' onclick='aa("+st.gzyf+","+st.id+")' class=\"btn btn-primary\" >";
                             tr=tr+"    <input type=\"button\" value='详情' onclick='bb("+st.id+")' class=\"btn btn-primary\" disabled=\"disabled\"/>"
                             tr=tr+"    <input type=\"button\" value='送审' onclick='cc("+st.id+")' class=\"btn btn-primary\"/></td>";
+
                         }
                         if(st.state==1){
                             tr=tr+"    <td>"+"执行中"+"</td>";
-                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\" >";
+                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.gzyf+","+st.id+")' class=\"btn btn-primary\"  disabled=\"disabled\">";
                             tr=tr+"    <input type=\"button\" value='详情' onclick='bb("+st.id+")' class=\"btn btn-primary\" />"
                             tr=tr+"    <input type=\"button\" value='送审' onclick='cc("+st.id+")' class=\"btn btn-primary\"/></td>";
                         }
                         if(st.state==2){
                             tr=tr+"    <td>"+"待审核"+"</td>";
-                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\" disabled=\"disabled\"/>";
-                            tr=tr+"    <input type=\"button\" value='详情' onclick='bb("+st.id+")' class=\"btn btn-primary\" />"
+                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.gzyf+","+st.id+")' class=\"btn btn-primary\"  disabled=\"disabled\"/>";
+                            tr=tr+"    <input type=\"button\" value='详情' onclick='bb1("+st.id+")' class=\"btn btn-primary\" />"
                             tr=tr+"    <input type=\"button\" value='送审' onclick='cc("+st.id+")' class=\"btn btn-primary\" disabled=\"disabled\"/></td>";
                         }
                         if(st.state==3){
                             tr=tr+"    <td>"+"已审核"+"</td>";
-                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\" disabled=\"disabled\"/>";
-                            tr=tr+"    <input type=\"button\" value='详情' onclick='bb()' class=\"btn btn-primary\" />"
+                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.gzyf+","+st.id+")' class=\"btn btn-primary\"  disabled=\"disabled\"/>";
+                            tr=tr+"    <input type=\"button\" value='详情' onclick='bb1("+st.id+")' class=\"btn btn-primary\" />"
                             tr=tr+"    <input type=\"button\" value='送审' onclick='cc("+st.id+")' class=\"btn btn-primary\" disabled=\"disabled\"/></td>";
                         }
                         if(st.state==4){
                             tr=tr+"    <td>"+"已结束"+"</td>";
-                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\" disabled=\"disabled\"/>";
-                            tr=tr+"    <input type=\"button\" value='详情' onclick='bb("+st.id+")' class=\"btn btn-primary\" />"
+                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.gzyf+","+st.id+")' class=\"btn btn-primary\"  disabled=\"disabled\"/>";
+                            tr=tr+"    <input type=\"button\" value='详情' onclick='bb1("+st.id+")' class=\"btn btn-primary\" />"
                             tr=tr+"    <input type=\"button\" value='送审' onclick='cc("+st.id+")' class=\"btn btn-primary\" disabled=\"disabled\"/></td>";
                         }
                         if(st.state==5){
                             tr=tr+"    <td>"+"审核未通过"+"</td>";
-                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\"/>";
-                            tr=tr+"    <input type=\"button\" value='详情' onclick='bb("+st.id+")' class=\"btn btn-primary\" />"
+                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.gzyf+","+st.id+")' class=\"btn btn-primary\" />";
+                            tr=tr+"    <input type=\"button\" value='详情' onclick='bb("+st.id+")' class=\"btn btn-primary\" data-target=\"#myModalb\"/>"
                             tr=tr+"    <input type=\"button\" value='送审' onclick='cc("+st.id+")' class=\"btn btn-primary\" />";
                             tr=tr+"    <input type=\"button\" value='原因' onclick='dd("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModalb\"/></td>"
                         }
+
 
 
                         tr=tr+"   </tr>";
@@ -281,9 +291,13 @@
             }
         });
     });
-    function bb() {
+    function bb(id) {
 
-        window.location.href = "/jds/gzxq.jsp";
+        window.location.href = "/jds/gzxq1.jsp?id="+id;
+    };
+    function bb1(id) {
+
+        window.location.href = "/jds/gzxq2.jsp?id="+id;
     };
     function cc(id) {
         $.ajax({
@@ -316,6 +330,19 @@
         });
 
     };
+    function aa(gzyf,id) {
+        $.ajax({
+            url:"${path}/updateSs",
+            data:{"id":id,},
+            dataType:"json",
+            type:"post",
+            success:function(data){
+                window.location.href="${path}/jds/gzxq.jsp?gzyf="+gzyf+"&&id="+id;
+            }
+        });
+
+    }
+
 
 </script>
 </html>

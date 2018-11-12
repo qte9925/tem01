@@ -43,5 +43,21 @@ public class NoticeServiceImpl implements NoticeService{
         return nm.cc02(map);
     }
 
+    @Override
+    public PageInfo<Map> selectG(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=nm.selectG(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+
+    @Override
+    public PageInfo<Map> selectG1(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=nm.selectG1(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+
 
 }
