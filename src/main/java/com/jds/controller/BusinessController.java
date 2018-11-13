@@ -56,6 +56,7 @@ public class BusinessController {
             map.put("zt",list01.get(i).get("zt"));
             map.put("kg",list01.get(i).get("kg"));
             map.put("zz",list01.get(i).get("sx"));
+            map.put("jiaban",list01.get(i).get("jiaban"));
             DecimalFormat df4 = new DecimalFormat("###.###");
             String aa;
              aa=df4.format(list01.get(i).get("sjgz"));
@@ -205,5 +206,11 @@ public class BusinessController {
         }
         return list;
 
+    }
+    @RequestMapping("updateGzc")
+    @ResponseBody
+    public int updateGzc(@RequestParam Map map){
+        int a=bs.updateGzc(map);
+        return a;
     }
 }

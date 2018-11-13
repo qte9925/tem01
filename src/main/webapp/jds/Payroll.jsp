@@ -86,6 +86,22 @@
 </div>
 </body>
 <script type="text/javascript">
+    function getNow(s) {
+        return s < 10 ? '0' + s: s;
+    }
+
+    var myDate = new Date();
+    //获取当前年
+    var year=myDate.getFullYear();
+    //获取当前月
+    var month=myDate.getMonth()+1;
+    //获取当前日
+    var date=myDate.getDate();
+    var h=myDate.getHours();       //获取当前小时数(0-23)
+    var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+    var s=myDate.getSeconds();     //获取当前秒钟数(0-59)
+
+    var now=year+'-'+getNow(month)+"-"+getNow(date);
     function searchInfo(nowPage){
         $.ajax({
             url:"${path}/selectXf",
@@ -148,9 +164,13 @@
     laydate.render({
         elem: '#rq' //指定元素
     });
+
     function aa(id) {
+
+
+
         $("#updateGzt").click(function () {
-            alert(id)
+            alert($("#rq").val())
             $.ajax({
                 url:"${path}/selectYj",
                 data:{"lcid":id,
@@ -164,10 +184,11 @@
 
                 }
             });
-      /*  $.ajax({
+
+            $.ajax({
             url:"${path}/updateGza",
             data:{"lcid":id,
-                  "bz":$("#rq").val(),
+                  "fjsj":$("#rq").val()
             },
             dataType:"json",
             type:"post",
@@ -177,8 +198,8 @@
 
 
             }
-        });*/
-           /* $.ajax({
+        });
+            $.ajax({
                 url:"${path}/updateXf",
                 data:{"id":id,
                     "state":4,
@@ -191,8 +212,10 @@
 
 
                 }
-            });*/
+            });
+            searchInfo(1);
         })
+
     }
 
 </script>

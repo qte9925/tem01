@@ -31,6 +31,7 @@
     <table class="table table-bordered">
         <tr id="jz">
             <td>序号</td>
+            <td>姓名</td>
             <td>基本工资</td>
             <td>绩效工资</td>
             <td>养老保险</td>
@@ -40,10 +41,14 @@
             <td>生育保险</td>
             <td>住房公积金</td>
             <td>迟到</td>
-            <td>请假</td>
+            <td>病假</td>
+            <td>事假</td>
             <td>早退</td>
             <td>旷工</td>
+            <td>加班</td>
             <td>缴税</td>
+            <td>补发</td>
+            <td>奖金</td>
             <td>实际工资</td>
         </tr>
         <tbody id="tbody" ></tbody>
@@ -126,7 +131,10 @@
                         tr=tr+"    <td>"+st.shijia+"</td>";
                         tr=tr+"    <td>"+st.zt+"</td>";
                         tr=tr+"    <td>"+st.kg+"</td>";
+                        tr=tr+"    <td>"+st.jiaban+"</td>";
                         tr=tr+"    <td>"+st.js+"</td>";
+                        tr=tr+"    <td>"+st.bf+"</td>";
+                        tr=tr+"    <td>"+st.jj+"</td>";
                         tr=tr+"    <td>"+st.sjgz+"</td>";
                         $("#tbody").append(tr);
                     }

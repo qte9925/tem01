@@ -17,4 +17,5 @@ public interface BusinessService {
     public int updateGza(Map map);
     public int updateGzb(Map map);
     public List<Map> selectYj(Map map);
+    public int updateGzc(Map map);
 }
