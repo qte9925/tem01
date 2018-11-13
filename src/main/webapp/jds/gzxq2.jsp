@@ -31,6 +31,7 @@
     <table class="table table-bordered">
         <tr id="jz">
             <td>序号</td>
+            <td>姓名</td>
             <td>基本工资</td>
             <td>绩效工资</td>
             <td>养老保险</td>
@@ -40,11 +41,14 @@
             <td>生育保险</td>
             <td>住房公积金</td>
             <td>迟到</td>
-            <td>请假</td>
+            <td>病假</td>
+            <td>事假</td>
             <td>早退</td>
             <td>旷工</td>
-            <td>补发</td>
+            <td>加班</td>
             <td>缴税</td>
+            <td>补发</td>
+            <td>奖金</td>
             <td>实际工资</td>
         </tr>
         <tbody id="tbody" ></tbody>
@@ -113,8 +117,9 @@
                         var st=data[i];
                         var tr="<tr>";
                         tr=tr+"   <td>"+(i+1)+"</td>";
+                        tr=tr+"   <td>"+st.xm+"</td>";
                         tr=tr+"    <td>"+st.xz+"</td>";
-                        tr=tr+"    <td>"+st.jxjin+"</td>";
+                        tr=tr+"    <td>"+st.jx+"</td>";
                         tr=tr+"    <td>"+st.yanglaobx+"</td>";
                         tr=tr+"    <td>"+st.shiyebx+"</td>";
                         tr=tr+"    <td>"+st.yiliaobx+"</td>";
@@ -122,47 +127,15 @@
                         tr=tr+"    <td>"+st.sybx+"</td>";
                         tr=tr+"    <td>"+st.zfgjj+"</td>";
                         tr=tr+"    <td>"+st.cd+"</td>";
-                        tr=tr+"    <td>"+st.qj+"</td>";
+                        tr=tr+"    <td>"+st.bingjia+"</td>";
+                        tr=tr+"    <td>"+st.shijia+"</td>";
                         tr=tr+"    <td>"+st.zt+"</td>";
                         tr=tr+"    <td>"+st.kg+"</td>";
+                        tr=tr+"    <td>"+st.jiaban+"</td>";
+                        tr=tr+"    <td>"+st.js+"</td>";
                         tr=tr+"    <td>"+st.bf+"</td>";
-                        var aa=st.sjgz-5000;
-                        var cc=st.bf;
-                        var bb;
-
-                        if(aa<0){
-                            bb=0;
-                            tr=tr+"    <td>"+bb+"</td>";
-                            tr=tr+"    <td>"+(st.sjgz-bb+cc)+"</td>";
-                        }else if(3000>=aa){
-                            bb=(aa*0.03-0);
-                            tr=tr+"    <td>"+bb+"</td>";
-                            tr=tr+"    <td>"+(st.sjgz-bb+cc)+"</td>";
-                        }else if(12000>=aa){
-                            bb=(aa*0.1-210);
-                            tr=tr+"    <td>"+bb+"</td>";
-                            tr=tr+"    <td>"+(st.sjgz-bb+cc)+"</td>";
-                        }else if(25000>=sq1){
-                            bb=(aa*0.2-1410);
-                            tr=tr+"    <td>"+bb+"</td>";
-                            tr=tr+"    <td>"+(st.sjgz-bb+cc)+"</td>";
-                        }else if(35000>=sq1){
-                            bb=(aa*0.25-2660);
-                            tr=tr+"    <td>"+bb+"</td>";
-                            tr=tr+"    <td>"+(st.sjgz-bb+cc)+"</td>";
-                        }else if(55000>=sq1){
-                            bb=(aa*0.3-4410);
-                            tr=tr+"    <td>"+bb+"</td>";
-                            tr=tr+"    <td>"+(st.sjgz-bb+cc)+"</td>";
-                        }else if(80000>=sq1){
-                            bb=(aa*0.35-7160);
-                            tr=tr+"    <td>"+bb+"</td>";
-                            tr=tr+"    <td>"+(st.sjgz-bb+cc)+"</td>";
-                        }else{
-                            bb=(aa*0.4-15160);
-                            tr=tr+"    <td>"+bb+"</td>";
-                            tr=tr+"    <td>"+(st.sjgz-bb+cc)+"</td>";
-                        }
+                        tr=tr+"    <td>"+st.jj+"</td>";
+                        tr=tr+"    <td>"+st.sjgz+"</td>";
                         $("#tbody").append(tr);
                     }
                 }

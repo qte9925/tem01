@@ -15,6 +15,76 @@ public class ZpIm implements Zp{
     @Autowired
     private Zpdao dao;
 
+    @Override
+    public int updatewf_tdjl01(Map map) {
+        return dao.updatewf_tdjl01(map);
+    }
+
+    //增加面试表
+    public int insert_wf_ms(Map map) {
+        return dao.insert_wf_ms(map);
+    }
+
+    @Override
+    public int zxiugai0041(Map map) {
+        return dao.zxiugai0041(map);
+    }
+
+    //增加添加简历表
+    public int insert_wf_tdjl(Map map) {
+        return dao.insert_wf_tdjl(map);
+    }
+
+    //添加简历
+    public int insert_wf_jianli(Map map) {
+        return dao.insert_wf_jianli(map);
+    }
+
+    //统计查询当前是第几次面试
+    public List<Map> countwf_ms(Map map) {
+        return dao.countwf_ms(map);
+    }
+
+    @Override
+    public List<Map> cxtdjl003(Map map) {
+        return dao.cxtdjl003(map);
+    }
+
+    //招聘书全部查询
+    public List<Map> zpsqbcx02(Map map) {
+        return dao.zpsqbcx02(map);
+    }
+
+    //查询已经投递简历
+    public List<Map> cxtdjl002(Map map) {
+        return dao.cxtdjl002(map);
+    }
+
+    @Override
+    public List<Map> zpsqbcx03(Map map) {
+        return dao.zpsqbcx03(map);
+    }
+
+    //查询员工是否已经投递过简历
+    public List<Map> cxtdjl001(Map map) {
+        return dao.cxtdjl001(map);
+    }
+
+    //查询该前台用户是否注册了个人简历
+    public int xxcx(Map map) {
+        List<Map> list = dao.xxcx(map);
+        if(list.size()>0){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    @Override
+    public List<Map> xxcx02(Map map) {
+        return dao.xxcx02(map);
+    }
+
     //招聘前台注册
     public int insert_wf_qtyh(Map map) {
         return dao.insert_wf_qtyh(map);

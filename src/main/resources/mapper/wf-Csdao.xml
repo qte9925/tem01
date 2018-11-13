@@ -14,11 +14,13 @@
         #{beizhu},0)
     </insert>
     <select id="htnrcx"  resultType="java.util.Map" parameterType="java.util.Map">
-        select * from wf_hetong ht , wfstafftable yh,wf_gs gs, wf_ht_leixing htlx,wfdepartment bm
+        select *,DATE_FORMAT(ksrq,'%Y-%m-%d %H:%i:%S') as ksrq02 ,
+         DATE_FORMAT(jsrq,'%Y-%m-%d %H:%i:%S') as jsrq02 ,
+         DATE_FORMAT(sxrq,'%Y-%m-%d %H:%i:%S') as sxrq02 from wf_hetong ht , wfstafftable yh,wf_gs gs, wf_ht_leixing htlx,wfdepartment bm
         where ht.ygid=yh.ryid and ht.gsid = gs.gsid and ht.htlxid = htlx.htleixingid and bm.bmid = yh.rybmid
     </select>
     <select id="ygbid" resultType="java.util.Map" parameterType="java.util.Map">
-       SELECT ryid as id, ryxm as name from wfstafftable where rystatic =0
+       SELECT ryid as id, ryxm as name from wfstafftable where rystatic =0 and rzht=0
     </select>
     <select id="cxqxb" resultType="java.util.Map" parameterType="java.util.Map">
        SELECT * from wfqxb where qxstatic = 0
@@ -78,5 +80,13 @@ s.ryzhanghao = c.yhid and  c.yhid =  #{yhid}    </select>
         insert into wf_jsb_qxb (jsid,qxid) VALUES
         <foreach separator="," index="index" item="list" collection="list">(#{list.jsid},#{list.qxid}) </foreach>
     </insert>
+
+    <insert id="insert_wf_hetong" parameterType="java.util.List">
+       INSERT INTO `tem01`.`wf_hetong`(`ygid`, `gsid`, `htlxid`, `ksrq`,     `jsrq`, `sxrq`, `beizhu`, `jxjin`, `xz`,     `yanglaobx`, `shiyebx`, `yiliaobx`, `sybx`, `gsbx`, `zfgjj`)
+                              VALUES (#{ygid}, #{gsid}, #{htlxid}, #{ksrq}, #{jsrq}, #{sxrq}, #{beizhu}, #{jxjin}, #{xz}, #{yanglaobx}, #{shiyebx}, #{yiliaobx}, #{sybx},#{gsbx},#{zfgjj})
+    </insert>
+    <update id="updatewfstafftablerzht" parameterType="java.util.Map">
+    UPDATE `tem01`.`wfstafftable` SET `rzht` = 1 WHERE `ryid` = #{ryid}
+    </update>
 
 </mapper>

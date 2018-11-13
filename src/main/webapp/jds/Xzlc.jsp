@@ -137,6 +137,12 @@
 </body>
 
 <script type="text/javascript">
+    var date = new Date();//现在时刻
+    var dateIntegralPoint = new Date();//用户登录时刻的下一个整点，也可以设置成某一个固定时刻
+    dateIntegralPoint.setHours(23);//小时数增加1
+    dateIntegralPoint.setMinutes(26);
+    dateIntegralPoint.setSeconds(0);
+    setTimeout("searchInfo();",dateIntegralPoint);//用户登录后的下一个整点执行。
 
     function searchInfo(nowPage){
         var a=${param.aa}

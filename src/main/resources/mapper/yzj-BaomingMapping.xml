@@ -30,8 +30,8 @@
   post=#{post},shenpimode=#{shenpimode},education=#{education},writePeople=#{writePeople},departmentid=#{departmentid} where Id=#{Id};
     </update>
     <insert id="AddBaomingyzj"  parameterType="java.util.HashMap">
-        insert into y_New_Baoming (planid,neirong,beizhu,baomingname)
-        values(#{planid},#{neirong},#{beizhu},#{baomingname})
+        insert into y_New_Baoming (planid,ryid,beizhu)
+        values(#{planid},#{ryid},#{beizhu})
     </insert>
     <select id="departmentFindType" resultType="java.util.HashMap">
         select * from wfdepartment

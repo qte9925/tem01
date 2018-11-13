@@ -9,6 +9,8 @@ import java.util.Map;
 @Component
 public interface Kqdao {
     List<Map> cxqj03(Map map);
+    int insertqiandao(Map map );
+    int insertwf_kqtj(Map map );
     int qjxqupdate(Map map );
     List cxqj02(Map map);
     List<Map> gzrl(Map map);

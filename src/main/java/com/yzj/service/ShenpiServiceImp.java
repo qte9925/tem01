@@ -29,11 +29,10 @@ public class ShenpiServiceImp implements ShenpiService{
     public int updateshenpiplanyzj(Map map) {
         return dao.updateshenpiplanyzj(map);
     }
-
-    @Override
+   /* @Override
     public int updatexinxiplan(Map map) {
         return dao.updatexinxiplan(map);
-    }
+    }*/
 
     @Override
     public int AddBaomingyzj(Map map) {
@@ -41,7 +40,7 @@ public class ShenpiServiceImp implements ShenpiService{
     }
 
     @Override
-    public List selectyibaoming(Map map) {
+    public List<Map> selectyibaoming(Map map) {
         return dao.selectyibaoming(map);
     }
 }

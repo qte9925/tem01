@@ -18,6 +18,18 @@ public class Csconroller {
     @Autowired
     private Se se;
 
+    @RequestMapping("/updatewfstafftablerzht")
+    @ResponseBody
+    public int updatewfstafftablerzht(@RequestParam Map map) {
+        System.out.println(map);
+        return se.updatewfstafftablerzht(map);
+    }
+    @RequestMapping("/insert_wf_hetong")
+    @ResponseBody
+    public int insert_wf_hetong(@RequestParam Map map) {
+        System.out.println(map);
+        return se.insert_wf_hetong(map);
+    }
     @RequestMapping("/zjht")
     @ResponseBody
     public int zjht(@RequestParam Map map) {

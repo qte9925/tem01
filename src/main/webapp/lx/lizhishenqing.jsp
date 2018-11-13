@@ -18,10 +18,8 @@
         <td>
             <label  class="col-sm-2 control-label">离职人员</label>
             <div class="col-sm-10">
-                <input type="hidden" id="yg"/>
-                <span>
-                        ${sessionScope.list[0].yhname}
-                    </span>
+                <input type="text" style="display: none;" readonly="readonly" class="form-control" id="yg" value="${sessionScope.list[0].ryid}">
+                <input type="text" readonly="readonly" class="form-control" value="${sessionScope.list[0].ryxm}">
             </div>
         </td>
     </tr>
@@ -29,10 +27,8 @@
         <td>
             <label  class="col-sm-2 control-label">部门</label>
             <div class="col-sm-10">
-                <input type="hidden" id="qjlx"/>
-                <span>
-                        ${sessionScope.list[0].bmname}
-                    </span>
+                <input type="text" style="display: none;" readonly="readonly" class="form-control" id="qjlx" value="${sessionScope.list[0].ryid}">
+                <input type="text" readonly="readonly" class="form-control" value="${sessionScope.list[0].bmname}">
             </div>
         </td>
     </tr>
@@ -48,11 +44,8 @@
         <td>
             <label  class="col-sm-2 control-label">入职时间</label>
             <div class="col-sm-10">
-                <input type="hidden" id="datatime01">
-                <span id="datetime01">
-                    ${sessionScope.list[0].rydata}
-                </span>
-                </input>
+                <input type="text" id="datatime01" readonly="readonly" class="form-control"
+                       value="${sessionScope.list[0].rydata}"/>
             </div>
         </td>
     </tr>
@@ -60,8 +53,8 @@
         <td>
             <label  class="col-sm-2 control-label">申请时间</label>
             <div class="col-sm-10">
-                <input type="hidden" id="datatime02"/>
-                <%=new java.sql.Timestamp(System.currentTimeMillis()).toString().substring(0,10) %>
+                <input type="text" id="datatime02" readonly="readonly" class="form-control"
+                       value="<%=new java.sql.Timestamp(System.currentTimeMillis()).toString().substring(0,10) %>"/>
             </div>
         </td>
     </tr>

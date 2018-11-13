@@ -5,6 +5,8 @@ import java.util.*;
 public interface Se {
     List login(Map map);
     List jsbselect01();
+    int insert_wf_hetong(Map map);
+    int updatewfstafftablerzht(Map map);
     int yhinsert01(Map map);
     List selectyh01();
     List rlsq();

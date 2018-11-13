@@ -21,6 +21,8 @@
             <th>审批人员</th>
             <th>状态</th>
             <th>操作</th>
+
+            //简历关联列   ，转正状态，合同关联列，
         </tr>
         </thead>
         <tbody id="thead01">
