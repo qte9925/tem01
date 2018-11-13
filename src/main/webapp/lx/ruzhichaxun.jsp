@@ -2,7 +2,7 @@
 <%@ include file="../gy.jsp" %>
 <html>
 <head>
-    <title>离职登记</title>
+    <title>入职登记</title>
 </head>
 <body >
 <form class="form-inline" role="form" id="name02" style="margin-top: 20px;padding-left: 20px;">
@@ -13,36 +13,26 @@
         <caption id="cap">离职登记 </caption>
         <thead >
         <tr>
-            <th>离职人员</th>
+            <th>入职人员</th>
             <th>部门</th>
-            <th>离职原因</th>
             <th>入职日期</th>
-            <th>申请日期</th>
             <th>审批人员</th>
             <th>状态</th>
             <th>操作</th>
 
-            //简历关联列   ，转正状态，合同关联列，
         </tr>
         </thead>
         <tbody id="thead01">
-        <tr v-for="i in msg" v-if="i.spzt!=0 && i.spzt!=1 && i.spzt!=2  ">
-            <td>{{i.ryxm}}</td>
+        <tr v-for="i in msg" v-if="i.rzzt!=3 && i.rzzt!=4 && i.rzzt!=5  ">
+            <td>{{i.jlname}}</td>
             <td>{{i.bmname}}</td>
-            <td>{{i.lzyy}}</td>
-            <Td>{{i.datetime01}}</Td>
-            <Td>{{i.datetime02}}</Td>
-            <Td>{{i.spname}}</Td>
-            <Td v-if="i.spzt == 3">审批中</Td>
-            <Td v-if="i.spzt == 4">审批通过</Td>
-            <Td v-if="i.spzt == 5">审批失败</Td>
+            <Td>{{i.rzdata}}</Td>
+            <Td>{{i.ryxm}}</Td>
+            <Td v-if="i.rzzt == 0">审批中</Td>
+            <Td v-if="i.rzzt == 1">审批通过</Td>
             <Td>
                 <button>
-                    <a href="javascript:lzdjupdate('{{i.lizhiid}}','{{i.spzt+1}}')">通过</a>
-                </button>
-                &nbsp;&nbsp;
-                <button>
-                    <a href="javascript:lzdjupdate('{{i.lizhiid}}','{{i.spzt+2}}')">反对</a>
+                    <a href="javascript:lzdjupdate('{{i.rzid}}','{{i.rzzt+1}}')" onclick="zjht();">通过并增加员工</a>
                 </button>
             </Td>
         </tr>
@@ -50,10 +40,10 @@
     </table>
 </div>
 <script type="text/javascript">
-    function lzdjupdate(lizhiid,spzt) {
+    function lzdjupdate(rzid,rzzt) {
         $.ajax({
-            url: "${path}/lzdjupdate",
-            data:{"spzt":spzt,"lizhiid":lizhiid},
+            url: "${path}/rzzx",
+            data:{"rzzt":rzzt,"rzid":rzid},
             type: "post",
             dataType: "json",
             success: function (data02) {
@@ -66,7 +56,7 @@
     }
     function gg(){
         $.ajax({
-            url: "${path}/lzdjselect",
+            url: "${path}/rymssqselect2",
             type: "post",
             // data:{"id":date.getMonth()+1},
             // data:{"id":'02'},
@@ -80,6 +70,28 @@
                         msg:data
                     }
                 });
+            }
+        });
+    }
+    function zjht() {
+        $.ajax({
+            url: "${path}/rzzj",
+            data:{"ryxm":$("#ryxm").val(),
+                "ryzhanghao":$("#ryzhanghao").val(),
+                "rybmid":$("#rybmid").val(),
+                "rygangwei":$("#rygangwei").val(),
+                "rydata":$("#rydata").val(),
+                "ryzwzt":$("#ryzwzt").val()
+            },
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                console.log(rzzt);
+                if(rzzt==0){
+                    alert("提交失败")
+                }else{
+                    window.location.href="/lx/ruzhichaxun.jsp";
+                }
             }
         });
     }
