@@ -1,6 +1,7 @@
 package com.yzj.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.yzj.entity.Message;
 import com.yzj.entity.PageEntity;
 import com.yzj.service.ShenpiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +30,30 @@ public class ShenpiController {
         System.out.print(map+"----------------------------------------------");
         return sp.updateshenpiplanyzj(map);
     }
-    @RequestMapping("updatexinxi")
+   /* @RequestMapping("updatexinxi")
     @ResponseBody
     public int updatebohuixinxi(@RequestParam Map map){
         System.out.print(map);
         return sp.updatexinxiplan(map);
-    }
+    }*/
     /*报名*/
     @RequestMapping("AddBaomingYzj01")
     @ResponseBody
-    public int AddBaoming(@RequestParam Map map){
+    public Message AddBaoming(@RequestParam Map map){
+        Message message=null;
         int i = sp.AddBaomingyzj(map);
-        return i;
+        if(i>0){
+            message = new Message(true,"报名成功");
+        }else{
+            message = new Message(false,"报名失败");
+        }
+        return message;
     }
+    /*已经报名人数*/
     @RequestMapping("selectyijingbaoming")
     @ResponseBody
     public List tongjishuren(@RequestParam Map map){
-       List list = sp.selectyibaoming(map);
+       List<Map> list = sp.selectyibaoming(map);
         return list;
     }
 }

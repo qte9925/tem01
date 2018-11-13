@@ -39,4 +39,5 @@ public class lzServiceimpl implements lzService{
     public int lzzxdelete(Map map) {
         return lzdao.lzzxdelete(map);
     }
+
 }

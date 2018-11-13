@@ -24,8 +24,8 @@
     <update id="lzdjupdate" parameterType="java.util.HashMap">
         update wflizhi set spzt=#{spzt} where lizhiid=#{lizhiid}
     </update>
-    <delete id="lzzxdelete" parameterType="java.util.HashMap">
+    <!--<delete id="lzzxdelete" parameterType="java.util.HashMap">
        delete from wfyhb where yhid=#{yhid}
-    </delete>
+    </delete>-->
 
 </mapper>

@@ -45,7 +45,10 @@
             <td>事假</td>
             <td>早退</td>
             <td>旷工</td>
+            <td>加班</td>
             <td>缴税</td>
+            <td>补发</td>
+            <td>奖金</td>
             <td>实际工资</td>
             <td>操作</td>
         </tr>
@@ -106,9 +109,9 @@
                             <tr>
                                 <td>旷&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工:<input type="text" id="kuanggong"></td>
                             </tr>
-                            <%--<tr>
-                                <td>补&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发:<input type="text" id="bufa"></td>
-                            </tr>--%>
+                            <tr>
+                                <td>加&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;班:<input type="text" id="jiaban"></td>
+                            </tr>
                             <tr>
                                 <td>缴&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税:<input type="text" id="jiaoshui"></td>
                             </tr>
@@ -207,12 +210,13 @@
                            tr=tr+"    <td>"+st.shijia+"</td>";
                            tr=tr+"    <td>"+st.zt+"</td>";
                            tr=tr+"    <td>"+st.kg+"</td>";
+                           tr=tr+"    <td>"+st.jiaban+"</td>";
                            tr=tr+"    <td>"+st.js+"</td>";
+                           tr=tr+"    <td>"+st.bf+"</td>";
+                           tr=tr+"    <td>"+st.jj+"</td>";
                            tr=tr+"    <td>"+st.sjgz+"</td>";
-
-
                            tr=tr+"    <td><input type=\"button\" value='修改' onclick='cc("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"/>";
-                           tr=tr+"    <td><input type=\"button\" value='补发' onclick='bb("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\"/></td>";
+                           tr=tr+"    <input type=\"button\" value='补发' onclick='bb("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\"/></td>";
                            $("#tbody").append(tr);
                        }
                    }
@@ -243,6 +247,7 @@ function cc(id){
             $("#jiaoshui").val(data.js);
             $("#shijigongzi").val(data.sjgz);
             $("#zz").val(data.zz);
+            $("#jiaban").val(data.jiaban);
 
            /* $("#bufa").val(data.bf);*/
         }
@@ -264,9 +269,10 @@ $("#update").click(function () {
     var zt1=$("#zaotui").val();
     var kg1=$("#kuanggong").val();
     var zz1=$("#zz").val();
-    var sjgz2=Number(xz)+Number(jx)-Number(cd1)-Number(bj1)-Number(sj1)-Number(zt1)-Number(kg1)-
+    var jb1=$("#jiaban").val();
+    var sjgz2=Number(xz)+Number(jx)+Number(jb1)-Number(cd1)-Number(bj1)-Number(sj1)-Number(zt1)-Number(kg1)-
     Number(yanglao1)-Number(shiye1)-Number(yiliao1)-Number(gongshang1)-Number(shengyu1)-Number(gongjijin1)-Number(zz1);
-    alert(xz+"*"+jx+"*"+yanglao1+"*"+shiye1+"*"+yiliao1+"*"+gongshang1+"*"+shengyu1+"*"+gongjijin1+"*"+cd1+"*"+bj1+"*"+sj1+"*"+zt1+"*"+kg1+"*"+sjgz2)
+   /* alert(xz+"*"+jx+"*"+yanglao1+"*"+shiye1+"*"+yiliao1+"*"+gongshang1+"*"+shengyu1+"*"+gongjijin1+"*"+cd1+"*"+bj1+"*"+sj1+"*"+zt1+"*"+kg1+"*"+sjgz2)*/
     var jsgz=sjgz2-5000;
     var js1;
     var zhxz;
@@ -306,6 +312,7 @@ $("#update").click(function () {
             "sj1":sj1,
             "zt1": zt1,
             "kg1": kg1,
+            "jb1": jb1,
             "js1":js1,
             "zhxz1": zhxz
         },

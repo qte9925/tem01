@@ -13,6 +13,8 @@ public class TbPropleYgkh {
 
     private Integer tbPropleYgkhState;
 
+    private Integer tbTbStaffId;
+
     public Integer getTbPropleYgkhId() {
         return tbPropleYgkhId;
     }
@@ -59,5 +61,12 @@ public class TbPropleYgkh {
 
     public void setTbPropleYgkhState(Integer tbPropleYgkhState) {
         this.tbPropleYgkhState = tbPropleYgkhState;
+    }
+    public Integer getTbTbStaffId() {
+        return tbTbStaffId;
+    }
+
+    public void setTbTbStaffId(Integer tbTbStaffId) {
+        this.tbTbStaffId = tbTbStaffId;
     }
 }

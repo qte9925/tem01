@@ -47,7 +47,7 @@ select a.*,b.*,c.*,d.*,e.* from (((j_ygjb a join wfstafftable b on a.ygid=b.ryid
         select * from j_xzlc where id=#{id}
     </select>
     <select id="selectXf" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-        select * from j_xzlc where state=3
+        select * from j_xzlc where state=3 or state=4
     </select>
     <select id="selectXf1" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         select * from j_xzlc where state=4

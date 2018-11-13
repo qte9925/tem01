@@ -5,29 +5,31 @@
     <select id="selectGz" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 select (select ryxm from wfstafftable WHERE wfstafftable.ryid=b.ygid) as xm,
 xz/30*dysbts as xz,
-jxjin/100*(SELECT sum(tb_achresult_count) from tb_achresult ,tb_task where tb_achresult.tb_task_id=tb_task.tb_task_id and tb_task.tb_staff_id=b.ygid
-) as jx,
+jxjin/100*IFNULL((SELECT sum(tb_achresult_count) from tb_achresult ,tb_task where tb_achresult.tb_task_id=tb_task.tb_task_id and tb_task.tb_staff_id=b.ygid
+),0) as jx,
 yanglaobx,shiyebx,yiliaobx,sybx,gsbx,zfgjj,ygid,
 chidao*(select chidao from j_kqkx) as cd,
-xz/30*0.2* bingjia as bingjia,
+jiaban*(select jiaban from j_kqkx) as jiaban,
+xz/30*0.s4* bingjia as bingjia,
 xz/30* shijia  as shijia,
 (select zaotui from j_kqkx)* zaotui as zt,
 xz/30*3*kuanggong as kg,
  kuanggong as kgts,
 (30-zhuanzhengtianshu)*xz/30*0.2 as sx,
-(xz/30*dysbts)+jxjin/100*(SELECT sum(tb_achresult_count) from tb_achresult a,tb_task b where a.tb_task_id=b.tb_task_id and b.ygid=b.tb_staff_id)-(yanglaobx+shiyebx+yiliaobx+sybx+gsbx+zfgjj)-
+(xz/30*dysbts)+jxjin/100*IFNULL((SELECT sum(tb_achresult_count) from tb_achresult a,tb_task b where a.tb_task_id=b.tb_task_id and b.ygid=b.tb_staff_id),0)-(yanglaobx+shiyebx+yiliaobx+sybx+gsbx+zfgjj)-
 chidao*(select chidao from j_kqkx)-
 xz/30*0.2* bingjia-
 xz/30* shijia-
 (select zaotui from j_kqkx)*zaotui-
 xz/30*3*kuanggong-
-(30-zhuanzhengtianshu)*xz/30*0.2
+(30-zhuanzhengtianshu)*xz/30*0.2+
+jiaban*(select jiaban from j_kqkx)
  as sjgz
 from wf_kqtj a , wf_hetong b where a.ryid=b.ygid and a.gzyf=#{gzyf}
     </select>
     <insert id="insertGz"  parameterType="java.util.HashMap">
-     insert into  j_gzt(ydid,xz,xm,jx,yanglaobx,shiyebx,yiliaobx,sybx,gsbx,zfgjj,cd,shijia,bingjia,zt,kg,sjgz,js,lcid,zz,state,bz,bz1)values
-     (#{ydid},#{xz},#{xm},#{jx},#{yanglaobx},#{shiyebx},#{yiliaobx},#{sybx},#{gsbx},#{zfgjj},#{cd},#{shijia},#{bingjia},#{zt},#{kg},#{sjgz},#{js},#{lcid},#{zz},0,'null','null')
+     insert into  j_gzt(ydid,xz,xm,jx,yanglaobx,shiyebx,yiliaobx,sybx,gsbx,zfgjj,cd,shijia,bingjia,zt,kg,sjgz,js,lcid,zz,jiaban,state,bz,bz1)values
+     (#{ydid},#{xz},#{xm},#{jx},#{yanglaobx},#{shiyebx},#{yiliaobx},#{sybx},#{gsbx},#{zfgjj},#{cd},#{shijia},#{bingjia},#{zt},#{kg},#{sjgz},#{js},#{lcid},#{zz},#{jiaban},0,'null','null')
  </insert>
     <insert id="insertBf"  parameterType="java.util.HashMap">
      insert into  j_gzbf(ygid,bfje,bz,rq,state)values(#{ygid},#{bfje},#{bz},#{rq},0)
@@ -48,10 +50,10 @@ from wf_kqtj a , wf_hetong b where a.ryid=b.ygid and a.gzyf=#{gzyf}
         select * from j_gzt where id=#{id}
     </select>
     <update id="updateGz" parameterType="java.util.HashMap">
-        update j_gzt set cd=#{cd1},bingjia=#{bj1},shijia=#{sj1},zt=#{zt1},kg=#{kg1},js=#{js1},sjgz=#{zhxz1} where id=#{id}
+        update j_gzt set cd=#{cd1},bingjia=#{bj1},shijia=#{sj1},zt=#{zt1},kg=#{kg1},js=#{js1},sjgz=#{zhxz1},jiaban=#{jb1} where id=#{id}
     </update>
     <update id="updateGza" parameterType="java.util.HashMap">
-        UPDATE j_gzt set bz=#{bz} where lcid=#{lcid}
+        UPDATE j_xzlc set fjsj=#{fjsj} where id=#{lcid}
     </update>
     <update id="updateGzb" parameterType="java.util.HashMap">
         UPDATE j_gzt set bf=#{bf},js=#{js},sjgz=#{sjgz}  where id=#{id}
@@ -59,4 +61,7 @@ from wf_kqtj a , wf_hetong b where a.ryid=b.ygid and a.gzyf=#{gzyf}
     <select id="selectYj" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT * from wfstafftable a,j_gzt b where a.ryid=b.ydid and b.lcid=#{lcid}
     </select>
+    <update id="updateGzc" parameterType="java.util.HashMap">
+        UPDATE j_gzt set jj=#{jj},sjgz=#{sjgz}  where id=#{id}
+    </update>
 </mapper>

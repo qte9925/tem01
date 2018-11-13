@@ -377,7 +377,7 @@
   where
   p.tb_task_id = t.tb_task_id
   and s.tb_staff_id = t.tb_staff_id
-  and t.tb_staff_id =#{tbStaffId}
+  and p.tb__tb_staff_id =#{tbStaffId}
   and t.tb_task_state=3
   GROUP BY tb_task_name
   </select>
@@ -390,4 +390,19 @@
   and a.tb_prople_ygkh_id = p.tb_prople_ygkh_id
   and p.tb_task_id=#{tbtaskid}
   </select>
+    <!--查看申请人的上级-->
+    <select id="SelectUpXx" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+    select tb__tb_staff_id from tb_staff where tb_staff_id = #{StaffId}
+    </select>
+    <!--审核查询-->
+    <select id="SelectendTask" resultType="java.util.HashMap">
+    select t.* ,p.*,s.* from
+    tb_task t,tb_prople_ygkh p,tb_staff s
+    where
+    p.tb_task_id = t.tb_task_id
+    and s.tb_staff_id = t.tb_staff_id
+    and t.tb_task_state=3
+    GROUP BY tb_task_name
+    </select>
+
 </mapper>
