@@ -1,5 +1,8 @@
 package com.wf.service;
 
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +15,7 @@ public interface Zp {
     int insert_wf_jianli(Map map);
     List<Map> countwf_ms(Map map);
     List<Map> cxtdjl003(Map map);
-    List<Map> zpsqbcx02(Map map);
+    PageInfo<Map> zpsqbcx02(Map map, PageEntity page);
     List<Map> cxtdjl002(Map map);
     List<Map> zpsqbcx03(Map map);
     List<Map> cxtdjl001(Map map);

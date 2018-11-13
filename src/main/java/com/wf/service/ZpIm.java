@@ -1,5 +1,8 @@
 package com.wf.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.wf.dao.Csdao;
 import com.wf.dao.Zpdao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +54,11 @@ public class ZpIm implements Zp{
     }
 
     //招聘书全部查询
-    public List<Map> zpsqbcx02(Map map) {
-        return dao.zpsqbcx02(map);
+    public PageInfo<Map> zpsqbcx02(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.zpsqbcx02(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
 
     //查询已经投递简历

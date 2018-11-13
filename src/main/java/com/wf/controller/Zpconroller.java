@@ -1,5 +1,8 @@
 package com.wf.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.wf.service.Zp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,9 +78,11 @@ public class Zpconroller {
     }
     @RequestMapping("/zpsqbcx02")
     @ResponseBody
-    public List<Map> zpsqbcx02(@RequestParam Map map) {
-        System.out.println(map);
-        return se.zpsqbcx02(map);
+    public PageInfo<Map> zpsqbcx02(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.zpsqbcx02(map,page);
+        return pageInfo;
     }
     //查询该前台用户是否注册了个人简历
     @RequestMapping("/xxcx")
