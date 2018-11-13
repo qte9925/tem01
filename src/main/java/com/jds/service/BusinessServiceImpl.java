@@ -56,4 +56,17 @@ public class BusinessServiceImpl implements BusinessService {
     public int updateGza(Map map) {
         return bm.updateGza(map);
     }
+    @Override
+    public int updateGzb(Map map) {
+        return bm.updateGzb(map);
+    }
+
+    @Override
+    public List<Map> selectYj(Map map) {
+        return bm.selectYj(map);
+    }
+    @Override
+    public int updateGzc(Map map) {
+        return bm.updateGzc(map);
+    }
 }

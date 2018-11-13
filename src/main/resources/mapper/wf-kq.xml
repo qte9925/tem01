@@ -2,7 +2,70 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wf.dao.Kqdao">
+    <insert id="insertwf_kqtj" parameterType="java.util.Map">
+    INSERT INTO `tem01`.`wf_kqtj`(
+        <if test="bingjia!=null">
+            `bingjia`,
+        </if>
+        <if test="shijia!=null">
+            `shijia`,
+        </if>
+        <if test="chidao!=null">
+            `chidao`,
+        </if>
+        <if test="zaotui!=null">
+            `zaotui`,
+        </if>
+        <if test="zhuanzhengtianshu!=null">
+            `zhuanzhengtianshu`,
+        </if>
+        <if test="kuanggong!=null">
+            `kuanggong`,
+        </if>
+        <if test="ryid!=null">
+            `ryid`,
+        </if>
+        <if test="dysbts!=null">
+            `dysbts`,
+        </if>
+        <if test="gzyf!=null">
+            `gzyf`
+        </if>
+               )
+                      VALUES (
+                      <if test="bingjia!=null">
+                          #{bingjia},
+                      </if>
+                        <if test="shijia!=null">
+                            #{shijia},
+                        </if>
+                        <if test="chidao!=null">
+                            #{chidao},
+                        </if>
+                        <if test="zaotui!=null">
+                            #{zaotui},
+                        </if>
+                        <if test="zhuanzhengtianshu!=null">
+                            #{zhuanzhengtianshu},
+                        </if>
+                        <if test="kuanggong!=null">
+                            #{kuanggong},
+                        </if>
+                        <if test="ryid!=null">
+                            #{ryid},
+                        </if>
+                        <if test="dysbts!=null">
+                            #{dysbts},
+                        </if>
+                        <if test="gzyf!=null">
+                            #{gzyf}
+                        </if>
+                          )
+        </insert>
 
+    <insert id="insertqiandao" parameterType="java.util.Map">
+    INSERT INTO `tem01`.`wf_qiandao`(`qdryid`, `qdsj01`, `qdsj02`,`qdstatic`) VALUES (#{qdryid}, #{qdsj01}, #{qdsj02},#{qdstatic})
+    </insert>
     <insert id="qdinsert" parameterType="java.util.Map">
     insert into wf_qiandao(qiandaoid,qdryid,qdstatic) values(null,#{id006},0)
     </insert>

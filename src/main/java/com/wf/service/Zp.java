@@ -4,7 +4,22 @@ import java.util.List;
 import java.util.Map;
 
 public interface Zp {
+
+    int updatewf_tdjl01(Map map);
+    int insert_wf_ms(Map map);
+    int zxiugai0041(Map map);
+    int insert_wf_tdjl(Map map);
+    int insert_wf_jianli(Map map);
+    List<Map> countwf_ms(Map map);
+    List<Map> cxtdjl003(Map map);
+    List<Map> zpsqbcx02(Map map);
+    List<Map> cxtdjl002(Map map);
+    List<Map> zpsqbcx03(Map map);
+    List<Map> cxtdjl001(Map map);
+    int xxcx(Map map);
+    List<Map> xxcx02(Map map);
     int insert_wf_qtyh(Map map);
+
     List<Map> qtyh(Map map);
 
     List<Map> gjidcx(Map map);

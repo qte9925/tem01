@@ -26,37 +26,36 @@
                 <tbody>
                 <tr>
                     <td>
-                        <label  class="col-sm-2 control-label">雇员</label>
+                        <label  class="col-sm-2 control-label">合同签约人</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="yg" >
+                            <select class="form-control" id="ygid" >
                                 <option>请选择员工</option>
                             </select>
 
                         </div>
                     </td>
-                    <td>
-                        <label  class="col-sm-2 control-label">合同编号</label>
-                        <div class="col-sm-10">
-                        <input type="text" class="form-control" id="bianhao"
-                               placeholder="请输入合同编号">
+                    <%--<td>--%>
+                        <%--<label  class="col-sm-2 control-label">合同编号</label>--%>
+                        <%--<div class="col-sm-10">--%>
+                        <%--<input type="text" class="form-control" id="bianhao"--%>
+                               <%--placeholder="请输入合同编号">--%>
 
-                        </div>
-                    </td>
+                        <%--</div>--%>
+                    <%--</td>--%>
                 </tr>
                 <tr>
                     <td>
                         <label  class="col-sm-2 control-label">合同签约公司</label>
                         <div class="col-sm-10" id="div003">
-                            <select class="form-control" id="gs" >
+                            <select class="form-control" id="gsid" >
                                 <option>请选择合同签约公司</option>
-
                             </select>
                         </div>
                     </td>
                     <td>
                         <label  class="col-sm-2 control-label">合同类型</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="htlx"  >
+                            <select class="form-control" id="htlxid"  >
                                 <option>请选择合同类型</option>
                             </select>
                         </div>
@@ -66,17 +65,13 @@
                     <td>
                         <label  class="col-sm-2 control-label">合同签订日期</label>
                         <div class="col-sm-10">
-                            <input type="text" id="qdn" style="width: 40px">年
-                            <input type="text" id="qdy" style="width: 40px">月
-                            <input type="text" id="qdr" style="width: 40px">日
+                            <input type='text' class="form-control" id='ksrq' />
                         </div>
                     </td>
                     <td>
                         <label  class="col-sm-2 control-label">合同生效日期</label>
                         <div class="col-sm-10">
-                            <input type="text" id="sxn" style="width: 40px">年
-                            <input type="text" id="sxy"  style="width: 40px">月
-                            <input type="text" id="sxr"  style="width: 40px">日
+                            <input type='text' class="form-control" id='sxrq' />
                         </div>
                     </td>
                 </tr>
@@ -84,9 +79,7 @@
                     <td>
                         <label  class="col-sm-2 control-label">合同终止日期</label>
                         <div class="col-sm-10">
-                            <input type="text" id="jsn" style="width: 40px">年
-                            <input type="text" id="jsy" style="width: 40px">月
-                            <input type="text" id="jsr" style="width: 40px">日
+                            <input type='text' class="form-control" id='jsrq' />
                         </div>
                     </td>
                     <td>
@@ -98,61 +91,88 @@
                 </tr>
                 <tr>
                     <td>
-                        <label  class="col-sm-2 control-label">是否含试用期</label>
+                        <label  class="col-sm-2 control-label">效绩奖金</label>
                         <div class="col-sm-10">
-                            <input type="radio" name="zz01" onclick="danji(1)" > 是
-                            <input type="radio" name="zz01" checked onclick="danji(2)" > 否
-                        </div>
-                    </td>
-                    <script type="text/javascript">
-                        function danji(id) {
-                            if(id==1){$("#aa03").show()}
-                            if(id==2){$("#aa03").hide()}
-                        }
-                    </script>
-                    <td >
-                        <div id="aa03" style="display: none;">
-                            <label  class="col-sm-2 control-label">试用截止日期</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="syqn" style="width: 40px">年
-                                <input type="text" id="syqy" style="width: 40px">月
-                                <input type="text" id="syqr" style="width: 40px">日
-                            </div>
+                            <input type='text' class="form-control"  id="jxjin" />
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label  class="col-sm-2 control-label">雇员是否转正</label>
+                        <label  class="col-sm-2 control-label">薪资</label>
                         <div class="col-sm-10">
-                            <input type="radio" name="zz" checked > 是
-                            <input type="radio" name="zz" > 否
+                            <input type='text' class="form-control" id="xz"  onblur="tuoli();"  />
+                        </div>
+                    </td>
+                </tr>
+                <script type="text/javascript">
+                    function tuoli() {
+                        var xz = $("#xz").val();
+                        var yanglaobx = xz*0.05;
+                        var shiyebx = xz*0.005;
+                        var yiliaobx = xz*0.02;
+                        var sybx = xz*0.003;
+                        var gsbx = xz*0.002;
+                        var zfgjj = xz*0.02;
+                        $("#yanglaobx").val(yanglaobx.toFixed(2));
+                        $("#shiyebx").val(shiyebx.toFixed(2));
+                        $("#yiliaobx").val(yiliaobx.toFixed(2));
+                        $("#sybx").val(sybx.toFixed(2));
+                        $("#gsbx").val(gsbx.toFixed(2));
+                        $("#zfgjj").val(zfgjj.toFixed(2));
+                    }
+                </script>
+                <tr>
+                    <td>
+                        <label  class="col-sm-2 control-label">养老保险</label>
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" id="yanglaobx" readonly />
                         </div>
                     </td>
                     <td>
-
+                        <label  class="col-sm-2 control-label">失业保险</label>
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" id="shiyebx" readonly />
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label  class="col-sm-2 control-label">提醒人员</label>
+                        <label  class="col-sm-2 control-label">医疗保险</label>
                         <div class="col-sm-10">
-                            <select class="form-control" id="yg02" >
-
-                            </select>
+                            <input type='text' class="form-control" id="yiliaobx" readonly />
                         </div>
                     </td>
                     <td>
+                        <label  class="col-sm-2 control-label">生育保险</label>
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" id="sybx" readonly />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label  class="col-sm-2 control-label">工伤保险</label>
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" id="gsbx" readonly />
+                        </div>
+                    </td>
+                    <td>
+                        <label  class="col-sm-2 control-label">住房公积金</label>
+                        <div class="col-sm-10">
+                            <input type='text' class="form-control" id="zfgjj" readonly  />
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label  class="col-sm-2 control-label">备注</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" id="bz" rows="3"></textarea>
+                            <textarea class="form-control" id="beizhu" rows="3"></textarea>
                         </div>
                     </td>
                 </tr>
+
                 <tr>
                     <td>
                     <div class="form-group">
@@ -168,43 +188,48 @@
     </div>
 </div>
 <script type="text/javascript">
-    function zjht(){
-        var qdnyr = $("#qdn").val()+"-"+$("#qdy").val()+"-"+$("#qdr").val();
-        var jsnyr = $("#jsn").val()+"-"+$("#jsy").val()+"-"+$("#jsr").val();
-        var sxnyr = $("#sxn").val()+"-"+$("#sxy").val()+"-"+$("#sxr").val();
-        var syqnyr = $("#syqn").val()+"-"+$("#syqy").val()+"-"+$("#syqr").val();
-        var ygid = $("#yg").val();
-        var bianhao = $("#bianhao").val();
-        var gsid = $("#gs").val();
-        var htlxid = $("#htlx").val();
-        var ksrq = qdnyr;
-        var jsrq = jsnyr;
-        var sxrq = sxnyr;
-        var txryid = $("#yg02").val();
-        var shiyongqiriqi =syqnyr;
-        var zhuanzhengriqi = syqnyr;
-        var beizhu = $("#bz").val();
-        // console.log("qdnyr"+qdnyr+"ygid"+ygid+"bianhao"+bianhao+"gsid"+gsid+"htlxid"+htlxid+"ksrq"+ksrq+"jsrq"+jsrq+"sxrq"+sxrq);
-        // console.log("txryid"+txryid+"shiyongqiriqi"+shiyongqiriqi+"zhuanzhengriqi"+zhuanzhengriqi+"beizhu"+beizhu+"htlxid"+htlxid+"ksrq"+ksrq+"jsrq"+jsrq+"sxrq"+sxrq);
+    function updatewfstafftablerzht(id) {
         $.ajax({
-            url: "${path}/zjht",
-            data:{"ygid" : ygid,
-                "bianhao" : bianhao,
-                "gsid" :gsid,
-                "htlxid" :htlxid,
-                "ksrq" : ksrq,
-                "jsrq" :jsrq,
-                "sxrq":sxrq,
-                "txryid":txryid,
-                "shiyongqiriqi":shiyongqiriqi,
-                "zhuanzhengriqi":zhuanzhengriqi,
-                "beizhu":beizhu,
-                "htstatic":0
+            url: "${path}/updatewfstafftablerzht",
+            data:{"ryid" : id
             },
             type: "post",
             dataType: "json",
             success: function (data) {
                 console.log(data);
+            }
+        });
+    }
+    function zjht(){
+        var id = $("#ygid").val();
+        $.ajax({
+            url: "${path}/insert_wf_hetong",
+            data:{"ygid" : $("#ygid").val(),
+                "gsid" : $("#gsid").val(),
+                "htlxid" : $("#htlxid").val(),
+                "ksrq" : $("#ksrq").val(),
+                "jsrq" :  $("#jsrq").val(),
+                "sxrq" : $("#sxrq").val(),
+                "beizhu": $("#beizhu").val(),
+                "jxjin": $("#jxjin").val(),
+                "xz": $("#xz").val(),
+                "yanglaobx": $("#yanglaobx").val(),
+                "shiyebx": $("#shiyebx").val(),
+                "yiliaobx": $("#yiliaobx").val(),
+                "sybx": $("#sybx").val(),
+                "gsbx": $("#gsbx").val(),
+                "zfgjj": $("#zfgjj").val()
+            },
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if(data>0){
+                    updatewfstafftablerzht(id);
+                    window.location.reload();
+                }else{
+                    console.log("小于0");
+                    console.log(data);
+                }
             }
         });
     }
@@ -215,13 +240,11 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                $("#yg").html("<option >请选择员工</option>");
-                $("#yg02").html("<option >请选择员工</option>");
+                $("#ygid").html("<option >请选择员工</option>");
                 for (var i = 0; i < data.length; i++) {
                     var p = data[i];
                     var html = "<option value='" + p.id + "'>" + p.name + "</option>";
-                    $("#yg").append(html);
-                    $("#yg02").append(html);
+                    $("#ygid").append(html);
                 }
             }
         });
@@ -231,11 +254,11 @@
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    $("#gs").html("<option >请选择签约公司</option>");
+                    $("#gsid").html("<option >请选择签约公司</option>");
                     for (var i = 0; i < data.length; i++) {
                         var p = data[i];
                         var html = "<option value='" + p.gsid + "'>" + p.name + "</option>";
-                        $("#gs").append(html);
+                        $("#gsid").append(html);
                     }
                 }
             });
@@ -245,15 +268,29 @@
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    $("#htlx").html("<option >请选择签约合同类型</option>");
+                    $("#htlxid").html("<option >请选择签约合同类型</option>");
                     for (var i = 0; i < data.length; i++) {
                         var p = data[i];
                         var html = "<option value='" + p.htleixingid + "'>" + p.name + "</option>";
-                        $("#htlx").append(html);
+                        $("#htlxid").append(html);
                     }
                 }
             });
 
+    });
+    $(function () {
+        $("#ksrq").datetimepicker({
+            format: 'YYYY-MM-DD hh:mm:ss',
+            locale: moment.locale('zh-cn')
+        });
+        $("#jsrq").datetimepicker({
+            format: 'YYYY-MM-DD hh:mm:ss',
+            locale: moment.locale('zh-cn')
+        });
+        $("#sxrq").datetimepicker({
+            format: 'YYYY-MM-DD hh:mm:ss',
+            locale: moment.locale('zh-cn')
+        });
     });
 </script>
 </body>

@@ -9,10 +9,6 @@
 
 <form class="form-inline" role="form" style="margin-top: 30px;">
     <button type="button" class="btn btn-default"><a href="hetong_insert.jsp">新建合同信息</a></button>
-    <button type="button" class="btn btn-default"><a href="hetong_insert.jsp">合同信息查询</a></button>
-    <button type="button" class="btn btn-default"><a href="hetong_insert.jsp">试用期到期查询</a></button>
-    <button type="button" class="btn btn-default"><a href="hetong_insert.jsp">合同到期查询</a></button>
-    <button type="button" class="btn btn-default"><a href="hetong_insert.jsp">未签劳动合同</a></button>
 </form>
 
 <table class="table table-striped">
@@ -21,11 +17,9 @@
     <tr>
         <th>名称</th>
         <th>部门</th>
-        <th>岗位</th>
-        <th>合同类型</th>
         <th>签署公司</th>
-        <th>合同生效日期</th>
-        <th>试用到期日期</th>
+        <th>合同签订日期</th>
+        <th>试用生效日期</th>
         <th>合同到期日期</th>
         <th>操作</th>
     </tr>
@@ -34,12 +28,10 @@
         <tr v-for="item in msg">
             <Td>{{item.ryxm}}</Td>
             <Td>{{item.bmname}}</Td>
-            <Td>{{item.ryxm}}</Td>
-            <Td>{{item.ryxm}}</Td>
             <Td>{{item.name}}</Td>
-            <Td>{{item.ryxm}}</Td>
-            <Td>{{item.ryxm}}</Td>
-            <Td>{{item.ryxm}}</Td>
+            <Td>{{item.ksrq02}}</Td>
+            <Td>{{item.sxrq02}}</Td>
+            <Td>{{item.jsrq02}}</Td>
             <Td><a href="#">详情</a> </Td>
         </tr>
     </tbody>
