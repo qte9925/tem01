@@ -67,16 +67,17 @@
     lay('#version').html('-v'+ laydate.v);
     /*状态,驳回理由*/
     function UpdatePlanMessage(id,zt){
-        $("#a1").val(id); $("#a3").val(zt);$("#a2").val(shenpirenid);$("#a4").val(xinxi);
+        $("#a1").val(id); $("#a3").val(zt);$("#a4").val(xinxi);
     }
     /*通过驳回*/
     function tijiao(){
         $.ajax({
         url:"${path}/updatestatu",
         type:"post",
-        data:{"id":$("#a1").val(),"zt":$("#a3").val(),"shenpirenid":$("#a2").val(),"xinxi":$("#a4").val()},
+        data:{"id":$("#a1").val(),"zt":$("#a3").val(),"xinxi":$("#a4").val()},
         dataType:"json",
         success:function(data){
+
         console.log(data);
         if(data>0){
         window.location.reload();
@@ -107,7 +108,7 @@
                     html = html + "<td>" + p.rainingbudget + "</td>";
                     html = html + "<td>" + p.rainingRequirement + "</td>";
                     html = html + "<td>" + p.rainingexplain + "</td>";
-                    html = html + "<td>" + p.bmname + "</td>";
+                    /*html = html + "<td>" + p.bmname + "</td>";*/
                     html = html + "<td>" + p.ryxm + "</td>";
                     html = html + "<td>" + p.qvdaoname + "</td>";
                     html = html + "<td>" + p.xingshiname + "</td>";
@@ -115,7 +116,7 @@
                         "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button>";
                     html = html + "<button onclick='UpdatePlanMessage("+p.Id+",2)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModalb'>通过</button>";
                     html = html + "<button onclick='UpdatePlanMessage("+p.Id+",3)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'  data-target='#myModalb'>驳回</button>";
-                    html = html + "<button onclick='Sign("+p.planid+","+p.totalhours+")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'  data-target='#myModala01'>报名</button>";
+                    html = html + "<button onclick='Sign("+p.planid+","+p.totalhours+","+p.joinpeople+")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'  data-target='#myModala01'>报名</button>";
                     html = html + "</td>";
                     html = html + "</tr>";
 
@@ -334,14 +335,14 @@
             $.ajax({
                 url:"${path}/AddBaomingYzj01",
                 data:{"planid":$("#a").val(),
-                    "keshi":$("#b ").val(),
+                    "ryid":$("#d").val(),
                     "beizhu":$("#c").val(),
-                    "baomingname":$("#d").val(),
                 },
                 dataType:"json",
                 type:"post",
                 success:function(data){
-                    if(data>0){
+                    if(data.state){
+                        alert(data.message);
                         window.location.reload();
                     }
                 }
@@ -349,9 +350,27 @@
         });
     });
     /*统计查询*/
-    function Sign(planid,totalhours){
-                $("#a").val(planid);
-                $("#b").val(totalhours);
+    function Sign(planid,totalhours,joinpeople){
+        $.ajax({
+                    url:"${path}/selectyijingbaoming",
+                    type:"post",
+                    dataType:"json",
+                    data:{"planid":planid},
+                    success:function(data){
+                        $("#tishi").html("");
+                        for(var i=0;i<data.length;i++){
+                            var p=data[i];
+                            $("#f").val(p.number);
+                            if(p.number==joinpeople){
+                                $("#adda").attr("disabled",true);
+                                $("#tishi").html("<font color='red'>报名人数已达上限!</font>");
+                            }
+                        }
+                    }
+                })
+                    $("#a").val(planid);
+                    $("#b").val(totalhours);
+                    $("#e").val(joinpeople);
     }
 </script>
 <!-- 增加报名---------------------------------------模态框（Modal） -->
@@ -367,29 +386,31 @@
                 <table class="table table-bordered" >
                     <tr>
                         <td>计划编码:</td>
-                        <td><input type="text" name="staffName" id="a"></td>
+                        <td><input type="text" name="staffName" id="a" disabled="disabled"></td>
                         <td>总课时:</td>
-                        <td><input type="text" name="post" id="b" ></td>
+                        <td><input type="text" name="post" id="b" disabled="disabled"></td>
                     </tr>
                     <tr>
                         <td>备注:</td>
                         <td><input type="text" name="shenpimode" id="c"></td>
                         <td>报名人:</td>
-                        <td><input type="text" name="sadsfd" id="d"></td>
+                        <td><input type="text" style="display: none;" readonly="readonly" id="d" value="${sessionScope.list[0].ryid}">
+                            <input type="text" readonly="readonly"  value="${sessionScope.list[0].ryxm}"></td>
                     </tr>
                     <tr>
                         <td>培训总人数:</td>
-                        <td><input type="text" name="shenpimode" id="e"></td>
+                        <td><input type="text" name="shenpimode" id="e" disabled="disabled"></td>
                         <td>已报人数:</td>
-                        <td><input type="text" id="f"></td>
+                        <td><input type="text" id="f" disabled="disabled"></td>
                     </tr>
                 </table>
+                <span id="tishi"></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
                 <button type="button" class="btn btn-primary" id="adda">
-                    增加
+                    报名
                 </button>
             </div>
         </div><!-- /.modal-content -->
@@ -406,14 +427,16 @@
             </div>
             <table class="table table-bordered">
             <tr>
-
-                 <td>修改的列ID:<input type="text" id="a1"></td>
-                <td>修改人:<input type="text" id="a2"></td>
-
+                <td>修改的列ID</td>
+                 <td><input type="text" id="a1"disabled="disabled"></td>
+                <td>修改人</td>
+                <td>${sessionScope.list[0].yhname}</td>
             </tr>
                 <tr>
-                    <td>修改状态:<input type="text" id="a3"></td>
-                    <td>理由:<input type="text" id="a4"></td>
+                    <td>修改状态</td>
+                    <td><input type="text" id="a3" disabled="disabled"></td>
+                    <td>理由</td>
+                    <td><input type="text" id="a4"></td>
                 </tr>
             </table>
             <div class="modal-footer">
@@ -427,40 +450,16 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<div style="text-align:left;">
+<div style="text-align:center;">
     <button class='btn btn-primary' data-toggle="modal" data-target="#myModal">
         新建培训计划
     </button>
-
-    <button class='btn btn-primary' data-toggle="modal" data-target="#myModalasd">
-        查询培训计划
-    </button>
-    <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModalasd" tabindex="-1" role="dialog" aria-labelledby="myModalLabela" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">×
-                    </button>
-                    <h4 class="modal-title" id="myModalLabela">
-
-                    </h4>
-                </div>
-                <table>
-                <tr><td>计划编码<input type="text" id="Pid"></td></tr>
-                <tr><td>计划名称<input type="text" id="staff"></td></tr>
-                </table>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default"
-                            data-dismiss="modal" id="selectBtn">
-                        查询
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    <tr><td>计划编码<input type="text" id="Pid"></td></tr>
+    <tr><td>计划名称<input type="text" id="staff"></td></tr>
+    <button id="selectBtn" class='btn btn-primary'>查询</button>
 </div>
+
+    </button>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -475,7 +474,6 @@
             <th>培训预算</th>
             <th>培训要求</th>
             <th>培训说明</th>
-            <th>部门</th>
             <th>审批人</th>
             <th>培训渠道</th>
             <th>培训形式</th>
