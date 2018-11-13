@@ -28,9 +28,13 @@
         <if test="dysbts!=null">
             `dysbts`,
         </if>
+        <if test="jiaban!=null">
+            `jiaban`,
+        </if>
         <if test="gzyf!=null">
             `gzyf`
         </if>
+
                )
                       VALUES (
                       <if test="bingjia!=null">
@@ -54,12 +58,9 @@
                         <if test="ryid!=null">
                             #{ryid},
                         </if>
-                        <if test="dysbts!=null">
-                            #{dysbts},
-                        </if>
-                        <if test="gzyf!=null">
-                            #{gzyf}
-                        </if>
+                         <if test="dysbts!=null">  #{dysbts},</if><if test="jiaban!=null">#{jiaban},</if>
+                        <if test="gzyf!=null">#{gzyf}</if>
+
                           )
         </insert>
 
@@ -159,4 +160,13 @@ if(b.shenpirenid=0,a.ryshangji = #{id},(SELECT a.ryshangji from wfstafftable a,w
         update wf_qingjia set  qjzt = #{qjzt}, shenpiyijian =#{shenpiyijian},shenpirenid=#{shenpirenid},sprname=#{sprname}
         where qjid = #{qjid}
     </update>
+    <select id="selectwf_qiandao" resultType="java.util.Map" parameterType="java.util.Map">
+      SELECT * ,DATE_FORMAT(a.qdsj01,'%Y-%m-%d') as qdsj,DATE_FORMAT(a.qdsj01,'%Y-%m-%d %H:%i:%S')  as qdsj011 ,DATE_FORMAT(a.qdsj02,'%Y-%m-%d %H:%i:%S')  as qdsj012 from wf_qiandao a ,wfstafftable b where a.qdryid=b.ryid
+    </select>
+    <select id="selectwf_kqtj" resultType="java.util.Map" parameterType="java.util.Map">
+      SELECT *
+--       DATE_FORMAT(a.qdsj01,'%Y-%m-%d %H:%i:%S')  as qdsj011,
+      FROM wf_kqtj a ,wfstafftable b where a.ryid = b.ryid
+    </select>
+
 </mapper>

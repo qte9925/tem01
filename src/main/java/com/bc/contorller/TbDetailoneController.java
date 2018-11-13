@@ -24,7 +24,7 @@ public class TbDetailoneController {
     @RequestMapping("/selectTbDetailone")
     @ResponseBody
     public PageInfo selectTbDetailone(@RequestParam Map map){
-        PageHelper.startPage(Integer.parseInt(map.get("pageNow").toString()), 2);
+        PageHelper.startPage(Integer.parseInt(map.get("pageNow").toString()), 5);
         List list = tb.selectTbDetailone(map);
         PageInfo pageInfo = new PageInfo<TbDetailone>(list);
         return  pageInfo;

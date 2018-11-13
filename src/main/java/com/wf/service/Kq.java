@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface Kq {
+    List<Map> selectwf_qiandao(Map map);
+    List<Map> selectwf_kqtj(Map map);
     List<Map> cxqj03(Map map);
     List cxqj02(Map map);
     int qjxqupdate(Map map );

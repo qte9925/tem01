@@ -61,9 +61,9 @@
         }
     </script>
     <style type="text/css">
-        #customerses{
+        /*#customerses{
             margin-left: 300px;
-        }
+        }*/
     </style>
 </head>
 
@@ -102,9 +102,9 @@
                 <td v-if = "post.tb_task_state == 2"  calss = "taskstate">未失效</td>
                 <td v-if = "post.tb_task_state == 3"  calss = "taskstate">已发布</td>
                 <%-- <td v-if = "post.tb_task_state == 2" onclick="show('{{post.tb_task_id}}')" style="cursor: pointer">修改</td>--%>
-                <td v-if = "post.tb_task_state == 1" colspan="2" id ="{{post.tb_task_id}}" style="cursor: pointer"  class = "DeleteById">删除</td>
+                <%--<td v-if = "post.tb_task_state == 1" colspan="2" id ="{{post.tb_task_id}}" style="cursor: pointer"  class = "DeleteById">删除</td>--%>
                 <%----%>
-                <td v-if = "post.tb_task_state == 3" id ="{{post.tb_task_id}}" style="cursor: pointer"  class = "DeleteById">删除</td>
+                <%--<td v-if = "post.tb_task_state == 3" id ="{{post.tb_task_id}}" style="cursor: pointer"  class = "DeleteById">删除</td>--%>
                 <%----%>
                 <td v-if = "post.tb_task_state == 2" colspan="2" id ="{{post.tb_task_id}}" style="cursor: pointer"  class = "DeleteByIdOne">发布</td>
                 <td v-if = "post.tb_task_state == 3" colspan="2" style="cursor: pointer"  class = "look">查看详情</td>
@@ -155,7 +155,7 @@
                 <td>被考核人</td>
                 <td>
                     <select id="slpk"  class="selectpicker" data-live-search="true" multiple onchange="showvalue()" style="width: 40%"></select>
-                    <%--<input type="text" id="deptinput">--%>
+                    <input type="text" id="deptinput">
                 </td>
             </tr>
             <tr class = "alt1">
@@ -174,8 +174,8 @@
                 <td>考核项</td>
                 <td><input type="text"  id="tbEventIdOne" disabled="disabled" class="form-control " style="width: 40%" placeholder="考核项"></td>
                 <input type="text"  class="tbEventIdOne" hidden/>
-                <td style="cursor: pointer;width: 20px;background-color: #F6F6F6">
-                    <img src="${path}/images/jia.jpg" id="HBtn" style="width: 20px;height: 20px;">
+                <td style="cursor: pointer;width: 20px;">
+                    <img src="${path}/js/timg.jpg" id="HBtn" style="width: 20px;height: 20px;">
                 </td>
             </tr>
 
@@ -583,6 +583,7 @@
         texts();
         $("#reimburse").show();
     });
+
     $("#InsetreimOne").click(function(){
         $("#reimburse").hide();
     })

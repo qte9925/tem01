@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.dao.rzdao">
+    <!--查询面试通过人员-->
+    <select id="rymssqselect" resultType="java.util.Map" parameterType="java.util.Map">
+      SELECT * from
+      wf_zps a ,wfjsb d,wfdepartment e, wf_jianli b ,wf_tdjl c
+      where 1=1 and a.zpsid = c.tdzpsid and b.qtryid = c.tdrid and c.msjg = 0 and d.jsid = a.zhiwei and e.bmid = d.jsbmid
+    </select>
+    <!--查询申请信息-->
+    <select id="rymssqselect2" resultType="java.util.Map" parameterType="java.util.Map">
+      SELECT c.bmname,b.jlname,a.rzdata,a.rzspname,e.ryxm,a.rzzt,c.bmid,a.rzid
+      from wfrz a,wf_jianli b,wfdepartment c,wf_jianli d,wfstafftable e
+      where 1=1 and a.rzryname=b.id and a.rzbmid=c.bmid and a.rzspname=d.id and a.rzspname=e.ryid and rzzt=0;
+    </select>
+    <insert id="rzsq" parameterType="java.util.HashMap">
+        insert into wfrz(rzryname,rzbmid,rzdata,rzspname,rzzt)
+     values(#{rzryname},#{rzbmid},#{rzdata},#{rzspname},0)
+    </insert>
+    <update id="rzzx" parameterType="java.util.HashMap">
+        update wfrz set rzzt=#{rzzt} where rzid=#{rzid}
+    </update>
+    <!--增加-->
+
+    <insert id="rzzj" parameterType="java.util.HashMap">
+      insert into wfstafftable(ryxm,ryzhanghao,rybmid,rygangwei,rydata,ryzwzt) SELECT b.jlname,0,e.bmid,d.jsname,f.rzdata,0 from
+      wf_zps a ,wfjsb d,wfdepartment e, wf_jianli b ,wf_tdjl c,wfrz f
+      where 1=1 and a.zpsid = c.tdzpsid and b.qtryid = c.tdrid and c.msjg = 0 and f.rzzt=1 and d.jsid = a.zhiwei and e.bmid = d.jsbmid and f.rzbmid=e.bmid
+
+    </insert>
+
+</mapper>
