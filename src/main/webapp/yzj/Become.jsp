@@ -45,13 +45,12 @@
             <div class="modal-body">
                 <table class="table table-bordered">
                     <tr>
-                        <td>考核结果:<select id="jieguo">
-                            <option value="0">通过</option>
-                            <option value="1">不通过</option>
-                        </select></td>
+                        <td>人员ID:</td>
+                        <td><input type="text" id="a1" disabled="disabled"></td>
                     </tr>
                     <tr>
-                        <td>备注:<textarea type="text"id="beizhu"></textarea></td>
+                        <td>员工状态</td>
+                        <td><input type="text" id="a2" disabled="disabled"></td>
                     </tr>
                 </table>
             </div>
@@ -59,7 +58,7 @@
                 <button type="button" class="btn btn-default"
                         data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary" id="updateBtn">
+                <button type="button" class="btn btn-primary" id="updateBtn" onclick="tijiao();">
                     提交更改
                 </button>
             </div>
@@ -93,7 +92,7 @@
                     html=html+"<td>"+p.planid+"</td>";
                     if(p.jieguo==0){
                         html=html+"<td>通过考核</td>";
-                        html=html+"<td><button onclick='jieguo("+p.id+")' data-toggle='modal' data-target='#myModala'>转正</button></td>";
+                        html=html+"<td><button onclick='zhuan("+p.ryid+",1)' data-toggle='modal' data-target='#myModala'>转正</button></td>";
                     }
                     else if(p.jieguo==1){
                         html=html+"<td>未通过</td>";
@@ -104,16 +103,14 @@
             }
         })
     })
-    /*状态,驳回理由*/
-    function UpdatePlanMessage(ryzwzt){
-        $("#a1").val(id); $("#a3").val(zt);$("#a4").val(xinxi);
+    function zhuan(ryid,ryzwzt){
+        $("#a1").val(ryid); $("#a2").val(ryzwzt);
     }
-    /*通过驳回*/
-    function zhuan(){
+    function tijiao(){
         $.ajax({
-            url:"${path}/updatestatu",
+            url:"${path}/updateBecome",
             type:"post",
-            data:{"id":$("#a1").val(),"zt":$("#a3").val(),"xinxi":$("#a4").val()},
+            data:{"ryid":$("#a1").val(),"ryzwzt":$("#a2").val()},
             dataType:"json",
             success:function(data){
 
