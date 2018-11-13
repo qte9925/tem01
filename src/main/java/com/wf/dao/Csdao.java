@@ -6,6 +6,9 @@ import java.util.*;
 @Component
 public interface Csdao {
     List login(Map map);
+    int insert_wf_hetong(Map map);
+    int updatewfstafftablerzht(Map map);
+    int insertFunctionToPost(Map map);
     int zjht(Map map);
     List jsbselect01();
     List htnrcx(Map map);

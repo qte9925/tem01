@@ -13,18 +13,14 @@
     <caption id="cap">上下班记录 </caption>
     <thead >
     <tr>
-        <th>应出勤天数</th>
-        <th>实际出勤天数</th>
-        <th>早退次数</th>
-        <th>上班未登记</th>
-        <th>下班未登记</th>
-        <th>迟到次数（时长）</th>
+        <th>人员名称</th>
+        <th>上班天数</th>
+        <th>病假时长</th>
+        <th>事假时长</th>
+        <th>迟到时长</th>
+        <th>早退时长</th>
+        <th>转正天数</th>
         <th>旷工天数</th>
-        <th>休息天数</th>
-        <th>外出次数（时长）	</th>
-        <th>请假次数（时长）	</th>
-        <th>出差天数</th>
-        <th>加班次数（时长）</th>
     </tr>
     </thead>
     <tbody id="thead01">

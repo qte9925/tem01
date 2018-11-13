@@ -50,10 +50,15 @@
         })
     }
     lay('#version').html('-v'+ laydate.v);
-
     //执行一个laydate实例
     laydate.render({
         elem: '#cc' //指定元素
+    });
+    lay('#version').html('-v'+ laydate.v);
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#writeTime' //指定元素
     });
     function getinfo(nowPage) {
         $.ajax({
@@ -228,7 +233,7 @@
     </button>
 </div>
 <div class="container">
-    <table class="table table-striped">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>需求内容</th>
@@ -236,7 +241,7 @@
             <th>填单日期</th>
             <th>审批方式</th>
             <th>部门</th>
-            <th>状态</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody id="YZWDepartment">

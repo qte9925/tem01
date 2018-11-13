@@ -16,4 +16,7 @@ public interface BusinessMapper {
     public Map selectGzId(int id);
     public int updateGz(Map map);
     public int updateGza(Map map);
+    public int updateGzb(Map map);
+    public List<Map> selectYj(Map map);
+    public int updateGzc(Map map);
 }

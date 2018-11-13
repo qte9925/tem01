@@ -105,7 +105,8 @@
                         tr=tr+"    <td>"+st.jzrq+"</td>";
                         tr=tr+"    <td>"+st.gzyf+"</td>";
                         tr=tr+"    <td>"+st.bz+"</td>";
-                        tr=tr+"    <td><input type=\"button\" value='通过' onclick='aa("+st.id+")' class=\"btn btn-primary\"  />";
+                        tr=tr+"    <td><input type=\"button\" value='详情' onclick='cc("+st.id+")' class=\"btn btn-primary\"  />";
+                        tr=tr+"    <input type=\"button\" value='通过' onclick='aa("+st.id+")' class=\"btn btn-primary\"  />";
                         tr=tr+"    <input type=\"button\" value='驳回' onclick='bb("+st.id+")' class=\"btn btn-primary\"  data-toggle=\"modal\" data-target=\"#myModala\"/>"
                         tr=tr+"   </tr>";
                         $("#tbody").append(tr);
@@ -179,6 +180,9 @@
             });
         })
 
+    }
+    function cc(id) {
+        window.location.href = "/jds/gzxq3.jsp?id="+id;
     }
 </script>
 

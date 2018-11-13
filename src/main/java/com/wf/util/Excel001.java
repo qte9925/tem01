@@ -45,7 +45,7 @@ public class Excel001 {
                         switch (cell.getCellType()) {
                             case HSSFCell.CELL_TYPE_NUMERIC:
                                 if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                     value = sdf.format(HSSFDateUtil.getJavaDate(cell.getNumericCellValue())).toString();
                                     break;
                                 } else {
@@ -122,7 +122,7 @@ public class Excel001 {
                         switch (cell.getCellType()) {
                             case HSSFCell.CELL_TYPE_NUMERIC:
                                 if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                     value = sdf.format(HSSFDateUtil.getJavaDate(cell.getNumericCellValue())).toString();
                                     break;
                                 } else {

@@ -98,7 +98,6 @@
                     html = html + "<td>" + p.rainingbudget + "</td>";
                     html = html + "<td>" + p.rainingRequirement + "</td>";
                     html = html + "<td>" + p.rainingexplain + "</td>";
-                    html = html + "<td>" + p.bmname + "</td>";
                     html = html + "<td>" + p.ryxm + "</td>";
                     html = html + "<td>" + p.qvdaoname + "</td>";
                     html = html + "<td>" + p.xingshiname + "</td>";
@@ -376,7 +375,6 @@
             <th>培训预算</th>
             <th>培训要求</th>
             <th>培训说明</th>
-            <th>部门</th>
             <th>审批人</th>
             <th>培训渠道</th>
             <th>培训形式</th>
