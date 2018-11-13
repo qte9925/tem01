@@ -33,11 +33,15 @@ public interface TbTaskServices {
     /*验证考核任务唯一性*/
     public List<Map> selectTbTaskName(Map map);
 
-    /*<!--小明写-->*/
+
     //查询自身绩效考核任务
     List SelectMyTask(Integer tbStaffId);
     //查询上级评价员工
     List SelectOtherStaff(Map map);
     //查询考核任务人数
     List  SelectOtherTask(Map map);
+    //查看上级信息
+    Map SelectUpXx(Integer StaffId);
+    //审核查询
+    List SelectendTask();
 }

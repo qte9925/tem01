@@ -59,5 +59,9 @@ public interface TbTaskMapper {
     List SelectOtherStaff(Map map);
     //查询考核任务人数
     List  SelectOtherTask(Map map);
+    //查看上级信息
+    Map SelectUpXx(Integer StaffId);
+    //审核查询
+    List SelectendTask();
 
 }

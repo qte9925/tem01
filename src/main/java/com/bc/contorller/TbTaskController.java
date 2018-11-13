@@ -25,7 +25,7 @@ public class TbTaskController {
  public PageInfo selectTbTask(@RequestParam  Map map){
      int [] state = new int[] {1,2,3};
      map.put("state",state);
-     PageHelper.startPage(Integer.parseInt(map.get("pageNow").toString()), 2);
+     PageHelper.startPage(Integer.parseInt(map.get("pageNow").toString()), 5);
      List list = tt.selectTbTask(map);
      PageInfo pageInfo = new PageInfo<TbTask>(list);
      return pageInfo;
@@ -185,6 +185,13 @@ public class TbTaskController {
     @ResponseBody
     public List SelectOtherStaff(@RequestParam Map map) {
         List list = tt.SelectOtherStaff(map);
+        return list;
+    }
+    //审核查询
+    @RequestMapping("/SelectendTask")
+    @ResponseBody
+    public List SelectendTask(){
+        List list = tt.SelectendTask();
         return list;
     }
 
