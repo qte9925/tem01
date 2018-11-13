@@ -24,6 +24,16 @@ public class Kqconroller {
     private Kq se;
 
 
+    @RequestMapping("/selectwf_kqtj")
+    @ResponseBody
+    public List<Map> selectwf_kqtj(@RequestParam Map map) {
+        return se.selectwf_kqtj(map);
+    }
+    @RequestMapping("/selectwf_qiandao")
+    @ResponseBody
+    public List<Map> selectwf_qiandao(@RequestParam Map map) {
+        return se.selectwf_qiandao(map);
+    }
     @RequestMapping("/cxqj03")
     @ResponseBody
     public List<Map> cxqj03(@RequestParam Map map) {

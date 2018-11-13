@@ -20,6 +20,16 @@ public class KqIm implements Kq {
     private Excel001 Excel001;
 
 
+    @Override//查询签到表
+    public List<Map> selectwf_qiandao(Map map) {
+        return dao.selectwf_qiandao(map);
+    }
+
+    @Override
+    public List<Map> selectwf_kqtj(Map map) {
+        return dao.selectwf_kqtj(map);
+    }
+
     @Override
     public List<Map> cxqj03(Map map) {
         return dao.cxqj03(map);
@@ -110,6 +120,7 @@ public class KqIm implements Kq {
         int ryid =2;
         long chidao  =0;
         long zaotui  =0;
+        long jiaban = 0;
         if (originalFilename.endsWith(".xls")) {
 //            list = Excel001.readExcel2003(is);
             list = null;
@@ -161,6 +172,11 @@ public class KqIm implements Kq {
                             long l = sj04.getTime()-sj01.getTime();
                             zaotui = (l/1000)/60/60;
                             map02.put("zaotui",zaotui);//早退时长
+                        }
+                        if(sj01.getTime()-sj04.getTime() > 0){
+                            long l = sj01.getTime()-sj04.getTime();
+                            jiaban = (l/1000)/60/60;
+                            map02.put("jiaban",jiaban);//早退时长
                         }
                     } catch (ParseException e) {
                         System.out.println("执行异常");
