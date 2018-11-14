@@ -116,13 +116,19 @@
                                 <td>缴&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税:<input type="text" id="jiaoshui"></td>
                             </tr>
                             <tr>
-                                <td>实际工资:<input type="text" id="shijigongzi"></td>
+                                <td>补&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发:<input type="text" id="bufa"></td>
                             </tr>
                             <tr>
-                                <td>实际工资:<input type="text" id="id"></td>
+                                <td>奖&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金:<input type="text" id="jiangjin"></td>
                             </tr>
                             <tr>
-                                <td>za:<input type="text" id="zz"  ></td>
+                                <td>实际工资:<input type="text" id="shijigongzi"  ></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="id"  style="display:none"></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="zz"  style="display:none" ></td>
                             </tr>
                         </table>
                     </center>
@@ -138,7 +144,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<div class="modal fade" id="myModala" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<%--<div class="modal fade" id="myModala" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -154,7 +160,7 @@
                     <center>
                         <table>
                             <tr>
-                                <td>员工id:<input type="text" id="id1" ></td>
+                                <td><input type="text" id="id1"  style="display:none"></td>
                             </tr>
                             <tr>
                                 <td>补发工资:<input type="text" id="bf"  ></td>
@@ -173,7 +179,7 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
-</div>
+</div>--%>
 <center>
     <input type="button" value="保存" class="btn btn-primary" id="eidBtn">
 </center>
@@ -215,8 +221,8 @@
                            tr=tr+"    <td>"+st.bf+"</td>";
                            tr=tr+"    <td>"+st.jj+"</td>";
                            tr=tr+"    <td>"+st.sjgz+"</td>";
-                           tr=tr+"    <td><input type=\"button\" value='修改' onclick='cc("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"/>";
-                           tr=tr+"    <input type=\"button\" value='补发' onclick='bb("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\"/></td>";
+                           tr=tr+"    <td><input type=\"button\" value='修改' onclick='cc("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"/></td>";
+                          /* tr=tr+"    <input type=\"button\" value='补发' onclick='bb("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\"/></td>";*/
                            $("#tbody").append(tr);
                        }
                    }
@@ -248,6 +254,8 @@ function cc(id){
             $("#shijigongzi").val(data.sjgz);
             $("#zz").val(data.zz);
             $("#jiaban").val(data.jiaban);
+            $("#bufa").val(data.bf);
+            $("#jiangjin").val(data.jj);
 
            /* $("#bufa").val(data.bf);*/
         }
@@ -270,7 +278,9 @@ $("#update").click(function () {
     var kg1=$("#kuanggong").val();
     var zz1=$("#zz").val();
     var jb1=$("#jiaban").val();
-    var sjgz2=Number(xz)+Number(jx)+Number(jb1)-Number(cd1)-Number(bj1)-Number(sj1)-Number(zt1)-Number(kg1)-
+    var bf1=$("#bufa").val();
+    var jj1=$("#jiangjin").val();
+    var sjgz2=Number(xz)+Number(jx)+Number(jb1)+Number(bf1)+Number(jj1)-Number(cd1)-Number(bj1)-Number(sj1)-Number(zt1)-Number(kg1)-
     Number(yanglao1)-Number(shiye1)-Number(yiliao1)-Number(gongshang1)-Number(shengyu1)-Number(gongjijin1)-Number(zz1);
    /* alert(xz+"*"+jx+"*"+yanglao1+"*"+shiye1+"*"+yiliao1+"*"+gongshang1+"*"+shengyu1+"*"+gongjijin1+"*"+cd1+"*"+bj1+"*"+sj1+"*"+zt1+"*"+kg1+"*"+sjgz2)*/
     var jsgz=sjgz2-5000;
@@ -279,30 +289,31 @@ $("#update").click(function () {
 
     if(jsgz<0){
         js1=0;
-        zhxz=sjgz2-js1;
+        zhxz=Number(sjgz2)-Number(js1);
+
     }else if(3000>=jsgz){
         js1=(jsgz*0.03-0);
 
-        zhxz=sjgz2-js1;
+        zhxz=Number(sjgz2)-Number(js1);
     }else if(12000>=jsgz){
         js1=(jsgz*0.1-210);
 
-        zhxz=sjgz2-js1;
+        zhxz=Number(sjgz2)-Number(js1);
     }else if(25000>=jsgz){
         js1=(jsgz*0.2-1410);
-        zhxz=sjgz2-js1;
+        zhxz=Number(sjgz2)-Number(js1);
     }else if(35000>=jsgz){
         js1=(jsgz*0.25-2660);
-        zhxz=sjgz2-js1;
+        zhxz=Number(sjgz2)-Number(js1);
     }else if(55000>=jsgz){
         js1=(jsgz*0.3-4410);
-        zhxz=sjgz2-js1;
+        zhxz=Number(sjgz2)-Number(js1);
     }else if(80000>=jsgz){
         js1=(jsgz*0.35-7160);
-        zhxz=sjgz2-js1;
+        zhxz=Number(sjgz2)-Number(js1);
     }else{
         js1=(jsgz*0.4-15160);
-        zhxz=sjgz2-js1;
+        zhxz=Number(sjgz2)-Number(js1);
     }
     $.ajax({
         url:"${path}/updateGz",
@@ -314,7 +325,9 @@ $("#update").click(function () {
             "kg1": kg1,
             "jb1": jb1,
             "js1":js1,
-            "zhxz1": zhxz
+            "zhxz1": zhxz,
+            "bf1": bf1,
+            "jj1": jj1
         },
         dataType:"json",
         type:"post",
@@ -327,7 +340,7 @@ $("#update").click(function () {
         }
     })
 })
-    function bb(id){
+   /* function bb(id){
         $("#id1").val(id);
         cc(id);
     }
@@ -386,6 +399,7 @@ $("#update").click(function () {
             }
         })
     })
+    */
     $("#eidBtn").click(function () {
         window.location.href="${path}/jds/Xzlc.jsp";
     })

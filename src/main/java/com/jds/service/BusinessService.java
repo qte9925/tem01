@@ -18,4 +18,8 @@ public interface BusinessService {
     public int updateGzb(Map map);
     public List<Map> selectYj(Map map);
     public int updateGzc(Map map);
+    public PageInfo<Map> selectZc(Map map, PageEntity page);
+    public int updateZc(Map map);
+    public PageInfo<Map> selectZc1(Map map, PageEntity page);
+
 }

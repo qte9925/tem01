@@ -19,4 +19,8 @@ public interface BusinessMapper {
     public int updateGzb(Map map);
     public List<Map> selectYj(Map map);
     public int updateGzc(Map map);
+    public List<Map> selectZc(Map map);
+    public int updateZc(Map map);
+    public List<Map> selectZc1(Map map);
+
 }

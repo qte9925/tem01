@@ -30,6 +30,10 @@
 <body>
 <div>
     <table class="table table-bordered">
+        <center>
+            流程创建人:<input type="text" id="yf">
+            <button id="selectBtn" class="btn btn-primary">查询</button>
+        </center>
         <tr>
             <td>序号</td>
             <td>流程创建时间</td>

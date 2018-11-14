@@ -37,10 +37,11 @@
         <table class="table table-bordered">
             <tr>
                 <td>序号</td>
+                <td>姓名</td>
                 <td>员工编号</td>
-                <td>补发工资</td>
-                <td>备注</td>
-                <td>日期</td>
+                <td>申请主题</td>
+                <td>申请日期</td>
+                <td>支出</td>
                 <td>操作</td>
             </tr>
             <tbody id="tbody"></tbody>
@@ -50,57 +51,13 @@
         当第<span id="nowPage"></span>页
     </center>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    新增员工薪资补发
-                </h4>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <center>
-                        <table>
-                            <tr>
-                            <td>
-                                员工编号：<input type="text" id="ygid">
-                            </td>
-                        </tr>
-                            <tr>
-                                <td>
-                                    补发金额：<input type="text" id="bfje">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;   注：<input type="text" id="bz">
-                                </td>
-                            </tr>
-                        </table>
-                    </center>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="button" class="btn btn-primary" id="bh">
-                   增加
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 
 </body>
 <script type="text/javascript">
     function searchInfo(nowPage){
         $.ajax({
-            url:"${path}/selectBf",
-            data:{"ygid":$("#mjs").val(),"nowPage":nowPage},
+            url:"${path}/selectZc",
+            data:{"sqid":$("#mjs").val(),"nowPage":nowPage},
             dataType:"json",
             type:"post",
             success:function(data){
@@ -111,12 +68,14 @@
                         var st=data.list[i];
                         var tr="<tr>";
                         tr=tr+"   <td>"+(i+1)+"</td>";
-                        tr=tr+"    <td>"+st.ygid+"</td>";
-                        tr=tr+"    <td>"+st.bfje+"</td>";
-                        tr=tr+"    <td>"+st.bz+"</td>";
-                        tr=tr+"    <td>"+st.rq+"</td>";
-                        tr=tr+"    <td><input type=\"button\" value='修改' onclick='aa("+st.id+")' class=\"btn btn-primary\" />";
-                        tr=tr+"    <input type=\"button\" value='删除' onclick='bb("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\"/></td>"
+                        tr=tr+"    <td>"+st.sqname+"</td>";
+                        tr=tr+"    <td>"+st.sqid+"</td>";
+                        tr=tr+"    <td>"+st.sqzt+"</td>";
+                        tr=tr+"    <td>"+st.sqdata+"</td>";
+                        if(st.sate=2){
+                            tr=tr+"    <td>审核已通过</td>";
+                        }
+                        tr=tr+"    <td><input type=\"button\" value='支出' onclick='aa("+st.id+")' class=\"btn btn-primary\" /></td>";
 
                         tr=tr+"   </tr>";
                         $("#tbody").append(tr);
@@ -153,44 +112,6 @@
         else nowPage = Number(nowPage) - 1;
         searchInfo(nowPage);
     };
-    function aa(id) {
-        $.ajax({
-            url:"${path}/updateS1",
-            data:{"id":id,
-                "state":2,
-                "spr":"${sessionScope.list[0].yhname}",
-            },
-            dataType:"json",
-            type:"post",
-            success:function(data){
-                if(data>0){
-                    window.location.reload();
-
-                }
-            }
-        });
-    }
-    function bb(id) {
-        $("#bh").click(function () {
-            $.ajax({
-                url:"${path}/updateS2",
-                data:{"id":id,
-                    "state":4,
-                    "spr":"${sessionScope.list[0].yhname}",
-                    "bz":$("#bz1").val(),
-                },
-                dataType:"json",
-                type:"post",
-                success:function(data){
-                    if(data>0){
-                        window.location.reload();
-
-                    }
-                }
-            });
-        })
-
-    }
     function getNow(s) {
         return s < 10 ? '0' + s: s;
     }
@@ -207,23 +128,24 @@
     var s=myDate.getSeconds();     //获取当前秒钟数(0-59)
 
     var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
-   $("#bh").click(function () {
-       $.ajax({
-           url:"${path}/insertBf",
-           data:{"ygid":$("#ygid").val(),
-               "bfje":$("#bfje").val(),
-               "bz":$("#bz").val(),
-               "rq":now
-           },
-           dataType:"json",
-           type:"post",
-           success:function(data){
-               if(data>0){
-                   window.location.reload()
-               }
-           }
-       });
-   })
+    function aa(id) {
+        $.ajax({
+            url:"${path}/updateZc",
+            data:{"id":id,
+                "state":3,
+                "zcry":"${sessionScope.list[0].yhname}",
+                "zcrq":now
+            },
+            dataType:"json",
+            type:"post",
+            success:function(data){
+                if(data>0){
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
 </script>
 
 </html>

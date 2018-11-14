@@ -213,4 +213,29 @@ public class BusinessController {
         int a=bs.updateGzc(map);
         return a;
     }
+    @RequestMapping("selectZc")
+    @ResponseBody
+    public PageInfo<Map> selectZc(PageEntity page, @RequestParam Map map){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=bs.selectZc(map,page);
+        return pageInfo;
+
+    }
+    @RequestMapping("updateZc")
+    @ResponseBody
+    public int updateZc(@RequestParam Map map){
+        int a=bs.updateZc(map);
+        return a;
+    }
+    @RequestMapping("selectZc1")
+    @ResponseBody
+    public PageInfo<Map> selectZc1(PageEntity page, @RequestParam Map map){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=bs.selectZc1(map,page);
+        return pageInfo;
+
+    }
+
 }
