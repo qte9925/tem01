@@ -44,7 +44,11 @@ public class Zpconroller {
     public int updatewf_tdjl01(@RequestParam Map map) {
         return se.updatewf_tdjl01(map);
     }
-
+    @RequestMapping("/sxtdr")
+    @ResponseBody
+    public List<Map> sxtdr(@RequestParam Map map) {
+        return se.sxtdr(map);
+    }
 
 
     @RequestMapping("/countwf_ms")

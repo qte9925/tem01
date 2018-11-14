@@ -19,6 +19,7 @@ public interface Zp {
     int insert_wf_tdjl(Map map);
     int insert_wf_jianli(Map map);
     List<Map> countwf_ms(Map map);
+    List<Map> sxtdr(Map map);
     List<Map> zpcx03(Map map);
     PageInfo<Map> zpsqbcx02(Map map, PageEntity page);
     PageInfo<Map> cxtdjl003(Map map, PageEntity page);

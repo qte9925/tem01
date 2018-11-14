@@ -69,11 +69,13 @@
                 and c.tdstatic = #{tdstatic}
             </if>
     </select>
+
+    <select id="sxtdr" resultType="java.util.Map" parameterType="java.util.Map">
+          SELECT * from wf_tdjl where tdstatic =1 and tdrid = #{tdrid}
+    </select>
     <select id="cxtdjl001" resultType="java.util.Map" parameterType="java.util.Map">
-      SELECT * FROM `tem01`.`wf_tdjl`  where 1=1
-      <if test="tdrid">
-          and tdrid = #{tdrid}
-      </if>
+      SELECT * from wf_zps a ,wf_tdjl b where 1=1
+       and b.tdrid = #{tdrid} and b.tdzpsid=#{zpsid}s
     </select>
     <insert id="insert_wf_tdjl" parameterType="java.util.Map">
     INSERT INTO `tem01`.`wf_tdjl`(`tdrid`, `tdzpsid`, `tdstatic`) VALUES (#{tdrid}, #{tdzpsid},0)

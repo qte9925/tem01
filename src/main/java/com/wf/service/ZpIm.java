@@ -74,6 +74,11 @@ public class ZpIm implements Zp{
     }
 
     @Override
+    public List<Map> sxtdr(Map map) {
+        return dao.sxtdr(map);
+    }
+
+    @Override
     public List<Map> zpcx03(Map map) {
         return dao.zpcx03(map);
     }

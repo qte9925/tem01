@@ -95,9 +95,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary">
-                    提交更改
-                </button>
+                <%--<button type="button" class="btn btn-primary">--%>
+                    <%--提交更改--%>
+                <%--</button>--%>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -217,7 +217,7 @@
                 console.log(data);
                 if(data==1){
                     console.log("修改成功")
-                    window.location.href="#";
+                    window.location.reload();
                 }else{
                     alert("修改失败");
                 }
@@ -282,9 +282,25 @@
         console.log(tdstatic);
         gg(tdstatic);
     });
+    //判断此人有没有通过面试
     function huifu(id) {
-        $("#aaaa").val(id);
-        $('#huifu').modal('show');
+        $.ajax({
+            url: "${path}/sxtdr",
+            type: "post",
+            data:{"tdrid":id
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if(data.length>0){
+                    $("#aaaa").val(id);
+                    $('#huifu').modal('show');
+                }else{
+                    alert("当前用户已经有预约面试");
+                }
+            }
+        });
+
     }
     //送审，修改状态
     function songshen(id01,id02) {

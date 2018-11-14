@@ -30,7 +30,7 @@
             <div class="modal-body">
                 <table class="table table-bordered">
                     <tbody>
-                    <tr>
+                    <tr style="display: none;">
                         <td>编号：</td>
                         <td id="zpsid">Bangalore</td>
                     </tr>
@@ -186,16 +186,24 @@
             data:{"tdrid":id01,"tdzpsid":id02},
             dataType: "json",
             success: function (data) {
-                console.log("增加面试表");
-                console.log(data);
+                if(data>0){alert("投递简历成功");console.log("增加面试表");
+                    console.log(data);}else{
+                    alert("投递失败");
+                }
+
             }
         });
     }
     function cxtdjl001(id01,id02) {
+        console.log("当前投递ID"+id01);
+        console.log("当前投递ID"+id02);
         $.ajax({
             url: "${path}/cxtdjl001",
             type: "post",
-            data:{"tdrid":id01},
+            data:{
+                "tdrid":id01,
+                "zpsid":id02
+            },
             dataType: "json",
             success: function (data) {
                 if(data.length>0){
