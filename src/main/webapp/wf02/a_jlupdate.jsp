@@ -102,7 +102,7 @@
                             <label  class="col-sm-2 control-label">户籍</label>
                             <div class="col-sm-10">
                                 <input id="huji" class="form-control" type="text" readonly>
-                                <input id="huji01" class="form-control" readonly type="text" data-toggle="city-picker">
+                                <input id="huji01" onclick="xiugai002();" class="form-control" readonly type="text" data-toggle="city-picker">
                             </div>
                         </td>
                     </tr>
@@ -115,7 +115,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display: none">
                         <td>
                             <label  class="col-sm-2 control-label">参加工作时间</label>
                             <div class="col-sm-10">
@@ -124,7 +124,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><h2>教育经历</h2></td>
+                        <td><h2>最高学历</h2></td>
                     </tr>
                     <tr>
                         <td>
@@ -176,7 +176,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><h2>工作经验</h2></td>
+                        <td><h2>工作经验（无可不填）</h2></td>
                     </tr>
                     <tr>
                         <td>
@@ -247,12 +247,17 @@
                             </div>
                         </td>
                     </tr>
+                    <tr style="display: none;">
+                        <td>
+                          <input id="idc" type="text">
+                        </td>
+                    </tr>
 
                     <tr>
                         <td>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="button" class="btn btn-default" onclick="update_wf_jianli();">保存</button>
+                                    <button type="button" class="btn btn-default" onclick="updateccwfjianli();">修改保存</button>
                                     <button type="button" class="btn btn-default" onclick="aaa();">返回</button>
                                 </div>
                             </div>
@@ -269,38 +274,45 @@
     <p onclick="aaa();">欢迎您的加入！！</p>
 </div>
 <script type="text/javascript">
-    function  aaa() {
-        $("#huji").val("11/1/1");
-        alert($("#huji").val());
-    }
     //修改简历
-    function insert_wf_jianli() {
-        alert($("#jlname").val());
+    function updateccwfjianli() {
+        var gongsimingc =$("#gongsimingc").val();
+        var zhiweimingcheng =$("#zhiweimingcheng").val();
+        var zhizhikaishi =$("#zhizhikaishi").val();
+        var zaizhijieshu =$("#zaizhijieshu").val();
+        var suiqianyuexin =$("#suiqianyuexin").val();
+        var gzms =$("#gzms").val();
+        if(gongsimingc.length==0){gongsimingc=undefined;}
+        if(zhiweimingcheng.length==0){zhiweimingcheng=undefined;}
+        if(zhizhikaishi.length==0){zhizhikaishi=undefined;}
+        if(zaizhijieshu.length==0){zaizhijieshu=undefined;}
+        if(suiqianyuexin.length==0){suiqianyuexin=undefined;}
+        if(gzms.length==0){gzms=undefined;}
         $.ajax({
-            url: "${path}/insert_wf_jianli",
+            url: "${path}/updateccwfjianli",
             type: "post",
             data:{
                 "jlname":$("#jlname").val(),
                 "xingbie":$("#xingbie").val(),
                 "chudate":$("#chudate").val(),
-                "huji":$("#huji").val(),
+                "huji":$("#huji01").val(),
                 "xianjudi":$("#xianjudi").val(),
-                "canjiadate":$("#canjiadate").val(),
                 "xuexiao":$("#xuexiao").val(),
                 "xueli":$("#xueli").val(),
                 "tongzhao":$("#tongzhao").val(),
                 "jiudukaishi":$("#jiudukaishi").val(),
                 "jiudujieshu":$("#jiudujieshu").val(),
-                "gongsimingc":$("#gongsimingc").val(),
-                "zhiweimingcheng":$("#zhiweimingcheng").val(),
-                "zhizhikaishi":$("#zhizhikaishi").val(),
-                "zaizhijieshu":$("#zaizhijieshu").val(),
-                "suiqianyuexin":$("#suiqianyuexin").val(),
-                "gzms":$("#gzms").val(),
+                "gongsimingc":gongsimingc,
+                "zhiweimingcheng":zhiweimingcheng,
+                "zhizhikaishi":zhizhikaishi,
+                "zaizhijieshu":zaizhijieshu,
+                "suiqianyuexin":suiqianyuexin,
+                "gzms":gzms,
                 "qwyx":$("#qwyx").val(),
                 "qwdd":$("#qwdd").val(),
-                "qtryid":'${sessionScope.list[0].qtyhid}',
-                "zhuangtai":0},
+                "zhuangtai":0,
+                "id":$("#idc").val()
+            },
             dataType: "json",
             success: function (data) {
                 console.log(data);
@@ -312,6 +324,12 @@
             }
         });
     }
+    function  aaa() {
+        $("#huji").val("11/1/1");
+        alert($("#huji").val());
+    }
+
+
     //根据当前登录用户查询是否已经创建简历
     <%--function tdjl(id) {--%>
         <%--console.log("投递简历"+id);--%>
@@ -357,7 +375,7 @@
                 var  p = data[0];
                     $("#jlname").val(p.jlname);
                     $("#xingbie").val(p.xingbie);
-                    $("#chudate").val(p.chudate);
+                    $("#chudate").val(p.csrq);
                     $("#huji").val(p.huji);
                     $("#huji01").val(p.huji);
                     $("#xianjudi").val(p.xianjudi);
@@ -377,6 +395,7 @@
                     $("#qwyx").val(p.qwyx);
                     $("#qwdd").val(p.qwdd);
                     $("#qwdd01").val(p.qwdd);
+                    $("#idc").val(p.id);
             }
         });
     }

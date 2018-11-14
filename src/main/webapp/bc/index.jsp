@@ -59,6 +59,7 @@
 
 <body style="padding: 0px;margin: 0px">
 
+<div class="tab-pane fade" id="ios" >
     <table id = "customerses" class="table table-hover">
         <tr class = "alt1">
             <td>考核计划名称</td>
@@ -122,7 +123,7 @@
     </div>
     <%--<div><button class="btn btn-default" onclick="()">测试</button></div>--%>
 </div>
-
+    </div>
 <!-- 模态框 -->
 <div class="modal fade" id="Nameid"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -260,6 +261,8 @@
                 <button type="button" class="btn btn-default" id="closeBtn1" data-dismiss="modal">关闭</button>
             </div>
         </div>
+    </div>
+</div>
     </div>
 </div>
 </body>
@@ -521,7 +524,7 @@
         $("#reimburse").hide();
     })
     var jsonArray1 = new Array();// 存应聘申请
-
+能和
     function message(){
 
     }

@@ -14,10 +14,12 @@
         #{beizhu},0)
     </insert>
     <select id="htnrcx"  resultType="java.util.Map" parameterType="java.util.Map">
-        select *,DATE_FORMAT(ksrq,'%Y-%m-%d %H:%i:%S') as ksrq02 ,
-         DATE_FORMAT(jsrq,'%Y-%m-%d %H:%i:%S') as jsrq02 ,
-         DATE_FORMAT(sxrq,'%Y-%m-%d %H:%i:%S') as sxrq02 from wf_hetong ht , wfstafftable yh,wf_gs gs, wf_ht_leixing htlx,wfdepartment bm
-        where ht.ygid=yh.ryid and ht.gsid = gs.gsid and ht.htlxid = htlx.htleixingid and bm.bmid = yh.rybmid
+    SELECT *,
+DATE_FORMAT(ksrq,'%Y-%m-%d %H:%i:%S') as ksrq02 ,
+DATE_FORMAT(jsrq,'%Y-%m-%d %H:%i:%S') as jsrq02 ,
+DATE_FORMAT(sxrq,'%Y-%m-%d %H:%i:%S') as sxrq02
+from wf_hetong a, wf_ht_leixing b,wfstafftable c, wfdepartment d  where c.rybmid = d.bmid and a.htlxid = b.htleixingid and a.ygid = c.ryid
+
     </select>
     <select id="ygbid" resultType="java.util.Map" parameterType="java.util.Map">
        SELECT ryid as id, ryxm as name from wfstafftable where rystatic =0 and rzht=0

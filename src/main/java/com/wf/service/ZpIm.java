@@ -1,5 +1,8 @@
 package com.wf.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.wf.dao.Csdao;
 import com.wf.dao.Zpdao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,31 @@ public class ZpIm implements Zp{
     @Override
     public int updatewf_tdjl01(Map map) {
         return dao.updatewf_tdjl01(map);
+    }
+
+    @Override
+    public int updateccwfjianli(Map map) {
+        return dao.updateccwfjianli(map);
+    }
+
+    @Override
+    public int updatewfzps01(Map map) {
+        return dao.updatewfzps01(map);
+    }
+
+    @Override
+    public int xiugaizpxq(Map map) {
+        return dao.xiugaizpxq(map);
+    }
+
+    @Override
+    public int deletesczpxq(Map map) {
+        return dao.deletesczpxq(map);
+    }
+
+    @Override
+    public int deletewfzps(Map map) {
+        return dao.deletewfzps(map);
     }
 
     //增加面试表
@@ -46,19 +74,68 @@ public class ZpIm implements Zp{
     }
 
     @Override
-    public List<Map> cxtdjl003(Map map) {
-        return dao.cxtdjl003(map);
+    public List<Map> sxtdr(Map map) {
+        return dao.sxtdr(map);
     }
+
+    @Override
+    public List<Map> zpcx03(Map map) {
+        return dao.zpcx03(map);
+    }
+
+
 
     //招聘书全部查询
-    public List<Map> zpsqbcx02(Map map) {
-        return dao.zpsqbcx02(map);
+    public PageInfo<Map> zpsqbcx02(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.zpsqbcx02(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    //招聘书全部查询
+    public PageInfo<Map> cxtdjl003(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.cxtdjl003(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
 
-    //查询已经投递简历
-    public List<Map> cxtdjl002(Map map) {
-        return dao.cxtdjl002(map);
+    //各部门查看自己招聘计划
+    public PageInfo<Map> zpcxgrbm(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.zpcxgrbm(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
+    //各部门查看自己招聘计划
+    public PageInfo<Map> zpcx01(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.zpcx01(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    //各部门查看自己招聘计划
+    public PageInfo<Map> cxzjhs(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.cxzjhs(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    //各部门查看自己招聘计划
+    public PageInfo<Map> daishenkecx(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.daishenkecx(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    //查询已经投递简历
+    public PageInfo<Map> cxtdjl002(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.cxtdjl002(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+
 
     @Override
     public List<Map> zpsqbcx03(Map map) {
@@ -110,20 +187,14 @@ public class ZpIm implements Zp{
         return dao.gwcx02(map);
     }
 
-    //招聘需求查询
-    public List<Map> zpcx01(Map map) {
-        return dao.zpcx01(map);
-    }
+
 
 
     public List<Map> zpcx02(Map map) {
         return dao.zpcx02(map);
     }
 
-    //各部门查看自己招聘计划
-    public List<Map> zpcxgrbm(Map map) {
-        return dao.zpcxgrbm(map);
-    }
+
 
     //招聘目标需求
     public List<Map> zpbmxq(Map map) {
@@ -155,20 +226,13 @@ public class ZpIm implements Zp{
         return dao.zpbmxq02(map);
     }
 
-    //查询招聘书
-    public List<Map> cxzjhs(Map map) {
-        return dao.cxzjhs(map);
-    }
 
     //修改待审核状态
     public int zpsxiugai(Map map) {
         return dao.zpsxiugai(map);
     }
 
-    //根据审核状态查询任务书
-    public List<Map> daishenkecx(Map map) {
-        return dao.daishenkecx(map);
-    }
+
 
     @Override
     public int zpsinsert(Map map) {

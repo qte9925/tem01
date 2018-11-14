@@ -6,6 +6,7 @@
     <result column="tb_dept_kh_id" jdbcType="INTEGER" property="tbDeptKhId" />
     <result column="tb_prople_ygkh_name" jdbcType="VARCHAR" property="tbPropleYgkhName" />
     <result column="tb_prople_ygkh_state" jdbcType="INTEGER" property="tbPropleYgkhState" />
+    <result column="tb__tb_staff_id" jdbcType="INTEGER" property="tbTbStaffId" />
   </resultMap>
   <sql id="Base_Column_List">
     tb_prople_ygkh_id, tb_dept_kh_id, tb_prople_ygkh_name, tb_prople_ygkh_state
@@ -29,9 +30,9 @@
   </delete>
   <insert id="insert" parameterType="com.bc.entity.TbPropleYgkh">
     insert into tb_prople_ygkh (tb_task_id,tb_staff_id,tb_prople_ygkh_id, tb_dept_kh_id, tb_prople_ygkh_name,
-      tb_prople_ygkh_state)
+      tb_prople_ygkh_state,tb__tb_staff_id)
     values (#{tbTaskId,jdbcType=INTEGER},#{tbStaffId,jdbcType=INTEGER},#{tbPropleYgkhId,jdbcType=INTEGER}, #{tbDeptKhId,jdbcType=INTEGER}, #{tbPropleYgkhName,jdbcType=VARCHAR},
-      #{tbPropleYgkhState,jdbcType=INTEGER})
+      #{tbPropleYgkhState,jdbcType=INTEGER},#{tbTbStaffId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.bc.entity.TbPropleYgkh">
     insert into tb_prople_ygkh

@@ -1,5 +1,8 @@
 package com.wf.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.wf.service.Se;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,11 +39,13 @@ public class Csconroller {
         System.out.println(map);
         return se.zjht(map);
     }
-
     @RequestMapping("/htnrcx001")
     @ResponseBody
-    public List htnrcx(@RequestParam Map map) {
-        return se.htnrcx(map);
+    public PageInfo<Map> htnrcx001(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.htnrcx(map,page);
+        return pageInfo;
     }
 
     @RequestMapping("/ygbid")

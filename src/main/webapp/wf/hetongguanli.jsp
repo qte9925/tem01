@@ -17,9 +17,9 @@
     <tr>
         <th>名称</th>
         <th>部门</th>
-        <th>签署公司</th>
+        <th>合同类型</th>
         <th>合同签订日期</th>
-        <th>试用生效日期</th>
+        <th>合同生效日期</th>
         <th>合同到期日期</th>
         <th>操作</th>
     </tr>
@@ -38,25 +38,49 @@
 </table>
 </div>
 <script type = "text/javascript">
-    $().ready(function () {
+    var StaffJobChangeApplication = {msg:[]};
+    var vm = new Vue({
+        el:'#mcs',
+        data:StaffJobChangeApplication
+    });
+    function gg(nowPage,id) {
         $.ajax({
             url: "${path}/htnrcx001",
+            data:{"nowPage":nowPage,"id02":id},
             type: "post",
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                var vm = new Vue({
-                    el:'#mcs',
-                    data:{
-                        msg:data
-                    }
-                });
+                StaffJobChangeApplication.msg = data.list;
+                $("#nowPage").html(data.pageNum);
+                $("#total").html(data.total);
+                $("#pages").html(data.pages);
+                //最后一页的下一页显示隐藏
+                if(data.isLastPage){
+                    $("#next").hide();
+                }else{
+                    $("#next").show();
+                }
+                //第一页的上一页显示隐藏
+
+                if(data.isFirstPage){
+                    $("#pre").hide();
+                }else{
+                    $("#pre").show();
+                }
             }
         });
+
+    }
+    function fy(op) {
+        var nowPage = $("#nowPage").html();
+        if (op == 'next') nowPage = Number(nowPage) + 1;
+        else nowPage = Number(nowPage) - 1;
+        gg(nowPage);
+    };
+    $().ready(function () {
+        gg(1);
     });
-
-
-
 
 </script>
 </body>

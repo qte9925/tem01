@@ -211,8 +211,8 @@
     <div style="display: block;width: 90%;  margin-left: 80px">
         <div width="100%" >
             <div width="80%" align="right"><button class="btn btn-default" onclick="sum()">合计</button></div>
-            <div style="margin-left: 1200px">自评分值：<input type='text' style="height: 32px" id='sumoneself'></div>
-            <div style="margin-left: 1200px">主管评分：<input type='text' style="height: 32px" id='sumothers'></div>
+            <div style="margin-left: 1000px">自评分值：<input type='text' style="height: 32px" id='sumoneself'></div>
+            <div style="margin-left: 1000px">主管评分：<input type='text' style="height: 32px" id='sumothers'></div>
         </div>
     </div>
     <div style="display: block;width: 90%;  margin-left: 80px">

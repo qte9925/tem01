@@ -16,6 +16,7 @@
     <context:component-scan base-package="com.wf.controller"/>
     <context:component-scan base-package="com.lx.contorller"/>
     <context:component-scan base-package="com.fzl.contorller"/>
+    <context:component-scan base-package="com.bc.contorller"/>
 
 
     <!-- 开启SpringMVC注解模式 -->

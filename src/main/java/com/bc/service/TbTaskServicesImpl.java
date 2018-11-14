@@ -3,6 +3,7 @@ package com.bc.service;
 import com.bc.dao.*;
 import com.bc.entity.*;
 import com.bc.entity.BaseDao;
+import com.bc.service.TbTaskServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -116,8 +117,17 @@ public class TbTaskServicesImpl implements TbTaskServices {
             for(int h=0;h<sflist.size();h++){
                 TbPropleYgkh tbprople = new TbPropleYgkh();
                 Integer tbtbstaffid = Integer.parseInt(sflist.get(h).toString());
+                Map mapp =ta.SelectUpXx(tbtbstaffid);
+                System.out.print(mapp+"*****************************************************************");
+                Integer upid=0;
+                if(mapp!=null){
+                    upid = Integer.parseInt(mapp.get("tb__tb_staff_id").toString());
+                }else{
+                    upid= 0;
+                }
                 tbprople.setTbPropleYgkhName(ta.SelectStaffId(tbtbstaffid));
                 tbprople.settbStaffId(tbtbstaffid);
+                tbprople.setTbTbStaffId(upid);
                 tbprople.setTbTaskId(maxTbTaskID);
                 tbprople.setTbDeptKhId(tbdeptkhid);
                 tbprople.setTbPropleYgkhState(1);
@@ -214,6 +224,16 @@ public class TbTaskServicesImpl implements TbTaskServices {
     //查询考核任务人数
     public List SelectOtherTask(Map map) {
         return ta.SelectOtherTask(map);
+    }
+
+    @Override
+    public Map SelectUpXx(Integer StaffId) {
+        return null;
+    }
+
+    //审核查询
+    public List SelectendTask(){
+        return ta.SelectendTask();
     }
 
 }

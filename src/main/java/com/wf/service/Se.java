@@ -1,5 +1,8 @@
 package com.wf.service;
 
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
+
 import java.util.*;
 
 public interface Se {
@@ -18,7 +21,7 @@ public interface Se {
     List<Map> cxjsqx01(Map map);
     List<Map> ygbid(Map map);
     int zjht(Map map);
-    List htnrcx(Map map);
+    PageInfo<Map> htnrcx(Map map, PageEntity page);
     int yhinsert02(Map map);
     int cxqxb30(Map map);
     List<Map> index01(Map map);

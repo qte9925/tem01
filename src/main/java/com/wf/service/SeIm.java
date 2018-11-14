@@ -1,5 +1,8 @@
 package com.wf.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.wf.dao.Csdao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,8 +89,11 @@ public class SeIm implements Se{
     }
 
     //查询合同内容
-    public List htnrcx(Map map) {
-        return dao.htnrcx(map);
+    public PageInfo<Map> htnrcx(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.htnrcx(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
 
     @Override

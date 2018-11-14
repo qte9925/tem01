@@ -18,7 +18,7 @@ public interface TbDetailoneServices {
     public int UpdateDetailone(Map map);
     //删除考核项
     public Integer Detailoneid(Integer tbDetailoneId);
-    /*小明*/
+
     List SelectTbTetailoneno(Map map);
     int InsertTbAchresult(Map map);
     int InsertTbOneRecorddetails(List list);

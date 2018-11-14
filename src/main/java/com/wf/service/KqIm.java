@@ -1,5 +1,8 @@
 package com.wf.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.wf.dao.Kqdao;
 import com.wf.util.Excel001;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +23,11 @@ public class KqIm implements Kq {
     private Excel001 Excel001;
 
 
-    @Override
-    public List<Map> cxqj03(Map map) {
-        return dao.cxqj03(map);
-    }
+
+
+
+
+
 
     @Override
     public List cxqj02(Map map) {
@@ -79,15 +83,39 @@ public class KqIm implements Kq {
     public List<Map> ygbrqd(Map map) {
         return dao.ygbrqd(map);
     }
-
     //查询请假详情
-    public List<Map> qjspxq(Map map) {
-        return dao.qjspxq(map);
+    public PageInfo<Map> qjspxq(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.qjspxq(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    public PageInfo<Map> cxqj0334(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.cxqj0334(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    public PageInfo<Map> selectwf_kqtj(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.selectwf_kqtj(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    @Override//查询签到表
+    public PageInfo<Map> selectwf_qiandao(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.selectwf_qiandao(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
 
     //查询全部出差
-    public List<Map> cxqbcc(Map map) {
-        return dao.cxqbcc(map);
+    public PageInfo<Map> cxqbcc(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.cxqbcc(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
 
    //增加出差表
@@ -110,6 +138,7 @@ public class KqIm implements Kq {
         int ryid =2;
         long chidao  =0;
         long zaotui  =0;
+        long jiaban = 0;
         if (originalFilename.endsWith(".xls")) {
 //            list = Excel001.readExcel2003(is);
             list = null;
@@ -161,6 +190,11 @@ public class KqIm implements Kq {
                             long l = sj04.getTime()-sj01.getTime();
                             zaotui = (l/1000)/60/60;
                             map02.put("zaotui",zaotui);//早退时长
+                        }
+                        if(sj01.getTime()-sj04.getTime() > 0){
+                            long l = sj01.getTime()-sj04.getTime();
+                            jiaban = (l/1000)/60/60;
+                            map02.put("jiaban",jiaban);//早退时长
                         }
                     } catch (ParseException e) {
                         System.out.println("执行异常");

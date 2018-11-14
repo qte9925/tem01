@@ -48,10 +48,18 @@
         </td>
     </tr>
     <tr>
-        <td>
-            <label  class="col-sm-2 control-label">招聘薪资</label>
+        <td >
+            <label  class="col-sm-2 control-label" >招聘最低薪资</label>
             <div class="col-sm-10">
-                <input type='text' class="form-control" id='tgxinzi' />
+                <input type='text' class="form-control"id='tgxinzi02' />
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td >
+            <label  class="col-sm-2 control-label" >招聘最高薪资</label>
+            <div class="col-sm-10">
+                <input type='text' class="form-control"  id='tgxinzi' />
             </div>
         </td>
     </tr>
@@ -89,6 +97,7 @@
     }
     function zjht() {
         var zpsname = $("#zpsname").val();
+        var tgxinzi02 = $("#tgxinzi02").val();
          var zpbmid= $("#zpbmid").val();
         var zhiwei = $("#zhiwei").val();
         var zhiweixinxixx = $("#zhiweixinxixx").val();
@@ -104,7 +113,9 @@
                     "zhiweixinxixx" :zhiweixinxixx,
                     "tgxinzi" :tgxinzi,
                     "zprs" : zprs,
+                    "tgxinzi02" : tgxinzi02,
                     "zdry" :zdry,
+
                     "fulidaiyu":fulidaiyu
                 },
                 type: "post",
@@ -122,8 +133,7 @@
         alert("需全部填写");
         }
     }
-    function gg(){
-        console.log("ryid"+'${sessionScope.list[0].ryid}')
+    function bmgw() {
         $.ajax({
             url: "${path}/zpbmxq02",
             type: "post",
@@ -139,6 +149,49 @@
                 }
             }
         });
+        $.ajax({
+            url: "${path}/gwcx02",
+            type: "post",
+            data:{},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#zhiwei").html("<option >请选择岗位</option>");
+                for (var i = 0; i < data.length; i++) {
+                    var p = data[i];
+                    var html = "<option value='" + p.jsid + "'>" + p.jsname + "</option>";
+                    $("#zhiwei").append(html);
+                }
+                gg();
+            }
+        });
+    }
+    function gg(){
+
+        var idurl = '${param.id}';
+        if(idurl!=null){
+            // alert("id"+id);
+            $.ajax({
+                url: "${path}/zpcx02",
+                type: "post",
+                data:{"zpxqid":idurl},
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    for(var i=0;i<data.length;i++){
+                        var p= data[i];
+                        $("#zpbmid").val(p.bmid);
+                        $("#zhiwei").val(p.jsid);
+                        $("#zhiweixinxixx").val(p.gwyaoqiu);
+                        $("#zprs").val(p.xzrs);
+                        $("#qxxq01").val(p.gwyaoqiu);
+                        $("#bz01").val(p.beizhu);
+                    }
+                }
+            });
+        }
+        console.log("ryid"+'${sessionScope.list[0].ryid}');
+
          function gwrs(){
              var gw = $("#zhiwei").val();
              $.ajax({
@@ -179,28 +232,17 @@
                 }
             });
         });
-        $("#zpbmid").on("change",function(){
-            var bmid = $("#zpbmid").val();
-            console.log("招聘岗位"+bmid);
-            $.ajax({
-                url: "${path}/gwcx02",
-                type: "post",
-                data:{"bmid":bmid},
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    $("#zhiwei").html("<option >请选择岗位</option>");
-                    for (var i = 0; i < data.length; i++) {
-                        var p = data[i];
-                        var html = "<option value='" + p.jsid + "'>" + p.jsname + "</option>";
-                        $("#zhiwei").append(html);
-                    }
-                }
-            });
-        });
+
+        //选择部门触发事件
+        // $("#zpbmid").on("change",function(){
+        //     var bmid = $("#zpbmid").val();
+        //     console.log("招聘岗位"+bmid);
+        //
+        // });
     }
     $().ready(function () {
-            gg();
+            // gg();
+            bmgw();
     });
     //日期组件
     $(function () {

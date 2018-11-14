@@ -30,7 +30,7 @@
             <div class="modal-body">
                 <table class="table table-bordered">
                     <tbody>
-                    <tr>
+                    <tr style="display: none;">
                         <td>编号：</td>
                         <td id="zpsid">Bangalore</td>
                     </tr>
@@ -127,6 +127,20 @@
             <%--<p>一些文本..</p>--%>
             <%--<p>菜鸟教程，学的不仅是技术，更是梦想！！！菜鸟教程，学的不仅是技术，更是梦想！！！菜鸟教程，学的不仅是技术，更是梦想！！！</p>--%>
                 <div id="ccc">
+                    <table>
+                        <Tr>
+                            <td>输入理想薪资</td>
+                            <Td><input type="text" class="form-control" value="0" id="hgccc01" ></Td>&nbsp;
+                            <Td><input type="button" class="form-control" value="查询" onclick="cxgg();" ></Td>
+                        </Tr>
+                        <script>
+                            function cxgg() {
+                                var tgxz001 = $("#hgccc01").val();
+                                console.log(tgxz001);
+                                gg(undefined,undefined,tgxz001);
+                            }
+                        </script>
+                    </table>
                     <table class="table table-bordered" style="margin-left: 20px;" >
                         <caption id="cap">招聘岗位</caption>
                         <thead >
@@ -139,26 +153,30 @@
                         </tr>
                         </thead>
                         <tbody id="thead01">
-                        <tr v-for="(index,i) in msg">
+                        <tr v-for="(index,i) in msg" :key="index" v-model="msg[i]">
                             <Td>{{index+1}}</Td>
                             <Td>{{i.zpsname}}</Td>
-                            <Td>{{i.tgxinzi}}</Td>
+                            <Td>{{i.tgxinzi02}}至{{i.tgxinzi}}</Td>
                             <Td>{{i.zprs}}</Td>
                             <Td>
                                 <input class="btn btn-primary btn-xm"  type="button" onclick="zpxq('{{i.zpsid}}');" value="详情">
                                 <input class="btn btn-primary btn-xm"  type="button" onclick="tdjl('{{i.zpsid}}');" value="投递简历" />
-                                <%--<input class="btn btn-primary btn-xm" type="button" onclick="sanchu('{{i.zpsid}}');" value="删除"  />--%>
                             </Td>
                         </tr>
                         </tbody>
                     </table>
+                    <center>
+                    <a id="pre" onclick="fy('pre')">上一页</a>
+                    <a id="next" onclick="fy('next')">下一页</a>
+                    当第<span id="nowPage"></span>页
+                    </center>
                 </div>
         </div>
     </div>
 </div>
 
 <div class="jumbotron text-center" style="margin-bottom:0">
-    <p>欢迎您的加入！！</p>
+    <p >欢迎您的加入！！</p>
 </div>
 <script type="text/javascript">
     function zjtdjl(id01,id02) {
@@ -168,16 +186,24 @@
             data:{"tdrid":id01,"tdzpsid":id02},
             dataType: "json",
             success: function (data) {
-                console.log("增加面试表");
-                console.log(data);
+                if(data>0){alert("投递简历成功");console.log("增加面试表");
+                    console.log(data);}else{
+                    alert("投递失败");
+                }
+
             }
         });
     }
     function cxtdjl001(id01,id02) {
+        console.log("当前投递ID"+id01);
+        console.log("当前投递ID"+id02);
         $.ajax({
             url: "${path}/cxtdjl001",
             type: "post",
-            data:{"tdrid":id01},
+            data:{
+                "tdrid":id01,
+                "zpsid":id02
+            },
             dataType: "json",
             success: function (data) {
                 if(data.length>0){
@@ -222,39 +248,69 @@
             data:{"id":id},
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                for(var i=0;i<data.length;i++){
-                    var p= data[i];
+                // console.log(data.list);
+                for(var i=0;i<data.list.length;i++){
+                    var p= data.list[0];
                     $("#zpsid").text(p.zpsid);
                     $("#zpsname").text(p.zpsname);
                     $("#zhiweixinxixx").text(p.zhiweixinxixx);
-                    $("#tgxinzi").text(p.tgxinzi);$("#zprs").text(p.zprs);
+                    $("#tgxinzi").text(p.tgxinzi02+'至'+p.tgxinzi);$("#zprs").text(p.zprs);
                     $("#djsj").text(p.djshijian02);$("#fulidaiyu").text(p.fulidaiyu);
                 }
             }
         });
         $('#myModal').modal('show');
     }
-    function gg(id){
+
+    //分页
+    var StaffJobChangeApplication = {msg:[]};
+    var vm = new Vue({
+        el:'#ccc',
+        data:StaffJobChangeApplication
+    });
+    function gg(id,nowPage,id03){
         $.ajax({
             url: "${path}/zpsqbcx02",
             type: "post",
-            data:{"id":id},
+            data:{"id":id,"nowPage":nowPage,"tgxinzi":id03},
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                var vm = new Vue({
-                    el:'#ccc',
-                    data:{
-                        msg:data
-                    }
-                });
+                console.log(data.list);
+                console.log(nowPage);
+                StaffJobChangeApplication.msg = data.list;
+                $("#nowPage").html(data.pageNum);
+                $("#total").html(data.total);
+                //最后一页的下一页显示隐藏
+                if(data.isLastPage){
+                    $("#next").hide();
+                }else{
+                    $("#next").show();
+                }
+                //第一页的上一页显示隐藏
+
+                if(data.isFirstPage){
+                    $("#pre").hide();
+                }else{
+                    $("#pre").show();
+                }
             }
         });
     }
+    function fy(op) {
+        var nowPage = $("#nowPage").html();
+        if (op == 'next') nowPage = Number(nowPage) + 1;
+        else nowPage = Number(nowPage) - 1;
+        gg(undefined,nowPage,undefined);
+    };
     $().ready(function () {
-        gg();
+        // jsmethod();
+        gg(undefined,1,undefined);
+        $("#selectBtn").click(function () {
+            searchInfo(undefined,1);
+        });
     });
+
+
     //根据当前登录用户查询是否已经创建简历
     function jl() {
         // console.log("投递简历");
