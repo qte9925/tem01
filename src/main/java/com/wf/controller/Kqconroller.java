@@ -1,5 +1,8 @@
 package com.wf.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.wf.service.Kq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,21 +27,9 @@ public class Kqconroller {
     private Kq se;
 
 
-    @RequestMapping("/selectwf_kqtj")
-    @ResponseBody
-    public List<Map> selectwf_kqtj(@RequestParam Map map) {
-        return se.selectwf_kqtj(map);
-    }
-    @RequestMapping("/selectwf_qiandao")
-    @ResponseBody
-    public List<Map> selectwf_qiandao(@RequestParam Map map) {
-        return se.selectwf_qiandao(map);
-    }
-    @RequestMapping("/cxqj03")
-    @ResponseBody
-    public List<Map> cxqj03(@RequestParam Map map) {
-        return se.cxqj03(map);
-    }
+
+
+
     @RequestMapping("/qjxqupdate")
     @ResponseBody
     public int qjxqupdate(@RequestParam Map map) {
@@ -92,16 +83,48 @@ public class Kqconroller {
     public int chuchaiinsert(@RequestParam Map map) {
         return se.chuchaiinsert(map);
     }
-    @RequestMapping("/cxqbcc")
-    @ResponseBody
-    public List cxqbcc(@RequestParam Map map) {
-        return se.cxqbcc(map);
-    }
+
     @RequestMapping("/qjspxq")
     @ResponseBody
-    public List qjspxq(@RequestParam Map map) {
-        return se.qjspxq(map);
+    public PageInfo<Map> qjspxq(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.qjspxq(map,page);
+        return pageInfo;
     }
+    @RequestMapping("/cxqj03")
+    @ResponseBody
+    public PageInfo<Map> cxqj03(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.cxqj0334(map,page);
+        return pageInfo;
+    }
+    @RequestMapping("/selectwf_kqtj")
+    @ResponseBody
+    public PageInfo<Map> selectwf_kqtj(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.selectwf_kqtj(map,page);
+        return pageInfo;
+    }
+    @RequestMapping("/cxqbcc")
+    @ResponseBody
+    public PageInfo<Map> cxqbcc(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.cxqbcc(map,page);
+        return pageInfo;
+    }
+    @RequestMapping("/selectwf_qiandao")
+    @ResponseBody
+    public PageInfo<Map> selectwf_qiandao(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.selectwf_qiandao(map,page);
+        return pageInfo;
+    }
+
     @RequestMapping("/qdinsert")
     @ResponseBody
     public int qdinsert(@RequestParam Map map) {

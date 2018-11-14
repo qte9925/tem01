@@ -157,7 +157,7 @@
                 <table class="table table-bordered">
                     <tbody>
                     <tr>
-                        <td>审批<input type="text" id="aaaa"></td>
+                        <td style="display: none;">审批<input type="text" id="aaaa"></td>
                         <td>
                             <select class="form-control" id="ds">
                             <option value="1">预约面试</option>
@@ -262,6 +262,11 @@
     </tr>
     </tbody>
 </table>
+    <center>
+        <a id="pre" onclick="fy('pre')">上一页</a>
+        <a id="next" onclick="fy('next')">下一页</a>
+        当第<span id="nowPage"></span>页,总共<span id="pages"></span>页
+    </center>
 </div>
 <script type="text/javascript">
     //筛选学历
@@ -318,8 +323,8 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                for(var i=0;i<data.length;i++){
-                    var p= data[i];
+                for(var i=0;i<data.list.length;i++){
+                    var p= data.list[i];
                     $("#jlname").text(p.jlname);
                     $("#shoujihao").text(p.shoujihao);
                     if(p.xingbie==0){$("#xingbie").text("男");}
@@ -350,22 +355,23 @@
         $('#myModal').modal('show');
     }
 
-    function gg(tdstatic,xueli){
+    function gg(tdstatic,xueli,nowPage){
         // console.log("xueli"+xueli);
         $.ajax({
             url: "${path}/cxtdjl002",
             type: "post",
             data:{
                 "tdstatic":tdstatic,
-                "tdid02":xueli
+                "tdid02":xueli,
+                "nowPage":nowPage
             },
             dataType: "json",
             success: function (data) {
                 console.log(data);
                 $("#thead01").html("");
-                for(var d=0;d<data.length;d++){
+                for(var d=0;d<data.list.length;d++){
                     var cc = d+1;
-                    var i=data[d];
+                    var i=data.list[d];
                     var html ='<tr >';
                     html=html+' <td>'+cc+'</td>';
                     html=html+ '<Td>'+i.zpsname+'</Td>';
@@ -381,13 +387,35 @@
                     html=html+'    </tr>';
                     $("#thead01").append(html);
                 }
+                $("#nowPage").html(data.pageNum);
+                $("#total").html(data.total);
+                $("#pages").html(data.pages);
+                //最后一页的下一页显示隐藏
+                if(data.isLastPage){
+                    $("#next").hide();
+                }else{
+                    $("#next").show();
+                }
+                //第一页的上一页显示隐藏
+
+                if(data.isFirstPage){
+                    $("#pre").hide();
+                }else{
+                    $("#pre").show();
+                }
             }
         });
     }
+    function fy(op) {
+        var nowPage = $("#nowPage").html();
+        if (op == 'next') nowPage = Number(nowPage) + 1;
+        else nowPage = Number(nowPage) - 1;
+        gg(undefined,undefined,nowPage);
+    };
 
     $().ready(function () {
         console.log("1111"+'${sessionScope.list[0]}');
-            gg();
+            gg(undefined,undefined,1);
 
     });
 </script>

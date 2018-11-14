@@ -1,13 +1,13 @@
 package com.wf.service;
 
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
+
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
 public interface Kq {
-    List<Map> selectwf_qiandao(Map map);
-    List<Map> selectwf_kqtj(Map map);
-    List<Map> cxqj03(Map map);
     List cxqj02(Map map);
     int qjxqupdate(Map map );
     List<Map> gzrl(Map map);
@@ -19,8 +19,11 @@ public interface Kq {
     int qdinsert(Map map);
     List<Map> cxsxb02(Map map);
     List<Map> ygbrqd(Map map);
-    List<Map> qjspxq(Map map);
-    List<Map> cxqbcc(Map map);
+    PageInfo<Map> qjspxq(Map map, PageEntity page);
+    PageInfo<Map> cxqj0334(Map map, PageEntity page);
+    PageInfo<Map> selectwf_kqtj(Map map, PageEntity page);
+    PageInfo<Map> selectwf_qiandao(Map map, PageEntity page);
+    PageInfo<Map> cxqbcc(Map map, PageEntity page);
     int chuchaiinsert(Map map );
     String InputExcel(InputStream is, String originalFilename);
 

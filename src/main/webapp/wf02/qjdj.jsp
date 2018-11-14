@@ -19,6 +19,24 @@
 <table class="table table-bordered" style="margin-left: 20px;" >
     <caption id="cap">请假登记 </caption>
     <thead >
+    <Tr>
+        <td>根据进度查询</td>
+        <Td>
+            <select class="form-control" id="hgccc01" onchange="cxgg();" >
+            <option value="10">待审核</option>
+            <option value="0">审核中</option>
+            <option value="1">审核通过</option>
+            <option value="2">审核不通过</option>
+            </select>
+        </Td>
+    </Tr>
+    <script>
+        function cxgg() {
+            var tgxz001 = $("#hgccc01").val();
+            console.log(tgxz001);
+            gg(undefined,tgxz001);
+        }
+    </script>
     <tr>
         <th>请假原因</th>
         <th>请假类型</th>
@@ -53,6 +71,11 @@
     </tr>
     </tbody>
 </table>
+    <center>
+        <a id="pre" onclick="fy('pre')">上一页</a>
+        <a id="next" onclick="fy('next')">下一页</a>
+        当第<span id="nowPage"></span>页,总共<span id="pages"></span>页
+    </center>
 </div>
 <script type="text/javascript">
     function songshen(a1,a2) {
@@ -76,25 +99,48 @@
             }
         });
     }
-    function gg(){
+    var StaffJobChangeApplication = {msg:[]};
+    var vm = new Vue({
+        el:'#ccc',
+        data:StaffJobChangeApplication
+    });
+    function gg(nowPage,id){
         $.ajax({
             url: "${path}/qjspxq",
             type: "post",
-            data:{"ryid":'${sessionScope.list[0].ryid}'},
+            data:{"ryid":'${sessionScope.list[0].ryid}',"nowPage":nowPage,"id02":id},
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                var vm = new Vue({
-                    el:'#ccc',
-                    data:{
-                        msg:data
-                    }
-                });
+                StaffJobChangeApplication.msg = data.list;
+                $("#nowPage").html(data.pageNum);
+                $("#total").html(data.total);
+                $("#pages").html(data.pages);
+                //最后一页的下一页显示隐藏
+                if(data.isLastPage){
+                    $("#next").hide();
+                }else{
+                    $("#next").show();
+                }
+                //第一页的上一页显示隐藏
+
+                if(data.isFirstPage){
+                    $("#pre").hide();
+                }else{
+                    $("#pre").show();
+                }
             }
         });
     }
+    function fy(op) {
+        var nowPage = $("#nowPage").html();
+        if (op == 'next') nowPage = Number(nowPage) + 1;
+        else nowPage = Number(nowPage) - 1;
+        gg(nowPage);
+    };
     $().ready(function () {
-            gg();
+        <%--console.log("1111"+'${sessionScope.list[0].rybmid}');--%>
+        gg(1);
     });
 </script>
 </body>

@@ -1,5 +1,8 @@
 package com.wf.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.wf.dao.Kqdao;
 import com.wf.util.Excel001;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +23,11 @@ public class KqIm implements Kq {
     private Excel001 Excel001;
 
 
-    @Override//查询签到表
-    public List<Map> selectwf_qiandao(Map map) {
-        return dao.selectwf_qiandao(map);
-    }
 
-    @Override
-    public List<Map> selectwf_kqtj(Map map) {
-        return dao.selectwf_kqtj(map);
-    }
 
-    @Override
-    public List<Map> cxqj03(Map map) {
-        return dao.cxqj03(map);
-    }
+
+
+
 
     @Override
     public List cxqj02(Map map) {
@@ -89,15 +83,39 @@ public class KqIm implements Kq {
     public List<Map> ygbrqd(Map map) {
         return dao.ygbrqd(map);
     }
-
     //查询请假详情
-    public List<Map> qjspxq(Map map) {
-        return dao.qjspxq(map);
+    public PageInfo<Map> qjspxq(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.qjspxq(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    public PageInfo<Map> cxqj0334(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.cxqj0334(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    public PageInfo<Map> selectwf_kqtj(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.selectwf_kqtj(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    @Override//查询签到表
+    public PageInfo<Map> selectwf_qiandao(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.selectwf_qiandao(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
 
     //查询全部出差
-    public List<Map> cxqbcc(Map map) {
-        return dao.cxqbcc(map);
+    public PageInfo<Map> cxqbcc(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.cxqbcc(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
 
    //增加出差表

@@ -9,10 +9,16 @@ import java.util.Map;
 public interface Zpdao {
 
     int updatewf_tdjl01(Map map);
+    int updateccwfjianli(Map map);
+    int xiugaizpxq(Map map);
+    int deletesczpxq(Map map);
+    int updatewfzps01(Map map);
+    int deletewfzps(Map map);
     int insert_wf_ms(Map map);
     int zxiugai0041(Map map);
     int insert_wf_tdjl(Map map);
     int insert_wf_jianli(Map map);
+    List<Map> zpcx03(Map map);
     List<Map> countwf_ms(Map map);
     List<Map> zpsqbcx02(Map map);
     List<Map> cxtdjl003(Map map);

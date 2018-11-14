@@ -79,16 +79,56 @@
     INSERT INTO `tem01`.`wf_tdjl`(`tdrid`, `tdzpsid`, `tdstatic`) VALUES (#{tdrid}, #{tdzpsid},0)
     </insert>
     <insert id="insert_wf_jianli" parameterType="java.util.Map">
-    insert into wf_jianli(id,jlname,xingbie,    chudate,    huji,  xianjudi,   canjiadate,    xuexiao,   xueli,   tongzhao,   jiudukaishi,   jiudujieshu,  gongsimingc,    zhiweimingcheng,   zhizhikaishi,   zaizhijieshu,   suiqianyuexin,   gzms,   qwyx,   qwdd,  qtryid,    zhuangtai)
-    VALUES(null,          #{jlname},#{xingbie},#{chudate},#{huji},#{xianjudi},#{canjiadate},#{xuexiao},#{xueli},#{tongzhao},#{jiudukaishi},#{jiudujieshu},#{gongsimingc},#{zhiweimingcheng},#{zhizhikaishi},#{zaizhijieshu},#{suiqianyuexin},#{gzms},#{qwyx},#{qwdd},#{qtryid},#{zhuangtai})
+    insert into wf_jianli(id,jlname,xingbie,    chudate,    huji,  xianjudi,
+            xuexiao,   xueli,   tongzhao,   jiudukaishi,   jiudujieshu,
+     <if test="gongsimingc!=null">gongsimingc,</if>
+     <if test="zhiweimingcheng!=null">zhiweimingcheng,</if>
+     <if test="zhizhikaishi!=null">zhizhikaishi,</if>
+     <if test="zaizhijieshu!=null">zaizhijieshu,</if>
+     <if test="suiqianyuexin!=null">suiqianyuexin,</if>
+     <if test="gzms!=null">gzms,</if>
+       qwyx,   qwdd,  qtryid,    zhuangtai)
+    VALUES(null, #{jlname},#{xingbie},#{chudate},#{huji},#{xianjudi},
+        #{xuexiao},#{xueli},#{tongzhao},#{jiudukaishi},#{jiudujieshu},
+        <if test="gongsimingc!=null">#{gongsimingc},</if>
+        <if test="zhiweimingcheng!=null">#{zhiweimingcheng},</if>
+        <if test="zhizhikaishi!=null"> #{zhizhikaishi},</if>
+        <if test="zaizhijieshu!=null">#{zaizhijieshu},</if>
+        <if test="suiqianyuexin!=null">#{suiqianyuexin},</if>
+        <if test="gzms!=null">#{gzms},</if>
+       #{qwyx},#{qwdd},#{qtryid},#{zhuangtai})
     </insert>
     <select id="xxcx02" resultType="java.util.Map" parameterType="java.util.Map">
-        SELECT *  from wf_qtyh a , wf_jianli b where a.qtyhid = b.qtryid
+        SELECT *,DATE_FORMAT(b.chudate,'%Y-%m-%d %H:%i:%S') as csrq  from wf_qtyh a , wf_jianli b where a.qtyhid = b.qtryid
         <if test="id02!=null">
             and a.qtyhid =#{id02}
         </if>
     </select>
-
+    <update id="updateccwfjianli" parameterType="java.util.Map">
+        UPDATE `tem01`.`wf_jianli` SET
+         <if test="jlname!=null">`jlname` = #{jlname},</if>
+         <if test="xingbie!=null">`xingbie` = #{xingbie},</if>
+         <if test="chudate!=null">`chudate` = #{chudate},</if>
+         <if test="huji!=null">`huji` = #{huji},</if>
+         <if test="xianjudi!=null">`xianjudi` = #{xianjudi},</if>
+         <if test="canjiadate!=null">`canjiadate` = #{canjiadate},</if>
+         <if test="xuexiao!=null">`xuexiao` = #{xuexiao},</if>
+         <if test="xueli!=null">`xueli` = #{xueli},</if>
+         <if test="tongzhao!=null">`tongzhao` = #{tongzhao},</if>
+         <if test="jiudukaishi!=null">`jiudukaishi` = #{jiudukaishi},</if>
+         <if test="jiudujieshu!=null">`jiudujieshu` = #{jiudujieshu},</if>
+         <if test="gongsimingc!=null">`gongsimingc` = #{gongsimingc},</if>
+         <if test="zhiweimingcheng!=null">`zhiweimingcheng` = #{zhiweimingcheng},</if>
+         <if test="zhizhikaishi!=null">`zhizhikaishi` = #{zhizhikaishi},</if>
+         <if test="zaizhijieshu!=null">`zaizhijieshu` = #{zaizhijieshu},</if>
+         <if test="suiqianyuexin!=null">`suiqianyuexin` = #{suiqianyuexin},</if>
+         <if test="gzms!=null">`gzms` = #{gzms},</if>
+         <if test="qwyx!=null">`qwyx` = #{qwyx},</if>
+         <if test="qwdd!=null">`qwdd` = #{qwdd},</if>
+         <if test="qtryid!=null">`qtryid` = #{qtryid},</if>
+         <if test="zhuangtai!=null">`zhuangtai` = #{zhuangtai}</if> WHERE 1=1
+        <if test="id!=null">  and   `id` = #{id} </if>
+    </update>
     <select id="zpsqbcx03" resultType="java.util.Map" parameterType="java.util.Map">
         SELECT a.*,DATE_FORMAT(djsj,'%Y-%m-%d %H:%i:%S') as djshijian02 ,b.* from wf_zps a , wf_tdjl b where a.zpzt = 0  and a.zpsid = b.tdzpsid
         <if test="tdrid!=null">
@@ -103,7 +143,11 @@
      <if test="id!=null">
          and zpsid = #{id}
      </if>
+        <if test="tgxinzi!=null">
+            and tgxinzi02 <![CDATA[ <= ]]> #{tgxinzi} and  #{tgxinzi} <![CDATA[ <= ]]> tgxinzi
+        </if>
         and skzt = 2
+
     </select>
     <select id="xxcx" resultType="java.util.Map" parameterType="java.util.Map">
     SELECT * from wf_qtyh a , wf_jianli b where a.qtyhid = b.qtryid
@@ -112,7 +156,6 @@
         </if>
     </select>
     <select id="qtyh" resultType="java.util.Map" parameterType="java.util.Map">
---         SELECT * from wf_qtyh where 1=1 and shoujihao =15136759732 and mima = 'w992585548' and yhstatic=0
         SELECT * from wf_qtyh where 1=1
         <if test="shoujihao!=null">
             and shoujihao =#{shoujihao}
@@ -135,18 +178,49 @@ VALUES(#{xuqiubmid},#{xuqiugangwei},#{xuqiurenshu},#{djid},#{yonggongriqi},#{bei
      <if test="a1">
          and b.bmid = (SELECT rybmid from wfstafftable where ryid=#{a1} )
      </if>
+        <if test="xqrs001">
+            and a.xuqiurenshu <![CDATA[ >= ]]> #{xqrs001}
+        </if>
     </select>
     <select id="zpcx01" resultType="java.util.Map" parameterType="java.util.Map">
      SELECT a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02
      from wf_zhaopinxuqiu a,wfdepartment b where xqzt = 0 and b.bmid=a.xuqiubmid
+     <if test="id!=null">
+         and a.xuqiurenshu <![CDATA[ >= ]]> #{id}
+     </if>
     </select>
     <select id="zpcx02" resultType="java.util.Map" parameterType="java.util.Map">
-        SELECT c.*,a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02
-        from wf_zhaopinxuqiu a,wfdepartment b, wfjsb c where xqzt = 0 and b.bmid=a.xuqiubmid and c.jsid = a.xuqiugangwei
+--         SELECT c.*,a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02
+--         from wf_zhaopinxuqiu a,wfdepartment b, wfjsb c where xqzt = 0 and b.bmid=a.xuqiubmid and c.jsid = a.xuqiugangwei
+        SELECT c.*, a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02
+        from wf_zhaopinxuqiu a,wfdepartment b ,wfjsb c where xqzt = 0 and b.bmid=a.xuqiubmid and c.jsid = a.xuqiugangwei
      <if test="zpxqid != null">
          and zpxqid = #{zpxqid}
      </if>
     </select>
+    <update id="xiugaizpxq" parameterType="java.util.Map">
+    UPDATE `tem01`.`wf_zhaopinxuqiu` SET
+     <if test="beizhu!=null">
+         `beizhu` = #{beizhu},
+     </if>
+        <if test="gwyaoqiu!=null">
+            `gwyaoqiu` = #{gwyaoqiu}
+        </if>
+         WHERE `zpxqid` = #{zpxqid}
+    </update>
+    <delete id="deletesczpxq" parameterType="java.util.Map">
+        delete from wf_zhaopinxuqiu where zpxqid = #{zpxqid}
+    </delete>
+    <select id="zpcx03" resultType="java.util.Map" parameterType="java.util.Map">
+        --         SELECT c.*,a.*,b.bmid,b.bmname,DATE_FORMAT(a.djshijian,'%Y-%m-%d %H:%i:%S') as djshijian02,DATE_FORMAT(a.yonggongriqi,'%Y-%m-%d %H:%i:%S') as yonggongriqi02
+        --         from wf_zhaopinxuqiu a,wfdepartment b, wfjsb c where xqzt = 0 and b.bmid=a.xuqiubmid and c.jsid = a.xuqiugangwei
+        SELECT a.*,b.bmid,b.bmname
+        from wf_zps a,wfdepartment b where 1=1 and b.bmid=a.zpbmid
+        <if test="zpxqid != null">
+            and a.zpsid = #{zpxqid}
+        </if>
+    </select>
+
     <select id="zpbmxq" resultType="java.util.Map" parameterType="java.util.Map">
         SELECT * from wfstafftable a, wfdepartment b where 1 = 1
          <if test="ryid!=null">
@@ -182,9 +256,9 @@ VALUES(#{xuqiubmid},#{xuqiugangwei},#{xuqiurenshu},#{djid},#{yonggongriqi},#{bei
         </if>
     </select>
     <select id="gwcx02" resultType="java.util.Map" parameterType="java.util.Map" >
-        SELECT * from wfjsb where
+        SELECT * from wfjsb where 1= 1
         <if test="bmid!=null">
-            jsbmid =#{bmid}
+          and jsbmid =#{bmid}
         </if>
     </select>
     <select id="cxzjhs" resultType="java.util.Map" parameterType="java.util.Map" >
@@ -192,6 +266,9 @@ VALUES(#{xuqiubmid},#{xuqiugangwei},#{xuqiurenshu},#{djid},#{yonggongriqi},#{bei
         and b.jsid = a.zhiwei
         <if test="id!=null">
             and  a.zdry =#{id}
+        </if>
+        <if test="id02!=null">
+            and  a.tgxinzi02 <![CDATA[ <= ]]> #{id02} and #{id02}  <![CDATA[ <= ]]> a.tgxinzi
         </if>
     </select>
     <update id="zpsxiugai" parameterType="java.util.Map">
@@ -217,6 +294,9 @@ VALUES(#{xuqiubmid},#{xuqiugangwei},#{xuqiurenshu},#{djid},#{yonggongriqi},#{bei
         <if test="id!=null">
             and skzt = #{id}
         </if>
+        <if test="id02!=null">
+            and  tgxinzi02 <![CDATA[ <= ]]> #{id02} and #{id02}  <![CDATA[ <= ]]> tgxinzi
+        </if>
     </select>
 
     <select id="gjidcx" resultType="java.util.Map" parameterType="java.util.Map" >
@@ -225,8 +305,22 @@ VALUES(#{xuqiubmid},#{xuqiugangwei},#{xuqiurenshu},#{djid},#{yonggongriqi},#{bei
             and zpsid = #{zpsid}
         </if>
     </select>
+    <delete id="deletewfzps" parameterType="java.util.Map">
+         DELETE FROM wf_zps where zpsid =#{id}
+    </delete>
+    <update id="updatewfzps01" parameterType="java.util.Map">
+        UPDATE `tem01`.`wf_zps` SET
+        <if test="zpsname!=null">`zpsname` = #{zpsname},</if>
+        <if test="zhiweixinxixx!=null">`zhiweixinxixx` = #{zhiweixinxixx},</if>
+        <if test="tgxinzi02!=null"> `tgxinzi02` = #{tgxinzi02},</if>
+        <if test="tgxinzi!=null">`tgxinzi` = #{tgxinzi}, </if>
+        <if test="zprs!=null">`zprs` = #{zprs},</if>
+        <if test="fulidaiyu!=null">`fulidaiyu` = #{fulidaiyu}</if>
+        WHERE `zpsid` = #{zpsid}
+    </update>
+
     <insert id="zpsinsert" parameterType="java.util.Map">
-        insert into wf_zps(zpsid,zpbmid,zpsname,zhiwei,zhiweixinxixx,tgxinzi,zprs,zpzt,zdry,skzt,fulidaiyu)
-        VALUES(null,#{zpbmid},#{zpsname},#{zhiwei},#{zhiweixinxixx},#{tgxinzi},#{zprs},0,#{zdry},0,#{fulidaiyu})
+        insert into wf_zps(zpsid,zpbmid,zpsname,zhiwei,zhiweixinxixx,tgxinzi,zprs,zpzt,zdry,skzt,fulidaiyu,tgxinzi02)
+        VALUES(null,#{zpbmid},#{zpsname},#{zhiwei},#{zhiweixinxixx},#{tgxinzi},#{zprs},0,#{zdry},0,#{fulidaiyu},#{tgxinzi02})
     </insert>
 </mapper>

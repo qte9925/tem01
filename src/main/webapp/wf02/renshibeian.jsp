@@ -158,6 +158,11 @@
         </tr>
     </tbody>
 </table>
+    <center>
+        <a id="pre" onclick="fy('pre')">上一页</a>
+        <a id="next" onclick="fy('next')">下一页</a>
+        当第<span id="nowPage"></span>页,总共<span id="pages"></span>页
+    </center>
 </div>
 <script type="text/javascript">
     function  aa01(id01,id02) {
@@ -242,25 +247,48 @@
             }
         });
     }
-    function gg(){
+    var StaffJobChangeApplication = {msg:[]};
+    var vm = new Vue({
+        el:'#ccc',
+        data:StaffJobChangeApplication
+    });
+    function gg(nowPage,id){
         $.ajax({
             url: "${path}/cxqj03",
             type: "post",
-            data:{"id":'${sessionScope.list[0].ryid}'},
+            data:{"id":'${sessionScope.list[0].ryid}',"nowPage":nowPage,"id02":id},
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                var vm = new Vue({
-                    el:'#ccc',
-                    data:{
-                        msg:data
-                    }
-                });
+                StaffJobChangeApplication.msg = data.list;
+                $("#nowPage").html(data.pageNum);
+                $("#total").html(data.total);
+                $("#pages").html(data.pages);
+                //最后一页的下一页显示隐藏
+                if(data.isLastPage){
+                    $("#next").hide();
+                }else{
+                    $("#next").show();
+                }
+                //第一页的上一页显示隐藏
+
+                if(data.isFirstPage){
+                    $("#pre").hide();
+                }else{
+                    $("#pre").show();
+                }
             }
         });
     }
+    function fy(op) {
+        var nowPage = $("#nowPage").html();
+        if (op == 'next') nowPage = Number(nowPage) + 1;
+        else nowPage = Number(nowPage) - 1;
+        gg(nowPage);
+    };
     $().ready(function () {
-        gg();
+        <%--console.log("1111"+'${sessionScope.list[0].rybmid}');--%>
+        gg(1);
     });
 </script>
 </body>

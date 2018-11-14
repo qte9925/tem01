@@ -129,9 +129,17 @@
                 <div id="ccc">
                     <table>
                         <Tr>
-                            <td>模糊检索</td>
-                            <Td><input type="text" class="form-control"></Td>
+                            <td>输入理想薪资</td>
+                            <Td><input type="text" class="form-control" value="0" id="hgccc01" ></Td>&nbsp;
+                            <Td><input type="button" class="form-control" value="查询" onclick="cxgg();" ></Td>
                         </Tr>
+                        <script>
+                            function cxgg() {
+                                var tgxz001 = $("#hgccc01").val();
+                                console.log(tgxz001);
+                                gg(undefined,undefined,tgxz001);
+                            }
+                        </script>
                     </table>
                     <table class="table table-bordered" style="margin-left: 20px;" >
                         <caption id="cap">招聘岗位</caption>
@@ -148,7 +156,7 @@
                         <tr v-for="(index,i) in msg" :key="index" v-model="msg[i]">
                             <Td>{{index+1}}</Td>
                             <Td>{{i.zpsname}}</Td>
-                            <Td>{{i.tgxinzi}}</Td>
+                            <Td>{{i.tgxinzi02}}至{{i.tgxinzi}}</Td>
                             <Td>{{i.zprs}}</Td>
                             <Td>
                                 <input class="btn btn-primary btn-xm"  type="button" onclick="zpxq('{{i.zpsid}}');" value="详情">
@@ -238,7 +246,7 @@
                     $("#zpsid").text(p.zpsid);
                     $("#zpsname").text(p.zpsname);
                     $("#zhiweixinxixx").text(p.zhiweixinxixx);
-                    $("#tgxinzi").text(p.tgxinzi);$("#zprs").text(p.zprs);
+                    $("#tgxinzi").text(p.tgxinzi02+'至'+p.tgxinzi);$("#zprs").text(p.zprs);
                     $("#djsj").text(p.djshijian02);$("#fulidaiyu").text(p.fulidaiyu);
                 }
             }
@@ -252,11 +260,11 @@
         el:'#ccc',
         data:StaffJobChangeApplication
     });
-    function gg(id,nowPage){
+    function gg(id,nowPage,id03){
         $.ajax({
             url: "${path}/zpsqbcx02",
             type: "post",
-            data:{"id":id,"nowPage":nowPage},
+            data:{"id":id,"nowPage":nowPage,"tgxinzi":id03},
             dataType: "json",
             success: function (data) {
                 console.log(data.list);
@@ -284,11 +292,11 @@
         var nowPage = $("#nowPage").html();
         if (op == 'next') nowPage = Number(nowPage) + 1;
         else nowPage = Number(nowPage) - 1;
-        gg(undefined,nowPage);
+        gg(undefined,nowPage,undefined);
     };
     $().ready(function () {
         // jsmethod();
-        gg(undefined,1);
+        gg(undefined,1,undefined);
         $("#selectBtn").click(function () {
             searchInfo(undefined,1);
         });

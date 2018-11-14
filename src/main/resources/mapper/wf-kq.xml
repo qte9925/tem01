@@ -123,6 +123,9 @@ from wf_qingjia a,wfstafftable c,wfdepartment d  where 1 = 1 and a.qjstatic = 0 
 <if test="id">
     and c.ryid = #{id}
 </if>
+        <if test="id02!=null">
+            and a.qjzt =#{id02}
+        </if>
     </select>
     <select id="qjspxq" resultType="java.util.Map" parameterType="java.util.Map">
     select a.qjid as qjid,a.chuchaididian as chuchaididian,a.chucaiid as chucaiid,
@@ -135,6 +138,10 @@ from wf_qingjia a,wf_qjlx b,wfstafftable c,wfdepartment d  where 1 = 1  and a.qj
 <if test="ryid!=null">
     and c.ryid = #{ryid}
 </if>
+<if test="id02!=null">
+    and a.qjzt =#{id02}
+</if>
+
 </select>
     <select id="cxqinjiq02" resultType="java.util.Map" parameterType="java.util.Map">
         select DATE_FORMAT(a.qjsj,'%Y-%m-%d %H:%i:%S') as qjsj,
@@ -152,9 +159,11 @@ from wf_qingjia a,wfstafftable c,wfdepartment d  where 1 = 1 and a.qjstatic = 0 
         from wfstafftable a,wf_qingjia  b where b.qjryid = a.ryid and (b.qjzt = 0 or b.qjzt = 3) and
 if(b.shenpirenid=0,a.ryshangji = #{id},(SELECT a.ryshangji from wfstafftable a,wf_qingjia  b where b.shenpirenid = a.ryid and b.qjzt=1 )=#{id})
     </select>
-    <select id="cxqj03" resultType="java.util.Map" parameterType="java.util.Map">
-    SELECT DATE_FORMAT(b.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq, DATE_FORMAT(b.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq ,DATE_FORMAT(b.qjsj,'%Y-%m-%d %H:%i:%S') as qjsj,a.*,b.*,TIMESTAMPDIFF(DAY, qjksrq, qjjsrq) AS tianshu
-    from wfstafftable a,wf_qingjia  b where b.qjryid = a.ryid</select>
+
+    <select id="cxqj0334" resultType="java.util.Map" parameterType="java.util.Map">
+    select  *,DATE_FORMAT(b.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq, DATE_FORMAT(b.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq ,TIMESTAMPDIFF(DAY, qjksrq, qjjsrq) AS tianshu from wfstafftable a,wf_qingjia  b where b.qjryid = a.ryid
+
+  </select>
 
     <update id="qjxqupdate" parameterType="java.util.Map">
         update wf_qingjia set  qjzt = #{qjzt}, shenpiyijian =#{shenpiyijian},shenpirenid=#{shenpirenid},sprname=#{sprname}
