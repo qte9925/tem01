@@ -22,14 +22,14 @@
                 <table class="table table-bordered">
                     <tbody>
                     <tr>
-                        <td>编号：</td>
-                        <td id="bh">Bangalore</td>
+                        <%--<td>编号：</td>--%>
+                        <%--<td id="bh">Bangalore</td>--%>
                         <td>需求部门</td>
                         <td id="bm">Mumbai</td>
                     </tr>
                     <tr>
                         <td>需求岗位：</td>
-                        <td id="xqgw">Bangalore</td>
+                        <td id="xqgw">Bangalore</td></tr><tr>
                         <td>需求人数</td>
                         <td id="xqrs">Mumbai</td>
                     </tr>
@@ -78,20 +78,22 @@
     </script>
     <tr>
         <th>需求编号</th>
-        <th>需求岗位</th>
+        <th>需求要求</th>
         <th>需求人数</th>
         <th>需求部门</th>
         <th>用工日期</th>
+        <th>备注</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody id="thead01">
     <tr v-for="(index,i) in msg">
         <td>{{index+1}}</td>
-        <Td>{{i.xuqiugangwei}}</Td>
+        <Td>{{i.gwyaoqiu}}</Td>
         <Td>{{i.xuqiurenshu}}</Td>
         <Td>{{i.bmname}}</Td>
         <Td>{{i.yonggongriqi02}}</Td>
+        <Td>{{i.beizhu}}</Td>
         <Td>
             <input class="btn btn-primary btn-xm" type="button" onclick="zpxq('{{i.zpxqid}}');" value="详情">
             <input class="btn btn-primary btn-xm zpjh01" type="button"  onclick="zpjh('{{i.zpxqid}}');" value="创建招聘计划">

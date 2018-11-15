@@ -35,7 +35,8 @@
         <td>
             <label  class="col-sm-2 control-label">出差地点</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="chuchaididian" rows="3"></textarea>
+                <input id="chuchaididian" class="form-control" readonly type="text" data-toggle="city-picker">
+                <%--<textarea class="form-control" id="" rows="3"></textarea>--%>
             </div>
         </td>
     </tr>

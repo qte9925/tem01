@@ -9,6 +9,7 @@ import java.util.Map;
 
 public interface Kq {
     List cxqj02(Map map);
+    List cxqinjiq021(Map map);
     int qjxqupdate(Map map );
     List<Map> gzrl(Map map);
     List<Map> qjlxselect(Map map);

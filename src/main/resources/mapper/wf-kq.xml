@@ -149,15 +149,28 @@ a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S
 c.ryxm ,
 d.bmname,
 c.ryxm as shenpi
-from wf_qingjia a,wfstafftable c,wfdepartment d  where 1 = 1 and a.qjstatic = 0 and  c.ryid = a.qjryid and d.bmid=c.rybmid  and (a.qjzt = 0 or a.qjzt = 3)
+from wf_qingjia a,wfstafftable c,wfdepartment d  where 1 = 1
+        and a.qjstatic = 0 and  c.ryid = a.qjryid and d.bmid=c.rybmid  and (a.qjzt = 0 or a.qjzt = 3 or a.qjzt =10 or a.qjzt = 30 )
 <if test="id!=null">
     and a.qjid = #{id}
 </if>
     </select>
+    <select id="cxqinjiq021" resultType="java.util.Map" parameterType="java.util.Map">
+        select DATE_FORMAT(a.qjsj,'%Y-%m-%d %H:%i:%S') as qjsj,
+        a.qjyanyin as yuanyin,a.zgblexing as lx, DATE_FORMAT(a.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq,DATE_FORMAT(a.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq , a.qjzt as qjzt , a.qjxj as qjxj,
+        c.ryxm ,
+        d.bmname,
+        c.ryxm as shenpi
+        from wf_qingjia a,wfstafftable c,wfdepartment d  where 1 = 1
+        and a.qjstatic = 0 and  c.ryid = a.qjryid and d.bmid=c.rybmid
+        <if test="id!=null">
+            and a.qjid = #{id}
+        </if>
+    </select>
     <select id="cxqj02" resultType="java.util.Map" parameterType="java.util.Map">
         SELECT DATE_FORMAT(b.qjksrq,'%Y-%m-%d %H:%i:%S')  as ksrq, DATE_FORMAT(b.qjjsrq,'%Y-%m-%d %H:%i:%S') as jsrq ,DATE_FORMAT(b.qjsj,'%Y-%m-%d %H:%i:%S') as qjsj,a.*,b.*,TIMESTAMPDIFF(DAY, qjksrq, qjjsrq) AS tianshu
-        from wfstafftable a,wf_qingjia  b where b.qjryid = a.ryid and (b.qjzt = 0 or b.qjzt = 3) and
-if(b.shenpirenid=0,a.ryshangji = #{id},(SELECT a.ryshangji from wfstafftable a,wf_qingjia  b where b.shenpirenid = a.ryid and b.qjzt=1 )=#{id})
+        from wfstafftable a,wf_qingjia  b where b.qjryid = a.ryid and (b.qjzt = 10 or b.qjzt = 30) and
+      if(b.shenpirenid=0,a.ryshangji = #{id},(SELECT a.ryshangji from wfstafftable a,wf_qingjia  b where b.shenpirenid = a.ryid and b.qjzt=1 )=#{id})
     </select>
 
     <select id="cxqj0334" resultType="java.util.Map" parameterType="java.util.Map">

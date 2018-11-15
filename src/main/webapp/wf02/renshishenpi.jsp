@@ -130,19 +130,19 @@
             <td>{{i.ksrq}}&nbsp;&nbsp;至&nbsp;&nbsp;{{i.jsrq}}</td>
             <td>{{i.qjyanyin}}</td>
             <td>
-                <button  data-toggle="modal" data-target="#myModal">
+                <button  data-toggle="modal" data-target="#myModal"  class="btn btn-default" >
                     <a href="javascript:aaa('{{i.qjid}}')">详情</a>
                 </button>
-                <button  v-if="i.qjzt==10" >
+                <button  v-if="i.qjzt==10" class="btn btn-default"  >
                     <a href="javascript:aa01('{{i.qjid}}',1)">审批</a>
                 </button>
-                <button  v-if="i.qjzt==11" >
+                <button  v-if="i.qjzt==11" class="btn btn-default" >
                     <a href="javascript:aa01('{{i.qjid}}',4)">审批</a>
                 </button>
-                <button  v-if="i.qjzt==10">
+                <button  v-if="i.qjzt==10"  class="btn btn-default" >
                     <a href="javascript:aa01('{{i.qjid}}',2)">驳回</a>
                 </button>
-                <button  v-if="i.qjzt==11">
+                <button  v-if="i.qjzt==11"  class="btn btn-default" >
                     <a href="javascript:aa01('{{i.qjid}}',5)">驳回</a>
                 </button>
             </td>

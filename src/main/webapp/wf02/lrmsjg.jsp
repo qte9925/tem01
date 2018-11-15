@@ -95,9 +95,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary">
-                    提交更改
-                </button>
+                <%--<button type="button" class="btn btn-primary">--%>
+                    <%--提交更改--%>
+                <%--</button>--%>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -200,16 +200,17 @@
                     <tbody>
                     <tr>
                         <td>
-                            当前是第<span id="djcms">1</span>面试
+                            <%--当前是第<span id="djcms">1</span>面试--%>
+                            选择面试结果
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <select class="form-control" id="msst" >
-                                <option value="0">通过面试</option>
-                                <option value="1">继续下次面试</option>
-                                <option value="2">面试不通过加入人才库</option>
-                                <option value="3">面试不通过加入黑名单</option>
+                                <option value="1">通过面试</option>
+                                <%--<option value="1">继续下次面试</option>--%>
+                                <option value="2">面试不通过</option>
+                                <%--<option value="3">面试不通过加入黑名单</option>--%>
                             </select>
                         </td>
                     </tr>
@@ -237,11 +238,10 @@
 <form class="form-inline" role="form" id="name01" style="margin-top: 20px;padding-left: 20px;">
     <label >选择列表</label>
     <select class="form-control" id="ischange">
-        <option value="999">请选择</option>
-        <option value="1">待面试</option>
-        <option value="0">面试通过</option>
-        <option value="2">面试不通过拉入人才库</option>
-        <option value="3">面试不通过拉入黑名单</option>
+        <option value="9999">请选择</option>
+        <option value="1">面试通过</option>
+        <option value="2">面试不通过</option>
+        <%--<option value="3">面试不通过拉入黑名单</option>--%>
     </select>
     <button class="btn btn-default btn-sm"><a href="javascript:jlsx();">简历筛选</a></button>
 </form>
@@ -343,7 +343,7 @@
                     console.log("增加成功");
                     $('#lr').modal('hide');
                     updatewf_tdjl01(id01,id03);
-                    window.location.href="#";
+                    window.location.reload();
                 }else{
                     alert("增加失败");
                 }
@@ -500,14 +500,14 @@
                     html=html+'<Td>'+i.jlname+'</Td>';
                     html=html+'<Td>'+i.ypsj+'</Td>';
                     if(i.msjg==999){html=html+'<Td  style="color: red">当前还未录入面试结果</Td>';}
-                    if(i.msjg==0){html=html+'<Td  style="color: red">面试通过</Td>';}
-                    if(i.msjg==1){html=html+'<Td  style="color: red">进行下一次面试</Td>';}
-                    if(i.msjg==2){html=html+'<Td  style="color: red">面试不通过拉入人才库</Td>';}
-                    if(i.msjg==3){html=html+' <Td style="color: red">面试不通过拉入黑名单</Td>';}
+                    if(i.msjg==1){html=html+'<Td  style="color: red">面试通过</Td>';}
+                    // if(i.msjg==1){html=html+'<Td  style="color: red">进行下一次面试</Td>';}
+                    if(i.msjg==2){html=html+'<Td  style="color: red">面试不通过</Td>';}
+                    if(i.msjg==3){html=html+' <Td style="color: red">面试不通过</Td>';}
                     html=html+' <Td>';
                     html=html+'   <input class="btn btn-primary btn-xm" type="button" onclick="zpxq('+i.tdid+');" value="详情">';
                     if(i.tdstatic==0){html=html+'  <input class="btn btn-primary btn-xm" type="button" onclick="huifu('+i.tdid+');" value="回复">';}
-                    if(i.msjg==1||i.msjg==999){html=html+'  <input class="btn btn-primary btn-xm" type="button" onclick="lrmsjg('+i.tdid+');" value="录入面试结果">';}
+                    if(i.msjg==999){html=html+'  <input class="btn btn-primary btn-xm" type="button" onclick="lrmsjg('+i.tdid+');" value="录入面试结果">';}
                     html=html+'   </Td>';
                     html=html+'    </tr>';
                     $("#thead01").append(html);

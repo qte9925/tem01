@@ -2,7 +2,7 @@
 <%@ include file="../gy.jsp" %>
 <html>
 <head>
-    <title>简历查询</title>
+    <title>当前简历</title>
 </head>
 <body >
 <!-- 模态框（Modal） -->
@@ -250,14 +250,14 @@
     <tr >
         <td>{{index+1}}</td>
         <Td>{{i.zpsname}}</Td>
-        <Td>{{i.zhiweimingcheng}}</Td>
+        <Td>{{i.zhiwei}}</Td>
         <Td>{{i.jlname}}</Td>
         <Td>{{i.ypsj}}</Td>
         <Td v-if="i.tdstatic==0" style="color: red">处理中</Td>
         <Td v-if="i.tdstatic!=0" style="color: black">已处理</Td>
         <Td>
             <input class="btn btn-primary btn-xm" type="button" onclick="zpxq('{{i.tdid}}');" value="详情">
-            <input class="btn btn-primary btn-xm" type="button" onclick="huifu('{{i.tdid}}');" value="回复">
+            <input class="btn btn-primary btn-xm" type="button" onclick="huifu('{{i.tdid}}','{{i.tdrid}}');" value="回复1">
         </Td>
     </tr>
     </tbody>
@@ -283,20 +283,23 @@
         gg(tdstatic);
     });
     //判断此人有没有通过面试
-    function huifu(id) {
+    function huifu(id,id02) {
         $.ajax({
             url: "${path}/sxtdr",
             type: "post",
-            data:{"tdrid":id
+            data:{"tdrid":id02
             },
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                if(data.length>0){
+                if(data.length==0){
                     $("#aaaa").val(id);
                     $('#huifu').modal('show');
                 }else{
                     alert("当前用户已经有预约面试");
+                    $("#aaaa").val(id);
+                    $("#ds").html("<option value='2'>拒绝此人</option>");
+                    $('#huifu').modal('show');
                 }
             }
         });
@@ -391,14 +394,14 @@
                     var html ='<tr >';
                     html=html+' <td>'+cc+'</td>';
                     html=html+ '<Td>'+i.zpsname+'</Td>';
-                    html=html+' <Td>'+i.zhiweimingcheng+'</Td>';
+                    html=html+' <Td>'+i.jsname+'</Td>';
                     html=html+'<Td>'+i.jlname+'</Td>';
                     html=html+'<Td>'+i.ypsj+'</Td>';
                     if(i.tdstatic==0){html=html+'<Td  style="color: red">处理中</Td>';}
                     if(i.tdstatic!=0){html=html+' <Td style="color: black">已处理</Td>';}
                     html=html+' <Td>';
                     html=html+'   <input class="btn btn-primary btn-xm" type="button" onclick="zpxq('+i.tdid+');" value="详情">';
-                    if(i.tdstatic==0){html=html+'  <input class="btn btn-primary btn-xm" type="button" onclick="huifu('+i.tdid+');" value="回复">';}
+                    if(i.tdstatic==0){html=html+'  <input class="btn btn-primary btn-xm" type="button" onclick="huifu('+i.tdid+","+i.tdrid+');" value="回复">';}
                     html=html+'   </Td>';
                     html=html+'    </tr>';
                     $("#thead01").append(html);

@@ -167,7 +167,6 @@
         });
     }
     function gg(){
-
         var idurl = '${param.id}';
         if(idurl!=null){
             // alert("id"+id);
@@ -183,7 +182,7 @@
                         $("#zpbmid").val(p.bmid);
                         $("#zhiwei").val(p.jsid);
                         $("#zhiweixinxixx").val(p.gwyaoqiu);
-                        $("#zprs").val(p.xzrs);
+                        $("#zprs").val(p.xuqiurenshu);
                         $("#qxxq01").val(p.gwyaoqiu);
                         $("#bz01").val(p.beizhu);
                     }

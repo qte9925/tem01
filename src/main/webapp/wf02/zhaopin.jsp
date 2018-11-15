@@ -137,24 +137,25 @@
     </script>
     <tr>
         <th>需求编号</th>
-        <th>需求岗位</th>
         <th>需求人数</th>
         <th>需求部门</th>
         <th>用工日期</th>
+        <th>备注</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody id="thead01">
     <tr v-for="(index,i) in msg">
         <td>{{index+1}}</td>
-        <Td>{{i.xuqiugangwei}}</Td>
         <Td>{{i.xuqiurenshu}}</Td>
         <Td>{{i.bmname}}</Td>
         <Td>{{i.yonggongriqi02}}</Td>
+        <Td>{{i.beizhu}}</Td>
         <Td>
             <input class="btn btn-primary btn-xm"  type="button" onclick="zpxq('{{i.zpxqid}}');" value="详情">
             <input class="btn btn-primary btn-xm" v-if="i.djid == ${sessionScope.list[0].ryid}" type="button" onclick="dakaixiugai('{{i.zpxqid}}')" value="修改"  />
             <input class="btn btn-primary btn-xm" v-if="i.djid == ${sessionScope.list[0].ryid}"  type="button" onclick="deletesczpxq('{{i.zpxqid}}')" value="删除"  />
+            <%--<input class="btn btn-primary btn-xm" v-if="i.djid == ${sessionScope.list[0].ryid}"  type="button" onclick="tjzt('{{i.zpxqid}}')" value="提交"  />--%>
         </Td>
     </tr>
     </tbody>
@@ -166,6 +167,9 @@
     </center>
 </div>
 <script type="text/javascript">
+    // function tjzt() {
+    //
+    // }
     //查询修改
     function dakaixiugai(id) {
         $.ajax({
