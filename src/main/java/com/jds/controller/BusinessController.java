@@ -237,5 +237,29 @@ public class BusinessController {
         return pageInfo;
 
     }
+    @RequestMapping("selectJl")
+    @ResponseBody
+    public PageInfo<Map> selectJl(PageEntity page, @RequestParam Map map){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=bs.selectJl(map,page);
+        return pageInfo;
 
+    }
+    @RequestMapping("selectJl1")
+    @ResponseBody
+    public Map selectJl1( @RequestParam Integer id){
+        Map map=bs.selectJl1(id);
+        return map;
+
+    }
+    @RequestMapping("selectBm")
+    @ResponseBody
+    public PageInfo<Map> selectBm(PageEntity page, @RequestParam Map map){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=bs.selectBm(map,page);
+        return pageInfo;
+
+    }
 }

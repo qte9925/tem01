@@ -30,7 +30,7 @@
             <div class="modal-body">
                 <table class="table table-bordered">
                     <tbody>
-                    <tr>
+                    <tr style="display: none;">
                         <td>编号：</td>
                         <td id="zpsid">Bangalore</td>
                     </tr>
@@ -108,8 +108,8 @@
             <p>当前介绍</p>
             <ul class="nav nav-pills nav-stacked">
                 <%--<li class="active"><a href="a_zhuche.jsp">我的简历</a></li>--%>
-                <li><a href="a_zhuche.jsp">我的简历</a></li>
-                <li><a href="#">我的投递</a></li>
+                <li><a href="/wf02/a_jlupdate.jsp">我的简历</a></li>
+                <li><a href="/wf02/a_wodetoudi.jsp">我的投递</a></li>
                 <li><a href="#">通知</a></li>
             </ul>
             <hr class="hidden-sm hidden-md hidden-lg">
@@ -127,211 +127,190 @@
             <%--<p>一些文本..</p>--%>
             <%--<p>菜鸟教程，学的不仅是技术，更是梦想！！！菜鸟教程，学的不仅是技术，更是梦想！！！菜鸟教程，学的不仅是技术，更是梦想！！！</p>--%>
                 <div id="ccc">
+                    <table>
+                        <Tr>
+                            <td>输入理想薪资</td>
+                            <Td><input type="text" class="form-control" value="0" id="hgccc01" ></Td>&nbsp;
+                            <Td><input type="button" class="form-control" value="查询" onclick="cxgg();" ></Td>
+                        </Tr>
+                        <script>
+                            function cxgg() {
+                                var tgxz001 = $("#hgccc01").val();
+                                console.log(tgxz001);
+                                gg(undefined,undefined,tgxz001);
+                            }
+                        </script>
+                    </table>
                     <table class="table table-bordered" style="margin-left: 20px;" >
-                        <caption id="cap">我的投递</caption>
+                        <caption id="cap">招聘岗位</caption>
                         <thead >
                         <tr>
-                            <th>序号</th>
+                            <th>招聘ID</th>
                             <th>招聘名称</th>
-                            <th>招聘要求</th>
                             <th>提供薪资</th>
                             <th>招聘人数</th>
-                            <th>福利待遇</th>
-                            <th>处理状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody id="thead01">
-                        <%--<tr v-for="(index,i) in msg">
+                        <tr v-for="(index,i) in msg" :key="index" v-model="msg[i]">
                             <Td>{{index+1}}</Td>
                             <Td>{{i.zpsname}}</Td>
-                            <Td>{{i.tgxinzi}}</Td>
+                            <Td>{{i.tgxinzi02}}至{{i.tgxinzi}}</Td>
                             <Td>{{i.zprs}}</Td>
-                            <Td v-if="i.tdstatic==0" style="color: red">处理中</Td>
-                            <Td v-if="i.tdstatic!=0" style="color: black">已回复</Td>
                             <Td>
                                 <input class="btn btn-primary btn-xm"  type="button" onclick="zpxq('{{i.zpsid}}');" value="详情">
-                                &lt;%&ndash;<input class="btn btn-primary btn-xm"  type="button" onclick="tdjl('{{i.zpsid}}');" value="投递简历" />&ndash;%&gt;
-                                &lt;%&ndash;<input class="btn btn-primary btn-xm" type="button" onclick="sanchu('{{i.zpsid}}');" value="删除"  />&ndash;%&gt;
+                                <input class="btn btn-primary btn-xm"  type="button" onclick="tdjl('{{i.zpsid}}');" value="投递简历" />
                             </Td>
-                        </tr>--%>
+                        </tr>
                         </tbody>
                     </table>
                     <center>
-                        <a id="pre" onclick="fy('pre')">上一页</a>
-                        <a id="next" onclick="fy('next')">下一页</a>
-                        当第<span id="nowPage"></span>页
+                    <a id="pre" onclick="fy('pre')">上一页</a>
+                    <a id="next" onclick="fy('next')">下一页</a>
+                    当第<span id="nowPage"></span>页
                     </center>
                 </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="myModala" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabe">
-                    简历审核详情
-                </h4>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <center>
-                        <table>
-                            <tr>
-                                <td>
-                                    <%--<textarea rows="10" cols="50" id="wb"></textarea>--%>
-                                    <div id="wb"></div>
-                                </td>
-                            </tr>
-                        </table>
-                    </center>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-              <%--  <button type="button" class="btn btn-primary" id="insert">
-                    增加
-                </button>--%>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+
 <div class="jumbotron text-center" style="margin-bottom:0">
-    <p>欢迎您的加入！！</p>
+    <p >欢迎您的加入！！</p>
 </div>
 <script type="text/javascript">
-    function searchInfo(nowPage){
-
-            $.ajax({
-                url:"${path}/selectJl",
-                data:{"id":${sessionScope.list[0].qtyhid},"nowPage":nowPage},
-                dataType:"json",
-                type:"post",
-                success:function(data){
-                    console.log(data)
-                    $("#thead01").html('');
-                    if(data!=null){
-                        for(var i=0;i<data.list.length;i++){
-                            var st=data.list[i];
-                            console.log(st.tdstatic)
-                            var tr="<tr>";
-                            tr=tr+"   <td>"+(i+1)+"</td>";
-                            tr=tr+"    <td>"+st.zpsname+"</td>";
-                            tr=tr+"    <td>"+st.zhiweixinxixx+"</td>";
-                            tr=tr+"    <td>"+st.tgxinzi+"~"+st.tgxinzi+"</td>";
-                            tr=tr+"    <td>"+st.zprs+"</td>";
-                            tr=tr+"    <td>"+st.fulidaiyu+"</td>";
-                            if(st.tdstatic==0){
-                                tr=tr+"    <td>"+"简历待处理"+"</td>";
-                            }
-                            if(st.tdstatic==1){
-                                tr=tr+"    <td>"+"简历已通过"+"</td>";
-                            }
-                            if(st.tdstatic==2){
-                                tr=tr+"    <td>"+"简历未通过"+"</td>";
-                            }
-
-                            tr=tr+"    <td><input type=\"button\" value='详情' onclick='aa("+st.tdid+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\"/></td>"
-                            tr=tr+"   </tr>";
-                            $("#thead01").append(tr);
-                        }
-                        $("#nowPage").html(data.pageNum);
-                        $("#total").html(data.total);
-                        //最后一页的下一页显示隐藏
-                        if(data.isLastPage){
-                            $("#next").hide();
-                        }else{
-                            $("#next").show();
-                        }
-                        //第一页的上一页显示隐藏
-
-                        if(data.isFirstPage){
-                            $("#pre").hide();
-                        }else{
-                            $("#pre").show();
-                        }
-                    }
-                }
-            });
-
-    };
-    $().ready(function() {
-        searchInfo(1);
-        $("#selectBtn").click(function () {
-            searchInfo(1);
-        });
-    });
-    function fy(op) {
-        var nowPage = $("#nowPage").html();
-        if (op == 'next') nowPage = Number(nowPage) + 1;
-        else nowPage = Number(nowPage) - 1;
-        searchInfo(nowPage);
-    };
-
-
-function aa(id) {
-    $.ajax({
-        url:"${path}/selectJl1",
-        data:{"id":id,},
-        dataType:"json",
-        type:"post",
-        success:function(data){
-            console.log(data)
-                $("#wb").html(data.hf);
-
-        }
-    });
-
-
-
-
-}
-  /*  function zpxq(id){
-        //手动打开模态框
+    function zjtdjl(id01,id02) {
         $.ajax({
-            url: "${path}/zpsqbcx03",
+            url: "${path}/insert_wf_tdjl",
             type: "post",
-            data:{"id":id,'tdrid':'${sessionScope.list[0].qtyhid}'},
+            data:{"tdrid":id01,"tdzpsid":id02},
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                for(var i=0;i<data.length;i++){
-                    var p= data[i];
+                if(data>0){alert("投递简历成功");console.log("增加面试表");
+                    console.log(data);}else{
+                    alert("投递失败");
+                }
+
+            }
+        });
+    }
+    function cxtdjl001(id01,id02) {
+        console.log("当前投递ID"+id01);
+        console.log("当前投递ID"+id02);
+        $.ajax({
+            url: "${path}/cxtdjl001",
+            type: "post",
+            data:{
+                "tdrid":id01,
+                "zpsid":id02
+            },
+            dataType: "json",
+            success: function (data) {
+                if(data.length>0){
+                    alert("您已经投递过简历，可以在我的投递中查看");
+                }else{
+                    zjtdjl(id01,id02);
+                }
+            }
+        });
+    }
+    //根据当前登录用户查询是否已经创建简历
+    function tdjl(id) {
+        // console.log("投递简历"+id);
+        $.ajax({
+            url: "${path}/xxcx02",
+            type: "post",
+            data:{"id02":'${sessionScope.list[0].qtyhid}'},
+            dataType: "json",
+            success: function (data) {
+                if(data.length>0){
+                    console.log("投递简历");
+                    console.log(data);
+                    var id02 = data[0].id;
+                    cxtdjl001('${sessionScope.list[0].qtyhid}',id);
+                }else{
+                    if(confirm('您当前没有创建简历，是否要去创建')==true){
+                        window.location.href="a_jltx.jsp";
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            }
+        });
+    }
+
+    function zpxq(id){
+        //手动打开模态框
+        $.ajax({
+            url: "${path}/zpsqbcx02",
+            type: "post",
+            data:{"id":id},
+            dataType: "json",
+            success: function (data) {
+                // console.log(data.list);
+                for(var i=0;i<data.list.length;i++){
+                    var p= data.list[0];
                     $("#zpsid").text(p.zpsid);
                     $("#zpsname").text(p.zpsname);
                     $("#zhiweixinxixx").text(p.zhiweixinxixx);
-                    $("#tgxinzi").text(p.tgxinzi);$("#zprs").text(p.zprs);
+                    $("#tgxinzi").text(p.tgxinzi02+'至'+p.tgxinzi);$("#zprs").text(p.zprs);
                     $("#djsj").text(p.djshijian02);$("#fulidaiyu").text(p.fulidaiyu);
                 }
             }
         });
         $('#myModal').modal('show');
     }
-    function gg(id){
+
+    //分页
+    var StaffJobChangeApplication = {msg:[]};
+    var vm = new Vue({
+        el:'#ccc',
+        data:StaffJobChangeApplication
+    });
+    function gg(id,nowPage,id03){
         $.ajax({
-            url: "${path}/zpsqbcx03",
+            url: "${path}/zpsqbcx02",
             type: "post",
-            data:{"id":id,'tdrid':'${sessionScope.list[0].qtyhid}'},
+            data:{"id":id,"nowPage":nowPage,"tgxinzi":id03},
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                var vm = new Vue({
-                    el:'#ccc',
-                    data:{
-                        msg:data
-                    }
-                });
+                console.log(data.list);
+                console.log(nowPage);
+                StaffJobChangeApplication.msg = data.list;
+                $("#nowPage").html(data.pageNum);
+                $("#total").html(data.total);
+                //最后一页的下一页显示隐藏
+                if(data.isLastPage){
+                    $("#next").hide();
+                }else{
+                    $("#next").show();
+                }
+                //第一页的上一页显示隐藏
+
+                if(data.isFirstPage){
+                    $("#pre").hide();
+                }else{
+                    $("#pre").show();
+                }
             }
         });
     }
+    function fy(op) {
+        var nowPage = $("#nowPage").html();
+        if (op == 'next') nowPage = Number(nowPage) + 1;
+        else nowPage = Number(nowPage) - 1;
+        gg(undefined,nowPage,undefined);
+    };
     $().ready(function () {
-        gg();
+        // jsmethod();
+        gg(undefined,1,undefined);
+        $("#selectBtn").click(function () {
+            searchInfo(undefined,1);
+        });
     });
+
+
     //根据当前登录用户查询是否已经创建简历
     function jl() {
         // console.log("投递简历");
@@ -354,7 +333,7 @@ function aa(id) {
                 }
             }
         });
-    }*/
+    }
 </script>
 </body>
 </html>

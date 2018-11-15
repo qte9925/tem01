@@ -270,6 +270,7 @@
     var s=myDate.getSeconds();     //获取当前秒钟数(0-59)
 
     var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+    var now1=getNow(month);
     $("#insert").click(function(){
         $.ajax({
             url:"${path}/insertX",
@@ -342,7 +343,15 @@
         });
 
     }
-
+$("#gzyf").blur(function () {
+   var a1=$("#gzyf").val();
+   if(a1>=now1){
+      alert("工资月份不能是当前月以及以后月份！");
+       $("#insert").attr('disabled','disabled')
+   }else {
+       $("#insert").removeAttr("disabled");
+   }
+})
 
 </script>
 </html>

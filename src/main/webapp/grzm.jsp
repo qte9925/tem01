@@ -46,28 +46,27 @@
 </div>
 <div id="chart">
     <ul id="numbers">
-        <li><span>100%</span></li>
-        <li><span>90%</span></li>
-        <li><span>80%</span></li>
-        <li><span>70%</span></li>
-        <li><span>60%</span></li>
-        <li><span>50%</span></li>
-        <li><span>40%</span></li>
-        <li><span>30%</span></li>
-        <li><span>20%</span></li>
-        <li><span>10%</span></li>
-        <li><span>0%</span></li>
+        <li><span>100</span></li>
+        <li><span>90</span></li>
+        <li><span>80</span></li>
+        <li><span>70</span></li>
+        <li><span>60</span></li>
+        <li><span>50</span></li>
+        <li><span>40</span></li>
+        <li><span>30</span></li>
+        <li><span>20</span></li>
+        <li><span>10</span></li>
+        <li><span>0</span></li>
     </ul>
 
     <ul id="bars">
-        <li><div data-percentage="40" class="bar"></div><span>Option 1</span></li>
-        <li><div data-percentage="33" class="bar"></div><span>Option 2</span></li>
-        <li><div data-percentage="54" class="bar"></div><span>Option 3</span></li>
-        <li><div data-percentage="94" class="bar"></div><span>Option 4</span></li>
-        <li><div data-percentage="44" class="bar"></div><span>Option 5</span></li>
-        <li>
-            <div data-percentage="23" class="bar"></div><span>Option 6</span>
-        </li>
+        <li><div data-percentage="20" class="bar"></div><span>人事部</span></li>
+        <li><div data-percentage="20" class="bar" ></div><span>财务部</span></li>
+        <li><div data-percentage="20" class="bar" ></div><span>董事会</span></li>
+        <li><div data-percentage="20" class="bar" ></div><span>招聘部</span></li>
+        <li><div data-percentage="20" class="bar"></div><span>考勤部</span></li>
+        <li><div data-percentage="20" class="bar"></div><span>绩效部</span></li>
+        <li><div data-percentage="30" class="bar"></div><span>培训部</span></li>
     </ul>
 </div>
 <script src='${path}/jds/js/jquery.min.js'></script>
@@ -76,6 +75,7 @@
 
 </table>
 <script type="text/javascript">
+
     function tz() {
         window.location.href='/wf02/grkq.jsp';
     }
@@ -133,6 +133,7 @@
     $().ready(function() {
         searchInfo1(1);
     });
+
 </script>
 </body>
 </html>

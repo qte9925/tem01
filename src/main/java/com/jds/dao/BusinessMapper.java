@@ -22,5 +22,8 @@ public interface BusinessMapper {
     public List<Map> selectZc(Map map);
     public int updateZc(Map map);
     public List<Map> selectZc1(Map map);
-
+    //投递简历人员按查询自己的简历状态
+    public List<Map> selectJl(Map map);
+    public Map selectJl1(int id);
+    public List<Map> selectBm(Map map);
 }

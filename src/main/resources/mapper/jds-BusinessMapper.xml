@@ -73,5 +73,16 @@ from wf_kqtj a , wf_hetong b where a.ryid=b.ygid and a.gzyf=#{gzyf}
     <select id="selectZc1" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         SELECT * from j_sqbx where state=3
     </select>
+    <select id="selectJl" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT * from wf_tdjl a , wf_zps b where a.tdzpsid =b.zpsid and a.tdrid =#{id}
+
+    </select>
+    <select id="selectJl1" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT * from wf_tdjl where tdid =#{id}
+
+    </select>
+    <select id="selectBm" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+      SELECT a.bmname,a.bmid,COUNT(0) as sl FROM wfdepartment a,wfstafftable b WHERE a.bmid=b.rybmid GROUP BY a.bmid HAVING COUNT(a.bmid) > 1
+    </select>
 
 </mapper>

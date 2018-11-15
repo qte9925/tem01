@@ -75,7 +75,7 @@
     </select>
     <select id="cxtdjl001" resultType="java.util.Map" parameterType="java.util.Map">
       SELECT * from wf_zps a ,wf_tdjl b where 1=1
-       and b.tdrid = #{tdrid} and b.tdzpsid=#{zpsid}s
+       and b.tdrid = #{tdrid} and b.tdzpsid=#{zpsid}
     </select>
     <insert id="insert_wf_tdjl" parameterType="java.util.Map">
     INSERT INTO `tem01`.`wf_tdjl`(`tdrid`, `tdzpsid`, `tdstatic`) VALUES (#{tdrid}, #{tdzpsid},0)
