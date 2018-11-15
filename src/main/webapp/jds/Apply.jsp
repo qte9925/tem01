@@ -38,7 +38,7 @@
             <tr>
                 <td>序号</td>
                 <td>姓名</td>
-                <td>员工编号</td>
+                <%--<td>员工编号</td>--%>
                 <td>申请主题</td>
                 <td>申请日期</td>
                 <td>操作</td>
@@ -182,7 +182,7 @@
                         var tr="<tr>";
                         tr=tr+"   <td>"+(i+1)+"</td>";
                         tr=tr+"    <td>"+st.sqname+"</td>";
-                        tr=tr+"    <td>"+st.sqid+"</td>";
+                       /* tr=tr+"    <td>"+st.sqid+"</td>";*/
                         tr=tr+"    <td>"+st.sqzt+"</td>";
                         tr=tr+"    <td>"+st.sqdata+"</td>";
                         tr=tr+"    <td><input type=\"button\" value='通过' onclick='aa("+st.id+")' class=\"btn btn-primary\" />";
@@ -229,7 +229,7 @@
             url:"${path}/updateS1",
             data:{"id":id,
                 "state":2,
-                "spr":"李四",
+                "spr":"${sessionScope.list[0].yhname}",
             },
             dataType:"json",
             type:"post",
@@ -247,7 +247,7 @@
                 url:"${path}/updateS2",
                 data:{"id":id,
                     "state":4,
-                    "spr":"李四",
+                    "spr":"${sessionScope.list[0].yhname}",
                     "bz":$("#bz1").val(),
                 },
                 dataType:"json",

@@ -10,7 +10,7 @@ jxjin/100*IFNULL((SELECT sum(tb_achresult_count) from tb_achresult ,tb_task wher
 yanglaobx,shiyebx,yiliaobx,sybx,gsbx,zfgjj,ygid,
 chidao*(select chidao from j_kqkx) as cd,
 jiaban*(select jiaban from j_kqkx) as jiaban,
-xz/30*0.s4* bingjia as bingjia,
+xz/30*0.2* bingjia as bingjia,
 xz/30* shijia  as shijia,
 (select zaotui from j_kqkx)* zaotui as zt,
 xz/30*3*kuanggong as kg,
@@ -50,7 +50,7 @@ from wf_kqtj a , wf_hetong b where a.ryid=b.ygid and a.gzyf=#{gzyf}
         select * from j_gzt where id=#{id}
     </select>
     <update id="updateGz" parameterType="java.util.HashMap">
-        update j_gzt set cd=#{cd1},bingjia=#{bj1},shijia=#{sj1},zt=#{zt1},kg=#{kg1},js=#{js1},sjgz=#{zhxz1},jiaban=#{jb1} where id=#{id}
+        update j_gzt set cd=#{cd1},bingjia=#{bj1},shijia=#{sj1},zt=#{zt1},kg=#{kg1},js=#{js1},sjgz=#{zhxz1},jiaban=#{jb1},bf=#{bf1},jj=#{jj1} where id=#{id}
     </update>
     <update id="updateGza" parameterType="java.util.HashMap">
         UPDATE j_xzlc set fjsj=#{fjsj} where id=#{lcid}
@@ -64,4 +64,25 @@ from wf_kqtj a , wf_hetong b where a.ryid=b.ygid and a.gzyf=#{gzyf}
     <update id="updateGzc" parameterType="java.util.HashMap">
         UPDATE j_gzt set jj=#{jj},sjgz=#{sjgz}  where id=#{id}
     </update>
+    <select id="selectZc" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT * from j_sqbx where state=2
+    </select>
+    <update id="updateZc" parameterType="java.util.HashMap">
+        UPDATE j_sqbx set zcry=#{zcry},zcrq=#{zcrq},state=#{state}  where id=#{id}
+    </update>
+    <select id="selectZc1" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT * from j_sqbx where state=3
+    </select>
+    <select id="selectJl" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT * from wf_tdjl a , wf_zps b where a.tdzpsid =b.zpsid and a.tdrid =#{id}
+
+    </select>
+    <select id="selectJl1" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT * from wf_tdjl where tdid =#{id}
+
+    </select>
+    <select id="selectBm" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+      SELECT a.bmname,a.bmid,COUNT(0) as sl FROM wfdepartment a,wfstafftable b WHERE a.bmid=b.rybmid GROUP BY a.bmid HAVING COUNT(a.bmid) > 1
+    </select>
+
 </mapper>

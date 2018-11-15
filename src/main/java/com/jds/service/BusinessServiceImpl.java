@@ -69,4 +69,44 @@ public class BusinessServiceImpl implements BusinessService {
     public int updateGzc(Map map) {
         return bm.updateGzc(map);
     }
+
+    @Override
+    public PageInfo<Map> selectZc(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=bm.selectZc(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+
+    @Override
+    public int updateZc(Map map) {
+        return bm.updateZc(map);
+    }
+    @Override
+    public PageInfo<Map> selectZc1(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=bm.selectZc1(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    @Override
+    public PageInfo<Map> selectJl(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=bm.selectJl(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+    @Override
+    public Map selectJl1(int id) {
+        return bm.selectJl1(id);
+    }
+
+    @Override
+    public PageInfo<Map> selectBm(Map map, PageEntity page) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=bm.selectBm(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
+    }
+
 }

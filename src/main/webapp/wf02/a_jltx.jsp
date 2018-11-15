@@ -113,7 +113,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr style="display:none;">
                             <td>
                                 <label  class="col-sm-2 control-label">参加工作时间</label>
                                 <div class="col-sm-10">
@@ -122,7 +122,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><h2>教育经历</h2></td>
+                            <td><h2>最高学历</h2></td>
                         </tr>
                         <tr>
                             <td>
@@ -174,7 +174,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><h2>工作经验</h2></td>
+                            <td><h2>工作经验（没有可不填）</h2></td>
                         </tr>
                         <tr>
                             <td>
@@ -268,7 +268,18 @@
 <script type="text/javascript">
     //添加简历
     function insert_wf_jianli() {
-        alert($("#qwyx").val());
+        // alert($("#qwyx").val());
+        var gongsimingc =$("#gongsimingc").val();
+        var zhiweimingcheng =$("#zhiweimingcheng").val();
+        var zhizhikaishi =$("#zhizhikaishi").val();
+        var zaizhijieshu =$("#zaizhijieshu").val();
+        var suiqianyuexin =$("#suiqianyuexin").val();
+        var gzms =$("#gzms").val();
+        if(gongsimingc.length==0){
+            alert("111");
+            gongsimingc=undefined;gzms=undefined;zhiweimingcheng=undefined;
+            zhizhikaishi=undefined;zaizhijieshu=undefined;suiqianyuexin=undefined;
+        }
         $.ajax({
             url: "${path}/insert_wf_jianli",
             type: "post",
@@ -284,12 +295,12 @@
                 "tongzhao":$("#tongzhao").val(),
                 "jiudukaishi":$("#jiudukaishi").val(),
                 "jiudujieshu":$("#jiudujieshu").val(),
-                "gongsimingc":$("#gongsimingc").val(),
-                "zhiweimingcheng":$("#zhiweimingcheng").val(),
-                "zhizhikaishi":$("#zhizhikaishi").val(),
-                "zaizhijieshu":$("#zaizhijieshu").val(),
-                "suiqianyuexin":$("#suiqianyuexin").val(),
-                "gzms":$("#gzms").val(),
+                "gongsimingc":gongsimingc,
+                "zhiweimingcheng":zhiweimingcheng,
+                "zhizhikaishi":zhizhikaishi,
+                "zaizhijieshu":zaizhijieshu,
+                "suiqianyuexin":suiqianyuexin,
+                "gzms":gzms,
                 "qwyx":$("#qwyx").val(),
                 "qwdd":$("#qwdd").val(),
                 "qtryid":'${sessionScope.list[0].qtyhid}',

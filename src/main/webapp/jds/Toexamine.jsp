@@ -27,6 +27,10 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<center>
+    流程创建人:<input type="text" id="yf">
+    <button id="selectBtn" class="btn btn-primary">查询</button>
+</center>
 <div>
     <table class="table table-bordered">
         <tr>
@@ -83,6 +87,40 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel2">
+                   请填写通过原因
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <center>
+                        <table>
+                            <tr>
+                                <td>
+                                    <textarea rows="10" cols="50" id="bz2"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="tg">
+                   确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 <script type="text/javascript">
     function searchInfo(nowPage){
@@ -106,7 +144,7 @@
                         tr=tr+"    <td>"+st.gzyf+"</td>";
                         tr=tr+"    <td>"+st.bz+"</td>";
                         tr=tr+"    <td><input type=\"button\" value='详情' onclick='cc("+st.id+")' class=\"btn btn-primary\"  />";
-                        tr=tr+"    <input type=\"button\" value='通过' onclick='aa("+st.id+")' class=\"btn btn-primary\"  />";
+                        tr=tr+"    <input type=\"button\" value='通过' onclick='aa("+st.id+")' class=\"btn btn-primary\"  data-toggle=\"modal\" data-target=\"#myModal1\"/>";
                         tr=tr+"    <input type=\"button\" value='驳回' onclick='bb("+st.id+")' class=\"btn btn-primary\"  data-toggle=\"modal\" data-target=\"#myModala\"/>"
                         tr=tr+"   </tr>";
                         $("#tbody").append(tr);
@@ -144,21 +182,25 @@
         searchInfo(nowPage);
     };
     function aa(id) {
-        $.ajax({
-            url:"${path}/updateXs",
-            data:{"id":id,
-                   "state":3,
-                   "shr":"李四",
-            },
-            dataType:"json",
-            type:"post",
-            success:function(data){
-                if(data>0){
-                    window.location.reload();
+        $("#tg").click(function () {
+            $.ajax({
+                url:"${path}/updateXs",
+                data:{"id":id,
+                    "state":3,
+                    "shr":"${sessionScope.list[0].yhname}",
+                    "bz2":$("#bz2").val()
+                },
+                dataType:"json",
+                type:"post",
+                success:function(data){
+                    if(data>0){
+                        window.location.reload();
 
+                    }
                 }
-            }
-        });
+            });
+        })
+
     }
     function bb(id) {
         $("#bh").click(function () {
@@ -166,7 +208,7 @@
                 url:"${path}/updateXb",
                 data:{"id":id,
                     "state":5,
-                    "shr":"李四",
+                    "shr":"${sessionScope.list[0].yhname}",
                     "bz1":$("#bz1").val(),
                 },
                 dataType:"json",

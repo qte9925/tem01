@@ -51,7 +51,7 @@
         var nr=editor.txt.html()
         $.ajax({
             url:"${path}/insertN",
-            data:{"ygxm":"张三",
+            data:{"ygxm":"${sessionScope.list[0].yhname}",
                 "zt":$("#zt").val(),
                 "nr":nr,
                 "rq":now,

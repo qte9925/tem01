@@ -116,7 +116,7 @@
                         <table>
                             <tr>
                                 <td>
-                                    <textarea rows="10" cols="50" id="bz1"></textarea>
+                                    <textarea rows="10" cols="50" id="bz1"  disabled="disabled" ></textarea>
                                 </td>
                             </tr>
 
@@ -198,8 +198,8 @@
                         }
                         if(st.state==5){
                             tr=tr+"    <td>"+"审核未通过"+"</td>";
-                            tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.gzyf+","+st.id+")' class=\"btn btn-primary\" />";
-                            tr=tr+"    <input type=\"button\" value='详情' onclick='bb("+st.id+")' class=\"btn btn-primary\" data-target=\"#myModalb\"/>"
+                           /* tr=tr+"    <td><input type=\"button\" value='核算' onclick='aa("+st.gzyf+","+st.id+")' class=\"btn btn-primary\" />";*/
+                            tr=tr+"    <td><input type=\"button\" value='详情' onclick='bb("+st.id+")' class=\"btn btn-primary\" data-target=\"#myModalb\"/>"
                             tr=tr+"    <input type=\"button\" value='送审' onclick='cc("+st.id+")' class=\"btn btn-primary\" />";
                             tr=tr+"    <input type=\"button\" value='原因' onclick='dd("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModalb\"/></td>"
                         }
@@ -270,10 +270,11 @@
     var s=myDate.getSeconds();     //获取当前秒钟数(0-59)
 
     var now=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+    var now1=getNow(month);
     $("#insert").click(function(){
         $.ajax({
             url:"${path}/insertX",
-            data:{"cjname":"张三",
+            data:{"cjname":"${sessionScope.list[0].yhname}",
                   "qsrq":$("#qs").val(),
                   "jzrq":$("#jz").val(),
                   "gzyf":$("#gzyf").val(),
@@ -342,7 +343,15 @@
         });
 
     }
-
+$("#gzyf").blur(function () {
+   var a1=$("#gzyf").val();
+   if(a1>=now1){
+      alert("工资月份不能是当前月以及以后月份！");
+       $("#insert").attr('disabled','disabled')
+   }else {
+       $("#insert").removeAttr("disabled");
+   }
+})
 
 </script>
 </html>
