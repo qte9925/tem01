@@ -52,7 +52,7 @@
         <tbody id="tbody" ></tbody>
     </table>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<%--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,12 +74,12 @@
                            </tr>
                             <tr>
                                 <td>
-                                    员工id：<input type="text" id="id">
+                                    <input type="text" id="id"  style="display:none">
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    员工实际工资：<input type="text" id="sjgz">
+                                    <input type="text" id="sjgz"  style="display:none">
                                 </td>
                             </tr>
                         </table>
@@ -95,7 +95,7 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
-</div>
+</div>--%>
 <center>
     <input type="button" value="退出" class="btn btn-primary" id="eidBtn">
 </center>
@@ -135,7 +135,7 @@
                         tr=tr+"    <td>"+st.bf+"</td>";
                         tr=tr+"    <td>"+st.js+"</td>";
                         tr=tr+"    <td>"+st.sjgz+"</td>";
-                        tr=tr+"    <td><input type=\"button\" value='奖金' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"/></td>"
+                      /*  tr=tr+"    <td><input type=\"button\" value='奖金' onclick='aa("+st.id+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\"/></td>"*/
                         $("#tbody").append(tr);
                     }
                 }
@@ -145,7 +145,7 @@
 $("#eidBtn").click(function () {
     window.location.href="${path}/jds/Xzlc.jsp";
 })
-function aa(id) {
+/*function aa(id) {
     $("#id").val(id);
     $.ajax({
         url:"${path}/selectGzId",
@@ -179,7 +179,7 @@ function aa(id) {
                 }
             }
         })
-    })
+    })*/
     $("#eidBtn").click(function () {
         window.location.href="${path}/jds/Toexamine.jsp";
     })

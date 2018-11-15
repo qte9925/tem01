@@ -36,9 +36,14 @@ select a.*,b.*,c.*,d.*,e.* from (((j_ygjb a join wfstafftable b on a.ygid=b.ryid
     </update>
     <select id="selectX1" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         select * from j_xzlc where state=2
+        <where>
+            <if test="sqid!=null">
+                and sqname like "%"#{yf}"%"
+            </if>
+        </where>
     </select>
     <update id="updateXs"  parameterType="java.util.HashMap">
-        update j_xzlc set state=#{state},shr=#{shr} where id=#{id}
+        update j_xzlc set state=#{state},shr=#{shr},bz2=#{bz2} where id=#{id}
     </update>
     <update id="updateXb"  parameterType="java.util.HashMap">
         update j_xzlc set state=#{state},shr=#{shr},bz1=#{bz1} where id=#{id}
@@ -74,7 +79,7 @@ select a.*,b.*,c.*,d.*,e.* from (((j_ygjb a join wfstafftable b on a.ygid=b.ryid
         select * from j_sqbx where id=#{id}
     </select>
     <update id="updateS"  parameterType="java.util.HashMap">
-        update j_sqbx set sqname=#{sqname},sqid=#{sqid},sqje=#{sqje},sqpz=#{sqpz},sqly=#{sqly},sqzt=#{sqzt} where id=#{id}
+        update j_sqbx set sqje=#{sqje},sqpz=#{sqpz},sqly=#{sqly},sqzt=#{sqzt} where id=#{id}
     </update>
     <delete id="deleteS"  parameterType="java.util.HashMap">
         delete from  j_sqbx where id=#{id}

@@ -1,14 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="gy.jsp" %>
+<link rel="stylesheet" href="${path}/jds/css/style.css">
+
+
 <script type="text/javascript" src="${path}/js/jquery-1.8.3.min.js"></script>
 <html>
 <style>
-    #gg{
-        border: #388bff solid 1px;
+   /* #gg{
+        border: #388bff solid 0px;
         width: 400px;
         height: 500px;
         margin-left: 650px;
-    }
+    }*/
 </style>
 <head>
     <title>角色与权限管理</title>
@@ -19,8 +22,9 @@
     <input class="btn btn-default btn-sm" value="个人考勤" onclick="tz();">
 </form>
 <div id="gg">
-    <center>公告</center>
-    <table>
+    <center>公告
+    <table class="table table-bordered">
+
         <tr>
 
             <td>
@@ -28,8 +32,8 @@
             </td>
         </tr>
         <tbody id="tbody"></tbody>
-    </table>
-    <table>
+   <%-- </table>
+    <table class="table table-bordered">--%>
         <tr>
             <td>
                 已读公告
@@ -38,11 +42,40 @@
         </tr>
         <tbody id="tbody1"></tbody>
     </table>
-
+    </center>
 </div>
+<div id="chart">
+    <ul id="numbers">
+        <li><span>100</span></li>
+        <li><span>90</span></li>
+        <li><span>80</span></li>
+        <li><span>70</span></li>
+        <li><span>60</span></li>
+        <li><span>50</span></li>
+        <li><span>40</span></li>
+        <li><span>30</span></li>
+        <li><span>20</span></li>
+        <li><span>10</span></li>
+        <li><span>0</span></li>
+    </ul>
+
+    <ul id="bars">
+        <li><div data-percentage="20" class="bar"></div><span>人事部</span></li>
+        <li><div data-percentage="20" class="bar" ></div><span>财务部</span></li>
+        <li><div data-percentage="20" class="bar" ></div><span>董事会</span></li>
+        <li><div data-percentage="20" class="bar" ></div><span>招聘部</span></li>
+        <li><div data-percentage="20" class="bar"></div><span>考勤部</span></li>
+        <li><div data-percentage="20" class="bar"></div><span>绩效部</span></li>
+        <li><div data-percentage="30" class="bar"></div><span>培训部</span></li>
+    </ul>
+</div>
+<script src='${path}/jds/js/jquery.min.js'></script>
+<script src="${path}/jds/js/index.js"></script>
+
 
 </table>
 <script type="text/javascript">
+
     function tz() {
         window.location.href='/wf02/grkq.jsp';
     }
@@ -100,6 +133,7 @@
     $().ready(function() {
         searchInfo1(1);
     });
+
 </script>
 </body>
 </html>

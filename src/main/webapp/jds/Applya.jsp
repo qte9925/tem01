@@ -38,7 +38,7 @@
            <tr>
                <td>序号</td>
                <td>姓名</td>
-               <td>员工编号</td>
+               <%--<td>员工编号</td>--%>
                <td>申请主题</td>
                <td>申请日期</td>
                <td>状态</td>
@@ -66,7 +66,7 @@
                 <div>
                     <center>
                         <table>
-                            <tr>
+                          <%--  <tr>
                                 <td>
                                     员工姓名：
                                 </td>
@@ -82,7 +82,7 @@
                                 <td>
                                     <input type="text" id="s2">
                                 </td>
-                            </tr>
+                            </tr>--%>
                             <tr>
                                 <td>
                                     申请主题：
@@ -150,7 +150,7 @@
                 <div>
                     <center>
                     <table >
-                        <tr>
+                       <%-- <tr>
                             <td>申请人：</td>
                             <td>
                                 <input type="text" id="ygxm">以当前登陆人为准
@@ -162,7 +162,7 @@
                             <td>
                                 <input type="text" id="ygid">请如实填写本人工号
                             </td>
-                        </tr>
+                        </tr>--%>
                         <tr>
                             <td>申请主题：</td>
                             <td>
@@ -298,7 +298,7 @@
                         <table>
                             <tr>
                                 <td>
-                                    <textarea rows="10" cols="50" id="bz1"></textarea>
+                                    <textarea rows="10" cols="50" id="bz1" disabled="disabled"></textarea>
                                 </td>
                             </tr>
 
@@ -333,7 +333,7 @@
                         var tr="<tr>";
                         tr=tr+"   <td>"+(i+1)+"</td>";
                         tr=tr+"    <td>"+st.sqname+"</td>";
-                        tr=tr+"    <td>"+st.sqid+"</td>";
+                       /* tr=tr+"    <td>"+st.sqid+"</td>";*/
                         tr=tr+"    <td>"+st.sqzt+"</td>";
                         tr=tr+"    <td>"+st.sqdata+"</td>";
                         if(st.state==0){
@@ -458,7 +458,7 @@
                 url:"${path}/updateS",
                 data:{
                     "id":$("#a2").val(),
-                    "sqname":$("#s1").val(),
+                    "sqname":"${sessionScope.list[0].yhname}",
                     "sqid":$("#s2").val(),
                     "sqje":$("#s4").val(),
                     "sqpz":imgName,
@@ -533,8 +533,8 @@
             $.ajax({
                 url:"${path}/insertS",
                 data:{
-                    "sqname":$("#ygxm").val(),
-                    "sqid":$("#ygid").val(),
+                    "sqname":"${sessionScope.list[0].yhname}",
+                    "sqid":"${sessionScope.list[0].ryid}",
                     "sqje":$("#sqje").val(),
                     "sqpz":imgName,
                     "sqly":$("#sqly").val(),

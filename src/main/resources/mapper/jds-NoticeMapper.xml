@@ -8,7 +8,7 @@
     <select id="selectN" resultType="java.util.HashMap" parameterType="java.util.HashMap">
          SELECT *,DATE_FORMAT(rq,'%Y-%m-%d %H:%i:%S') as rq1 from j_notice
         <where>
-            and ryid=1
+            and ryid=2
             <if test="ygxm!=null">
                 and ygxm like "%"#{ygxm}"%"
             </if>
