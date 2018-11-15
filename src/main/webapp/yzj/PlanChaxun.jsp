@@ -189,10 +189,9 @@
                     "rainingbudget":$("#rainingbudget").val(),
                     "rainingRequirement":$("#rainingRequirement").val(),
                     "rainingexplain":$("#rainingexplain").val(),
-                    "departmentid":$("#departmentid").val(),
-                    "shenpirenid":$("#shenpirenid").val(),
-                    "qvdaoid":$("#qvdaoid").val(),
-                    "xingshiid":$("#xingshiid").val(),
+                    "departmentid":$("#lll").val(),
+                    "qvdao":$("#qvdaoid").val(),
+                    "xingshi":$("#xingshiid").val(),
                 },
                 dataType:"json",
                 type:"post",
@@ -254,10 +253,12 @@
             success:function(data){
                 console.log(data)
                 $("#ll").html('');
+                $("#lll").html('');
                 for(var i=0; i<data.length;i++){
                     var p = data[i];
                     var html="<option value='"+p.bmid+"'>"+p.bmname+"</option>";
                     $("#ll").append(html);
+                    $("#lll").append(html);
                 }
             }
         })
@@ -442,11 +443,9 @@
                         <td>培训说明:</td>
                         <td><input type="text" name="department" id="rainingexplain"></td>
                         <td>部门ID:</td>
-                        <td><input type="text" name="department" id="departmentid"></td>
+                        <td><input type="text" name="department" id="lll"></td>
                     </tr>
                     <tr>
-                        <td>审批人ID:</td>
-                        <td><input type="text" name="department" id="shenpirenid"></td>
                         <td>培训渠道:</td>
                         <td><input type="text" name="department" id="qvdaoid"></td>
                     </tr>

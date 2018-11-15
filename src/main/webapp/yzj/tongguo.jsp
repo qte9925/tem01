@@ -66,11 +66,11 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 <table class="table table-bordered">
     <tr>
         <th>员工姓名</th>
         <th>员工部门</th>
-        <th>计划编码</th>
         <th>课时</th>
         <th>结果</th>
         <th>备注</th>
@@ -82,25 +82,27 @@
 </table>
 </html>
 <script>
-  $().ready(function(){
+    function getinfo(nowPage) {
       $.ajax({
           url:"${path}/tongguo",
+          data:{"nowPage":nowPage},
           type:"post",
           dataType:"json",
           success:function(data){
+              console.log(data);
               $("#tbody").html("");
               for(var i=0;i<data.length;i++){
                    var p=data[i];
                    var html="<tr>";
                    html=html+"<td>"+p.ryxm+"</td>";
                    html=html+"<td>"+p.bmname+"</td>";
-                   html=html+"<td>"+p.planid+"</td>";
                    html=html+"<td>"+p.totalhours+"</td>";
                    if(p.jieguo==undefined){
                        html=html+"<td>未录入结果</td>";
                        html=html+"<td>未录入备注</td>";
                        html=html+"<td><button onclick='jieguo("+p.id+")' data-toggle='modal' data-target='#myModala'>录入考核结果</button></td>";
                    }else if(p.jieguo==0){
+
                        html=html+"<td>通过</td>";
                        html=html+"<td>"+p.beizhu+"</td>";
                        html=html+"<td><font color='lightgreen'>已通过</font></td>";
@@ -112,9 +114,39 @@
                    html=html+"</tr>";
                    $("#tbody").append(html);
               }
+              //最后一页的下一页显示隐藏
+
+              if (data.isLastPage) {
+                  $("#next").hide();
+              } else {
+                  $("#next").show();
+              }
+              //第一页的上一页显示隐藏
+
+              if (data.isFirstPage) {
+                  $("#pre").hide();
+              } else {
+                  $("#pre").show();
+              }
           }
+
       })
-  })
+
+  }
+  $().ready(function() {
+      getinfo(1);
+      $("#selectBtn").click(function() {
+          getinfo(1);
+      });
+  });
+  function changePage(op){
+      var nowPage=$("#nowPage").html();
+      if(op=='next')
+          nowPage=Number(nowPage)+1;
+      else
+          nowPage=Number(nowPage)-1;
+      getinfo(nowPage);
+  }
     function jieguo(id){
       $("#updateBtn").val(id);
     }

@@ -23,8 +23,8 @@
         delete from y_plan where Id=#{Id}
     </delete>
     <insert id="addPlan" parameterType="java.util.HashMap">
-        insert into y_plan(planid,planname,joinpeople,trainingaddress,classname,totalhours,beginclass,endclass,rainingbudget,rainingRequirement,rainingexplain,departmentid,shenpirenid,qvdaoid,xingshiid)
-        values(#{planid},#{planname},#{joinpeople},#{trainingaddress},#{classname},#{totalhours},#{beginclass},#{endclass},#{rainingbudget},#{rainingRequirement},#{rainingexplain},#{departmentid},#{shenpirenid},#{qvdaoid},#{xingshiid})
+        insert into y_plan(planname,joinpeople,trainingaddress,classname,totalhours,beginclass,endclass,rainingbudget,rainingRequirement,rainingexplain,departmentid,qvdao,xingshi,statu)
+        values(#{planname},#{joinpeople},#{trainingaddress},#{classname},#{totalhours},#{beginclass},#{endclass},#{rainingbudget},#{rainingRequirement},#{rainingexplain},#{departmentid},#{qvdao},#{xingshi},#{statu})
     </insert>
     <select id="departmentFindTypePlan" resultType="java.util.HashMap">
         select * from wfdepartment
@@ -42,6 +42,6 @@
         select * from y_plan where Id=#{Id}
     </select>
     <update id="updatePlana" parameterType="java.util.HashMap">
-   update y_plan set planid=#{planid},planname=#{planname},joinpeople=#{joinpeople},trainingaddress=#{trainingaddress},classname=#{classname},totalhours=#{totalhours},beginclass=#{beginclass},endclass=#{endclass},rainingbudget=#{rainingbudget},rainingRequirement=#{rainingRequirement},rainingexplain=#{rainingexplain},departmentid=#{departmentid},shenpirenid=#{shenpirenid},qvdaoid=#{qvdaoid},xingshiid=#{xingshiid} where Id=#{Id};
+   update y_plan set planname=#{planname},joinpeople=#{joinpeople},trainingaddress=#{trainingaddress},classname=#{classname},totalhours=#{totalhours},beginclass=#{beginclass},endclass=#{endclass},rainingbudget=#{rainingbudget},rainingRequirement=#{rainingRequirement},rainingexplain=#{rainingexplain},departmentid=#{departmentid},qvdao=#{qvdao},xingshi=#{xingshi} where Id=#{Id};
     </update>
 </mapper>

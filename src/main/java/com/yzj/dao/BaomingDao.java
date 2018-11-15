@@ -6,5 +6,6 @@ import java.util.Map;
 
 @Component
 public interface BaomingDao {
+    /*报名判断*/
     public int AddBaomingyzj(Map map);
 }

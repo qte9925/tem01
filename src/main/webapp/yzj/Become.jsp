@@ -59,7 +59,7 @@
                         data-dismiss="modal">关闭
                 </button>
                 <button type="button" class="btn btn-primary" id="updateBtn" onclick="tijiao();">
-                    提交更改
+                    提交
                 </button>
             </div>
         </div><!-- /.modal-content -->
@@ -94,8 +94,9 @@
                         html=html+"<td>通过考核</td>";
                         html=html+"<td><button onclick='zhuan("+p.ryid+",1)' data-toggle='modal' data-target='#myModala'>转正</button></td>";
                     }
-                    else if(p.jieguo==1){
-                        html=html+"<td>未通过</td>";
+                    else if(p.zyzwzt==1){
+
+                        html=html+"<td><button onclick='zhuan("+p.ryid+",1)' data-toggle='modal' data-target='#myModala'disabled=\"disabled\">转正</button></td>";
                     }
                     html=html+"</tr>";
                     $("#tbody").append(html);
@@ -113,7 +114,6 @@
             data:{"ryid":$("#a1").val(),"ryzwzt":$("#a2").val()},
             dataType:"json",
             success:function(data){
-
                 console.log(data);
                 if(data>0){
                     window.location.reload();
