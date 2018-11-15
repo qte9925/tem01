@@ -22,8 +22,19 @@ where 1=1 and a.ryid = c.ryid and a.bmid =b.bmid and a.spid=d.ryid and (a.spzt=3
     <update id="lzdjupdate" parameterType="java.util.HashMap">
         update wflizhi set spzt=#{spzt} where lizhiid=#{lizhiid}
     </update>
-    <!--<delete id="lzzxdelete" parameterType="java.util.HashMap">
-       delete from wfyhb where yhid=#{yhid}
-    </delete>-->
+
+    <delete id="ce01" parameterType="java.util.HashMap">
+        delete
+    </delete>
+    <delete id="lzzxdelete" parameterType="java.util.HashMap">
+       select a.*,b.ryzhanghao
+from wfyhb b,wfstafftable a
+where b.yhid=a.ryzhanghao;
+delete a,b
+from wfyhb as b
+left join wfstafftable as a
+on b.yhid=a.ryzhanghao
+where b.yhid=#{yhid};
+    </delete>
 
 </mapper>

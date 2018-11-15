@@ -6,11 +6,10 @@
 </head>
 <body >
 <form class="form-inline" role="form" id="name02" style="margin-top: 20px;padding-left: 20px;">
-    <button class="btn btn-default btn-sm"><a href="#">离职登记</a></button>
 </form>
 <div id="ccc">
     <table class="table table-bordered" style="margin-left: 20px;" >
-        <caption id="cap">离职登记 </caption>
+        <caption id="cap">离职执行 </caption>
         <thead >
         <tr>
             <th>离职人员</th>
@@ -35,7 +34,7 @@
             <Td v-if="i.spzt == 6">注销用户</Td>
             <Td>
                 <button>
-                    <a href="javascript:lzdjupdate('{{i.lizhiid}}','{{i.spzt+2}}')">执行</a>
+                    <a href="javascript:lzdjupdate('{{i.lizhiid}}',6)" onclick="lzzxdelete('{{i.lizhiid}}');">执行</a>
                 </button>
             </Td>
         </tr>
@@ -56,17 +55,20 @@
                 }
             }
         });
-        /*$.ajax({
-            url:"${path}/lzzxdelete",
-            type:"post",
-            dataType:"json",
-            data:{"yhid":yhid},
-            success:function(data){
-                if(data>0){
-                    window.location.reload();
-                }
+
+    }
+    function lzzxdelete(yhid) {
+    $.ajax({
+        url:"${path}/lzzxdelete",
+        type:"post",
+        dataType:"json",
+        data:{"yhid":yhid},
+        success:function(data){
+            if(data>0){
+                window.location.reload();
             }
-        })*/
+        }
+    })
     }
     function gg(){
         $.ajax({
