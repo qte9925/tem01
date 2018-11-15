@@ -2,7 +2,7 @@
 <%@ include file="../gy.jsp" %>
 <html>
 <head>
-    <title>离职登记</title>
+    <title>离职执行</title>
 </head>
 <body >
 <form class="form-inline" role="form" id="name02" style="margin-top: 20px;padding-left: 20px;">

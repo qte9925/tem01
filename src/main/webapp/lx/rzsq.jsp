@@ -37,6 +37,14 @@
     </tr>
     <tr>
         <td>
+            <label  class="col-sm-2 control-label">邮箱</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="lzyy" rows="1"></textarea>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <label  class="col-sm-2 control-label">入职时间</label>
             <div class="col-sm-10">
                 <input type="text" id="rzdata" readonly="readonly" class="form-control"
@@ -74,6 +82,7 @@
                 url: "${path}/rzsq",
                 data:{"rzryname":$("#yg").val(),
                     "rzbmid":$("#qjlx").val(),
+                    "rzyx":$("#lzyy").val(),
                     "rzdata":$("#rzdata").val(),
                     "rzspname":$("#yg02").val(),
                     "rzzt":$("#spzt").val()
@@ -107,7 +116,7 @@
             }
         });
         $.ajax({
-            url: "${path}/rymssqselect2",
+            url: "${path}/rymssqselect",
             type: "post",
             dataType: "json",
             success: function (data) {
