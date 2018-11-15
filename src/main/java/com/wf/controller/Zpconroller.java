@@ -1,5 +1,8 @@
 package com.wf.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.wf.service.Zp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,17 +19,37 @@ public class Zpconroller {
     @Autowired
     private Zp se;
 
+    @RequestMapping("/updateccwfjianli")
+    @ResponseBody
+    public int updateccwfjianli(@RequestParam Map map) {
+        return se.updateccwfjianli(map);
+    }
+    @RequestMapping("/xiugaizpxq")
+    @ResponseBody
+    public int xiugaizpxq(@RequestParam Map map) {
+        return se.xiugaizpxq(map);
+    }
+    @RequestMapping("/deletesczpxq")
+    @ResponseBody
+    public int deletesczpxq(@RequestParam Map map) {
+        return se.deletesczpxq(map);
+    }
+    @RequestMapping("/updatewfzps01")
+    @ResponseBody
+    public int updatewfzps01(@RequestParam Map map) {
+        return se.updatewfzps01(map);
+    }
     @RequestMapping("/updatewf_tdjl01")
     @ResponseBody
     public int updatewf_tdjl01(@RequestParam Map map) {
         return se.updatewf_tdjl01(map);
     }
-
-    @RequestMapping("/cxtdjl003")
+    @RequestMapping("/sxtdr")
     @ResponseBody
-    public List<Map> cxtdjl003(@RequestParam Map map) {
-        return se.cxtdjl003(map);
+    public List<Map> sxtdr(@RequestParam Map map) {
+        return se.sxtdr(map);
     }
+
 
     @RequestMapping("/countwf_ms")
     @ResponseBody
@@ -38,16 +61,17 @@ public class Zpconroller {
     public int insert_wf_ms(@RequestParam Map map) {
         return se.insert_wf_ms(map);
     }
+    @RequestMapping("/deletewfzps")
+    @ResponseBody
+    public int deletewfzps(@RequestParam Map map) {
+        return se.deletewfzps(map);
+    }
     @RequestMapping("/zxiugai0041")
     @ResponseBody
     public int zxiugai0041(@RequestParam Map map) {
         return se.zxiugai0041(map);
     }
-    @RequestMapping("/cxtdjl002")
-    @ResponseBody
-    public List<Map> cxtdjl002(@RequestParam Map map) {
-        return se.cxtdjl002(map);
-    }
+
     @RequestMapping("/zpsqbcx03")
     @ResponseBody
     public List<Map> zpsqbcx03(@RequestParam Map map) {
@@ -75,10 +99,45 @@ public class Zpconroller {
     }
     @RequestMapping("/zpsqbcx02")
     @ResponseBody
-    public List<Map> zpsqbcx02(@RequestParam Map map) {
-        System.out.println(map);
-        return se.zpsqbcx02(map);
+    public PageInfo<Map> zpsqbcx02(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.zpsqbcx02(map,page);
+        return pageInfo;
     }
+    @RequestMapping("/cxtdjl002")
+    @ResponseBody
+    public PageInfo<Map> cxtdjl002(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.cxtdjl002(map,page);
+        return pageInfo;
+    }
+    @RequestMapping("/cxtdjl003")
+    @ResponseBody
+    public PageInfo<Map> cxtdjl003(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.cxtdjl003(map,page);
+        return pageInfo;
+    }
+    @RequestMapping("/cxzjhs")
+    @ResponseBody
+    public PageInfo<Map> cxzjhs(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.cxzjhs(map,page);
+        return pageInfo;
+    }
+    @RequestMapping("/daishenkecx")
+    @ResponseBody
+    public PageInfo<Map> daishenkecx(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.daishenkecx(map,page);
+        return pageInfo;
+    }
+
     //查询该前台用户是否注册了个人简历
     @RequestMapping("/xxcx")
     @ResponseBody
@@ -107,30 +166,26 @@ public class Zpconroller {
         }
         return 1;
     }
+
+    @RequestMapping("/zpcx03")
+    @ResponseBody
+    public List<Map> zpcx03(@RequestParam Map map) {
+        return se.zpcx03(map);
+    }
     @RequestMapping("/gjidcx")
     @ResponseBody
     public List<Map> gjidcx(@RequestParam Map map) {
         System.out.println(map);
         return se.gjidcx(map);
     }
-    @RequestMapping("/daishenkecx")
-    @ResponseBody
-    public List<Map> daishenkecx(@RequestParam Map map) {
-        System.out.println(map);
-        return se.daishenkecx(map);
-    }
+
     @RequestMapping("/zpsxiugai")
     @ResponseBody
     public int zpsxiugai(@RequestParam Map map) {
         System.out.println(map);
         return se.zpsxiugai(map);
     }
-    @RequestMapping("/cxzjhs")
-    @ResponseBody
-    public List<Map> cxzjhs(@RequestParam Map map) {
-        System.out.println(map);
-        return se.cxzjhs(map);
-    }
+
     @RequestMapping("/gwcx02")
     @ResponseBody
     public List<Map> gwcx02(@RequestParam Map map) {
@@ -173,9 +228,19 @@ public class Zpconroller {
     }
     @RequestMapping("/zpcxgrbm")
     @ResponseBody
-    public List<Map> zpcxgrbm(@RequestParam Map map) {
-        System.out.println(map);
-        return se.zpcxgrbm(map);
+    public PageInfo<Map> zpcxgrbm(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.zpcxgrbm(map,page);
+        return pageInfo;
+    }
+    @RequestMapping("/zpcx01")
+    @ResponseBody
+    public PageInfo<Map> zpcx01(PageEntity page, @RequestParam Map map) {
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=se.zpcx01(map,page);
+        return pageInfo;
     }
     @RequestMapping("/zpbmxq")
     @ResponseBody
@@ -186,12 +251,6 @@ public class Zpconroller {
     @ResponseBody
     public List<Map> zpcx02(@RequestParam Map map) {
         return se.zpcx02(map);
-    }
-
-    @RequestMapping("/zpcx01")
-    @ResponseBody
-    public List<Map> zpcx01(@RequestParam Map map) {
-        return se.zpcx01(map);
     }
 
     @RequestMapping("/zpjhinsert")

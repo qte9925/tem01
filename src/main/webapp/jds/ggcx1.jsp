@@ -27,61 +27,46 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<style>
-    #aaa{
-
-        margin-left: 150px;
-    }
-</style>
 <body>
 <div>
     <center>
         <h1>公告</h1>
-    <table>
-        <tr>
-            <td>
-                发布人：<font id="ygxm"> </font>
-            </td>
+        <table>
 
+            <tr>
+                <td>
 
-            <td>
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                发布时间： <font id="rq"></font>
+                    <h2>
+                        主题： <font id="zt"></font>
+                    </h2>
 
-            </td>
-        </tr>
-        <tr>
-        <td>
-
-                <h2>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-               主题： <font id="zt"></font>
-                </h2>
-
-            </td>
-        </tr>
-    </table>
+                </td>
+            </tr>
+        </table>
     </center>
 </div>
 <div id="aaa"></div>
 <div>
-<center>
-    <button id="CloseB"  class="btn btn-primary" >关闭</button>
-</center>
+    <table>
+        <center>
+            <tr>
+                <td>
+                    发布人：<font id="ygxm"> </font>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    发布时间： <font id="rq"></font>
+
+                </td>
+            </tr>
+        </center>
+    </table>
+</div>
+<div>
+    <center>
+        <button id="CloseB"  class="btn btn-primary" >关闭</button>
+    </center>
 </div>
 </body>
 <script type="text/javascript">
@@ -97,7 +82,7 @@
               success:function(data) {
                   console.log(data.nr)
                   $("#ygxm").html(data.ygxm);
-                  $("#rq").html(data.rq);
+                  $("#rq").html(data.rq1);
                   $("#zt").html(data.zt);
                   $("#aaa").html(data.nr);
 

@@ -131,16 +131,18 @@
                         <caption id="cap">我的投递</caption>
                         <thead >
                         <tr>
-                            <th>招聘ID</th>
+                            <th>序号</th>
                             <th>招聘名称</th>
+                            <th>招聘要求</th>
                             <th>提供薪资</th>
                             <th>招聘人数</th>
+                            <th>福利待遇</th>
                             <th>处理状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody id="thead01">
-                        <tr v-for="(index,i) in msg">
+                        <%--<tr v-for="(index,i) in msg">
                             <Td>{{index+1}}</Td>
                             <Td>{{i.zpsname}}</Td>
                             <Td>{{i.tgxinzi}}</Td>
@@ -149,22 +151,147 @@
                             <Td v-if="i.tdstatic!=0" style="color: black">已回复</Td>
                             <Td>
                                 <input class="btn btn-primary btn-xm"  type="button" onclick="zpxq('{{i.zpsid}}');" value="详情">
-                                <%--<input class="btn btn-primary btn-xm"  type="button" onclick="tdjl('{{i.zpsid}}');" value="投递简历" />--%>
-                                <%--<input class="btn btn-primary btn-xm" type="button" onclick="sanchu('{{i.zpsid}}');" value="删除"  />--%>
+                                &lt;%&ndash;<input class="btn btn-primary btn-xm"  type="button" onclick="tdjl('{{i.zpsid}}');" value="投递简历" />&ndash;%&gt;
+                                &lt;%&ndash;<input class="btn btn-primary btn-xm" type="button" onclick="sanchu('{{i.zpsid}}');" value="删除"  />&ndash;%&gt;
                             </Td>
-                        </tr>
+                        </tr>--%>
                         </tbody>
                     </table>
+                    <center>
+                        <a id="pre" onclick="fy('pre')">上一页</a>
+                        <a id="next" onclick="fy('next')">下一页</a>
+                        当第<span id="nowPage"></span>页
+                    </center>
                 </div>
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="myModala" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabe">
+                    简历审核详情
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <center>
+                        <table>
+                            <tr>
+                                <td>
+                                    <%--<textarea rows="10" cols="50" id="wb"></textarea>--%>
+                                    <div id="wb"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+              <%--  <button type="button" class="btn btn-primary" id="insert">
+                    增加
+                </button>--%>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <div class="jumbotron text-center" style="margin-bottom:0">
     <p>欢迎您的加入！！</p>
 </div>
 <script type="text/javascript">
-    function zpxq(id){
+    function searchInfo(nowPage){
+
+            $.ajax({
+                url:"${path}/selectJl",
+                data:{"id":${sessionScope.list[0].qtyhid},"nowPage":nowPage},
+                dataType:"json",
+                type:"post",
+                success:function(data){
+                    console.log(data)
+                    $("#thead01").html('');
+                    if(data!=null){
+                        for(var i=0;i<data.list.length;i++){
+                            var st=data.list[i];
+                            console.log(st.tdstatic)
+                            var tr="<tr>";
+                            tr=tr+"   <td>"+(i+1)+"</td>";
+                            tr=tr+"    <td>"+st.zpsname+"</td>";
+                            tr=tr+"    <td>"+st.zhiweixinxixx+"</td>";
+                            tr=tr+"    <td>"+st.tgxinzi+"~"+st.tgxinzi+"</td>";
+                            tr=tr+"    <td>"+st.zprs+"</td>";
+                            tr=tr+"    <td>"+st.fulidaiyu+"</td>";
+                            if(st.tdstatic==0){
+                                tr=tr+"    <td>"+"简历待处理"+"</td>";
+                            }
+                            if(st.tdstatic==1){
+                                tr=tr+"    <td>"+"简历已通过"+"</td>";
+                            }
+                            if(st.tdstatic==2){
+                                tr=tr+"    <td>"+"简历未通过"+"</td>";
+                            }
+
+                            tr=tr+"    <td><input type=\"button\" value='详情' onclick='aa("+st.tdid+")' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModala\"/></td>"
+                            tr=tr+"   </tr>";
+                            $("#thead01").append(tr);
+                        }
+                        $("#nowPage").html(data.pageNum);
+                        $("#total").html(data.total);
+                        //最后一页的下一页显示隐藏
+                        if(data.isLastPage){
+                            $("#next").hide();
+                        }else{
+                            $("#next").show();
+                        }
+                        //第一页的上一页显示隐藏
+
+                        if(data.isFirstPage){
+                            $("#pre").hide();
+                        }else{
+                            $("#pre").show();
+                        }
+                    }
+                }
+            });
+
+    };
+    $().ready(function() {
+        searchInfo(1);
+        $("#selectBtn").click(function () {
+            searchInfo(1);
+        });
+    });
+    function fy(op) {
+        var nowPage = $("#nowPage").html();
+        if (op == 'next') nowPage = Number(nowPage) + 1;
+        else nowPage = Number(nowPage) - 1;
+        searchInfo(nowPage);
+    };
+
+
+function aa(id) {
+    $.ajax({
+        url:"${path}/selectJl1",
+        data:{"id":id,},
+        dataType:"json",
+        type:"post",
+        success:function(data){
+            console.log(data)
+                $("#wb").html(data.hf);
+
+        }
+    });
+
+
+
+
+}
+  /*  function zpxq(id){
         //手动打开模态框
         $.ajax({
             url: "${path}/zpsqbcx03",
@@ -227,7 +354,7 @@
                 }
             }
         });
-    }
+    }*/
 </script>
 </body>
 </html>

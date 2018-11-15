@@ -1,5 +1,8 @@
 package com.lx.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.lx.dao.lzdao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +23,11 @@ public class lzServiceimpl implements lzService{
         return lzdao.lzselect(map);
     }
 
-    @Override
-    public List lzdjselect(Map map) {
-        return lzdao.lzdjselect(map);
+    public PageInfo<Map> lzdjselect(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=lzdao.lzdjselect(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
 
     @Override

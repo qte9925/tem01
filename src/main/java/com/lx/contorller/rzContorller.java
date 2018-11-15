@@ -1,5 +1,8 @@
 package com.lx.contorller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.lx.service.rzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +33,14 @@ public class rzContorller {
     }
     @RequestMapping("rymssqselect2")
     @ResponseBody
-    public List rymssqselect2(Map map){
+    /*public List rymssqselect2(Map map){
         return rs.rymssqselect2(map);
+    }*/
+    public PageInfo<Map> rymssqselect2(PageEntity page, Map map){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=rs.rymssqselect2(map,page);
+        return pageInfo;
     }
     @RequestMapping("rzzx")
     @ResponseBody

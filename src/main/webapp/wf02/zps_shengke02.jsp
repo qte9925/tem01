@@ -64,8 +64,8 @@
                     <tr>
                         <td>招聘名称</td>
                         <td id="zpsname">Mumbai</td>
-                        <td>编号：</td>
-                        <td id="zpsid01">Bangalore</td>
+                        <%--<td>编号：</td>--%>
+                        <%--<td id="zpsid01">Bangalore</td>--%>
                     </tr>
                     <tr>
                         <td>岗位要求：</td>
@@ -93,9 +93,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" onclick="tj();" class="btn btn-primary">
-                    提交
-                </button>
+                <%--<button type="button" onclick="tj();" class="btn btn-primary">--%>
+                    <%--提交--%>
+                <%--</button>--%>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -106,8 +106,20 @@
     <caption id="cap">招聘需求</caption>
     <button class="btn  btn-xm zpjh01"><a href="zpsinsert.jsp">新建招聘计划</a></button>
     <thead >
+    <Tr>
+        <td>根据薪资查询</td>
+        <Td><input type="text" class="form-control" value="0" id="hgccc01" ></Td>&nbsp;
+        <Td><input type="button" class="form-control" value="查询" onclick="cxgg();" ></Td>
+    </Tr>
+    <script>
+        function cxgg() {
+            var tgxz001 = $("#hgccc01").val();
+            console.log(tgxz001);
+            gg(undefined,tgxz001);
+        }
+    </script>
     <tr>
-        <th>招聘书编号</th>
+        <th>编号</th>
         <th>招聘名称</th>
         <th>需求人数</th>
         <th>登记时间</th>
@@ -116,8 +128,8 @@
     </tr>
     </thead>
     <tbody id="thead01">
-    <tr v-for="i in msg">
-        <td>{{i.zpsid}}</td>
+    <tr v-for="(index,i) in msg">
+        <td>{{index+1}}</td>
         <Td>{{i.zpsname}}</Td>
         <Td>{{i.zprs}}</Td>
         <Td>{{i.djsj01}}</Td>
@@ -133,6 +145,11 @@
     </tr>
     </tbody>
 </table>
+    <center>
+        <a id="pre" onclick="fy('pre')">上一页</a>
+        <a id="next" onclick="fy('next')">下一页</a>
+        当第<span id="nowPage"></span>页,总共<span id="pages"></span>页
+    </center>
 </div>
 <script type="text/javascript">
     function  sqspi() {
@@ -175,7 +192,7 @@
     function zpxq(id){
         //手动打开模态框
         $.ajax({
-            url: "${path}/zpcx02",
+            url: "${path}/zpcx03",
             type: "post",
             data:{"zpxqid":id},
             dataType: "json",
@@ -186,7 +203,7 @@
                     $("#zpsid01").text(p.zpsid);
                     $("#zpsname").text(p.zpsname  );
                     $("#zhiweixinxixx").text(p.zhiweixinxixx);
-                    $("#tgxinzi").text(p.tgxinzi);$("#zprs").text(p.zprs);
+                    $("#tgxinzi").text(p.tgxinzi02+"至"+p.tgxinzi);$("#zprs").text(p.zprs);
                     $("#fulidaiyu").text(p.fulidaiyu);$("#skyj01").text(p.skyj);
                     $("#shrname01").text(p.shrname);
                 }
@@ -194,26 +211,48 @@
         });
         $('#myModal01').modal('show');
     }
-    function gg(){
+    var StaffJobChangeApplication = {msg:[]};
+    var vm = new Vue({
+        el:'#ccc',
+        data:StaffJobChangeApplication
+    });
+    function gg(nowPage,id){
         $.ajax({
             url: "${path}/daishenkecx",
             type: "post",
-            data:{"id":1},
+            data:{"nowPage":nowPage,"id02":id},
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                var vm = new Vue({
-                    el:'#ccc',
-                    data:{
-                        msg:data
-                    }
-                });
+                StaffJobChangeApplication.msg = data.list;
+                $("#nowPage").html(data.pageNum);
+                $("#total").html(data.total);
+                $("#pages").html(data.pages);
+                //最后一页的下一页显示隐藏
+                if(data.isLastPage){
+                    $("#next").hide();
+                }else{
+                    $("#next").show();
+                }
+                //第一页的上一页显示隐藏
+
+                if(data.isFirstPage){
+                    $("#pre").hide();
+                }else{
+                    $("#pre").show();
+                }
             }
         });
     }
+    function fy(op) {
+        var nowPage = $("#nowPage").html();
+        if (op == 'next') nowPage = Number(nowPage) + 1;
+        else nowPage = Number(nowPage) - 1;
+        gg(nowPage);
+    };
     $().ready(function () {
-        console.log("1111"+'${sessionScope.list[0].rybmid}');
-            gg();
+        <%--console.log("1111"+'${sessionScope.list[0].rybmid}');--%>
+        gg(1);
 
     });
 </script>

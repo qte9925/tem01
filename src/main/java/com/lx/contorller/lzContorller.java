@@ -1,5 +1,8 @@
 package com.lx.contorller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.lx.service.lzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +29,11 @@ public class lzContorller {
     }
     @RequestMapping("lzdjselect")
     @ResponseBody
-    public List lzdjselect(Map map){
-        return ls.lzdjselect(map);
+    public PageInfo<Map> lzdjselect(PageEntity page, Map map){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        if(page==null)page=new PageEntity();
+        PageInfo<Map> pageInfo=ls.lzdjselect(map,page);
+        return pageInfo;
     }
     @RequestMapping("lzdjupdate")
     @ResponseBody

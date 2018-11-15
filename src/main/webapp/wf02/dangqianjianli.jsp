@@ -2,7 +2,7 @@
 <%@ include file="../gy.jsp" %>
 <html>
 <head>
-    <title>简历查询</title>
+    <title>当前简历</title>
 </head>
 <body >
 <!-- 模态框（Modal） -->
@@ -95,9 +95,9 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                 </button>
-                <button type="button" class="btn btn-primary">
-                    提交更改
-                </button>
+                <%--<button type="button" class="btn btn-primary">--%>
+                    <%--提交更改--%>
+                <%--</button>--%>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -157,7 +157,7 @@
                 <table class="table table-bordered">
                     <tbody>
                     <tr>
-                        <td>审批<input type="text" id="aaaa"></td>
+                        <td style="display: none;">审批<input type="text" id="aaaa"></td>
                         <td>
                             <select class="form-control" id="ds">
                             <option value="1">预约面试</option>
@@ -217,7 +217,7 @@
                 console.log(data);
                 if(data==1){
                     console.log("修改成功")
-                    window.location.href="#";
+                    window.location.reload();
                 }else{
                     alert("修改失败");
                 }
@@ -250,18 +250,23 @@
     <tr >
         <td>{{index+1}}</td>
         <Td>{{i.zpsname}}</Td>
-        <Td>{{i.zhiweimingcheng}}</Td>
+        <Td>{{i.zhiwei}}</Td>
         <Td>{{i.jlname}}</Td>
         <Td>{{i.ypsj}}</Td>
         <Td v-if="i.tdstatic==0" style="color: red">处理中</Td>
         <Td v-if="i.tdstatic!=0" style="color: black">已处理</Td>
         <Td>
             <input class="btn btn-primary btn-xm" type="button" onclick="zpxq('{{i.tdid}}');" value="详情">
-            <input class="btn btn-primary btn-xm" type="button" onclick="huifu('{{i.tdid}}');" value="回复">
+            <input class="btn btn-primary btn-xm" type="button" onclick="huifu('{{i.tdid}}','{{i.tdrid}}');" value="回复1">
         </Td>
     </tr>
     </tbody>
 </table>
+    <center>
+        <a id="pre" onclick="fy('pre')">上一页</a>
+        <a id="next" onclick="fy('next')">下一页</a>
+        当第<span id="nowPage"></span>页,总共<span id="pages"></span>页
+    </center>
 </div>
 <script type="text/javascript">
     //筛选学历
@@ -277,9 +282,28 @@
         console.log(tdstatic);
         gg(tdstatic);
     });
-    function huifu(id) {
-        $("#aaaa").val(id);
-        $('#huifu').modal('show');
+    //判断此人有没有通过面试
+    function huifu(id,id02) {
+        $.ajax({
+            url: "${path}/sxtdr",
+            type: "post",
+            data:{"tdrid":id02
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if(data.length==0){
+                    $("#aaaa").val(id);
+                    $('#huifu').modal('show');
+                }else{
+                    alert("当前用户已经有预约面试");
+                    $("#aaaa").val(id);
+                    $("#ds").html("<option value='2'>拒绝此人</option>");
+                    $('#huifu').modal('show');
+                }
+            }
+        });
+
     }
     //送审，修改状态
     function songshen(id01,id02) {
@@ -318,8 +342,8 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                for(var i=0;i<data.length;i++){
-                    var p= data[i];
+                for(var i=0;i<data.list.length;i++){
+                    var p= data.list[i];
                     $("#jlname").text(p.jlname);
                     $("#shoujihao").text(p.shoujihao);
                     if(p.xingbie==0){$("#xingbie").text("男");}
@@ -350,44 +374,67 @@
         $('#myModal').modal('show');
     }
 
-    function gg(tdstatic,xueli){
+    function gg(tdstatic,xueli,nowPage){
         // console.log("xueli"+xueli);
         $.ajax({
             url: "${path}/cxtdjl002",
             type: "post",
             data:{
                 "tdstatic":tdstatic,
-                "tdid02":xueli
+                "tdid02":xueli,
+                "nowPage":nowPage
             },
             dataType: "json",
             success: function (data) {
                 console.log(data);
                 $("#thead01").html("");
-                for(var d=0;d<data.length;d++){
+                for(var d=0;d<data.list.length;d++){
                     var cc = d+1;
-                    var i=data[d];
+                    var i=data.list[d];
                     var html ='<tr >';
                     html=html+' <td>'+cc+'</td>';
                     html=html+ '<Td>'+i.zpsname+'</Td>';
-                    html=html+' <Td>'+i.zhiweimingcheng+'</Td>';
+                    html=html+' <Td>'+i.jsname+'</Td>';
                     html=html+'<Td>'+i.jlname+'</Td>';
                     html=html+'<Td>'+i.ypsj+'</Td>';
                     if(i.tdstatic==0){html=html+'<Td  style="color: red">处理中</Td>';}
                     if(i.tdstatic!=0){html=html+' <Td style="color: black">已处理</Td>';}
                     html=html+' <Td>';
                     html=html+'   <input class="btn btn-primary btn-xm" type="button" onclick="zpxq('+i.tdid+');" value="详情">';
-                    if(i.tdstatic==0){html=html+'  <input class="btn btn-primary btn-xm" type="button" onclick="huifu('+i.tdid+');" value="回复">';}
+                    if(i.tdstatic==0){html=html+'  <input class="btn btn-primary btn-xm" type="button" onclick="huifu('+i.tdid+","+i.tdrid+');" value="回复">';}
                     html=html+'   </Td>';
                     html=html+'    </tr>';
                     $("#thead01").append(html);
                 }
+                $("#nowPage").html(data.pageNum);
+                $("#total").html(data.total);
+                $("#pages").html(data.pages);
+                //最后一页的下一页显示隐藏
+                if(data.isLastPage){
+                    $("#next").hide();
+                }else{
+                    $("#next").show();
+                }
+                //第一页的上一页显示隐藏
+
+                if(data.isFirstPage){
+                    $("#pre").hide();
+                }else{
+                    $("#pre").show();
+                }
             }
         });
     }
+    function fy(op) {
+        var nowPage = $("#nowPage").html();
+        if (op == 'next') nowPage = Number(nowPage) + 1;
+        else nowPage = Number(nowPage) - 1;
+        gg(undefined,undefined,nowPage);
+    };
 
     $().ready(function () {
         console.log("1111"+'${sessionScope.list[0]}');
-            gg();
+            gg(undefined,undefined,1);
 
     });
 </script>

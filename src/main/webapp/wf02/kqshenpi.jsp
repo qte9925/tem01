@@ -122,33 +122,33 @@
     </thead>
     <tbody id="thead01">
         <tr v-for="i in msg">
-            <td v-if="i.qjzt==0" >请假</td>
-            <td v-if="i.qjzt==3" >出差</td>
+            <td v-if="i.qjzt==10" >请假</td>
+            <td v-if="i.qjzt==30" >出差</td>
             <td v-if="i.tianshu==0">小于1天</td>
             <td v-if="i.tianshu>0">{{i.tianshu}}天</td>
             <td>{{i.ryxm}}</td>
             <td>{{i.ksrq}}&nbsp;&nbsp;至&nbsp;&nbsp;{{i.jsrq}}</td>
             <td>{{i.qjyanyin}}</td>
             <td>
-                <button  data-toggle="modal" data-target="#myModal">
+                <button  data-toggle="modal" data-target="#myModal"  class="btn btn-default">
                     <a href="javascript:aaa('{{i.qjid}}')">详情</a>
                 </button>
-                <button  v-if="i.tianshu<3 && i.qjzt==0" >
+                <button  v-if="i.tianshu<=3 && i.qjzt==10" class="btn btn-default">
                     <a href="javascript:aa01('{{i.qjid}}',1)">审批</a>
                 </button>
-                <button  v-if="i.tianshu>3 && i.qjzt==0" >
+                <button  v-if="i.tianshu>3 && i.qjzt==10" class="btn btn-default">
                     <a href="javascript:updateqj02('{{i.qjid}}',10)">通过</a>
                 </button>
-                <button  v-if="i.tianshu<3 && i.qjzt==3" >
+                <button  v-if="i.tianshu<3 && i.qjzt==30" class="btn btn-default" >
                     <a href="javascript:aa01('{{i.qjid}}',4)">审批</a>
                 </button>
-                <button  v-if="i.tianshu>3 && i.qjzt==3" >
+                <button  v-if="i.tianshu>3 && i.qjzt==30"  class="btn btn-default">
                     <a href="javascript:updateqj02('{{i.qjid}}',11)">通过</a>
                 </button>
-                <button  v-if="i.qjzt==0">
+                <button  v-if="i.qjzt==10" class="btn btn-default">
                     <a href="javascript:aa01('{{i.qjid}}',2)">驳回</a>
                 </button>
-                <button  v-if="i.qjzt==3">
+                <button  v-if="i.qjzt==30" class="btn btn-default">
                     <a href="javascript:aa01('{{i.qjid}}',5)">驳回</a>
                 </button>
             </td>
@@ -206,17 +206,17 @@
     }
     function aaa(id) {
         $.ajax({
-            url: "${path}/cxqinjiq02",
+            url: "${path}/cxqinjiq021",
             data:{"id":id},
             type: "post",
             dataType: "json",
             success: function (data02) {
                 console.log(data02);
                 $("#tbo01").html("");
-                if(data02[0].qjzt==0){
+                if(data02[0].qjzt==10){
                     $("#myModalLabel").text("请假类型详情")
                 }
-                if(data02[0].qjzt==3){
+                if(data02[0].qjzt==30){
                     $("#myModalLabel").text("出差类型详情")
                 }
                 for(var i=0;i<data02.length;i++){

@@ -6,26 +6,35 @@
       select * from wfdepartment;
     </select>
     <select id="lzzxselect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-       select a.lzyy,DATE_FORMAT(a.datetime01,'%Y-%m-%d %H:%i:%S') as datetime01,DATE_FORMAT(a.datetime02,'%Y-%m-%d %H:%i:%S') as datetime02,
-        b.ryxm,c.bmname,d.ryxm as spname,a.spzt as spzt,a.lizhiid as lizhiid
-        from wflizhi a,wfstafftable b,wfdepartment c,wfstafftable d
-        where 1=1 and b.ryid=a.ryid and c.bmid=a.bmid and d.ryid=a.spid and spzt=4;
+       SELECT a.*,b.bmname,c.ryxm,d.ryxm as spname
+FROM wflizhi a , wfdepartment b ,wfstafftable c,wfstafftable d
+where 1=1 and a.ryid = c.ryid and a.bmid =b.bmid and a.spid=d.ryid and (a.spzt=4 or a.spzt=6)
     </select>
     <insert id="lzinsetes" parameterType="java.util.HashMap">
      insert into wflizhi(ryid,bmid,lzyy,datetime01,datetime02,spid,spzt)
      values(#{ryid},#{bmid},#{lzyy},#{datetime01},#{datetime02},#{spid},3)
     </insert>
     <select id="lzdjselect" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        select a.lzyy,DATE_FORMAT(a.datetime01,'%Y-%m-%d %H:%i:%S') as datetime01,DATE_FORMAT(a.datetime02,'%Y-%m-%d %H:%i:%S') as datetime02,
-        b.ryxm,c.bmname,d.ryxm as spname,a.spzt as spzt,a.lizhiid as lizhiid
-        from wflizhi a,wfstafftable b,wfdepartment c,wfstafftable d
-        where 1=1 and b.ryid=a.ryid and c.bmid=a.bmid and d.ryid=a.spid and spzt=3;
+SELECT a.*,b.bmname,c.ryxm,d.ryxm as spname
+FROM wflizhi a , wfdepartment b ,wfstafftable c,wfstafftable d
+where 1=1 and a.ryid = c.ryid and a.bmid =b.bmid and a.spid=d.ryid and (a.spzt=3 or a.spzt=5)
     </select>
     <update id="lzdjupdate" parameterType="java.util.HashMap">
         update wflizhi set spzt=#{spzt} where lizhiid=#{lizhiid}
     </update>
-    <!--<delete id="lzzxdelete" parameterType="java.util.HashMap">
-       delete from wfyhb where yhid=#{yhid}
-    </delete>-->
+
+    <delete id="ce01" parameterType="java.util.HashMap">
+        delete
+    </delete>
+    <delete id="lzzxdelete" parameterType="java.util.HashMap">
+       select a.*,b.ryzhanghao
+from wfyhb b,wfstafftable a
+where b.yhid=a.ryzhanghao;
+delete a,b
+from wfyhb as b
+left join wfstafftable as a
+on b.yhid=a.ryzhanghao
+where b.yhid=#{yhid};
+    </delete>
 
 </mapper>
