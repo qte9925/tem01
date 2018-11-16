@@ -25,7 +25,8 @@
     <script type="text/javascript">
      $(document).ready(
             function(){
-        var TbStaffId=3;
+        var TbStaffId=15;
+       /* alert(TbStaffId);*/
         $.ajax({
             url:"${path}/SelectMyTask",
             data:{"tbStaffId":TbStaffId},
@@ -110,6 +111,12 @@
     </script>
 </head>
 <body>
+
+<%--
+<input type="text" &lt;%&ndash;style="display: none;"&ndash;%&gt; readonly="readonly" class="form-control" id="yg" value="${sessionScope.list[0].TbStaffId}">
+--%>
+
+
     <table class="table table-hover">
         <tr>
             <td>序号</td>

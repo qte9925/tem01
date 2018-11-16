@@ -3,7 +3,6 @@ package com.bc.service;
 import com.bc.dao.*;
 import com.bc.entity.*;
 import com.bc.entity.BaseDao;
-import com.bc.service.TbTaskServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,8 +101,6 @@ public class TbTaskServicesImpl implements TbTaskServices {
             int u = tda.insertDetailone(tbde);
         }
         String deptString = map.get("deptString").toString();
-
-
         List<String> deptlist = Arrays.asList(deptString.split(","));
         for(int s= 0 ; s < deptlist.size() ; s++) {
             TbDeptKh tbdeptkh = new TbDeptKh();
@@ -118,7 +115,7 @@ public class TbTaskServicesImpl implements TbTaskServices {
                 TbPropleYgkh tbprople = new TbPropleYgkh();
                 Integer tbtbstaffid = Integer.parseInt(sflist.get(h).toString());
                 Map mapp =ta.SelectUpXx(tbtbstaffid);
-                System.out.print(mapp+"*****************************************************************");
+                /*System.out.print(mapp+"*****************************************************************");*/
                 Integer upid=0;
                 if(mapp!=null){
                     upid = Integer.parseInt(mapp.get("tb__tb_staff_id").toString());
@@ -127,9 +124,9 @@ public class TbTaskServicesImpl implements TbTaskServices {
                 }
                 tbprople.setTbPropleYgkhName(ta.SelectStaffId(tbtbstaffid));
                 tbprople.settbStaffId(tbtbstaffid);
-                tbprople.setTbTbStaffId(upid);
                 tbprople.setTbTaskId(maxTbTaskID);
                 tbprople.setTbDeptKhId(tbdeptkhid);
+                tbprople.setTbTbStaffId(upid);
                 tbprople.setTbPropleYgkhState(1);
                 int tpykhi = tpykhm.insert(tbprople);//添加职位下人员
             }
@@ -176,7 +173,7 @@ public class TbTaskServicesImpl implements TbTaskServices {
     }
     //对比系统时间修改状态
     public int UpdateTbTaskState(){
-            Date dd = new Date();
+            Date dd = new Date();//获取当前时间
             List<Map> list = ta.selectTaskId();//查询id
             for(Map aa :list){//通过for循环获取多个id
                 Integer taskid = Integer.parseInt(aa.get("tb_task_id").toString());
@@ -211,8 +208,6 @@ public class TbTaskServicesImpl implements TbTaskServices {
         List list = ta.selectAllTbTask(tk);
         return list;
     }
-
-    /*<!--小明写-->*/
     //查询自身绩效考核任务
     public List SelectMyTask(Integer tbStaffId) {
         return ta.SelectMyTask(tbStaffId);
@@ -225,15 +220,8 @@ public class TbTaskServicesImpl implements TbTaskServices {
     public List SelectOtherTask(Map map) {
         return ta.SelectOtherTask(map);
     }
-
-    @Override
-    public Map SelectUpXx(Integer StaffId) {
-        return null;
-    }
-
     //审核查询
-    public List SelectendTask(){
-        return ta.SelectendTask();
+    public List SelectendTask(Map map){
+        return ta.SelectendTask(map);
     }
-
 }

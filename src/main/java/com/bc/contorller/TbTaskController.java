@@ -23,8 +23,6 @@ public class TbTaskController {
  @RequestMapping("/selectTbTask")
  @ResponseBody
  public PageInfo selectTbTask(@RequestParam  Map map){
-     int [] state = new int[] {1,2,3};
-     map.put("state",state);
      PageHelper.startPage(Integer.parseInt(map.get("pageNow").toString()), 5);
      List list = tt.selectTbTask(map);
      PageInfo pageInfo = new PageInfo<TbTask>(list);
@@ -89,7 +87,7 @@ public class TbTaskController {
     @ResponseBody
     public List selectStep(){
         List list = tt.selectStep();
-        System.out.print("++++++++++"+list);
+        /*System.out.print("++++++++++"+list);*/
         return list;
     }
     /*
@@ -122,7 +120,7 @@ public class TbTaskController {
     @ResponseBody
     public int UpdateTbTaskState(){
         int a = tt.UpdateTbTaskState();
-        System.out.print("===================="+a);
+       /* System.out.print("===================="+a);*/
         return a;
     }
     //删除修改状态
@@ -165,7 +163,7 @@ public class TbTaskController {
         return message;
     }
 
-    /*<!--小明写-->*/
+
     //查询自身绩效考核任务
     @RequestMapping("/SelectMyTask")
     @ResponseBody
@@ -190,10 +188,8 @@ public class TbTaskController {
     //审核查询
     @RequestMapping("/SelectendTask")
     @ResponseBody
-    public List SelectendTask(){
-        List list = tt.SelectendTask();
+    public List SelectendTask(@RequestParam Map map){
+        List list = tt.SelectendTask(map);
         return list;
     }
-
-
 }

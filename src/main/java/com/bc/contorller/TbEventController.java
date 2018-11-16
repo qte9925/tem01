@@ -20,7 +20,7 @@ public class TbEventController {
     @ResponseBody
     public List<Map> selectEvent(@RequestParam Map map){
         List list = te.selectEvent(Integer.parseInt(map.get("TbTaskId").toString()));
-        System.out.print("=============="+list);
+       /* System.out.print("=============="+list);*/
         return  list;
     };
     /*添加查询项*/
@@ -42,7 +42,7 @@ public class TbEventController {
     public Map selectTbEventId(@RequestParam Map map){
         System.out.println("id为"+Integer.parseInt(map.get("tbEventId").toString()));
         Map map1 =  te.selectTbEventId(Integer.parseInt(map.get("tbEventId").toString()));
-        System.out.println("++++++++++++++++++++"+map1);
+        /*System.out.println("++++++++++++++++++++"+map1);*/
         return map1;
     }
     /*修改考核任务项*/

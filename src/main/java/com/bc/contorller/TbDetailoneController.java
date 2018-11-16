@@ -63,7 +63,7 @@ public class TbDetailoneController {
     public Map SelectDetailoneBiId(@RequestParam Map map){
         System.out.println("id为"+Integer.parseInt(map.get("tbDetailoneId").toString()));
         Map map1 =  tb.SelectDetailoneBiId(Integer.parseInt(map.get("tbDetailoneId").toString()));
-        System.out.println("++++++++++++++++++++"+map1);
+        /*System.out.println("++++++++++++++++++++"+map1);*/
         return map1;
     }
     /*

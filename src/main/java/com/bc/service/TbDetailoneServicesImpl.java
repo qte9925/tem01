@@ -67,55 +67,7 @@ public int insertresultAndrecorddetails(Map map){
      int result=1;
     return result;
 }
-    /*public int insertDetailone(List list) {
-        for (int i = 0; i < list.size(); i++) {
-            Map map1 = new HashMap();
-            Map map2 = new HashMap();
-            map1 = (Map) list.get(i);
-            map2.put("tbEventId", map1.get("tbEventId"));
-            map2.put("tbDetailoneValue", map1.get("tbDetailoneValue"));
-            map2.put("tbDetailoneName", map1.get("tbDetailoneName"));
-            map2.put("tbtaskid", map1.get("tbtaskid"));
-            map2.put("tbdetailonestate", map1.get("tbdetailonestate"));
-            TbDetailone tbd = new TbDetailone();
-            tbd.setTbDetailoneName(map2.get("tbDetailoneName").toString());
-            tbd.setTbDetailoneValue(map2.get("tbDetailoneValue").toString());
-            tbd.setTbEventId(Integer.parseInt(map2.get("tbEventId").toString()));
-            tbd.setTbTaskId(Integer.parseInt(map2.get("tbtaskid").toString()));
-            tbd.setTbDetailoneState(Integer.parseInt(map2.get("tbdetailonestate").toString()));
-            int u = td.insertDetailone(tbd);
-            int detailoneMax = td.SelectDetailoneIdMaxid();
-            System.out.print("++++++++++++++-------------"+u);
-            int maxTbTaskID = ta.SelectTbTaskMaxid();//查询考核任务最大id
-            List<Map> rolist =tbp.SelectTbpropleYghStaffid(maxTbTaskID);
-            System.out.print("*************zz**************"+rolist);//通过TaskId查询TbDetailoneId
-            System.out.print("*************zz**************");
-            for (Map ro :rolist){
-                Integer PropleYghid = Integer.parseInt(ro.get("tb_prople_ygkh_id").toString());
-                System.out.print("*************aa**************"+PropleYghid);
-                Integer TbStaffId = Integer.parseInt(ro.get("tb_staff_id").toString());
-                System.out.print("*************66**************"+TbStaffId);
-                TbAchresult ach = new TbAchresult();
-                ach.setTbTaskId(maxTbTaskID);
-                ach.setTbPropleYgkhId(PropleYghid);
-                ach.setTbAchresultState(1);
-                int ahr = tba.insert(ach);
-                System.out.print("*************zz**************"+TbStaffId);
-                int TbAchresultMaxid = tba.SelectTbAchresultMaxid();
-                //循环添加结果详情
-                System.out.print("*************bb**************");
-                TbRecorddetails rec = new TbRecorddetails();
-                rec.setTbStaffId(TbStaffId);
-                rec.setTbDetailoneId(detailoneMax);
-                rec.setTbAchresultId(TbAchresultMaxid);
-                rec.setTbRecorddetailsState(1);
-                int red = tbr.insert(rec);
-                System.out.print("*************cc**************");
-            }
-        }
-        int result = 1;
-        return result;
-    }*/
+
     //根据DetailoneId查询数据
     public Map SelectDetailoneBiId(Integer tbDetailoneId){
        return td.SelectDetailoneBiId(tbDetailoneId);
