@@ -95,7 +95,7 @@
                     if(p.ryzwzt==undefined){
                         html=html+"<td>未录入转正结果</td>";
                         html=html+"<td>未录入备注</td>";
-                        html=html+"<td><button onclick='jieguo("+p.id+")' data-toggle='modal' data-target='#myModala'>录入转正结果</button></td>";
+                        html=html+"<td><button onclick='jieguo("+p.ryid+")' data-toggle='modal' data-target='#myModala'>录入转正结果</button></td>";
                     }else if(p.ryzwzt==0){
 
                         html=html+"<td>已转正</td>";
@@ -104,7 +104,7 @@
                     }else if(p.ryzwzt==1){
                         html=html+"<td>转正审批中</td>";
                         html=html+"<td>"+p.beizhu+"</td>";
-                        html=html+"<td><button onclick='jieguo("+p.id+")' data-toggle='modal' data-target='#myModala'>重新录入</button></td>";
+                        html=html+"<td><button onclick='jieguo("+p.ryid+")' data-toggle='modal' data-target='#myModala'>重新录入</button></td>";
                     }
                     html=html+"</tr>";
                     $("#tbody").append(html);
@@ -142,8 +142,8 @@
             nowPage=Number(nowPage)-1;
         getinfo(nowPage);
     }
-    function jieguo(id){
-        $("#updateBtn").val(id);
+    function jieguo(ryid){
+        $("#updateBtn").val(ryid);
     }
     $("#updateBtn").click(function(){
         $.ajax({
@@ -151,7 +151,7 @@
             type:"post",
             dataType:"json",
             data:{
-                "id":$("#updateBtn").val(),
+                "ryid":$("#updateBtn").val(),
                 "ryzwzt":$('#jieguo option:selected').val(),
                 "beizhu":$("#beizhu").val()
             },
