@@ -29,7 +29,7 @@ select a.*,b.*,c.*,d.*,e.* from (((j_ygjb a join wfstafftable b on a.ygid=b.ryid
         </where>
     </select>
     <insert id="insertX"  parameterType="java.util.HashMap">
-     insert into  j_xzlc(cjname,qsrq,jzrq,gzyf,bz,state,lcsj)values(#{cjname},#{qsrq},#{jzrq},#{gzyf},#{bz},1,#{lcsj})
+     insert into  j_xzlc(cjname,qsrq,jzrq,gzyf,bz,state,lcsj)values(#{cjname},#{qsrq},#{jzrq},#{gzyf},#{bz},0,#{lcsj})
  </insert>
     <update id="updateX"  parameterType="java.util.HashMap">
         update j_xzlc set state=2 where id=#{id}
