@@ -3,13 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yzj.dao.KaoheTongguo">
     <select id="TongGuo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-        select distinct a.*,b.*,c.*,d.bmname from y_new_baoming a,
+         select distinct a.*,b.*,c.*,d.bmname from y_new_baoming a,
         y_plan b,
         wfstafftable c,
         wfdepartment d
         where a.ryid=c.ryid
-        and a.planid=b.planid
         and c.rybmid=d.bmid
+        and a.totalhours = b.totalhours
     </select>
     <update id="addnewbaoming" parameterType="java.util.HashMap">
         update y_new_baoming s set s.jieguo=#{jieguo},s.beizhu=#{beizhu} where s.id=#{id}

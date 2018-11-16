@@ -28,11 +28,12 @@
             <th>状态</th>
             <th>操作</th>
 
-            //简历关联列   ，转正状态，合同关联列，
         </tr>
         </thead>
         <tbody id="thead01">
         <tr v-for="i in msg" v-if="i.spzt!=0 && i.spzt!=1 && i.spzt!=2  ">
+            <%--<td>{{i.ryxm}}</td>
+            <td>{{i.bmname}}</td>--%>
             <td>{{i.ryxm}}</td>
             <td>{{i.bmname}}</td>
             <td>{{i.lzyy}}</td>
@@ -44,11 +45,11 @@
             <Td v-if="i.spzt == 5">审批失败</Td>
             <Td>
                 <button>
-                    <a href="javascript:lzdjupdate('{{i.lizhiid}}','{{i.spzt+1}}')">通过</a>
+                    <a href="javascript:lzdjupdate('{{i.lizhiid}}',4)">通过</a>
                 </button>
                 &nbsp;&nbsp;
                 <button>
-                    <a href="javascript:lzdjupdate('{{i.lizhiid}}','{{i.spzt+2}}')">反对</a>
+                    <a href="javascript:lzdjupdate('{{i.lizhiid}}',5)">反对</a>
                 </button>
             </Td>
         </tr>

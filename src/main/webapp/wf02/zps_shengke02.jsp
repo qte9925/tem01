@@ -64,8 +64,8 @@
                     <tr>
                         <td>招聘名称</td>
                         <td id="zpsname">Mumbai</td>
-                        <td>编号：</td>
-                        <td id="zpsid01">Bangalore</td>
+                        <%--<td>编号：</td>--%>
+                        <%--<td id="zpsid01">Bangalore</td>--%>
                     </tr>
                     <tr>
                         <td>岗位要求：</td>
@@ -220,7 +220,7 @@
         $.ajax({
             url: "${path}/daishenkecx",
             type: "post",
-            data:{"id":1,"nowPage":nowPage,"id02":id},
+            data:{"nowPage":nowPage,"id02":id},
             dataType: "json",
             success: function (data) {
                 console.log(data);

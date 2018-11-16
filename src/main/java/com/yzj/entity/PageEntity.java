@@ -2,7 +2,7 @@ package com.yzj.entity;
 
 public class PageEntity {
     private int nowPage=1;
-    private int rowSize=2;
+    private int rowSize=3;
     public int getNowPage() {
         return nowPage;
     }

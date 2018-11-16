@@ -130,6 +130,11 @@ public class Kqconroller {
     public int qdinsert(@RequestParam Map map) {
         return se.qdinsert(map);
     }
+    @RequestMapping("/cxqinjiq021")
+    @ResponseBody
+    public List cxqinjiq021(@RequestParam Map map) {
+        return se.cxqinjiq021(map);
+    }
     @RequestMapping("/cxsxb02")
     @ResponseBody
     public List cxsxb02(@RequestParam Map map) {

@@ -56,4 +56,11 @@ public class ShenpiController {
        List<Map> list = sp.selectyibaoming(map);
         return list;
     }
+    /*送审*/
+    @RequestMapping("UpdateStatu")
+    @ResponseBody
+    public  int updatezhuangtai(@RequestParam Map map){
+      int i = sp.updatestatu(map);
+        return i;
+    }
 }

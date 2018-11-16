@@ -56,7 +56,8 @@
                         <label  class="col-sm-2 control-label">合同类型</label>
                         <div class="col-sm-10">
                             <select class="form-control" id="htlxid"  >
-                                <option>请选择合同类型</option>
+                                <option value="4">请选择</option>
+                                <option value="4">录用合同</option>
                             </select>
                         </div>
                     </td>
@@ -268,12 +269,12 @@
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    $("#htlxid").html("<option >请选择签约合同类型</option>");
-                    for (var i = 0; i < data.length; i++) {
-                        var p = data[i];
-                        var html = "<option value='" + p.htleixingid + "'>" + p.name + "</option>";
-                        $("#htlxid").append(html);
-                    }
+                    // $("#htlxid").html("<option >请选择签约合同类型</option>");
+                    // for (var i = 0; i < data.length; i++) {
+                    //     var p = data[i];
+                    //     var html = "<option value='" + p.htleixingid + "'>" + p.name + "</option>";
+                    //     $("#htlxid").append(html);
+                    // }
                 }
             });
 

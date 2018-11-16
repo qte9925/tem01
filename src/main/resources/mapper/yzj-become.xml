@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yzj.dao.BecomeDao">
  <select id="selectZ" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-     select a.*,b.* from y_new_baoming a join wfstafftable b on a.ryid =b.ryid where jieguo=0;
+     select a.*,b.* from y_new_baoming a join wfstafftable b on a.ryid =b.ryid where jieguo=0 ;
  </select>
     <update id="updateZ" parameterType="java.util.HashMap">
-        update wfstafftable  set ryzwzt=#{ryzwzt} where ryid=#{ryid}
+        update wfstafftable  set ryzwzt=#{ryzwzt},beizhu=#{beizhu} where ryid=#{ryid}
     </update>
 </mapper>

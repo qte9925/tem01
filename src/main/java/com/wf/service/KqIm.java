@@ -35,6 +35,11 @@ public class KqIm implements Kq {
     }
 
     @Override
+    public List cxqinjiq021(Map map) {
+        return dao.cxqinjiq021(map);
+    }
+
+    @Override
     public int qjxqupdate(Map map) {
         return dao.qjxqupdate(map);
     }

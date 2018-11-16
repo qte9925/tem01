@@ -43,4 +43,9 @@ public class ShenpiServiceImp implements ShenpiService{
     public List<Map> selectyibaoming(Map map) {
         return dao.selectyibaoming(map);
     }
+
+    @Override
+    public int updatestatu(Map map) {
+        return dao.updatestatu(map);
+    }
 }

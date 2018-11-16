@@ -24,6 +24,7 @@
     <select id="cxtdjl003" resultType="java.util.Map" parameterType="java.util.Map">
         SELECT *,DATE_FORMAT(c.tddata,'%Y-%m-%d %H:%i:%S') as ypsj,DATE_FORMAT(a.chudate,'%Y-%m-%d %H:%i:%S')  as chudate02 from
         wf_jianli a ,wf_zps b , wf_tdjl c, wf_qtyh d where  c.tdzpsid = b.zpsid  and d.qtyhid = a.qtryid and a.qtryid = c.tdrid
+        and c.tdstatic=1
         <if test="msjg!=null">
             <if test="msjg ==1">
                 and (c.msjg = 1 or c.msjg =999)
@@ -57,8 +58,9 @@
         <!--</if>-->
     <!--</select>-->
     <select id="cxtdjl002" resultType="java.util.Map" parameterType="java.util.Map">
-            SELECT *,DATE_FORMAT(c.tddata,'%Y-%m-%d %H:%i:%S') as ypsj,DATE_FORMAT(a.chudate,'%Y-%m-%d %H:%i:%S')  as chudate02 from
-            wf_jianli a ,wf_zps b , wf_tdjl c, wf_qtyh d where  c.tdzpsid = b.zpsid  and d.qtyhid = a.qtryid and a.qtryid = c.tdrid
+        SELECT *,DATE_FORMAT(c.tddata,'%Y-%m-%d %H:%i:%S') as ypsj,DATE_FORMAT(a.chudate,'%Y-%m-%d %H:%i:%S')  as chudate02 from
+        wf_jianli a ,wf_zps b , wf_tdjl c, wf_qtyh d,wfjsb e where  c.tdzpsid = b.zpsid  and d.qtyhid = a.qtryid and a.qtryid = c.tdrid
+        and e.jsid=b.zhiwei
             <if test="tdid02!=null">
                 and  a.xueli = #{tdid02}
             </if>
@@ -71,7 +73,7 @@
     </select>
 
     <select id="sxtdr" resultType="java.util.Map" parameterType="java.util.Map">
-          SELECT * from wf_tdjl where tdstatic =1 and tdrid = #{tdrid}
+SELECT * from wf_tdjl where tdstatic = 1 and (msjg = 1 or msjg = 999) and tdrid =#{tdrid}
     </select>
     <select id="cxtdjl001" resultType="java.util.Map" parameterType="java.util.Map">
       SELECT * from wf_zps a ,wf_tdjl b where 1=1
@@ -292,7 +294,7 @@ VALUES(#{xuqiubmid},#{xuqiugangwei},#{xuqiurenshu},#{djid},#{yonggongriqi},#{bei
 
     </update>
     <select id="daishenkecx" resultType="java.util.Map" parameterType="java.util.Map" >
-        SELECT * from wf_zps where 1=1
+        SELECT *,DATE_FORMAT(djsj,'%Y-%m-%d %H:%i:%S') as djsj01 from wf_zps where 1=1
         <if test="id!=null">
             and skzt = #{id}
         </if>

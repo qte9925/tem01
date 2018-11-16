@@ -165,7 +165,6 @@ public class WagesController {
         if(page==null)page=new PageEntity();
         PageInfo<Map> pageInfo=ws.selectS(map,page);
         return pageInfo;
-
     }
     @RequestMapping("selectSid")
     @ResponseBody
