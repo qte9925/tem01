@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yzj.dao.ShenpiDao">
+<mapper namespace="com.yzj.dao.ShenpitDao">
     <update id="updateshenpiplanyzj" parameterType="java.util.Map">
         update y_plan set statu=#{zt},xinxi=#{xinxi} where 1 = 1
         <if test="id!=null">
            and Id = #{id}
         </if>
     </update>
-    <select id="selectdaishenpiplan" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+    <!--查询状态为审批中数据++模糊查询-->
+    <select id="selectShenpit" resultType="java.util.HashMap" parameterType="java.util.HashMap">
         select a.*,b.bmname from y_plan a join wfdepartment b on a.departmentid = b.bmid
         <where>
+            and statu=1
             <if test="aa!=null">
                 and a.planname like '%${aa}%'
             </if>
@@ -18,13 +20,6 @@
                 and a.totalhours like '%${Pid}%'
             </if>
         </where>
-    </select>
-    <insert id="AddBaomingyzj"  parameterType="java.util.HashMap">
-        insert into y_New_Baoming (beizhu,ryid,totalhours)
-        values(#{beizhu},#{ryid},#{totalhours})
-    </insert>
-    <select id="selectyibaoming" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-  select count(*) as number from y_new_baoming where 1= 1 and totalhours = #{totalhours}
     </select>
     <!--通过驳回-->
     <update id="updatestatu" parameterType="java.util.HashMap">

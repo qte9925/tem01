@@ -16,4 +16,6 @@ public interface ShenpiService {
     public int AddBaomingyzj(Map map);
     /*已报名人数统计*/
     public List<Map> selectyibaoming(Map map);
+    /*送审*/
+    public int updatestatu(Map map);
 }

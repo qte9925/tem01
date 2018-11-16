@@ -25,6 +25,7 @@
     </tr>
     <tr>
         <td>
+            <%--用修改前查询的方法尝试一波--%>
             <label  class="col-sm-2 control-label">部门</label>
             <div class="col-sm-10">
                 <input type="text" style="display: none;" readonly="readonly" class="form-control" id="qjlx" value="${sessionScope.list[0].ryid}">
@@ -80,6 +81,7 @@
     </tr>
     </tbody>
 </table>
+
 <script type="text/javascript">
     function aaa() {
         window.location.href="lizhidengji.jsp";
@@ -118,17 +120,15 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                $("#yg").html("<option >请选择员工</option>");
                 $("#yg02").html("<option >请选择员工</option>");
                 for (var i = 0; i < data.length; i++) {
                     var p = data[i];
                     var html = "<option value='" + p.id + "'>" + p.name + "</option>";
-                    $("#yg").append(html);
                     $("#yg02").append(html);
                 }
             }
         });
-        $.ajax({
+        /*$.ajax({
             url: "${path}/lzselect",
             type: "post",
             dataType: "json",
@@ -141,7 +141,7 @@
                     $("#qjlx").append(html);
                 }
             }
-        });
+        });*/
     }
     $().ready(function () {
         gg();

@@ -1,5 +1,8 @@
 package com.lx.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jds.entity.PageEntity;
 import com.lx.dao.rzdao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +29,14 @@ public class rzServiceimpl implements rzService{
     }
 
     @Override
-    public List rymssqselect2(Map map) {
+    /*public List rymssqselect2(Map map) {
         return dao.rymssqselect2(map);
+    }*/
+    public PageInfo<Map> rymssqselect2(Map map, PageEntity page){
+        PageHelper.startPage(page.getNowPage(), page.getRowSize());
+        List list1=dao.rymssqselect2(map);
+        PageInfo<Map> returnPage=new PageInfo<Map>(list1);
+        return returnPage;
     }
 
     @Override

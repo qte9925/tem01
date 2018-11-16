@@ -65,6 +65,21 @@
         elem: '#endclass' //指定元素
     });
     lay('#version').html('-v'+ laydate.v);
+    /*送审*/
+    function SongShen(Id,statu){
+        $.ajax({
+            url:"${path}/UpdateStatu",
+            type:"post",
+            data:{"Id":Id,"statu":statu},
+            dataType:"json",
+            success:function(data){
+                console.log(data);
+                if(data>0){
+                    window.location.reload();
+                }
+            }
+        })
+    }
     /*状态,驳回理由*/
     function UpdatePlanMessage(id,zt){
         $("#a1").val(id); $("#a3").val(zt);$("#a4").val(xinxi);
@@ -77,6 +92,9 @@
         data:{"id":$("#a1").val(),"zt":$("#a3").val(),"xinxi":$("#a4").val()},
         dataType:"json",
         success:function(data){
+            if(zt==1){
+                $("#a3").val("审批中")
+            }
 
         console.log(data);
         if(data>0){
@@ -85,6 +103,24 @@
         }
         })
     }
+    /*统计报名限制查询*/
+    $().ready(function(){
+        $.ajax({
+            url:"${path}/SelectBaoMingStatu",
+            type:"post",
+            dataType:"json",
+            success:function(data){
+                for(var i=0;i<data.length;i++){
+                    var p=data[i];
+                    $("#g").val(p.ryid);
+                    if(p.bmpd>0){
+                        $("#adda").attr("disabled",true);
+
+                    }
+                }
+            }
+        })
+    })
     function getinfo(nowPage) {
         $.ajax({
             url : "${path}/shenpirendechaxun",
@@ -97,7 +133,6 @@
                 for (var i = 0; i < data.list.length; i++) {
                     var p = data.list[i];
                     var html = "<tr>";
-                    html = html + "<td>" + p.planid + "</td>";
                     html = html + "<td>" + p.planname + "</td>";
                     html = html + "<td>" + p.joinpeople + "</td>";
                     html = html + "<td>" + p.trainingaddress + "</td>";
@@ -108,15 +143,30 @@
                     html = html + "<td>" + p.rainingbudget + "</td>";
                     html = html + "<td>" + p.rainingRequirement + "</td>";
                     html = html + "<td>" + p.rainingexplain + "</td>";
-                    /*html = html + "<td>" + p.bmname + "</td>";*/
-                    html = html + "<td>" + p.ryxm + "</td>";
-                    html = html + "<td>" + p.qvdaoname + "</td>";
-                    html = html + "<td>" + p.xingshiname + "</td>";
-                    html = html + "<td><button onclick='deleteNeed(" + p.Id + ")'  class='btn btn-primary' >删除</button>" +
-                        "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button>";
-                    html = html + "<button onclick='UpdatePlanMessage("+p.Id+",2)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModalb'>通过</button>";
-                    html = html + "<button onclick='UpdatePlanMessage("+p.Id+",3)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'  data-target='#myModalb'>驳回</button>";
-                    html = html + "<button onclick='Sign("+p.planid+","+p.totalhours+","+p.joinpeople+")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'  data-target='#myModala01'>报名</button>";
+                    html = html + "<td>" + p.bmname + "</td>";
+                    html = html + "<td>" + p.qvdao + "</td>";
+                    html = html + "<td>" + p.xingshi + "</td>";
+                    if(p.statu==0){
+                        html = html + "<td>未审批</td>";
+                    }else if(p.statu==1){
+                        html = html + "<td>审批中</td>";
+                    }else if(p.statu==2){
+                        html = html + "<td>已通过</td>";
+                    }else if(p.statu==3){
+                        html = html + "<td>未通过</td>";
+                    }
+
+                     if(p.statu==0){
+                        html = html + "<td><button onclick='deleteNeed(" + p.Id + ")'  class='btn btn-primary' >删除</button>" +
+                            "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button>";
+                        html = html + "<button onclick='SongShen("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModalb'>送审</button>";
+                    }else if(p.statu==2){
+                        html = html + "<td><button onclick='Sign("+p.totalhours+","+p.joinpeople+","+p.ryid+")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal'  data-target='#myModala01'>报名</button>";
+                    }else if(p.statu==3){
+                        html = html + "<td><button onclick='deleteNeed(" + p.Id + ")'  class='btn btn-primary' >删除</button>" +
+                            "<button onclick='UpdateNeeds(" + p.Id + ")'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModala' id='xgk'>修改</button>";
+                        html = html + "<button onclick='SongShen("+p.Id+",1)'  class='btn btn-primary' class='btn btn-primary btn-lg' data-toggle='modal' data-target='#myModalb'>送审</button>";
+                    }
                     html = html + "</td>";
                     html = html + "</tr>";
 
@@ -162,6 +212,7 @@
     }
 
     function deleteNeed(Id){
+        alert("确认要删除吗")
         $.ajax({
             url:"${path}/deletePlan",
             type:"post",
@@ -179,7 +230,7 @@
         $("#addPlan").click(function(){
             $.ajax({
                 url:"${path}/AddPlan",
-                data:{"planid":$("#planid").val(),
+                data:{
                     "planname":$("#planname ").val(),
                     "joinpeople":$("#joinpeople").val(),
                     "trainingaddress":$("#trainingaddress").val(),
@@ -190,10 +241,10 @@
                     "rainingbudget":$("#rainingbudget").val(),
                     "rainingRequirement":$("#rainingRequirement").val(),
                     "rainingexplain":$("#rainingexplain").val(),
-                    "departmentid":$("#departmentid").val(),
-                    "shenpirenid":$("#shenpirenid").val(),
-                    "qvdaoid":$("#qvdaoid").val(),
-                    "xingshiid":$("#xingshiid").val(),
+                    "departmentid":$("#lll").val(),
+                    "qvdao":$("#qvdaoid").val(),
+                    "xingshi":$("#xingshiid").val(),
+                    "statu":$("#Zt").val(),
                 },
                 dataType:"json",
                 type:"post",
@@ -204,6 +255,21 @@
                  }
             });
         });
+        /*部门*/
+        $.ajax({
+            url:"${path}/FindDepartmentTypePlan",
+            type:"post",
+            dataType:"json",
+            success:function(data){
+                console.log(data)
+                $("#lll").html('');
+                for(var i=0; i<data.length;i++){
+                    var p = data[i];
+                    var html="<option value='"+p.bmid+"'>"+p.bmname+"</option>";
+                    $("#lll").append(html);
+                }
+            }
+        })
     });
     /*---------------------------------------------------------------------------------------*/
 
@@ -217,7 +283,6 @@
             success:function(data){
                 for(var i=0;i<data.length;i++){
                     var p = data[i];
-                    $("#aa").val(p.planid);
                     $("#bb").val(p.planname);
                     $("#cc").val(p.joinpeople);
                     /*报名人数查询#e*/
@@ -230,26 +295,14 @@
                     $("#ii").val(p.rainingbudget);
                     $("#jj").val(p.rainingRequirement);
                     $("#kk").val(p.rainingexplain);
+                    $("#nn").val(p.qvdao);
+                    $("#oo").val(p.xingshi);
 
 
                 }
             }
         })
-        /*审批人*/
-        $.ajax({
-            url:"${path}/Findshenpiren",
-            type:"post",
-            dataType:"json",
-            success:function(data){
-                console.log(data)
-                $("#mm").html('');
-                for(var i=0; i<data.length;i++){
-                    var p = data[i];
-                    var html="<option value='"+p.ryid+"'>"+p.ryxm+"</option>";
-                    $("#mm").append(html);
-                }
-            }
-        })
+
         /*部门*/
         $.ajax({
             url:"${path}/FindDepartmentTypePlan",
@@ -258,40 +311,12 @@
             success:function(data){
                 console.log(data)
                 $("#ll").html('');
+
                 for(var i=0; i<data.length;i++){
                     var p = data[i];
                     var html="<option value='"+p.bmid+"'>"+p.bmname+"</option>";
                     $("#ll").append(html);
-                }
-            }
-        })
-        /*渠道*/
-        $.ajax({
-            url:"${path}/Findqvdao",
-            type:"post",
-            dataType:"json",
-            success:function(data){
-                console.log(data)
-                $("#nn").html('');
-                for(var i=0; i<data.length;i++){
-                    var p = data[i];
-                    var html="<option value='"+p.id+"'>"+p.qvdaoname+"</option>";
-                    $("#nn").append(html);
-                }
-            }
-        })
-        /*形式*/
-        $.ajax({
-            url:"${path}/FindXingshi",
-            type:"post",
-            dataType:"json",
-            success:function(data){
-                console.log(data)
-                $("#oo").html('');
-                for(var i=0; i<data.length;i++){
-                    var p = data[i];
-                    var html="<option value='"+p.id+"'>"+p.xingshiname+"</option>";
-                    $("#oo").append(html);
+
                 }
             }
         })
@@ -302,7 +327,6 @@
                 type:"post",
                 dataType:"json",
                 data:{
-                    "planid":$("#aa").val(),
                     "planname":$("#bb").val(),
                     "joinpeople":$("#cc").val(),
                     "trainingaddress":$("#dd").val(),
@@ -314,9 +338,8 @@
                     "rainingRequirement":$("#jj").val(),
                     "rainingexplain":$("#kk").val(),
                     "departmentid":$("#ll").val(),
-                    "shenpirenid":$("#mm").val(),
-                    "qvdaoid":$("#nn").val(),
-                    "xingshiid":$("#oo").val(),
+                    "qvdao":$("#nn").val(),
+                    "xingshi":$("#oo").val(),
                     "Id":Id
                 },
                 success:function(data){
@@ -334,9 +357,10 @@
         $("#adda").click(function(){
             $.ajax({
                 url:"${path}/AddBaomingYzj01",
-                data:{"planid":$("#a").val(),
+                data:{
                     "ryid":$("#d").val(),
                     "beizhu":$("#c").val(),
+                    "totalhours":$("#b").val(),
                 },
                 dataType:"json",
                 type:"post",
@@ -350,28 +374,55 @@
         });
     });
     /*统计查询*/
-    function Sign(planid,totalhours,joinpeople){
+    function Sign(totalhours,joinpeople){
+        console.log(totalhours)
         $.ajax({
                     url:"${path}/selectyijingbaoming",
                     type:"post",
                     dataType:"json",
-                    data:{"planid":planid},
+                    data:{"totalhours":totalhours},
                     success:function(data){
+
                         $("#tishi").html("");
                         for(var i=0;i<data.length;i++){
                             var p=data[i];
+                            console.log(p.number+"ppp");
+                            console.log(joinpeople+"oooo");
                             $("#f").val(p.number);
-                            if(p.number==joinpeople){
+                            if(p.number>=joinpeople){
                                 $("#adda").attr("disabled",true);
                                 $("#tishi").html("<font color='red'>报名人数已达上限!</font>");
+
                             }
+
                         }
+
                     }
+
                 })
-                    $("#a").val(planid);
+
                     $("#b").val(totalhours);
                     $("#e").val(joinpeople);
     }
+    /*统计报名限制得查询*/
+   /* function Sign(planid,totalhours,joinpeople){
+        $.ajax({
+            url:"${path}/SelectBaoMingStatu",
+            type:"post",
+            dataType:"json",
+            data:{"ryid":ryid},
+            success:function(data){
+                for(var i=0;i<data.length;i++){
+                    var p=data[i];
+                    $("#g").val(p.bmpd);
+                    if(p.bmpd>0){
+                        $("#adda").attr("disabled",true);
+                        $("#g").html("<font color='red'>不能重复报名!</font>");
+                    }
+                }
+            }
+        })
+    }*/
 </script>
 <!-- 增加报名---------------------------------------模态框（Modal） -->
 <div class="modal fade" id="myModala01" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
@@ -385,14 +436,12 @@
             <div class="modal-body">
                 <table class="table table-bordered" >
                     <tr>
-                        <td>计划编码:</td>
-                        <td><input type="text" name="staffName" id="a" disabled="disabled"></td>
                         <td>总课时:</td>
                         <td><input type="text" name="post" id="b" disabled="disabled"></td>
-                    </tr>
-                    <tr>
                         <td>备注:</td>
                         <td><input type="text" name="shenpimode" id="c"></td>
+                    </tr>
+                    <tr>
                         <td>报名人:</td>
                         <td><input type="text" style="display: none;" readonly="readonly" id="d" value="${sessionScope.list[0].ryid}">
                             <input type="text" readonly="readonly"  value="${sessionScope.list[0].ryxm}"></td>
@@ -402,6 +451,7 @@
                         <td><input type="text" name="shenpimode" id="e" disabled="disabled"></td>
                         <td>已报人数:</td>
                         <td><input type="text" id="f" disabled="disabled"></td>
+                        <td><input type="text" id="g" disabled="disabled"></td>
                     </tr>
                 </table>
                 <span id="tishi"></span>
@@ -434,7 +484,8 @@
             </tr>
                 <tr>
                     <td>修改状态</td>
-                    <td><input type="text" id="a3" disabled="disabled"></td>
+                    <input type="text" value="" style="display:none" id="a3"/>
+                    /*<td><input type="hidden" value=""  ></td>*/
                     <td>理由</td>
                     <td><input type="text" id="a4"></td>
                 </tr>
@@ -454,7 +505,7 @@
     <button class='btn btn-primary' data-toggle="modal" data-target="#myModal">
         新建培训计划
     </button>
-    <tr><td>计划编码<input type="text" id="Pid"></td></tr>
+    <tr><td>总课时<input type="text" id="Pid"></td></tr>
     <tr><td>计划名称<input type="text" id="staff"></td></tr>
     <button id="selectBtn" class='btn btn-primary'>查询</button>
 </div>
@@ -463,7 +514,6 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>计划编码</th>
             <th>计划名称</th>
             <th>参加人数</th>
             <th>培训地点</th>
@@ -474,9 +524,10 @@
             <th>培训预算</th>
             <th>培训要求</th>
             <th>培训说明</th>
-            <th>审批人</th>
+            <th>参与部门</th>
             <th>培训渠道</th>
             <th>培训形式</th>
+            <th>状态</th>
             <th><center>操作</center></th>
         </tr>
         </thead>
@@ -508,8 +559,6 @@
             <div class="modal-body" >
                 <table class="table table-bordered" >
                     <tr>
-                        <td>计划编码:</td>
-                        <td><input type="text" name="staffName" id="planid"></td>
                         <td>计划名称:</td>
                         <td><input type="text" name="post" id="planname"></td>
                     </tr>
@@ -540,18 +589,20 @@
                     <tr>
                         <td>培训说明:</td>
                         <td><input type="text" name="department" id="rainingexplain"></td>
-                        <td>部门ID:</td>
-                        <td><input type="text" name="department" id="departmentid"></td>
+                        <td>参与部门:</td>
+                        <td><select  name="department" id="lll"></select></td>
                     </tr>
                     <tr>
-                        <td>审批人ID:</td>
-                        <td><input type="text" name="department" id="shenpirenid"></td>
                         <td>培训渠道:</td>
                         <td><input type="text" name="department" id="qvdaoid"></td>
                     </tr>
                     <tr>
                         <td>培训形式:</td>
                         <td><input type="text" name="department" id="xingshiid"></td>
+                    </tr>
+                    <tr>
+                        <td>状态:</td>
+                        <td><input type="text" name="department" id="Zt"></td>
                     </tr>
                 </table>
             </div>
@@ -583,8 +634,6 @@
             <div class="modal-body">
                 <table class="table table-bordered">
                     <tr>
-                        <td>计划编码:</td>
-                        <td><input type="text" id="aa"></td>
                         <td>计划名称:</td>
                         <td><input type="text" id="bb"></td>
                     </tr>
@@ -619,14 +668,12 @@
                         <td><select id="ll"></select></td>
                     </tr>
                     <tr>
-                        <td>审批人:</td>
-                        <td><select id="mm"></select></td>
                         <td>培训渠道:</td>
-                        <td><select id="nn"></select></td>
+                        <td><input type="text" id="nn"></td>
                     </tr>
                     <tr>
                         <td>培训形式:</td>
-                        <td><select id="oo"></select></td>
+                        <td><input type="text" id="oo"></td>
                     </tr>
                 </table>
             </div>
