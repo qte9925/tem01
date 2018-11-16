@@ -451,7 +451,7 @@
                         <td><input type="text" name="shenpimode" id="e" disabled="disabled"></td>
                         <td>已报人数:</td>
                         <td><input type="text" id="f" disabled="disabled"></td>
-                        <td><input type="text" id="g" disabled="disabled"></td>
+
                     </tr>
                 </table>
                 <span id="tishi"></span>

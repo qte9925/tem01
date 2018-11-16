@@ -62,6 +62,6 @@ public interface TbTaskMapper {
     //查看上级信息
     Map SelectUpXx(Integer StaffId);
     //审核查询
-    List SelectendTask();
+    List SelectendTask(Map map);
 
 }

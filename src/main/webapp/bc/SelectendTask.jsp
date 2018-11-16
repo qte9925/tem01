@@ -22,7 +22,7 @@
     <script type="text/javascript">
      $(document).ready(
             function(){
-                var TbStaffId=3;
+                var TbStaffId=15;
                 $.ajax({
                     url:"${path}/SelectOtherTask",
                     data:{"tbStaffId":TbStaffId},

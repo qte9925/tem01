@@ -209,13 +209,13 @@
             url:"${path}/InsertTbOneRecorddetails",
             type:"post",
             async:false,
-            traditional:true,//这使json格式的字符不会被转码
+            /*traditional:true,*///这使json格式的字符不会被转码
             contentType:"application/json;charset=UTF-8", // 指定这个协议很重要
             data:jsonStr,
             dataType:"json",
             success:function(data){
                 if(data.state){
-                    alert(data.state);
+                    /*alert(data.state);*/
                     window.location.href="${path}/bc/SelectOtherTask.jsp"
                 }
             }
@@ -229,17 +229,17 @@
      <div>
         <div>
             <span>被考核人</span>
-            <span>name</span>
+            <span>张培训员工</span>
         </div>
         <div>
             <span>所属部门</span>
-            <span>deptname</span>
+            <span>培训部</span>
         </div>
     </div>
         <div>
             <div>
                 <span>岗位或职务</span>
-                <span>name</span>
+                <span>普通员工</span>
             </div>
             <div>
                 <span>考核类型</span>

@@ -155,7 +155,7 @@
                 <td>被考核人</td>
                 <td>
                     <select id="slpk"  class="selectpicker" data-live-search="true" multiple onchange="showvalue()" style="width: 40%"></select>
-                    <input type="text" id="deptinput">
+                    <input type="text"  style="display: none;" readonly="readonly" id="deptinput">
                 </td>
             </tr>
             <tr class = "alt1">
@@ -280,12 +280,10 @@
             <table class="table table-bordered" style="text-align: center;">
                 <tr style="text-align: center">
                     <td>考核项目</td>
-                    <td>分值</td>
                 </tr>
                 <tbody id = "tbody3">
                 <tr v-for="post in delist">
                     <td>{{post.tb_event_value}}</td>
-                    <td>{{post.tb_event_mark}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -657,7 +655,7 @@
         data :vueModelTwo
     })
     function onBtnPostid(name){
-        alert("name==="+name);
+        /*alert("name==="+name);*/
         $.ajax({
             url:'${path}/selectPostid',
             data:name,
@@ -689,7 +687,7 @@
         });
     };
     function gettaskidOne(taskidone){
-        alert("++++++"+taskidone)
+        /*alert("++++++"+taskidone)*/
         $.ajax({
             url:'${path}/UpdateTaskState',
             data:taskidone,
@@ -736,13 +734,13 @@
     var uid = 0;
     $("#tbody").on("click",".DeleteById",function(){
         uid = this.id;
-        alert("5555===="+uid);
+        /*alert("5555===="+uid);*/
         getDeleteid({'TbTaskId':uid});
     });
     var taskidone = 0;
     $("#tbody").on("click",".DeleteByIdOne",function(){
         taskidone = this.id;
-        alert("6666===="+taskidone);
+        /*alert("6666===="+taskidone);*/
         gettaskidOne({'TbTaskId':taskidone});
     })
     //维护考核惹任务

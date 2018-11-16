@@ -87,7 +87,6 @@
                 for (var i = 0; i < data.list.length; i++) {
                     var p = data.list[i];
                     var html = "<tr>";
-                    html = html + "<td>" + p.planid + "</td>";
                     html = html + "<td>" + p.planname + "</td>";
                     html = html + "<td>" + p.joinpeople + "</td>";
                     html = html + "<td>" + p.trainingaddress + "</td>";
@@ -187,7 +186,7 @@
     </div><!-- /.modal-dialog -->
 </div>
 <div style="text-align:center;">
-    <tr><td>计划编码<input type="text" id="Pid"></td></tr>
+    <tr><td>培训课时<input type="text" id="Pid"></td></tr>
     <tr><td>计划名称<input type="text" id="staff"></td></tr>
     <button id="selectBtn" class='btn btn-primary'>查询</button>
 </div>
@@ -196,7 +195,7 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>计划编码</th>
+
             <th>计划名称</th>
             <th>参加人数</th>
             <th>培训地点</th>
