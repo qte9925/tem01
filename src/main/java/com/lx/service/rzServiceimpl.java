@@ -19,8 +19,18 @@ public class rzServiceimpl implements rzService{
     }
 
     @Override
+    public List rymssqselect011(Map map) {
+        return dao.rymssqselect011(map);
+    }
+
+    @Override
     public int rzsq(Map map) {
         return dao.rzsq(map);
+    }
+
+    @Override
+    public int rymssqinccc(Map map) {
+        return dao.rymssqinccc(map);
     }
 
     @Override

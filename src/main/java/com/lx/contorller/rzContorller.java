@@ -16,10 +16,22 @@ import java.util.Map;
 public class rzContorller {
     @Autowired
     private rzService rs;
+
+    @RequestMapping("rymssqselect011")
+    @ResponseBody
+    public List rymssqselect011(@RequestParam Map map){
+        return rs.rymssqselect011(map);
+    }
     @RequestMapping("rzselect")
     @ResponseBody
     public List rzselect(@RequestParam Map map){
         return rs.rzselect(map);
+    }
+
+    @RequestMapping("rymssqinccc")
+    @ResponseBody
+    public int rymssqinccc(@RequestParam Map map){
+        return rs.rymssqinccc(map);
     }
     @RequestMapping("rzsq")
     @ResponseBody

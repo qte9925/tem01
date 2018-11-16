@@ -8,7 +8,9 @@ import java.util.Map;
 
 public interface rzService {
     List rzselect(Map map);
+    List rymssqselect011(Map map);
     int rzsq(Map map);
+    int rymssqinccc(Map map);
     List rymssqselect(Map map);
     //List rymssqselect2(Map map);
     PageInfo<Map> rymssqselect2(Map map, PageEntity page);

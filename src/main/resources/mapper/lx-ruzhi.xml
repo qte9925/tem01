@@ -2,11 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lx.dao.rzdao">
+    <insert id="rymssqinccc" parameterType="java.util.HashMap">
+        INSERT INTO `tem01`.`wfstafftable`(`ryxm`, `rybmid`, `rygangwei`, `ryshangji`, `email`)
+        VALUES (#{ryxm}, #{rybmid}, #{rygangwei}, #{ryshangji},#{email})
+    </insert>
     <!--查询面试通过人员-->
     <select id="rymssqselect" resultType="java.util.Map" parameterType="java.util.Map">
-      SELECT *
-      from wf_zps a ,wfjsb d,wfdepartment e, wf_jianli b ,wf_tdjl c
-      where 1=1 and a.zpsid = c.tdzpsid and b.qtryid = c.tdrid and c.tdstatic = 1 and d.jsid = a.zhiwei and e.bmid = d.jsbmid
+     SELECT * ,d.bmid as cc  from wf_tdjl a, wf_jianli b , wf_zps c,wfdepartment d , wfjsb e  where
+     a.msjg=1 and a.tdrid = b.id and c.zpsid = a.tdzpsid and c.zpbmid = d.bmid and c.zhiwei = e.jsid
+     <if test="id!=null">
+         and b.id=#{id}
+     </if>
+    </select>
+    <select id="rymssqselect011" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * from wfstafftable a where rybmid = #{bmid}
     </select>
     <!--查询申请信息-->
     <select id="rymssqselect2" resultType="java.util.Map" parameterType="java.util.Map">
